@@ -1,23 +1,12 @@
 {
-    "name": "drupal-composer/drupal-project",
-    "description": "Project template for Drupal 8 projects with composer",
+    "name": "drupal/drupal",
+    "description": "Drupal is an open source content management platform powering millions of websites and applications.",
     "type": "project",
     "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-            "name": "",
-            "role": ""
-        }
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        }
-    ],
     "require": {
         "php": ">=7.0.8",
         "composer/installers": "^1.2",
+	"wikimedia/composer-merge-plugin": "^1.4",
         "cweagans/composer-patches": "^1.6.5",
         "drupal/console": "^1.0.2",
         "drupal/core": "^8.8.0",
@@ -25,7 +14,9 @@
         "drush/drush": "^9.7.1 | ^10.0.0",
         "vlucas/phpdotenv": "^4.0",
         "webflo/drupal-finder": "^1.0.0",
-        "zaporylie/composer-drupal-optimizations": "^1.0"
+        "zaporylie/composer-drupal-optimizations": "^1.0",
+        "drupal/twig_tweak": "^2.5",
+        "drupal/devel": "^2.1"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"
@@ -36,7 +27,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "sort-packages": true
+        "preferred-install": "dist",
+        "autoloader-suffix": "Drupal8"
     },
     "autoload": {
         "classmap": [
@@ -76,5 +68,11 @@
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ]
 }
