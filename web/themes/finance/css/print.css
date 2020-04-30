@@ -1,0 +1,39 @@
+/*** Print styles for the Finance Website ***/
+   /* Set body padding to header and footer */
+header,
+.region-breadcrumb,
+#sidebar_first,
+footer.site-footer,
+.region-featured-bottom-third,
+.region-featured-bottom-first,
+.region-featured-bottom-second,
+#print-icon {
+    display: none;
+}
+#page {
+    background: transparent;
+}
+body .main-content,
+#main-wrapper {
+    color: #000;
+    background: transparent;
+}
+#sidebar_second {
+    display: block;
+    position: relative;
+    width: 100%;
+    clear: both;
+    flex: none;
+    max-width: 100%;
+}
+.related-resource .collapsible-item {
+    display: initial !important;
+}
+body .main-content a[href]:after,
+body #sidebar_second a[href]:not(.related-resources-collapsible):after {
+    content: " (" attr(href) ")";
+}
+
+article.node--type-pgpa-guidance div.field.field--name-field-file-upload {
+    display: none;
+}

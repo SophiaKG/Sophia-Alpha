@@ -1,0 +1,18 @@
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.block-menu-content-navigation li.active ul {
+		height: 100% !important;
+	}
+
+	.img-fluid {
+		height: 100% !important;
+	}
+
+	.fluid-img {
+		height: 100% !important;
+	}
+
+	.desktop-crest {
+		height: 80px !important;
+	}
+	.node--type-buyright .field--name-field-repeatable .field__item, .node--type-buyright .field--name-field-repeatable .field__item .field--name-field-description {clear:both;}
+}

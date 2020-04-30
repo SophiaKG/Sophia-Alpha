@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Theme override for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ */
+#}
+{{ attach_library('bootstrap_barrio/breadcrumb') }}
+{% if breadcrumb %}
+  <nav role="navigation" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    {% for i in 0..breadcrumb|length - 1%}
+
+      {% if "20" not in breadcrumb[i].url %}
+        {% if i <= 1 or not breadcrumb[i].text.arguments %}
+          {% if breadcrumb[i].url %}
+            <li class="breadcrumb-item">
+              <a href="{{ breadcrumb[i].url }}">{{ breadcrumb[i].text|replace({'-': ' '})|title }}</a>
+            </li>
+          {% else %}
+            <li class="breadcrumb-item active">
+              {{ breadcrumb[i].text }}
+            </li>
+          {% endif %}
+        {% else %} 
+
+          {% if breadcrumb[i].url %}
+              <li class="breadcrumb-item">
+                <a href="{{ breadcrumb[i].url }}">{{ breadcrumb[i].text.arguments["@arg_0"]|replace({'-': ' '})|title }}</a>
+              </li>
+          {% else %}
+              <li class="breadcrumb-item active">
+
+                {% set break = false %}
+                {% for j in breadcrumb|length - 1..0 %} 
+
+                  {% if breadcrumb[i].text.arguments["@arg_" ~ j] is defined and 
+                        breadcrumb[i].text.arguments["@arg_" ~ j] is not null and
+                        not break %}
+                        
+                    {% set break = true %}
+                    {{ breadcrumb[i].text.arguments["@arg_" ~ j]|replace({'-': ' '})|title }}
+                    
+                  {% endif %}
+
+                {% endfor %}
+                
+              </li>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ol>
+  </nav>
+{% endif %}

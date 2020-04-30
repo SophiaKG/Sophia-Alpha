@@ -1,0 +1,1 @@
+{"requestId":"48b8be07-afb7-c148-b700-509342742577","detailedMessage":"Malformed query: Encountered \" <VAR2> \"$1 \"\" at line 1, column 1.\nWas expecting one of:\n    \"base\" ...\n    \"prefix\" ...\n    \"select\" ...\n    \"construct\" ...\n    \"describe\" ...\n    \"ask\" ...\n    ","code":"MalformedQueryException"}

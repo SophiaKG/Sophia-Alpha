@@ -1,0 +1,615 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_form_system_theme_settings_alter() for settings form.
+ *
+ * Replace Barrio setting options with subtheme ones.
+ * 
+ * Example on how to alter theme settings form
+ * 
+ */
+function finance_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+	$form['components']['navbar']['finance_navbar_top_background']['#options'] = array(
+		'bg-primary' => t('Primary'),
+		'bg-secondary' => t('Secondary'),
+		'bg-light' => t('Light'),
+		'bg-dark' => t('Dark'),
+		'bg-white' => t('White'),
+		'bg-transparent' => t('Transparent'),
+	);
+	$form['components']['navbar']['finance_navbar_background']['#options'] = array(
+		'bg-primary' => t('Primary'),
+		'bg-secondary' => t('Secondary'),
+		'bg-light' => t('Light'),
+		'bg-dark' => t('Dark'),
+		'bg-white' => t('White'),
+		'bg-transparent' => t('Transparent'),
+	);
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+/*function finance_preprocess_block(&$variables) {
+  if (isset($variables['attributes']['id']) {
+    $variables['content']['#attributes']['block'] = $variables['attributes']['id'];
+  }
+}*/
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+/*function finance_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Remove the block and replace dashes with underscores in the block ID to
+  // use for the hook name.
+  if (isset($variables['attributes']['block'])) {
+    $hook = str_replace(array('block-', '-'), array('', '_'), $variables['attributes']['block']);
+    $suggestions[] = $variables['theme_hook_original'] . '__' . $hook;
+  }
+}*/
+
+
+function finance_preprocess_file_link(&$variables) {
+    if (isset($variables['file'])) {
+
+      $units = array('B', 'KB', 'MB', 'GB', 'TB'); 
+      $bytes = max($variables['file']->getSize(), 0); 
+      $pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
+      $pow = min($pow, count($units) - 1); 
+      $bytes /= pow(1024, $pow);
+      $size = round($bytes, 1) . ' ' . $units[$pow]; 
+
+      $variables['fileLinkDisplay'] = [
+        'fileSize' => $size
+      ];
+    }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+
+function finance_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+
+	if ($node = \Drupal::routeMatch()->getParameter('node')) {
+		if (gettype($node) == "object") {
+			$content_type = $node->bundle();
+			$suggestions[] = 'page__'.$content_type;			
+		}
+	}
+}
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ * This one is just for the field name though..
+ */
+function finance_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+
+    switch ($variables['element']['#field_name']) {
+        case "field_policies_and_guidelines";
+        case "field_publications_and_reports";
+        case "field_related_education_and_trai";
+        case "field_tools_and_templates";
+        $suggestions[] = 'field__related_resources_multiples';
+        break;
+    }
+}
+
+function csv_to_array($csv, $tableNumber) {
+    $boldedRows = [
+    	"Revenue", "Expenses", "Net operating balance", "Fiscal balance", 
+	    "Underlying cash balance(c)", "Headline cash balance",
+	    "Total assets", "Total liabilities", "Net worth(d)",
+	    "Net debt(e)", "Total revenue", "Total expenses",
+	    "Other economic flows", "- included in operating result",
+	    "Total other economic flows - included in operating result",
+	    "Operating Result (b)", "Operating Result(b)", 
+	    "Non-owner movements in equity",
+	    "Total other economic flows - included in equity",
+	    "Comprehensive result - Total change in net worth",
+	    "Net acquisition of non-financial assets",
+	    "Total net acquisition of non-financial assets",
+	    "Fiscal balance (Net lending/borrowing)(c)",
+	    "Assets", "Liabilities", "Net worth(b)",
+	    "Cash receipts from operating activities",
+	    "Total operating receipts", "Cash payments for operating activities",
+	    "Total operating payments", "Net cash flows from operating activities",
+	    "Cash flows from investments in non-financial assets",
+	    "Net cash flows from investments in non-financial assets",
+	    "Net cash flows from investments in financial assets for policy purposes",
+	    "Cash flows from investments in financial assets for liquidity purposes",
+	    "Net cash flows from investments in financial assets for liquidity purposes",
+	    "Cash flows from financing activities", 
+	    "Net cash flows from financing activities",
+	    "Net increase/(decrease) in cash held",
+	    "GFS cash surplus(+)/deficit(-)(b)",
+	    "GFS cash surplus(+)/deficit(-)(c)",
+	    "GFS cash surplus(+)/deficit(-)(d)",
+	    "Equals underlying cash balance(d)",
+	    "Equals underlying cash balance(e)",
+	    "Equals underlying cash balance(f)",
+	    "Equals headline cash balance", "Expenses by function",
+	    "Other economic flows - included in operating result",
+	    "Total income taxation revenue", "Total indirect taxation revenue",
+	    "Underlying cash balance(d)","Net worth(e)","Net debt(f)",
+	    "Operating Result(c)", "Net acquisition of non-financial assets (b)",
+	    "Fiscal balance (Net lending/borrowing)(d)", "Net worth(c)",
+	    "Operating Result(b)", "GFS cash surplus(+)/deficit(-)(b)(c)",
+	    "Fiscal balance (Net lending/borrowing)(e)",
+	    "Net cash flows from operating activities and investments in non-financial assets (Surplus(+)/deficit(-))",
+	    "GFS cash surplus(+)/deficit(-)", "Equals underlying cash balance(c)", "Operating result", 
+	    "Operating Result"
+
+	];
+	$boldedExclusions = [
+		"3-Net debt(e)",
+		"3-Net debt(f)"
+	];
+
+	$underlinedRows = [
+		"Expenses", "Net capital investment", "Fiscal balance",
+		"less Net Future Fund earnings", "Underlying cash balance(c)",
+		"Underlying cash balance(d)", "Headline cash balance", "Net worth(d)", "Other", 
+		"Other operating expenses(a)", "Personal benefits",
+		"Total revenue", "Other capital grants", "Increase in investments",
+		"Total capital transfers", "Total expenses", "Net operating balance",
+		"Other gains/(losses)", "Other economic revaluations", "Operating Result (b)",
+		"Operating Result(b)", "Total other economic flows - included in operating result",
+		"Comprehensive result - Total change in net worth",
+		"Total other economic flows - included in equity",
+		"plus Other movements in non-financial assets",
+		"Total net acquisition of non-financial assets",
+		"Investments - shares", "Total financial assets",
+		"Other non-financial assets", "Total non-financial assets",
+		"Total assets", "Total interest bearing liabilities",
+		"Other borrowing", "Provisions", "Total provisions and payables",
+		"Net worth(b)", "Total liabilities", "Other receipts",
+		"Operating Result(c)", "Other payments", "Other payments(b)",
+		"Total operating payments", "Net cash flows from operating activities",
+		"Purchases of non-financial assets",
+		"Net cash flows from investments in non-financial assets",
+		"Net cash flows from investments in financial assets for policy purposes", "Other financing (net)",
+		"Net cash flows from investments in financial assets for liquidity purposes",
+		"Net cash flows from financing activities",
+		"Net increase/(decrease) in cash held",
+		"Equals underlying cash balance(d)", "Equals underlying cash balance(f)",
+		"GFS cash surplus(+)/deficit(-)(c)", "GFS cash surplus(+)/deficit(-)(d)",
+		"Equals underlying cash", "Lease liabilities(a)",
+		"Equals underlying cash balance(e)", "Other financing (net)(c)",
+		"plus Net Future Fund earnings", "Petroleum resource rent tax", "less Refunds",
+		"Other indirect tax", "Contingency reserve", "Net worth(c)", "Net worth(e)",
+		"Total non-financial assets(a)", "GFS cash surplus(+)/deficit(-)(b)",
+		"GFS cash surplus(+)/deficit(-)(b)(c)", "Resource rent taxes",
+		"Net cash flows from operating activities and investments in non-financial assets (Surplus(+)/deficit(-))",
+		"Finance leases and similar arrangements(b)", "GFS cash surplus(+)/deficit(-)",
+		"Equals underlying cash balance(c)", "Operating result", "Operating Result"
+
+	];
+	$underlineExclusions = [
+		"1-Net operating balance",
+		"1-Total assets",
+		"2-Purchases of non-financial assets",
+		"1-Total liabilities",
+		"2-Expenses"
+	];
+	
+	$italicisedRows = [
+		"Total gross operating expenses", "Total current transfers",
+		"Total capital transfers", "Total financial assets",
+		"Total non-financial assets", "Total interest bearing liabilities",
+		"Total provisions and payables", "Net financial worth(c)",
+		"Net financial liabilities(d)", "Net debt(e)",
+		"Total non-financial assets(a)", "Net financial worth(d)",
+		"Net financial liabilities(e)", "Net debt(f)"
+	];
+
+	$italicisedExclusions = [
+		"1-Net debt(e)",
+		"1-Net debt(f)"
+	];
+
+	$startIndent = [
+		"Gross operating expenses", "Current transfers", "Capital transfers",
+		"Other economic flows", "Total other economic flows", 
+		"Non-owner movements in equity", "Financial assets", "Equity investments",
+		"Non-financial assets", "Interest bearing liabilities", 
+		"Provisions and payables", "Individuals and other withholding taxes", 
+		"Total individuals and other withholding taxation",
+		"Other purposes"
+	];
+
+	$endIndent = [
+		"Total gross operating expenses", "Total current transfers",
+		"Total capital transfers", "Total other economic flows",
+		"Operating Result (b)", "Total other economic flows - included in operating result",
+		"Total other economic flows - included in equity", "Total financial assets",
+		"Total non-financial assets", "Other borrowing", "Total provisions and payables",
+		"Total individuals and other withholding taxation", "Total income taxation revenue",
+		"Total expenses", "Total non-financial assets(a)", "Total interest bearing liabilities"
+	];
+
+	$newLineIndentExclusions = 
+[		"Investments - shares"
+	];
+
+	$lineBreaks = [
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", 
+		"October", "November", "December", "ACTUAL", "Budget Profile",  "2014-2015", "2015-2016", 
+		"2016-2017", "2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", 
+		"2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030", 
+		"2030-2031", "BUDGET", "ESTIMATE*", "FULL YEAR", "MYEFO Profile"
+	];
+
+	$lineBreaksSpecificTables = [
+		3 => [
+			"2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", 
+			"2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031"
+		]
+	];
+
+	$lineBreakExclusions = [
+		"3-BUDGET", "3-January", "3-February", "3-March", "3-April", "3-May", "3-June", "3-July", "3-August", "3-September", 
+		"3-October", "3-November", "3-December"
+	];
+
+	$exploded = explode("\n", $csv);
+	$array = [];
+	$indentLevel = 0;
+	foreach ($exploded as $number => $line) {
+	    $newRow = [];
+
+	    if (!$number) {
+	        $newRow["type"] = "th";
+	    } else {
+	        $newRow["type"] = "td";            
+	    }
+
+	    $values = str_getcsv($line);
+	    $trimmedValues = [];
+	    $emptyRow = true;
+
+
+	    foreach ($values as $value) {
+	    	$singleSpaces = preg_replace('/\s+/', ' ',$value);
+	        $trimmedValues[] = trim($singleSpaces);
+	        if (strlen(trim($value))) {
+	        	$emptyRow = false;
+	        }
+	    }
+
+	    if ($emptyRow) {
+	    	continue;
+	    }
+
+	    $firstValue = $trimmedValues[0];
+	    $lastValue = $trimmedValues[count($trimmedValues)-1];
+
+	        // Add in any classes included after the values
+	    if (strpos($lastValue, 'mfs-') !== false) {
+	        $newRow['classes'] = trim($lastValue);
+	            // Drop off the last value if it's class information
+	        array_pop($trimmedValues);
+	    } else {
+	        $newRow['classes'] = "";
+	    }
+
+	    if (in_array($firstValue, $endIndent)) {
+	        $indentLevel = 0;
+	    } 
+
+	    if (in_array($firstValue, $boldedRows)) {
+	    	if (!in_array($tableNumber.'-'.$firstValue, $boldedExclusions)) {
+	            $newRow['classes'] .= " mfs-bold-row"; 
+	        }  	                
+	    }
+	    if (in_array($firstValue, $italicisedRows)) {
+	    	if (!in_array($tableNumber.'-'.$firstValue, $italicisedExclusions)) {
+	            $newRow['classes'] .= " mfs-italics-row";  
+	        }  	                
+	    }
+	    if (in_array($firstValue, $underlinedRows)) {
+	        if (!in_array($tableNumber.'-'.$firstValue, $underlineExclusions)) {
+	            $newRow['classes'] .= " mfs-line-partial";
+	        }              
+	    }
+
+	    if ($indentLevel) {
+	        $newRow['classes'] .= " mfs-indent-" . $indentLevel;            
+	    }
+
+	    if (in_array($firstValue, $startIndent)) {
+	        $indentLevel += 1;
+	    }
+
+	        // plus or less in first column should be italicised
+	    if (substr($firstValue, 0, 4) == "plus") {
+	        $trimmedValues[0] = "<em>plus</em>" . substr($firstValue, 4);
+	    } elseif (substr($firstValue, 0, 4) == "less") {
+	        $trimmedValues[0] = "<em>less</em>" . substr($firstValue, 4);            
+	    }
+
+	    if (!in_array($trimmedValues[0], $newLineIndentExclusions)) {
+
+		    // Indent based on dashes in values
+		    $pattern = '/(.*) - (.*)/i';
+		    $replacement = '$1<br /><span class="mfs-span-indent-1">- $2</span>';
+		    $trimmedValues[0] = preg_replace($pattern, $replacement, $trimmedValues[0]);
+
+	    }
+
+	    if ($firstValue == "AGGREGATES(a)") {
+	    	$trimmedValues[0] = "AGGREGATES<sup>(a)</sup";
+	    }
+
+	    // First line adjustments only
+	    if (!$number) {
+
+	    	foreach ($lineBreaks as $lineBreak) {     
+	    	    for ($i = 0; $i < sizeof($trimmedValues); $i++) {
+			        if (!in_array($tableNumber.'-'.$lineBreak, $lineBreakExclusions)) {
+			        	// If it ends in a * adjust the pattern and replacements
+			         	if (substr($lineBreak, -1) == "*") {
+			         		
+							$newLingbreak = substr($lineBreak, 0, -1);							
+						    $pattern = '/' . $newLingbreak . '(\*)(.*)/';
+						    $replacement = $newLingbreak . '*<br>$2'; 
+						} else {
+						    $pattern = '/' . $lineBreak . '(.*)/';
+						    $replacement = $lineBreak . '<br>$1'; 
+						}
+						$trimmedValues[$i] = preg_replace($pattern, $replacement, $trimmedValues[$i]);	
+			        }   
+			    }		
+	    	}
+
+	    	if (array_key_exists($tableNumber, $lineBreaksSpecificTables)) {
+		    	foreach ($lineBreaksSpecificTables[$tableNumber] as $lineBreak) {     
+		    	    for ($i = 0; $i < sizeof($trimmedValues); $i++) {
+				        if (!in_array($tableNumber.'-'.$lineBreak, $lineBreakExclusions)) {		
+						    $pattern = '/' . $lineBreak . '(.*)/';
+						    $replacement = $lineBreak . '<br>$1';
+						    $trimmedValues[$i] = preg_replace($pattern, $replacement, $trimmedValues[$i]);	 
+				        }   
+				    }		
+		    	}
+	    	}
+	    }
+
+	    $newRow['values'] = $trimmedValues;
+
+	    $array[] = $newRow;
+	}
+
+	return $array;
+}
+
+function finance_preprocess_page(&$variables) {
+
+    if (isset($variables['node'])) {
+        $node = $variables['node'];
+
+        /*if (!$node->isPublished()) {
+            $block = \Drupal::entityManager()->getStorage('block_content')->load(11);
+            $block_view = \Drupal::entityManager()->getViewBuilder('block_content')->view($block);  
+            $variables['unpublished'] = $block_view;
+        }*/
+
+        if (gettype($node) == "object") {
+
+	        if ($node->getType() == "custom_page") {
+
+	            $headerFooter = $node->get('field_toggle_header_footer')->getValue()[0]['target_id'];
+
+	            // Both Header and Footer
+	            if ($headerFooter == 48) {
+
+	            }
+	            // Header Only
+	            elseif ($headerFooter == 49) {
+	                unset($variables['page']['footer']);   
+	                unset($variables['page']['featured_bottom_first']);   
+	                unset($variables['page']['featured_bottom_second']);   
+	                unset($variables['page']['featured_bottom_third']);   
+	            }
+	            // Footer Only
+	            elseif ($headerFooter == 50) {
+	                unset($variables['page']['top_header']);   
+	                unset($variables['page']['top_header_form']);   
+	                unset($variables['page']['header']);   
+	                unset($variables['page']['header_form']);   
+	                unset($variables['page']['primary_menu']);   
+	                unset($variables['page']['secondary_menu']);   
+	            }
+	            // No Header or Footer 
+	            elseif ($headerFooter == 51) {                
+	                unset($variables['page']['top_header']);   
+	                unset($variables['page']['top_header_form']);   
+	                unset($variables['page']['header']);   
+	                unset($variables['page']['header_form']);   
+	                unset($variables['page']['primary_menu']);   
+	                unset($variables['page']['secondary_menu']); 
+	                unset($variables['page']['footer']);   
+	                unset($variables['page']['featured_bottom_first']);   
+	                unset($variables['page']['featured_bottom_second']);   
+	                unset($variables['page']['featured_bottom_third']); 
+	            }
+
+	            $sidebar = $node->get('field_sidebars_custom_')->getValue()[0]['target_id'];
+
+	            // Both Sidebars
+	            if ($sidebar ==  107) {
+
+	            }
+	            // Left Sidebar Only
+	            elseif ($sidebar == 108) {
+	                unset($variables['page']['sidebar_second']);                   
+	            }      
+	            // Right Sidebar Only
+	            elseif ($sidebar == 109) {
+	                unset($variables['page']['sidebar_first']);                   
+	            }
+	            elseif ($sidebar == 110) {
+	                unset($variables['page']['sidebar_first']);   
+	                unset($variables['page']['sidebar_second']);                  
+	            }
+
+	            // Insert extra libraries
+	            if (array_key_exists(0, $node->get('field_theme')->getValue())) {
+	                $libraries = explode(",", $node->get('field_theme')->getValue()[0]['value']);
+	                foreach ($libraries as $library) {
+	                    $variables['#attached']['library'][] = "finance/" . trim($library);
+	                }                
+	            }            
+	        } elseif ($node->getType() == "news_and_events" || $node->getType() == "events_training") {
+		        if ($node->get('field_link')->getValue()) {           
+		            if (array_key_exists(0, $node->get('field_link')->getValue())) {                
+		                $link = trim($node->get('field_link')->getValue()[0]['uri']);
+		                if (strlen($link)) {
+		                	$variables["link"] = $link;
+		                }
+		            }
+		        }
+		    } elseif ($node->getType() == "legislation") {
+		        if ($node->get('field_legislation_link')->getValue()) {          
+		            if (array_key_exists(0, $node->get('field_legislation_link')->getValue())) {      
+		                $link = trim($node->get('field_legislation_link')->getValue()[0]['uri']);
+		                if (strlen($link)) {
+		                	$variables["link"] = $link;
+		                }
+		            }
+		        }
+		    }
+        }
+    }
+}
+
+function finance_preprocess_node(&$variables) {
+
+    $node = $variables['node'];
+
+    if ($node->getType() == "custom_page") {
+
+    }
+    
+    if ($node->getType() == "monthly_financial_statements") {
+        $table1 = csv_to_array($node->get('field_table_1')->getValue()[0]["value"], 1);
+        $variables["table1"] = $table1;
+        $table2 = csv_to_array($node->get('field_table_2_australian_governm')->getValue()[0]["value"], 2);
+        $variables["table2"] = $table2;
+        $table3 = csv_to_array($node->get('field_table_3_australian_governm')->getValue()[0]["value"], 3);
+        $variables["table3"] = $table3;
+        $table4 = csv_to_array($node->get('field_table_4_australian_governm')->getValue()[0]["value"], 4);
+        $variables["table4"] = $table4;
+        $table5 = csv_to_array($node->get('field_table_5_note_1_income_tax')->getValue()[0]["value"], 5);
+        $variables["table5"] = $table5;
+        $table6 = csv_to_array($node->get('field_table_6_note_2_indirect_ta')->getValue()[0]["value"], 6);
+        $variables["table6"] = $table6;
+        $table7 = csv_to_array($node->get('field_table_7_note_3_total_expen')->getValue()[0]["value"], 7);
+        $variables["table7"] = $table7;
+
+        $variables["month"] = $node->get('field_months')->getValue()[0]['target_id'];
+    }
+
+    // If user isn't logged in, be redirected to the supplied link
+    if ($node->getType() == "news_and_events" || $node->getType() == "events_training") {
+        if ($node->get('field_link')->getValue()) {           
+            if (array_key_exists(0, $node->get('field_link')->getValue())) {                
+                $link = trim($node->get('field_link')->getValue()[0]['uri']);
+                if (strlen($link)) {
+                    $response = new RedirectResponse($link);
+                    $response->send();
+                    return;
+                }
+            }
+        }
+    }
+
+    // If user isn't logged in, be redirected to the supplied link
+    if ($node->getType() == "legislation") {
+        if ($node->get('field_legislation_link')->getValue()) {          
+            if (array_key_exists(0, $node->get('field_legislation_link')->getValue())) {      
+                $link = trim($node->get('field_legislation_link')->getValue()[0]['uri']);
+                if (strlen($link)) {
+                    $response = new RedirectResponse($link);
+                    $response->send();
+                    return;
+                }
+            }
+        }
+    }
+
+    //adds controller for landing page if front to remove content and styling..
+    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+}
+
+/**
+* Implements hook_preprocess_field().
+*/
+function finance_preprocess_field(&$variables, $hook) {
+    switch ($variables['element']['#field_name']) {
+      case 'field_inline':
+      $variables['inline'] = $variables['items'][0]['content']['#context']['value'];
+      break;
+      case 'field_link_list':
+      if ($variables['element']['#is_multiple']) {
+            //remove anything over 5 items
+        $variables['items'] = array_slice($variables['items'], 0, 5);
+        if ($variables['element']['#object']->field_randomise->value) {
+                //re-order randomly
+            shuffle($variables['items']);
+        }
+    }
+    break;
+	}
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function finance_page_attachments_alter(array &$attachments) {
+
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && gettype($node) == "object") {
+        if ($node->getType() == "custom_page") {
+            if (array_key_exists(0, $node->get('field_theme')->getValue())) {
+                if ($node->get('field_theme')->getValue()[0]['value']) {
+                    foreach ($attachments['#attached']['library'] as $key => $library) {
+                        if ($library == 'finance/global-styling') {
+                            unset($attachments['#attached']['library'][$key]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Implements hook_theme_preprocess_block() for block templates.
+ */
+function finance_preprocess_block(&$variables) {
+    if (!empty($variables['elements']['#id'])) {
+        $block_id = $variables['elements']['#id'];
+        $block = entity_load('block', $variables['elements']['#id']);
+        if (!empty($block)) {
+            $region = $block->getRegion();
+
+            // Add classes based on the block region.
+            switch ($region) {
+                case 'featured_top':
+                case 'featured_first':
+                case 'featured_second':
+                case 'featured_third':
+                $variables['has_container'] = true;
+                default:
+                $variables['attributes']['class'][] = 'block-region-' . preg_replace('/_/','-',strtolower(strip_tags($region)));
+            }
+        }
+    }
+}

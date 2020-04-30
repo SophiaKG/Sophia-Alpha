@@ -1,0 +1,2263 @@
+{
+  "head" : {
+    "vars" : [ "object" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "object" : {
+        "type" : "literal",
+        "value" : "Air Services Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Grant (Jervis Bay Territory) Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Administrative Appeals Tribunal Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Federal Police Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Hearing Services Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Health and Welfare Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Auditor-General Act 1997"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Broadcasting Corporation Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Aboriginal and Torres Strait Islander Studies Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Marine Science Act 1972"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Law Reform Commission Act 1996"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Administrative Appeals Tribunal Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Broadcasting Corporation Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Federal Police Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Auditor-General Act 1997"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Aboriginal and Torres Strait Islander Studies Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Marine Science Act 1972"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Law Reform Commission Act 1996"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Broadcasting Corporation Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Capital Territory (Planning and Land Management) Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Human Rights Commission Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Archives Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australia Council Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Curriculum, Assessment and Reporting Authority Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Film, Television and Radio School Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Human Rights Commission Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Marine Science Act 1972"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Archives Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Bureau of Statistics Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Capital Territory (Planning and Land Management) Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Rights (Northern Territory) Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal and Torres Strait Islander Act 2005"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Bureau of Statistics Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Capital Territory (Planning and Land Management) Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Air Services Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Film, Television and Radio School Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Hearing Services Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Human Rights Commission Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Information Commissioner Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Health and Welfare Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Maritime Safety Authority Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Rights (Northern Territory) Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal and Torres Strait Islander Act 2005"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Grant (Jervis Bay Territory) Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Air Services Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Auditor-General Act 1997"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Administrative Appeals Tribunal Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Information Commissioner Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Health and Welfare Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Bureau of Statistics Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Federal Police Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Hearing Services Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Grant (Jervis Bay Territory) Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Rights (Northern Territory) Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Administrative Appeals Tribunal Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Air Services Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Federal Police Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Aboriginal and Torres Strait Islander Studies Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Auditor-General Act 1997"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Broadcasting Corporation Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Law Reform Commission Act 1996"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Federal Police Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Aboriginal and Torres Strait Islander Studies Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Marine Science Act 1972"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Law Reform Commission Act 1996"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Administrative Appeals Tribunal Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Broadcasting Corporation Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Archives Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Archives Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Asbestos Safety and Eradication Agency Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal and Torres Strait Islander Act 2005"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Film, Television and Radio School Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Human Rights Commission Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Aboriginal and Torres Strait Islander Studies Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Marine Science Act 1972"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Law Reform Commission Act 1996"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australia Council Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Capital Territory (Planning and Land Management) Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Curriculum, Assessment and Reporting Authority Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Bureau of Statistics Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Capital Territory (Planning and Land Management) Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Film, Television and Radio School Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Hearing Services Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Human Rights Commission Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Archives Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Health and Welfare Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Grant (Jervis Bay Territory) Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Rights (Northern Territory) Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal and Torres Strait Islander Act 2005"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Grant (Jervis Bay Territory) Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal Land Rights (Northern Territory) Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Aboriginal and Torres Strait Islander Act 2005"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Auditor-General Act 1997"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Bureau of Statistics Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Air Services Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Maritime Safety Authority Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Film, Television and Radio School Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Hearing Services Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Information Commissioner Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Institute of Health and Welfare Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work (Registered Organisations) Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work (Registered Organisations) Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Grants Commission Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Export Finance and Insurance Corporation Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Corporations Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Designs Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Corporations Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Competition and Consumer Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Corporations Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tourism Australia Act 2004"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Food Standards Australia New Zealand Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Act 1903"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Family Law Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Coal Mining Industry (Long Service Leave) Administration Act 1992"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Electoral Act 1918"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Federal Court of Australia Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Wine Australia Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Civil Aviation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work (Registered Organisations) Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Act 1903"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Electoral Act 1918"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Electoral Act 1918"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Export Finance and Insurance Corporation Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Act 1903"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Food Standards Australia New Zealand Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Cancer Australia Act 2006"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Wine Australia Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Wine Australia Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Criminology Research Act 1971"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Family Law Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Administration Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Designs Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Coal Mining Industry (Long Service Leave) Administration Act 1992"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Director of Public Prosecutions Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Criminology Research Act 1971"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Environment Protection and Biodiversity Conservation Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Workplace Gender Equality Act 2012"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Administration Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Food Standards Australia New Zealand Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Clean Energy Regulator Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Corporations Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Housing Australia Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Clean Energy Regulator Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth of Australia Constitution Act"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Designs Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Administration Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Act 1903"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Climate Change Authority Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work (Registered Organisations) Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Special Broadcasting Service Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Coal Mining Industry (Long Service Leave) Administration Act 1992"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Housing Australia Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Wine Australia Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Civil Aviation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Director of Public Prosecutions Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Federal Court of Australia Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Grants Commission Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Corporations Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Competition and Consumer Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Environment Protection and Biodiversity Conservation Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Designs Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Clean Energy Finance Corporation Act 2012"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Family Law Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Federal Court of Australia Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work (Registered Organisations) Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Housing Australia Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Director of Public Prosecutions Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Environment Protection and Biodiversity Conservation Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Clean Energy Regulator Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Export Finance and Insurance Corporation Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Clean Energy Regulator Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Civil Aviation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Wine Australia Act 2013"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Food Standards Australia New Zealand Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Export Finance and Insurance Corporation Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Act 1903"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Grants Commission Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Electoral Act 1918"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Federal Court of Australia Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Administration Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Environment Protection and Biodiversity Conservation Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Coal Mining Industry (Long Service Leave) Administration Act 1992"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Family Law Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Grants Commission Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Family Law Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Competition and Consumer Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Electoral Act 1918"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Clean Energy Regulator Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Designs Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Workplace Gender Equality Act 2012"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Civil Aviation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Export Finance and Insurance Corporation Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Climate Change Authority Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Federal Court of Australia Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Workplace Gender Equality Act 2012"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fair Work Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safe Work Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Screen Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tertiary Education Quality and Standards Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Trade Marks Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Taxation Administration Act 1953"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Special Broadcasting Service Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tertiary Education Quality and Standards Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tertiary Education Quality and Standards Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Screen Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Special Broadcasting Service Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Reserve Bank Act 1959"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Reserve Bank Act 1959"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Water Act 2007"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tertiary Education Quality and Standards Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Reserve Bank Act 1959"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Terrorism Insurance Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Governance, Performance and Accountability Rule 2014"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Water Act 2007"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Terrorism Insurance Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Water Act 2007"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Special Broadcasting Service Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Terrorism Insurance Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tourism Australia Act 2004"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Governance, Performance and Accountability Rule 2014"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Water Act 2007"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safety, Rehabilitation and Compensation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Services Trust Funds Act 1947"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Special Broadcasting Service Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safety, Rehabilitation and Compensation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safety, Rehabilitation and Compensation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Sydney Harbour Federation Trust Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Governance, Performance and Accountability Rule 2014"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Regional Investment Corporation Act 2018"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Taxation Administration Act 1953"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Trade Marks Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Governance, Performance and Accountability Rule 2014"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Water Act 2007"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Taxation Administration Act 1953"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Trade Marks Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Taxation Administration Act 1953"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Sydney Harbour Federation Trust Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Trade Marks Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safety, Rehabilitation and Compensation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Trade Marks Act 1995"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Taxation Administration Act 1953"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Tertiary Education Quality and Standards Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safe Work Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Science and Industry Research Act 1949"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Safety, Rehabilitation and Compensation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Bankruptcy Act 1966"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Renewable Energy Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Broadcasting Act 1942"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Productivity Commission Act 1998"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Criminology Research Act 1971"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Museum of Australia Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Maritime Safety Authority Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Productivity Commission Act 1998"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Food Standards Australia New Zealand Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Security Intelligence Organisation Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Trade and Investment Commission Act 1985"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Museum of Australia Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National Maritime Museum Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Nuclear Science and Technology Organisation Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Postal Corporation Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Security Intelligence Organisation Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Sports Commission Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Trade and Investment Commission Act 1985"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Sydney Harbour Federation Trust Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Coal Mining Industry (Long Service Leave) Administration Act 1992"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Counsel Act 1970"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Sydney Harbour Federation Trust Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Counsel Act 1970"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Museum of Australia Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian War Memorial Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National Maritime Museum Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National University Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Nuclear Science and Technology Organisation Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Postal Corporation Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Research Council Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Security Intelligence Organisation Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Sports Commission Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Research Council Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Sports Commission Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian War Memorial Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National University Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Director of Public Prosecutions Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Building and Construction Industry (Improving Productivity) Act 2016"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Gallery Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Postal Services Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Bankruptcy Act 1966"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Administration Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Bankruptcy Act 1966"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Broadcasting Act 1942"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Research Council Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Workplace Gender Equality Act 2012"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Science and Industry Research Act 1949"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Counsel Act 1970"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Maritime Safety Authority Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National University Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Renewable Energy Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Director of Public Prosecutions Act 1983"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Trade and Investment Commission Act 1985"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Maritime Safety Authority Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Renewable Energy Agency Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Science and Industry Research Act 1949"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Housing Australia Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Defence Housing Australia Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Services Trust Funds Act 1947"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Science and Industry Research Act 1949"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Reserve Bank Act 1959"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Criminology Research Act 1971"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Nuclear Science and Technology Organisation Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Postal Corporation Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Security Intelligence Organisation Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Trade and Investment Commission Act 1985"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National Maritime Museum Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Grants Commission Act 1973"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Workplace Gender Equality Act 2012"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Gallery Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Gallery Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Services Trust Funds Act 1947"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National Maritime Museum Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Nuclear Science and Technology Organisation Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Postal Corporation Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Security Intelligence Organisation Act 1979"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Sports Commission Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Trade and Investment Commission Act 1985"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian War Memorial Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Commonwealth Police Act 1957"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Library Act 1960"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Bankruptcy Act 1966"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Reserve Bank Act 1959"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Sports Commission Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian War Memorial Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National Maritime Museum Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National University Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Nuclear Science and Technology Organisation Act 1987"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Postal Corporation Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Research Council Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Science and Industry Research Act 1949"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Terrorism Insurance Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Bankruptcy Act 1966"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Building and Construction Industry (Improving Productivity) Act 2016"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian War Memorial Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Criminology Research Act 1971"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Library Act 1960"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National Preventive Health Agency Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian National University Act 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Australian Research Council Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Blood Authority Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Productivity Commission Act 1998"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Ombudsman Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Patents Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Productivity Commission Act 1998"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Primary Industries Research and Development Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Ombudsman Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Patents Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Infrastructure Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Governance of Australian Government Superannuation Schemes Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Infrastructure Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Intelligence and Security Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Future Fund Act 2006"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Film and Sound Archive of Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Library Act 1960"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Museum of Australia Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Transport Commission Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Intelligence and Security Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Primary Industries Research and Development Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Personal Property Securities Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Governance, Performance and Accountability Rule 2014"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Ombudsman Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Personal Property Securities Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Environment Protection and Biodiversity Conservation Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Primary Industries Research and Development Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Gallery Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Health Reform Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Future Fund Act 2006"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Great Barrier Reef Marine Park Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Research and Development Corporation Regulations 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Future Fund Act 2006"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Intelligence Services Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Meteorology Act 1955"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Taxation Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Intelligence Services Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Competition and Consumer Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Counsel Act 1970"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Personal Property Securities Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Blood Authority Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Health Reform Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Competition and Consumer Act 2010"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Patents Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Blood Authority Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Great Barrier Reef Marine Park Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Cotton Research and Development Corporation Regulations 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Governance of Australian Government Superannuation Schemes Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Public Governance, Performance and Accountability (Consequential and Transitional Provisions) Act 2014"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Productivity Commission Act 1998"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Research and Development Corporation Regulations 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Intelligence Services Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Research and Development Corporation Regulations 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Research and Development Corporation Regulations 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Infrastructure Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Intelligence and Security Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Ombudsman Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Patents Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Civil Aviation Act 1988"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Library Act 1960"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Transport Commission Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Film and Sound Archive of Australia Act 2008"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Transport Commission Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Ombudsman Act 1976"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Library Act 1960"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Museum of Australia Act 1980"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Primary Industries Research and Development Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Patents Act 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Future Fund Act 2006"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Grains Research and Development Corporation Regulations 1990"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Primary Industries Research and Development Act 1989"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Personal Property Securities Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Fisheries Research and Development Corporation Regulations 1991"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Intelligence and Security Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Intelligence and Security Act 1986"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Great Barrier Reef Marine Park Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Health Reform Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Health Reform Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Blood Authority Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Gallery Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Meteorology Act 1955"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Future Fund Act 2006"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Counsel Act 1970"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Personal Property Securities Act 2009"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Parliamentary Service Act 1999"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Taxation Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Intelligence Services Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Great Barrier Reef Marine Park Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Inspector-General of Taxation Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Intelligence Services Act 2001"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Governance of Australian Government Superannuation Schemes Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "Great Barrier Reef Marine Park Act 1975"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Blood Authority Act 2003"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Health Reform Act 2011"
+      }
+    }, {
+      "object" : {
+        "type" : "literal",
+        "value" : "National Portrait Gallery of Australia Act 2012"
+      }
+    } ]
+  }
+}

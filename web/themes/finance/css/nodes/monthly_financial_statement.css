@@ -1,0 +1,210 @@
+/* Monthly Financial Statements */
+
+body.node--type-monthly-financial-statements #sidebar_second {
+    display: none !important;
+}
+
+.mfs-key {
+	margin-bottom: 10px;
+}
+
+div.mfs-footnote p,
+p.mfs-footnote  {
+	font-size: 11px;
+}
+
+table.mfs-table {
+	border: 0 !important;
+	box-shadow: none;
+ 	border-collapse: collapse !important; 
+    border-spacing: 0px !important;
+	table-layout: unset !important; 
+	word-break: unset !important;
+} 
+
+table.mfs-table tr {
+	border: 0 !important;
+}
+
+table.mfs-table tr:nth-child(1) th:not(:first-child){
+	border-top: 1px solid black !important;
+	border-bottom: 1px solid black !important;
+} 
+ 
+table.mfs-table tr:nth-child(1) th:first-child{
+	border-top: 1px solid black !important;
+}  
+
+ 
+table.mfs-table tr:last-child {
+	border-bottom: 1px solid black !important;
+}
+ 
+table.mfs-table tr.mfs-line-partial td:not(:first-child) {
+	border-bottom: 1px solid black !important;
+}
+ 
+table.mfs-table th,
+table.mfs-table td {
+	background-color: white !important;
+	color: black;
+	border: 0 !important;
+}
+
+body.node--type-monthly-financial-statements main#content p sub,
+body.node--type-monthly-financial-statements main#content p sup,
+.footnote {
+	font-size: 11px !important;
+	bottom: unset !important;
+	line-height: 0 !important;
+	top: unset !important;
+}
+
+main#content #table-1-notes p:first-child {
+	line-height: 1 !important;
+}
+
+main#content #table-1-notes p.footnote {
+	line-height: 1.5 !important;
+}
+
+main#content table.mfs-table th {
+	background-color: white !important;
+}
+
+table.mfs-table th:not(:first-child) {
+	vertical-align: bottom !important;
+}
+
+table.mfs-table th span.mfs-span-indent-1, 
+table.mfs-table td span.mfs-span-indent-1 {
+	padding-left: 18px;
+}
+ 
+table.mfs-table th strong {
+	font-weight: bold;
+}
+
+table.mfs-table tr.mfs-bold-row th,
+table.mfs-table tr.mfs-bold-row td{
+	font-weight: bold;
+}
+
+table.mfs-table tr.mfs-italics-row th,
+table.mfs-table tr.mfs-italics-row td{
+	font-style: italic;
+}
+
+table.mfs-table tr.mfs-indent-1 th:nth-child(1),
+table.mfs-table tr.mfs-indent-1 td:nth-child(1){
+	padding-left: 27px !important;
+}
+
+table.mfs-table tr.mfs-indent-2 th:nth-child(1),
+table.mfs-table tr.mfs-indent-2 td:nth-child(1){
+	padding-left: 45px !important;
+}
+
+table.mfs-table th:not(:first-child),
+table.mfs-table td:not(:first-child) {
+	text-align: right !important;
+}
+ 
+main#content table.mfs-bg-2 th:nth-child(2),
+main#content table.mfs-bg-2 td:nth-child(2) {
+	background-color: rgb(193,193,192) !important;
+}
+ 
+main#content table.mfs-bg-3 th:nth-child(3),
+main#content table.mfs-bg-3 td:nth-child(3) {
+	background-color: rgb(193,193,192) !important;
+}
+ 
+main#content table.mfs-bg-4 th:nth-child(4),
+main#content table.mfs-bg-4 td:nth-child(4) {
+	background-color: rgb(193,193,192) !important;
+}
+
+main#content table.mfs-bg-5 th:nth-child(5),
+main#content table.mfs-bg-5 td:nth-child(5) {
+	background-color: rgb(193,193,192) !important;
+}
+
+main#content table.mfs-bg-6 th:nth-child(6),
+main#content table.mfs-bg-6 td:nth-child(6) {
+	background-color: rgb(193,193,192) !important;
+}
+
+/* Table 1 */
+
+table.mfs-table.mfs-table-1 td:nth-child(1),
+table.mfs-table.mfs-table-1 th:nth-child(1) {
+	width: 300px;
+}
+
+
+/* Table 2 */
+
+table.mfs-table.mfs-table-2 tr.mfs-line-partial td:nth-child(2) {
+	border-bottom: 0 !important;
+}
+
+table.mfs-table.mfs-table-2 td:nth-child(1),
+table.mfs-table.mfs-table-2 th:nth-child(1) {
+	width: 300px;
+}
+
+table.mfs-table.mfs-table-3 td:nth-child(1),
+table.mfs-table.mfs-table-3 th:nth-child(1) {
+	width: 300px;
+}
+
+table.mfs-table.mfs-table-4 td:nth-child(1),
+table.mfs-table.mfs-table-4 th:nth-child(1) {
+	width: 300px;
+}
+
+table.mfs-table.mfs-table-5 td:nth-child(1),
+table.mfs-table.mfs-table-5 th:nth-child(1) {
+	width: 250px;
+}
+
+table.mfs-table.mfs-table-6 td:nth-child(1),
+table.mfs-table.mfs-table-6 th:nth-child(1) {
+	width: 225px;
+}
+
+table.mfs-table.mfs-table-7 td:nth-child(1),
+table.mfs-table.mfs-table-7 th:nth-child(1) {
+	width: 350px;
+}
+
+/* MFS over single period */
+
+
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-1 th:not(:first-child),
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-4 th:not(:first-child),
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-5 th:not(:first-child),
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-6 th:not(:first-child) {
+	width: 18%;
+}
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-5 td:last-child, 
+table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-5 th:last-child,
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-6 th:last-child, 
+table.table.mfs-table.mfs-bg-3.mfs-cols-5.table.mfs-table-6 td:last-child {	
+	display:none;
+}
+
+/* MFS over multiple periods (jul+aug) */
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-1 th:not(:first-child),
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-4 th:not(:first-child),
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-5 th:not(:first-child),
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-6 th:not(:first-child) {
+	width: 14%;
+}
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-5 th:last-child, 
+table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-5 td:last-child,
+.node--type-monthly-financial-statements table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-6 th:last-child, 
+table.table.mfs-table.mfs-bg-4.mfs-cols-5.table.mfs-table-6 td:last-child {
+	display:none;
+}

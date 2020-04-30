@@ -1,0 +1,168 @@
+{
+  "head" : {
+    "vars" : [ "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "label" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2002/07/owl#Ontology"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Series"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2002/07/owl#NamedIndividual"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#AdvisoryBody"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#CommonwealthBody"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#NonMaterialEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#MinisterialCouncil"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#NationalLawBody"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#CommonwealthCompany"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#GeneralGovernmentSectorEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#SmallEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#SubsidiaryEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#InterJurisdictionalEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#LinkedBody"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#JointVenture"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#CorporateCommonwealthEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#MaterialEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#NonStatutoryFunction"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2002/07/owl#DatatypeProperty"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2002/07/owl#ObjectProperty"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Signing"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Commencement"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Gazetting"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#AdministrativeArrangementsOrder"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Matter"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2002/07/owl#Class"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Assent"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#NonCorporateCommonwealthEntity"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#LeadBody"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Portfolio"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#LegislationSection"
+      }
+    }, {
+      "label" : {
+        "type" : "uri",
+        "value" : "file:///home/andnfitz/GovernmentEntities.owl#Legislation"
+      }
+    } ]
+  }
+}
