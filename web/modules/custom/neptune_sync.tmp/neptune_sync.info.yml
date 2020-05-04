@@ -1,0 +1,6 @@
+name: Neptune Sync
+description: Hook, triggers and and pages for facilitating data flowing from neptune to drupal and vice versa.
+package: Department of Finance Australia
+type: module
+version: 1.0
+core: 8.x

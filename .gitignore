@@ -24,3 +24,7 @@
 /.env
 /.editorconfig
 /.gitattributes
+/gitcreds.txt
+
+# ignore temp files
+*.swp
