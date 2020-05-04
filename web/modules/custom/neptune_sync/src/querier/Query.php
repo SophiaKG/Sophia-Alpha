@@ -5,35 +5,35 @@ namespace Drupal\neptune_sync\querier;
 /**
 *
 */
-class query implements queryInterface{
+class Query {
 
     protected $query;
     protected $destination;
     protected $output_Path;
 
-    public function __construct($dest, $out_path){
-
+    public function __construct($dest, $out_path)
+    {
         $this->destination = $dest;
         $this->output_path = $out_path;
     }
 
-    public function setQuery($query){
-        
+    public function setQuery($query)
+    {
         $this->query = $query;
     }
     
-    public function getQuery(){
-        
+    public function getQuery()
+    {
         return $this->query;
     }
 
-    public function getDestination(){
-
+    public function getDestination()
+    {
         return $this->destination;
     }
 
-    public function getOutputPath(){
-        
+    public function getOutputPath()
+    {
         return $this->output_path;
     }
 }

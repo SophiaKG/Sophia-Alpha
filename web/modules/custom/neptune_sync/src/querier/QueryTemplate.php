@@ -11,14 +11,19 @@ namespace Drupal\neptune_sync\querier;
  * should be hardcoded here and pulled into the queriy manager though the query
  * manager.
  */
-class query_templates
+class QueryTemplate
 {
+    /* Post init
+     * @return
+     *    ['getLabels']
+     *    ['getLegislations']
+     *    ['getBodies']
+     */
     public static $queries = array();
-
     const NEPTUNE_ENDPOINT = 'https://sophia-neptune.cbkhatvpiwzj' .
                         '.ap-southeast-2.neptune.amazonaws.com:8182/sparql';
-
     const FEEDS_IMPORT_DIR = '';
+
     public static function init()
     {
         $queries['getLabels'] = self::getLabels();
@@ -28,7 +33,7 @@ class query_templates
 
     private static function getLabels()
     {
-        $q = new query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR);
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'sync.json');
         $q->setQuery('SELECT DISTINCT ?subject ?predicate ?object ' .
                             'WHERE { ?subject ?predicate ?object . }');
         return $q;
@@ -36,7 +41,7 @@ class query_templates
 
     private static function getLegislations()
     {
-        $q = new query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR);
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'legislation.json');
         $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
                             'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
                             'SELECT ?object ' .
@@ -46,7 +51,7 @@ class query_templates
     }
     private static function getBodies()
     {
-        $q = new query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR);
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies.json');
         $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
                             'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
                             'SELECT ?object ' .
