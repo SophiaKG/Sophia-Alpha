@@ -26,9 +26,10 @@ class QueryTemplate
 
     public static function init()
     {
-        $queries['getLabels'] = self::getLabels();
-        $queries['getLegislations'] = self::getLegislations();
-        $queries['getBodies'] = self::getBodies();
+        self::$queries['getLabels'] = self::getLabels();
+        self::$queries['getLegislations'] = self::getLegislations();
+        self::$queries['getBodies'] = self::getBodies();
+        \drupal::logger('neptune_sync') ->alert('init run'); // . var_dump($queries));
     }
 
     private static function getLabels()
@@ -36,6 +37,7 @@ class QueryTemplate
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'sync.json');
         $q->setQuery('SELECT DISTINCT ?subject ?predicate ?object ' .
                             'WHERE { ?subject ?predicate ?object . }');
+        \drupal::logger('neptune_sync') ->alert("label init done");
         return $q;
     }
 

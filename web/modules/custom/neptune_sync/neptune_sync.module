@@ -13,7 +13,7 @@ use Drupal\neptune_sync\querier;
 */
 function neptune_sync_cron()
 {
-    $query_manager = QueryManager();
+    $query_manager = new querier\QueryManager();
     $query_manager->syncAllDatasets();
 }
     

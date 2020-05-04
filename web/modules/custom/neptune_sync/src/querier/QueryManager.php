@@ -11,13 +11,9 @@ namespace Drupal\neptune_sync\querier;
  * for feeds to read and import the query results. all query calls should go
  * through this class
  */
-
 class QueryManager
 {
-
     protected $query;
-    protected $output_path;
-    protected $query_manager;
 
     /**
      *
@@ -25,8 +21,8 @@ class QueryManager
     public function __construct()
     {
         QueryTemplate::init();
+        //\drupal::logger('neptune_sync')->alert('post init' . var_dump($queries));
     }
-
 
     /**
      *
@@ -34,6 +30,7 @@ class QueryManager
     public function syncAllDatasets()
     {
         $q = QueryTemplate::$queries['getLabels'];
+        //var_dump($q);
         $this->runQuery($q);
         $q = QueryTemplate::$queries['getLegislations'];
         $this->runQuery($q);
@@ -44,9 +41,10 @@ class QueryManager
     protected function runQuery($query)
     {
         $cmd = 'curl -X POST --data-binary "query=' . $query->getQuery() . '" '
-                . $query->getDestination() . ' > ' . $query->getOutputPath();
-        shell_exec($cmd);
-        \drupal::logger('neptune_sync') ->alert("executed command: " . $cmd);
+                . $query->getDestination();// . ' > ' . $query->getOutputPath();
+        $res = shell_exec($cmd);
+        \drupal::logger('neptune_sync') ->notice("executed command: " . $cmd . "\nResults: " . $res);
+        var_dump($cmd);
     }
 }
 
