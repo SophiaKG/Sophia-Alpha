@@ -28,3 +28,6 @@
 
 # ignore temp files
 *.swp
+
+# ignore working dirsa
+/web/modules/custom/neptune_sync/resources/
