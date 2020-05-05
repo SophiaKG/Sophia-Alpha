@@ -41,10 +41,10 @@ class QueryManager
     protected function runQuery($query)
     {
         $cmd = 'curl -X POST --data-binary "query=' . $query->getQuery() . '" '
-                . $query->getDestination();// . ' > ' . $query->getOutputPath();
+                . $query->getDestination() . ' > ' . $query->getOutputPath();
         $res = shell_exec($cmd);
         \drupal::logger('neptune_sync') ->notice("executed command: " . $cmd . "\nResults: " . $res);
-        var_dump($cmd);
+        //var_dump($cmd);
     }
 }
 

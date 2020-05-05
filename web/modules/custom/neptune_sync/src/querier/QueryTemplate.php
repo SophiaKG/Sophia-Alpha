@@ -22,28 +22,26 @@ class QueryTemplate
     public static $queries = array();
     const NEPTUNE_ENDPOINT = 'https://sophia-neptune.cbkhatvpiwzj' .
                         '.ap-southeast-2.neptune.amazonaws.com:8182/sparql';
-    const FEEDS_IMPORT_DIR = '';
+    const FEEDS_IMPORT_DIR = 'sites/default/files/feeds/';
 
     public static function init()
     {
         self::$queries['getLabels'] = self::getLabels();
         self::$queries['getLegislations'] = self::getLegislations();
         self::$queries['getBodies'] = self::getBodies();
-        \drupal::logger('neptune_sync') ->alert('init run'); // . var_dump($queries));
     }
 
     private static function getLabels()
     {
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'sync.json');
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'labels/labels.json');
         $q->setQuery('SELECT DISTINCT ?subject ?predicate ?object ' .
                             'WHERE { ?subject ?predicate ?object . }');
-        \drupal::logger('neptune_sync') ->alert("label init done");
         return $q;
     }
 
     private static function getLegislations()
     {
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'legislation.json');
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'legislation/legislation.json');
         $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
                             'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
                             'SELECT ?object ' .
@@ -53,7 +51,7 @@ class QueryTemplate
     }
     private static function getBodies()
     {
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies.json');
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies/bodies.json');
         $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
                             'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
                             'SELECT ?object ' .
