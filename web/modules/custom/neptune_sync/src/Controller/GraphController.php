@@ -11,7 +11,7 @@ class GraphController extends ControllerBase
 {
     public function buildLocalGraph(NodeInterface $node)
     {
-        if (true){
+        if (strpos($node->getTitle(), 'Silly') !== false){
             $graphGen = new GraphGenerator();
             $path = $graphGen->generateGraph(null);
 
@@ -21,7 +21,7 @@ class GraphController extends ControllerBase
         }
         else {
             $build = [
-                '#markup' => $this->t('Graph too large to generate'),
+                '#markup' => $this->t('Graph too large to generate ' . $node->getTitle()),
             ];
         }
 
