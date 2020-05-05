@@ -38,6 +38,15 @@ class QueryManager
         $this->runQuery($q);
     }
 
+    /*
+     * Separated from run query for encapsulation principles despite having similar
+     * functionality
+     */
+    public function runCustomQuery($query)
+    {
+        $this->runQuery($query);
+    }
+
     protected function runQuery($query)
     {
         $cmd = 'curl -X POST --data-binary "query=' . $query->getQuery() . '" '
