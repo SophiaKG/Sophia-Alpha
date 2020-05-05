@@ -26,7 +26,7 @@ class GraphGenerator
 
         //arg: ontology_viz.py -o [OUTPUT] [INPUT] -O [ONTOLOGY|OPTIONAL]
         //arg: ontology_viz.py -o [NAME].dot [name].ttl
-        shell_exec('python ' . self::GRAPH_VVISUALIZER_PATH . '-o resources/dot/'
+        shell_exec('pygit thon ' . self::GRAPH_VVISUALIZER_PATH . '-o resources/dot/'
                     . $name . '.dot ' . 'resources/dot/'. $name . '.ttl');
 
         //arg: dot -tsvg -o [OUTPUT] [INPUT]

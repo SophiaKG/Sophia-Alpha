@@ -1,0 +1,8 @@
+neptune_sync.graph_build:
+  path: '/node/{node}/local-graph'
+  defaults:
+      _controller: '\Drupal\neptune_sync\Controller\GraphController::buildLocalGraph'
+  options:
+    parameters:
+      node:
+        type: entity:node
