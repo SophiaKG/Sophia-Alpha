@@ -11,7 +11,7 @@ class GraphGenerator
 {
     const GRAPH_FILETYPE = 'svg';
     const MODULE_RESOURCE_DIR = 'modules/custom/neptune_sync/resources/';
-    const GRAPH_VISUALIZER_PATH = '/home/ec2-user/workspace/ontology-visualization/' .
+    const GRAPH_VISUALIZER_PATH = 'ontology-visualization/' .
                                     'ontology_viz.py';
 
     protected $name;
@@ -19,8 +19,12 @@ class GraphGenerator
 
     public function buildGraphFromNode(NodeInterface $node){
 
-        //create a filename
-        $this->name = bin2hex(mcrypt_create_iv(15, MCRYPT_DEV_URANDOM));
+        try {
+            //create a filename
+            $this->name = bin2hex(random_bytes(5));
+        } catch (\Exception $e) {
+
+        }
         $this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
 
         $query_mgr = new QueryManager();
@@ -38,7 +42,8 @@ class GraphGenerator
     private function buildGraph(){
 
         $cmd = 'python3 ' . self::GRAPH_VISUALIZER_PATH . ' -o ' . self::MODULE_RESOURCE_DIR
-            . 'dot/' . $this->name . '.dot ' . self::MODULE_RESOURCE_DIR . 'ttl/'. $this->name . '.ttl';
+            . 'dot/' . $this->name . '.dot ' . QueryBuilder::GRAPH_WORKING_DIR .
+            $this->name . '.rdf 2>&1';
         $res = shell_exec($cmd);
 
         //log
@@ -47,13 +52,14 @@ class GraphGenerator
     }
 
     /**
-     * //arg: dot -tsvg -o [OUTPUT] [INPUT]
-     * //arg: dot -t[FILETYPE] -o [NAME].svg [NAME].dot
+     * //arg: dot -Tsvg -o [OUTPUT] [INPUT]
+     * //arg: dot -T[FILETYPE] -o [NAME].svg [NAME].dot
      */
     private function formatGraph(){
 
         $cmd = 'dot -T' . self::GRAPH_FILETYPE . ' -o sites/default/files/graphs/'
-            . $this->name . self::GRAPH_FILETYPE . ' ' . self::MODULE_RESOURCE_DIR . 'dot/' . $this->name . '.dot';
+            . $this->name . self::GRAPH_FILETYPE . ' ' . self::MODULE_RESOURCE_DIR
+            . 'dot/' . $this->name . '.dot 2>&1';
         $res = shell_exec($cmd);
 
         //log

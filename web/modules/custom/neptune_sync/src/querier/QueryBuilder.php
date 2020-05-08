@@ -3,6 +3,8 @@
 
 namespace Drupal\neptune_sync\querier;
 
+use Drupal\neptune_sync\Utility\SophiaGlobal;
+
 /**
  * Class QueryBuilder
  * @package Drupal\neptune_sync\querier
@@ -11,15 +13,30 @@ namespace Drupal\neptune_sync\querier;
  */
 class QueryBuilder
 {
-    const GRAPH_WORKING_DIR = 'sites/default/files/graphs';
+    const GRAPH_WORKING_DIR = 'sites/default/files/graphs/';
 
-    public static function buildLocalGraph($query_name, $query_start_node){
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT, SELF::GRAPH_WORKING_DIR . $query_name . '.rdf');
-        $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
-            'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
-            'SELECT ?object ' .
-            'WHERE {?Entity a ns1:CommonwealthBody . ' .
-            '?Entity rdfs:label ?object .}');
+    /**APPEND PREFIX LIST*
+     * @param $query_name
+     * The hashed identifier of the query
+     * @param $query_start_label
+     * A string of the nodes title (i.e. a triples label)
+     * @return Query
+     * The query, ready to execute
+     */
+    public static function buildLocalGraph($query_name, $query_start_label){
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
+            SELF::GRAPH_WORKING_DIR . $query_name . '.rdf');
+
+        $sub_q =
+            '{ ?subject ?predicate1 "' . $query_start_label . '" . ' .
+            '?subject ?predicate2 ?label .}';
+
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL .
+            'CONSTRUCT ' . $sub_q .
+            'WHERE ' . $sub_q
+        );
+
         return $q;
     }
 

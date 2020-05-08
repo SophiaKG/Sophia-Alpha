@@ -42,9 +42,13 @@ class QueryManager
         $this->runQuery($query);
     }
 
+    /**
+     * Detail 2>&1 | tee  (https://www.php.net/manual/en/function.shell-exec.php)
+     * @param $query
+     */
     protected function runQuery($query){
-        $cmd = 'curl -X POST --data-binary "query=' . $query->getQuery() . '" '
-                . $query->getDestination() . ' > ' . $query->getOutputPath();
+        $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
+                . $query->getDestination() . " 2>&1 | tee " . $query->getOutputPath();
         $res = shell_exec($cmd);
         \drupal::logger('neptune_sync') ->notice("executed command: " . $cmd . "\nResults: " . $res);
 
