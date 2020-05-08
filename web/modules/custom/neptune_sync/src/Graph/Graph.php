@@ -3,7 +3,7 @@
 
 namespace Drupal\neptune_sync\Graph;
 
-
+//XXX is this class even needed?
 class Graph
 {
     protected $file_location;
@@ -14,8 +14,7 @@ class Graph
      * @param $file_location
      * @param $deployment_path
      */
-    public function __construct($file_location, $deployment_path)
-    {
+    public function __construct($file_location, $deployment_path){
         $this->file_location = $file_location;
         $this->deployment_path = $deployment_path;
     }
@@ -23,16 +22,14 @@ class Graph
     /**
      * @return mixed
      */
-    public function getFileLocation()
-    {
+    public function getFileLocation(){
         return $this->file_location;
     }
 
     /**
      * @return mixed
      */
-    public function getDeploymentPath()
-    {
+    public function getDeploymentPath(){
         return $this->deployment_path;
     }
 

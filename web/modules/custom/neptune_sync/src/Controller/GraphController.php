@@ -9,8 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GraphController extends ControllerBase
 {
-    public function buildLocalGraph(NodeInterface $node)
-    {
+    public function buildLocalGraph(NodeInterface $node){
+
+        $graphGen = new GraphGenerator();
+        $path = $graphGen->buildGraphFromNode($node);
+
+        return [
+            '#markup' => '<img src="/drupal8/web/' . $path . '">',
+        ];
+
+       /* //XXX fix this code from showcase
         if (strpos($node->getTitle(), 'Silly') !== false){
             $graphGen = new GraphGenerator();
             $path = $graphGen->generateGraph(null);
@@ -23,8 +31,6 @@ class GraphController extends ControllerBase
             $build = [
                 '#markup' => $this->t('Graph too large to generate ' . $node->getTitle()),
             ];
-        }
-
-        return $build;
+        }*/
     }
 }

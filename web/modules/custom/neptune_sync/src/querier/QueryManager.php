@@ -15,22 +15,16 @@ class QueryManager
 {
     protected $query;
 
-    /**
-     *
-     */
-    public function __construct()
-    {
+    public function __construct(){
         QueryTemplate::init();
-        //\drupal::logger('neptune_sync')->alert('post init' . var_dump($queries));
     }
 
     /**
-     *
+     * Creates json files based on SPARQL queries ready to import into
+     * drupal via feeds
      */
-    public function syncAllDatasets()
-    {
+    public function syncAllDatasets(){
         $q = QueryTemplate::$queries['getLabels'];
-        //var_dump($q);
         $this->runQuery($q);
         $q = QueryTemplate::$queries['getLegislations'];
         $this->runQuery($q);
@@ -38,22 +32,22 @@ class QueryManager
         $this->runQuery($q);
     }
 
-    /*
+    /**
      * Separated from run query for encapsulation principles despite having similar
      * functionality
+     * @param $query query
+     *      The query to execute
      */
-    public function runCustomQuery($query)
-    {
+    public function runCustomQuery($query){
         $this->runQuery($query);
     }
 
-    protected function runQuery($query)
-    {
+    protected function runQuery($query){
         $cmd = 'curl -X POST --data-binary "query=' . $query->getQuery() . '" '
                 . $query->getDestination() . ' > ' . $query->getOutputPath();
         $res = shell_exec($cmd);
         \drupal::logger('neptune_sync') ->notice("executed command: " . $cmd . "\nResults: " . $res);
-        //var_dump($cmd);
+
     }
 }
 
