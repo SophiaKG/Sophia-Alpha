@@ -58,7 +58,7 @@ class GraphGenerator
     private function formatGraph(){
 
         $cmd = 'dot -T' . self::GRAPH_FILETYPE . ' -o sites/default/files/graphs/'
-            . $this->name . self::GRAPH_FILETYPE . ' ' . self::MODULE_RESOURCE_DIR
+            . $this->name . '.' . self::GRAPH_FILETYPE . ' ' . self::MODULE_RESOURCE_DIR
             . 'dot/' . $this->name . '.dot 2>&1';
         $res = shell_exec($cmd);
 
