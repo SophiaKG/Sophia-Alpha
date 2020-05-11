@@ -43,8 +43,11 @@ class QueryManager
     }
 
     /**
-     * Detail 2>&1 | tee  (https://www.php.net/manual/en/function.shell-exec.php)
+     * Executes a SPARQL query
+     * 2>&1 | tee  (https://www.php.net/manual/en/function.shell-exec.php) must
+     * be used to clear sterr which will halt shell_exec if not placed
      * @param $query
+     *      The SPARQL query to wrap the execute command around
      */
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '

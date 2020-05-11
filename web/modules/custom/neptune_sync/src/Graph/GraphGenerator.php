@@ -7,6 +7,12 @@ use Drupal\neptune_sync\querier\QueryBuilder;
 use Drupal\neptune_sync\querier\QueryManager;
 use Drupal\node\NodeInterface;
 
+/**
+ * Class GraphGenerator
+ * @package Drupal\neptune_sync\Graph
+ * @author Alexis Harper | DoF
+ * A manager class for constructing a graph from passed in information
+ */
 class GraphGenerator
 {
     const GRAPH_FILETYPE = 'svg';
@@ -17,6 +23,15 @@ class GraphGenerator
     protected $name;
     protected $query;
 
+    /**
+     * Builds a local graph to (currently) one step from the passed in node.
+     * Logic: hash-name -> build query -> execute query -> build graph structure
+     *          -> visualize graph
+     * @param NodeInterface $node
+     *      The node that is the origin of the graph to be built
+     * @return string
+     *      the file path of the visual graph constructed
+     */
     public function buildGraphFromNode(NodeInterface $node){
 
         try {

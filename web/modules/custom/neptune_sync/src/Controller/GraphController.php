@@ -17,20 +17,5 @@ class GraphController extends ControllerBase
         return [
             '#markup' => '<img src="/drupal8/web/' . $path . '">',
         ];
-
-       /* //XXX fix this code from showcase
-        if (strpos($node->getTitle(), 'Silly') !== false){
-            $graphGen = new GraphGenerator();
-            $path = $graphGen->generateGraph(null);
-
-            $build = [
-                '#markup' => '<img src="/drupal8/web/' . $path . '">',
-            ];
-        }
-        else {
-            $build = [
-                '#markup' => $this->t('Graph too large to generate ' . $node->getTitle()),
-            ];
-        }*/
     }
 }
