@@ -35,12 +35,13 @@ class GraphGenerator
     public function buildGraphFromNode(NodeInterface $node){
 
         try {
-            //create a filename
             $this->name = bin2hex(random_bytes(5));
-        } catch (\Exception $e) {
+        } catch (\Exception $e) { }
 
-        }
-        $this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
+        //$this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
+        $filters = new GraphFilters();
+        $filters->steps = 2;
+        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $node->getTitle(), $filters);
 
         $query_mgr = new QueryManager();
         $query_mgr->runCustomQuery($this->query);
