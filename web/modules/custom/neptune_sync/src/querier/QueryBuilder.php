@@ -4,6 +4,7 @@ namespace Drupal\neptune_sync\querier;
 
 use Drupal\neptune_sync\Graph\GraphFilters;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
+use Drupal\neptune_sync\Utility\Helper;
 
 /**
  * Class QueryBuilder
@@ -48,6 +49,8 @@ class QueryBuilder
 
     public static function buildCustomLocalGraph($query_name, $query_start_label, GraphFilters $filters){
 
+        Helper::log('loop setup');
+
         //Build query base
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
             SELF::GRAPH_WORKING_DIR . $query_name . '.rdf');
@@ -83,10 +86,13 @@ class QueryBuilder
 
         $q = '{ ?a1 ?predicate1 "' . $query_start_label . '" . ';
 
+        Helper::log('just before loop');
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
         for($c = 1; c <= $k; $c++){
             $q .= '?a' . $c . ' ?predicate' . $c . ' ?a' . $c + 1 . ' . ';
+            Helper::log('in loop', $c);
         }
+        Helper::log('post-loop');
 
         //close the query
         $q .= '}';
