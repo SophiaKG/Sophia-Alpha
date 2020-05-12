@@ -30,7 +30,7 @@ class QueryBuilder
 
         //Build query base
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
-            SELF::GRAPH_WORKING_DIR . $query_name . '.rdf');
+        self::GRAPH_WORKING_DIR . $query_name . '.rdf');
 
         //Form selection of query
         $sub_q =
@@ -53,7 +53,7 @@ class QueryBuilder
 
         //Build query base
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
-            SELF::GRAPH_WORKING_DIR . $query_name . '.rdf');
+            self::GRAPH_WORKING_DIR . $query_name . '.rdf');
 
         //Form selection of query
         $sub_q = self::expandGraphToK($filters->steps, $query_start_label);
@@ -88,8 +88,8 @@ class QueryBuilder
 
         Helper::log('just before loop');
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
-        for($c = 1; c <= $k; $c++){
-            $q .= '?a' . $c . ' ?predicate' . $c . ' ?a' . $c + 1 . ' . ';
+        for($c = 1; $c <= $k; $c++){
+            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . ' ?a' . (string)($c + 1) . ' . ';
             Helper::log('in loop', $c);
         }
         Helper::log('post-loop');

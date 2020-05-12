@@ -3,6 +3,8 @@
 namespace Drupal\neptune_sync\querier;
 
 
+use Drupal\neptune_sync\Utility\Helper;
+
 /**
  * Class QueryManager
  * @package Drupal
@@ -24,12 +26,21 @@ class QueryManager
      * drupal via feeds
      */
     public function syncAllDatasets(){
+        /*
+        XXX: do we need labels?
+        Helper::log('running sync all');
         $q = QueryTemplate::$queries['getLabels'];
-        $this->runQuery($q);
+        $this->runQuery($q);*/
+
+        Helper::log('Sync all, syncing legsislations');
         $q = QueryTemplate::$queries['getLegislations'];
         $this->runQuery($q);
+
+        Helper::log('legislation complete, syncing bodies');
         $q = QueryTemplate::$queries['getBodies'];
         $this->runQuery($q);
+
+        Helper::log('bodies synced, sync complete');
     }
 
     /**
@@ -53,8 +64,7 @@ class QueryManager
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
                 . $query->getDestination() . " 2>&1 | tee " . $query->getOutputPath();
         $res = shell_exec($cmd);
-        \drupal::logger('neptune_sync') ->notice("executed command: " . $cmd . "\nResults: " . $res);
-
+        \drupal::logger('neptune_sync')->notice("executed command: " . $cmd . "\nResults: " . $res);
     }
 }
 

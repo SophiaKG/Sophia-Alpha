@@ -16,7 +16,7 @@ class Helper
         $date_str = $date->format('Y-m-d H:i:s');
         $str = $date_str . '| log: ' . $str . "\n";
         foreach($args as $a){
-            str .+ $a . "\n";
+            $str .+ (string)$a . "\n";
         }
         file_put_contents('neptune_sync.log', $str, FILE_APPEND);
     }
