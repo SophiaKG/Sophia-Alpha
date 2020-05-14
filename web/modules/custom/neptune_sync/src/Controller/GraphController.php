@@ -18,4 +18,10 @@ class GraphController extends ControllerBase
             '#markup' => '<img src="/drupal8/web/' . $path . '">',
         ];
     }
+
+    public function localGraphQuery(NodeInterface $node){
+        return [
+            'form' => \Drupal::formBuilder()->getForm('\Drupal\neptune_sync\Form\LocalGraphForm', $node)];
+
+    }
 }

@@ -64,7 +64,8 @@ class QueryManager
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
                 . $query->getDestination() . " 2>&1 | tee " . $query->getOutputPath();
         $res = shell_exec($cmd);
-        \drupal::logger('neptune_sync')->notice("executed command: " . $cmd . "\nResults: " . $res);
+        \drupal::logger('neptune_sync')->notice("Query executed, command: " . $cmd . "\nResults: " . $res);
+        Helper::log('Query executed: ' . $cmd);
     }
 }
 

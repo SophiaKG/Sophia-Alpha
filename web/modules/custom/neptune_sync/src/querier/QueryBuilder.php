@@ -28,52 +28,29 @@ class QueryBuilder
      */
     public static function buildLocalGraph($query_name, $query_start_label){
 
-        //Build query base
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
-        self::GRAPH_WORKING_DIR . $query_name . '.rdf');
-
-        //Form selection of query
+        //Form selection part of query
         $sub_q =
             '{ ?subject ?predicate1 "' . $query_start_label . '" . ' .
             '?subject ?predicate2 ?label .}';
 
-        //Form the entire query
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
-            'CONSTRUCT ' . $sub_q .
-            'WHERE ' . $sub_q
-        );
-
-        return $q;
+        return self::buildMirroredQuery($query_name, $sub_q);
     }
 
     public static function buildCustomLocalGraph($query_name, $query_start_label, GraphFilters $filters){
 
         Helper::log('loop setup');
-
-        //Build query base
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
-            self::GRAPH_WORKING_DIR . $query_name . '.rdf');
-
-        //Form selection of query
         $sub_q = self::expandGraphToK($filters->steps, $query_start_label);
 
-        //Form the entire query
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
-            'CONSTRUCT ' . $sub_q .
-            'WHERE ' . $sub_q
-        );
-        return $q;
+        return self::buildMirroredQuery($query_name, $sub_q);
     }
 
     /**
      * Builds a select statement that grows by $k
      * It is formats as:
      *       ?a1  ?p1 ?[STARTNODE] .
-     *       ?a1  ?p2 ?a2 .
-     *       ?a2  ?p3 ?a3 .
-     *       ?a3  ?p4 ?a4 .
+     *       ?a1  ?p2* ?a2 .
+     *       ?a2  ?p3* ?a3 .
+     *       ?a3  ?p4* ?a4 .
      *
      * @param $k
      *      The amount of links to traverse from the start node (i.e. k-Neighbourhood)
@@ -84,12 +61,12 @@ class QueryBuilder
      */
     private static function expandGraphToK($k, $query_start_label){
 
-        $q = '{ ?a1 ?predicate1 "' . $query_start_label . '" . ';
+        $q = '{ ?a1 ?predicate0 "' . $query_start_label . '" . ';
 
         Helper::log('just before loop');
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
         for($c = 1; $c <= $k; $c++){
-            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . ' ?a' . (string)($c + 1) . ' . ';
+            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . '* ?a' . (string)($c + 1) . ' . ';
             Helper::log('in loop', $c);
         }
         Helper::log('post-loop');
@@ -97,6 +74,23 @@ class QueryBuilder
         //close the query
         $q .= '}';
 
+        return $q;
+    }
+
+    private static function buildMirroredQuery($query_name, $mirrored_q){
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
+            self::GRAPH_WORKING_DIR . $query_name . '.rdf');
+
+        //XXX this is just a test, to remove or find a proper work around
+        $qr = str_replace('*', '', $mirrored_q );
+
+        //Form the entire query
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL .
+            'CONSTRUCT ' . $qr .
+            'WHERE ' . $mirrored_q
+        );
         return $q;
     }
 }

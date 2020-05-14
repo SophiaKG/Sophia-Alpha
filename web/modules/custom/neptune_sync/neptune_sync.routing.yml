@@ -9,3 +9,14 @@ neptune_sync.buildLocalGraph:
     parameters:
       node:
         type: entity:node
+neptune_sync.localGraphQuery:
+  path: '/node/{node}/local-graph-form'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::localGraphQuery'
+    _title: 'Local Graph Query'
+  requirements:
+    _permission: 'access content'
+  default:
+    parameters:
+      node:
+        type: entity:node
