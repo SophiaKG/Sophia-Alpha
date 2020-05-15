@@ -40,7 +40,19 @@ class QueryManager
         $q = QueryTemplate::$queries['getBodies'];
         $this->runQuery($q);
 
-        Helper::log('bodies synced, sync complete');
+        Helper::log('bodies complete, syncing portfolios');
+        $q = QueryTemplate::$queries['getPortfolios'];
+        $this->runQuery($q);
+
+        Helper::log('portfolios complete, syncing classes');
+        $q = QueryTemplate::$queries['getClasses'];
+        $this->runQuery($q);
+
+        Helper::log('classes complete, syncing properties');
+        $q = QueryTemplate::$queries['getProperties'];
+        $this->runQuery($q);
+
+        Helper::log('properties synced, sync complete');
     }
 
     /**

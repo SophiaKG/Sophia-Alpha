@@ -2,6 +2,8 @@
 
 namespace Drupal\neptune_sync\querier;
 
+use Drupal\neptune_sync\Utility\SophiaGlobal;
+
 /**
  * Class query_templates
  * @package Drupal\neptune_sync\querier
@@ -29,8 +31,15 @@ class QueryTemplate
         self::$queries['getLabels'] = self::getLabels();
         self::$queries['getLegislations'] = self::getLegislations();
         self::$queries['getBodies'] = self::getBodies();
+        self::$queries['getPortfolios'] = self::getPortfolios();
+        self::$queries['getClasses'] = self::getClasses();
+        self::$queries['getProperties'] = self::getProperties();
     }
 
+    /**
+     * @deprecated
+     * @return Query
+     */
     private static function getLabels(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'labels/labels.json');
         $q->setQuery('SELECT DISTINCT ?subject ?predicate ?object ' .
@@ -40,20 +49,48 @@ class QueryTemplate
 
     private static function getLegislations(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'legislation/legislation.json');
-        $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
-                            'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
-                            'SELECT ?object ' .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+                            'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a ns1:Legislation . ' .
                             '?Entity rdfs:label ?object . }');
         return $q;
     }
+
     private static function getBodies(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies/bodies.json');
-        $q->setQuery('PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> ' .
-                            'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ' .
-                            'SELECT ?object ' .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+                            'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a ns1:CommonwealthBody . ' .
                                    '?Entity rdfs:label ?object .}');
         return $q;
     }
+
+    private static function getPortfolios(){
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'portfolios/portfolios.json');
+        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+                            'SELECT DISTINCT ?object ' .
+                            'WHERE {?Entity a ns1:Portfolio . ' .
+                            '?Entity rdfs:label ?object .}');
+        return $q;
+    }
+
+    private static function getClasses(){
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'classes/classes.json');
+        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+                            'SELECT DISTINCT ?object ' .
+                            'WHERE {?Entity a owl:Class . ' .
+                            '?Entity rdfs:label ?object .}');
+        return $q;
+    }
+
+    private static function getProperties(){
+        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'properties/properties.json');
+        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+                            'SELECT DISTINCT ?object ' .
+                            'WHERE {?Entity a owl:ObjectProperty . ' .
+                            '?Entity rdfs:label ?object .}');
+        return $q;
+    }
+
+
 }
