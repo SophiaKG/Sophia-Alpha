@@ -11,6 +11,13 @@ namespace Drupal\neptune_sync\Utility;
  */
 class Helper
 {
+
+    /**
+     *
+     * TODO: add better argument display ie:   $this->messenger()->addStatus($this->t('Your phone number is @number', ['@number' => $form_state->getValue('phone_number')]));
+     * @param string $str
+     * @param mixed ...$args
+     */
     public static function log(string $str, ...$args){
         $date = new \DateTime();
         $date_str = $date->format('Y-m-d H:i:s');
