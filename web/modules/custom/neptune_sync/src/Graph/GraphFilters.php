@@ -54,6 +54,8 @@ class GraphFilters
      *      based on form array found in neptune_sync\Form\LocalGraphForm::build_form()
      */
     public function __construct(array $form_array_filters){
+        if(empty($form_array_filters))
+            return;
         $this->start_node = $form_array_filters['node_title'];
         $this->steps = $form_array_filters['size_of_local_graph'];
         $this->blacklist_classes = $this->unpackTaxonomies($form_array_filters['ignore_results_that_are']);

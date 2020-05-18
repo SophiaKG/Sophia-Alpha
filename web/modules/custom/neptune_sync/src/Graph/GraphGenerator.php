@@ -39,10 +39,11 @@ class GraphGenerator
         } catch (\Exception $e) { }
 
         //$this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
-        $filters = new GraphFilters(null);
+        $filters = new GraphFilters(array());
         $filters->steps = 2;
-        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $node->getTitle(), $filters);
+        $filters->start_node = $node->getTitle();
 
+        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
 
         $query_mgr = new QueryManager();
         $query_mgr->runCustomQuery($this->query);
