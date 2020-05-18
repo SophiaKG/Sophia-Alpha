@@ -39,10 +39,25 @@ class GraphGenerator
         } catch (\Exception $e) { }
 
         //$this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
-       $filters = new GraphFilters();
+        $filters = new GraphFilters(null);
         $filters->steps = 2;
         $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $node->getTitle(), $filters);
 
+
+        $query_mgr = new QueryManager();
+        $query_mgr->runCustomQuery($this->query);
+
+        $this->buildGraph();
+        return $this->formatGraph();
+    }
+
+    public function buildGraphFromFilters($filters){
+        try {
+            $this->name = bin2hex(random_bytes(5));
+        } catch (\Exception $e) { }
+
+        $filters = new GraphFilters($filters);
+        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
 
         $query_mgr = new QueryManager();
         $query_mgr->runCustomQuery($this->query);

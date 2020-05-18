@@ -5,6 +5,7 @@ namespace Drupal\neptune_sync\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\neptune_sync\Graph\GraphGenerator;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
 
@@ -18,6 +19,11 @@ class LocalGraphForm extends FormBase {
         $form['markup'] = [
             '#type' => 'webform_markup',
             '#markup' => t("Query starting at @nodetitle", array('@nodetitle' => $node->getTitle())),
+        ];
+
+        $form['node_title'] = [
+            '#type' => 'hidden',
+            '#value' => $node->getTitle(),
         ];
 
         $form['size_of_local_graph'] = [
@@ -113,6 +119,17 @@ class LocalGraphForm extends FormBase {
 
     public function  submitForm(array &$form, FormStateInterface $form_state){
 
-        $values = $form_state->getValues();
+        $filters = $form_state->getValues();
+        $graphGen = new GraphGenerator();
+        $path = $graphGen->buildGraphFromFilters($filters);
+
+        return [
+            '#markup' => '<img src="/drupal8/web/' . $path . '">',
+        ];
+
+        //kint($values);
+        /*return [
+            'form' => \Drupal::formBuilder()->getForm('\Drupal\neptune_sync\Form\LocalGraphForm', $node)];
+*/
     }
 }

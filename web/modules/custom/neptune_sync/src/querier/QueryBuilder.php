@@ -36,10 +36,10 @@ class QueryBuilder
         return self::buildMirroredQuery($query_name, $sub_q);
     }
 
-    public static function buildCustomLocalGraph($query_name, $query_start_label, GraphFilters $filters){
+    public static function buildCustomLocalGraph($query_name, GraphFilters $filters){
 
         Helper::log('loop setup');
-        $sub_q = self::expandGraphToK($filters->steps, $query_start_label);
+        $sub_q = self::expandGraphToK($filters);
 
         return self::buildMirroredQuery($query_name, $sub_q);
     }
@@ -52,20 +52,19 @@ class QueryBuilder
      *       ?a2  ?p3* ?a3 .
      *       ?a3  ?p4* ?a4 .
      *
-     * @param $k
-     *      The amount of links to traverse from the start node (i.e. k-Neighbourhood)
-     * @param $query_start_label
-     *      The rdf node to start the expansion on
+     * @param GraphFilters $filters
+     *      Filters passed in from the form to customise how the query is built
+     *
      * @return string
      *      The built sub-query (select element) to k-neighbourhood
      */
-    private static function expandGraphToK($k, $query_start_label){
+    private static function expandGraphToK(GraphFilters $filters){
 
-        $q = '{ ?a1 ?predicate0 "' . $query_start_label . '" . ';
+        $q = '{ ?a1 ?predicate0 "' . $filters->start_node . '" . ';
 
         Helper::log('just before loop');
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
-        for($c = 1; $c <= $k; $c++){
+        for($c = 1; $c <= $filters->steps; $c++){
             $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . '* ?a' . (string)($c + 1) . ' . ';
             Helper::log('in loop', $c);
         }
