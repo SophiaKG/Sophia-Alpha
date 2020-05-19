@@ -65,7 +65,7 @@ class QueryBuilder
         Helper::log('just before loop');
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
         for($c = 1; $c <= $filters->steps; $c++){
-            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . '* ?a' . (string)($c + 1) . ' . ';
+            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . ' ?a' . (string)($c + 1) . ' . ';
             Helper::log('in loop', $c);
         }
         Helper::log('post-loop');
