@@ -5,7 +5,7 @@ neptune_sync.buildLocalGraph:
     _title: 'Local Graph'
   requirements:
     _permission: 'access content'
-  default:
+  options:
     parameters:
       node:
         type: entity:node
@@ -16,7 +16,15 @@ neptune_sync.localGraphQuery:
     _title: 'Local Graph Query'
   requirements:
     _permission: 'access content'
-  default:
+  options:
     parameters:
       node:
         type: entity:node
+neptune_sync.displayGraph:
+  path: '/graph/{graphid}'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::displayGraph'
+    _title: 'Local Graph'
+  requirements:
+    _permission: 'access content'
+

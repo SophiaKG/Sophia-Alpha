@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\neptune_sync\Graph\GraphGenerator;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LocalGraphForm extends FormBase {
 
@@ -121,11 +122,20 @@ class LocalGraphForm extends FormBase {
 
         $filters = $form_state->getValues();
         $graphGen = new GraphGenerator();
-        $path = $graphGen->buildGraphFromFilters($filters);
+        $path1 = $graphGen->buildGraphFromFilters($filters);
 
-        return [
+        $path2 = substr($path1, strripos($path1, '/') + 1);
+
+        Helper::log($path2);
+
+        $path = \Drupal\Core\Url::fromRoute('neptune_sync.displayGraph',
+            ['graphid' => $path2])->toString();
+        $response = new RedirectResponse($path);
+        $response->send();
+
+        /*return [
             '#markup' => '<img src="/drupal8/web/' . $path . '">',
-        ];
+        ];*/
 
         //kint($values);
         /*return [
