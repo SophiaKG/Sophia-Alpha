@@ -25,6 +25,8 @@
 /.editorconfig
 /.gitattributes
 /gitcreds.txt
+/web/sites/default/services.yml
+
 
 # ignore temp files
 *.swp

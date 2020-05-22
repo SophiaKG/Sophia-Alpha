@@ -531,7 +531,7 @@ function finance_preprocess_node(&$variables) {
     }
 
     // If user isn't logged in, be redirected to the supplied link
-    if ($node->getType() == "legislation") {
+    if ($node->getType() == "legislationn") {
         if ($node->get('field_legislation_link')->getValue()) {          
             if (array_key_exists(0, $node->get('field_legislation_link')->getValue())) {      
                 $link = trim($node->get('field_legislation_link')->getValue()[0]['uri']);
