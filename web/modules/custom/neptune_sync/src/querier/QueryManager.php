@@ -26,11 +26,6 @@ class QueryManager
      * drupal via feeds
      */
     public function syncAllDatasets(){
-        /*
-        XXX: do we need labels?
-        Helper::log('running sync all');
-        $q = QueryTemplate::$queries['getLabels'];
-        $this->runQuery($q);*/
 
         Helper::log('Sync all, syncing legsislations');
         $q = QueryTemplate::$queries['getLegislations'];

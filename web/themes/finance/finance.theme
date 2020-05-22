@@ -475,7 +475,7 @@ function finance_preprocess_page(&$variables) {
 		                }
 		            }
 		        }
-		    } elseif ($node->getType() == "legislation") {
+		    } elseif ($node->getType() == "legislationn") {
 		        if ($node->get('field_legislation_link')->getValue()) {          
 		            if (array_key_exists(0, $node->get('field_legislation_link')->getValue())) {      
 		                $link = trim($node->get('field_legislation_link')->getValue()[0]['uri']);

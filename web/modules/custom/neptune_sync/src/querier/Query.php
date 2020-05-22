@@ -36,14 +36,6 @@ class Query {
         return $this->destination;
     }
 
-    /**
-     * @deprecated
-     * XXX find a way to remove this
-     */
-   /* public function setOutputPath($path){
-        $this->output_Path - $path;
-    }*/
-
     public function getOutputPath(){
         return $this->output_path;
     }

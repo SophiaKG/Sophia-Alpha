@@ -38,12 +38,7 @@ class GraphGenerator
             $this->name = bin2hex(random_bytes(5));
         } catch (\Exception $e) { }
 
-        //$this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
-        $filters = new GraphFilters(array());
-        $filters->steps = 2;
-        $filters->start_node = $node->getTitle();
-
-        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
+        $this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
 
         $query_mgr = new QueryManager();
         $query_mgr->runCustomQuery($this->query);
@@ -52,7 +47,15 @@ class GraphGenerator
         return $this->formatGraph();
     }
 
-    public function buildGraphFromFilters($filters){
+    /**
+     * Builds a local graph with the ability to modify certain aspects of the build via
+     * passed in filters
+     * @param GraphFilters $filters
+     *      filters to add details to how the graph is built
+     * @return string
+     *      returns the server filepath of the graph generated
+     */
+    public function buildGraphFromFilters(GraphFilters $filters){
         try {
             $this->name = bin2hex(random_bytes(5));
         } catch (\Exception $e) { }
@@ -68,6 +71,7 @@ class GraphGenerator
     }
 
     /**
+     * Builds a graph from RDF/ttl syntax
      * Input is pulled from the queries output parameter XXX(can we pass this value through?)
      * arg: ontology_viz.py -o [OUTPUT] [INPUT] -O [ONTOLOGY|OPTIONAL]
      * arg: ontology_viz.py -o [NAME].dot [name].ttl
@@ -80,11 +84,12 @@ class GraphGenerator
         $res = shell_exec($cmd);
 
         //log
-        \drupal::logger('neptune_sync') ->notice('Graph ' . $this->name .
+        \drupal::logger('neptune_syn c') ->notice('Graph ' . $this->name .
             ' created. Cmd: ' . $cmd . "\n\nExec result:\n" . $res);
     }
 
     /**
+     * Formats the graph into a spatial setting for human visualization
      * //arg: dot -Tsvg -o [OUTPUT] [INPUT]
      * //arg: dot -T[FILETYPE] -o [NAME].svg [NAME].dot
      */

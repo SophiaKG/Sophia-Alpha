@@ -3,11 +3,11 @@
 namespace Drupal\neptune_sync\Graph;
 
 /**
- * Class GraphFilters
+ * A struct class for storing filters to be applied to a graph generation.
  * @package Drupal\neptune_sync\Graph
  * @author Alexis Harper | DoF
  * A struct class for storing and passing filters of a graph to construct
- * @todo finish commenting
+ *
  */
 class GraphFilters
 {
@@ -65,6 +65,15 @@ class GraphFilters
         $this->end_time = $form_array_filters['restrict_results_to'];
     }
 
+    /**
+     * Maps a taxonomy terms uid to its string representation
+     * @param array $terms
+     *      A uid array of taxonomy terms
+     * @return array
+     *      A string array of the term name that was mapped by the uid
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+     */
     private function unpackTaxonomies(array $terms){
 
         $term_names = [];
