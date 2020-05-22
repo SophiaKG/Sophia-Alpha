@@ -1,0 +1,36 @@
+name: Sophia Alpha - Finance
+type: theme
+description: 'Sophia alpha, mostly using the Finance theme which in turn uses Bootstrap Barrio SubTheme.'
+# version: VERSION
+# core: 8.x
+base theme: finance
+
+libraries:
+  - sophia_alpha/global-styling
+
+regions:
+  top_header: Top Header
+  top_header_form: Top Header Form
+  header: Header
+  header_form: Header Form
+  primary_menu: Primary menu
+  secondary_menu: Secondary menu
+  page_top: Page top
+  page_bottom: Page bottom
+  highlighted: Highlighted
+  featured_top: Featured top
+  breadcrumb: Breadcrumb
+  content_top: Content Top
+  content: Content
+  content_bottom: Content bottom
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  featured_bottom_first: 'Featured bottom first'
+  featured_bottom_second: 'Featured bottom second'
+  featured_bottom_third: 'Featured bottom third'
+  footer: 'Footer'
+  off_page: 'Off Page / Hidden Content'
+
+# Information added by Drupal.org packaging script on 2018-08-09
+version: '8.x-4.17'
+core: '8.x'
