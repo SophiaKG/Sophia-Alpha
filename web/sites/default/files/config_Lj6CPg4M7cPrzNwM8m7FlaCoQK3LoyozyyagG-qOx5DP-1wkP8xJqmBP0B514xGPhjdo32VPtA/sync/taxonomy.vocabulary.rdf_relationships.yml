@@ -1,0 +1,8 @@
+uuid: b80292e6-c97b-4712-8b8c-8471c01be828
+langcode: en
+status: true
+dependencies: {  }
+name: 'RDF Relationships'
+vid: rdf_relationships
+description: 'All the predicates in Neptune (owl:ObjectProperty)'
+weight: 0

@@ -1,0 +1,23 @@
+uuid: 3af4c273-bd7a-48cd-b58d-82001e420e29
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.feeds_item
+    - node.type.legislation
+  module:
+    - feeds
+id: node.legislation.feeds_item
+field_name: feeds_item
+entity_type: node
+bundle: legislation
+label: 'Feeds item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings: {  }
+field_type: feeds_item

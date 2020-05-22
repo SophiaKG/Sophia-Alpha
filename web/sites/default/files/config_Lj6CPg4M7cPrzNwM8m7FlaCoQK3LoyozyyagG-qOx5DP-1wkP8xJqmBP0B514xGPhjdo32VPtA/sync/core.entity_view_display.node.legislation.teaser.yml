@@ -1,0 +1,22 @@
+uuid: 1a56d1f6-9594-4e73-b5fc-6a7c33bb8d14
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.legislation.feeds_item
+    - node.type.legislation
+  module:
+    - user
+id: node.legislation.teaser
+targetEntityType: node
+bundle: legislation
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  feeds_item: true

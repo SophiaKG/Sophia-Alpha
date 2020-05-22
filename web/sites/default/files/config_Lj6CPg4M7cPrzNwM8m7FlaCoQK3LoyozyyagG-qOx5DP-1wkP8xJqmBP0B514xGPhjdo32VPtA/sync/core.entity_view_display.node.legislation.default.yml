@@ -1,0 +1,21 @@
+uuid: 0e40629e-dc8d-45e4-a96a-cec722697ceb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.legislation.feeds_item
+    - node.type.legislation
+  module:
+    - user
+id: node.legislation.default
+targetEntityType: node
+bundle: legislation
+mode: default
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  feeds_item: true

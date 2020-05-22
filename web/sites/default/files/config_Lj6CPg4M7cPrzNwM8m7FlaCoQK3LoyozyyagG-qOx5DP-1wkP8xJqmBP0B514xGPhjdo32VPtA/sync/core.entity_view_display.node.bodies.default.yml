@@ -1,0 +1,21 @@
+uuid: ce5ea8e0-541c-4c5d-9718-1ee4b25e55ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.bodies.feeds_item
+    - node.type.bodies
+  module:
+    - user
+id: node.bodies.default
+targetEntityType: node
+bundle: bodies
+mode: default
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  feeds_item: true

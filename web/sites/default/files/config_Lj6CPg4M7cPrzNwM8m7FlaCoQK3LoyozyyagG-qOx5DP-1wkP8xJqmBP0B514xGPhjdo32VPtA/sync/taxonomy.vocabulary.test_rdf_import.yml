@@ -1,0 +1,8 @@
+uuid: c9cba64a-dd17-4eb1-a242-ec87b446a959
+langcode: en
+status: true
+dependencies: {  }
+name: 'test rdf import'
+vid: test_rdf_import
+description: ''
+weight: 0

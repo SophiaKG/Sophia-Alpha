@@ -1,0 +1,59 @@
+uuid: 9ae318c2-3565-46da-a94c-6f7e70cc632f
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.rdf_relationships
+  module:
+    - feeds_ex
+    - taxonomy
+id: rdf_subject_properties
+label: 'RDF subject properties'
+description: ''
+help: ''
+import_period: 604800
+fetcher: directory
+fetcher_configuration:
+  allowed_extensions: json
+  allowed_schemes:
+    public: public
+  recursive_scan: false
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '$.results.bindings.*'
+  sources:
+    _object_value:
+      label: $.object.value
+      value: $.object.value
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:taxonomy_term'
+processor_configuration:
+  langcode: en
+  update_existing: 0
+  update_non_existent: _keep
+  expire: -1
+  skip_hash_check: false
+  values:
+    vid: rdf_relationships
+  owner_id: 0
+  authorize: false
+  owner_feed_author: false
+custom_sources:
+  _object_value:
+    label: $.object.value
+    value: $.object.value
+    machine_name: _object_value
+mappings:
+  -
+    target: name
+    map:
+      value: _object_value
+    unique:
+      value: '1'
+    settings:
+      language: null

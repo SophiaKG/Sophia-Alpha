@@ -1,0 +1,21 @@
+uuid: 3037028a-0cac-4f2a-aa16-64672f61bda5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.portfolios.feeds_item
+    - node.type.portfolios
+  module:
+    - user
+id: node.portfolios.default
+targetEntityType: node
+bundle: portfolios
+mode: default
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  feeds_item: true

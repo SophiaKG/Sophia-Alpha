@@ -29,5 +29,11 @@
 # ignore temp files
 *.swp
 
-# ignore working dirsa
+# ignore working dirs
 /web/modules/custom/neptune_sync/resources/
+/web/scripts/output
+/web/ontology-visualization
+
+# ignore Sophia specific files
+/web/neptune_sync.log
+

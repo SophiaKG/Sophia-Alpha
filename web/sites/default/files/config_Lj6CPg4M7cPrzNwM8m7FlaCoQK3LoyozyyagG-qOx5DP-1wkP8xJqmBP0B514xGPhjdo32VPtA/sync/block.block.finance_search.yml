@@ -1,0 +1,23 @@
+uuid: ea984bbe-4c03-4508-855f-8b949b374d88
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - finance
+_core:
+  default_config_hash: Q-4EcGAsu26ICu4ejEz0uE1zv4akpiaOsizxgZfAmEw
+id: finance_search
+theme: finance
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+  page_id: node_search
+visibility: {  }
