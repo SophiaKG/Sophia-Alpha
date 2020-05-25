@@ -50,12 +50,13 @@ class GraphGenerator
     /**
      * Builds a local graph with the ability to modify certain aspects of the build via
      * passed in filters
-     * @param GraphFilters $filters
-     *      filters to add details to how the graph is built
+     * @param array $filters
+     *      filters to add details to how the graph is built, mapped to struct in
+     *      GraphFilters constructor
      * @return string
      *      returns the server filepath of the graph generated
      */
-    public function buildGraphFromFilters(GraphFilters $filters){
+    public function buildGraphFromFilters(array $filters){
         try {
             $this->name = bin2hex(random_bytes(5));
         } catch (\Exception $e) { }
