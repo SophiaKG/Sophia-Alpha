@@ -38,10 +38,19 @@ class QueryBuilder
 
     public static function buildCustomLocalGraph($query_name, GraphFilters $filters){
 
-        Helper::log('loop setup');
-        $sub_q = self::expandGraphToK($filters);
+        Helper::log('loop setup for ' . $filters->start_node);
 
-        return self::buildMirroredQuery($query_name, $sub_q);
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
+            self::GRAPH_WORKING_DIR . $query_name . '.rdf');
+
+        //Form the entire query
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL .
+            'CONSTRUCT ' . self::expandGraphToK($filters, false) .
+            'WHERE ' . self::expandGraphToK($filters, true)
+        );
+
+        return $q;
     }
 
     /**
@@ -55,20 +64,28 @@ class QueryBuilder
      * @param GraphFilters $filters
      *      Filters passed in from the form to customise how the query is built
      *
+     * @param bool $build_where
      * @return string
      *      The built sub-query (select element) to k-neighbourhood
      */
-    private static function expandGraphToK(GraphFilters $filters){
+    private static function expandGraphToK(GraphFilters $filters, bool $build_where){
 
+        //start label of query, go to it's subject
         $q = '{ ?a1 ?predicate0 "' . $filters->start_node . '" . ';
 
-        Helper::log('just before loop');
+        $debug_where = $build_where ? 'true' : 'false';
+        Helper::log('just before loop| where = ' . $debug_where);
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
         for($c = 1; $c <= $filters->steps; $c++){
-            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . ' ?a' . (string)($c + 1) . ' . ';
+            if($build_where)
+                $q .= 'OPTIONAL {';
+            $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . ' ?a' . (string)($c + 1);
+            if ($build_where)
+                $q .= ' }';
+            $q .=' . ';
             Helper::log('in loop', $c);
         }
-        Helper::log('post-loop');
+        Helper::log('post-loop| where = ' . $debug_where);
 
         //close the query
         $q .= '}';
@@ -76,6 +93,11 @@ class QueryBuilder
         return $q;
     }
 
+    /**@deprecated replace with
+     * @param $query_name
+     * @param $mirrored_q
+     * @return Query
+     */
     private static function buildMirroredQuery($query_name, $mirrored_q){
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,

@@ -70,9 +70,11 @@ class QueryManager
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
                 . $query->getDestination() . " 2>&1 | tee " . $query->getOutputPath();
+        Helper::log('Attempting to execute query: ' . $cmd);
         $res = shell_exec($cmd);
-        \drupal::logger('neptune_sync')->notice("Query executed, command: " . $cmd . "\nResults: " . $res);
-        Helper::log('Query executed: ' . $cmd);
+        //\drupal::logger('neptune_sync')->notice("Query executed, command: " . $cmd . "\nResults: " . $res);
+        Helper::log('Query executed.');
+        //Helper::log('Result: ' . $res);
     }
 }
 
