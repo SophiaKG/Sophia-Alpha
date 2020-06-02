@@ -82,7 +82,7 @@ class GraphGenerator
         $cmd = 'python3 ' . self::GRAPH_VISUALIZER_PATH . ' -o ' . self::MODULE_RESOURCE_DIR
             . 'dot/' . $this->name . '.dot ' . QueryBuilder::GRAPH_WORKING_DIR .
             $this->name . '.rdf 2>&1';
-        $res = shell_exec($cmd);
+        $res = utf8_encode(shell_exec($cmd));
 
         //log
         \drupal::logger('neptune_syn c') ->notice('Graph ' . $this->name .
@@ -99,7 +99,7 @@ class GraphGenerator
         $cmd = 'dot -T' . self::GRAPH_FILETYPE . ' -o sites/default/files/graphs/'
             . $this->name . '.' . self::GRAPH_FILETYPE . ' ' . self::MODULE_RESOURCE_DIR
             . 'dot/' . $this->name . '.dot 2>&1';
-        $res = shell_exec($cmd);
+        $res = utf8_encode(shell_exec($cmd));
 
         //log
         \drupal::logger('neptune_sync') ->notice('Graph ' . $this->name .

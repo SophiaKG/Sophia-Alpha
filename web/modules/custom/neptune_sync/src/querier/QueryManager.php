@@ -51,6 +51,19 @@ class QueryManager
     }
 
     /**
+     * encodes c++/java string encodings out to be utf-8 compliant
+     * @todo
+     *      This is terribly done but i have nor the time and patients to fix right now. It works but will redo in the near future for a cleaner solution
+     *
+     *
+     * @param $res
+     * @return mixed
+     */
+    private function processResults($res){
+        return json_decode('"'.$res.'"');
+    }
+
+    /**
      * Separated from run query for encapsulation principles despite having similar
      * functionality
      * @param $query query
@@ -69,11 +82,21 @@ class QueryManager
      */
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
-                . $query->getDestination() . " 2>&1 | tee " . $query->getOutputPath();
+                . $query->getDestination() . " 2>> neptune_sync.log";
         Helper::log('Attempting to execute query: ' . $cmd);
+
+        //rune query
         $res = shell_exec($cmd);
-        //\drupal::logger('neptune_sync')->notice("Query executed, command: " . $cmd . "\nResults: " . $res);
         Helper::log('Query executed.');
+
+        //write results
+        $res_file = fopen($query->getOutputPath(), "w");
+        Helper::log($res);
+        Helper::log(self::processResults($res));
+        fwrite($res_file, self::processResults($res));
+        fclose($res_file);
+        //\drupal::logger('neptune_sync')->notice("Query executed, command: " . $cmd . "\nResults: " . $res);
+
         //Helper::log('Result: ' . $res);
     }
 }
