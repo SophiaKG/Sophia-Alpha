@@ -82,7 +82,9 @@ class LocalGraphForm extends FormBase {
         ];
         $form['ignore_relationship_types_of'] = [
             '#type' => 'webform_entity_select',
+            //'#type' => 'webform_entity_checkboxes',
             '#title' => $this->t('Ignore relationship types of'),
+            //'#options_display' => 'three_columns',
             '#multiple' => TRUE,
             '#help' => $this->t('Do not explore down the provided relationship types'),
             '#target_type' => 'taxonomy_term',

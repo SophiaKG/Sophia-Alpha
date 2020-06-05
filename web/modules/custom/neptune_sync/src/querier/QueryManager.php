@@ -52,15 +52,15 @@ class QueryManager
 
     /**
      * encodes c++/java string encodings out to be utf-8 compliant
-     * @todo
-     *      This is terribly done but i have nor the time and patients to fix right now. It works but will redo in the near future for a cleaner solution
+     * @todo this should be done as a regex replace for more robustness
      *
      *
      * @param $res
      * @return mixed
      */
-    private function processResults($res){
-        return json_decode('"'.$res.'"');
+    private function processResults(&$res){
+        $res = str_replace('\u2011','-',$res);        
+        //return utf8_encode($res); // json_decode('"'.$res.'"');
     }
 
     /**
@@ -92,8 +92,10 @@ class QueryManager
         //write results
         $res_file = fopen($query->getOutputPath(), "w");
         Helper::log($res);
-        Helper::log(self::processResults($res));
-        fwrite($res_file, self::processResults($res));
+        self::processResults($res);
+        Helper::log($res);
+        //Helper::log(self::processResults($res));
+        fwrite($res_file, $res);
         fclose($res_file);
         //\drupal::logger('neptune_sync')->notice("Query executed, command: " . $cmd . "\nResults: " . $res);
 
