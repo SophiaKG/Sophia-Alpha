@@ -32,7 +32,7 @@ class GraphController extends ControllerBase
         ];
     }
 
-    public function test_template() {
+    public function testTemplate() {
         return [
             '#theme' => 'graph_template',
             '#test_var' => $this->t('Test Value'),

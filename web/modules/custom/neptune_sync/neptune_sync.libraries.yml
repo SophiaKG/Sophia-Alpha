@@ -1,0 +1,7 @@
+#neptune_sync.libraries.yml
+echart:
+    version: 1.x
+    css: {}
+    header: true
+    js:
+        js/echarts.min.js: {}

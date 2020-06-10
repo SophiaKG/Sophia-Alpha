@@ -37,7 +37,7 @@ neptune_sync.sparqlQueryForm:
 neptune_sync.testTemplate:
   path: '/testt'
   defaults:
-    _controller: '\Drupal\neptune_sync\Controller\GraphController::test_template'
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::testTemplate'
     _title: 'template test'
   requirements:
     _permission: 'access content'
