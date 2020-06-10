@@ -60,7 +60,8 @@ class QueryManager
      * @return mixed
      */
     private function processResults($res){
-        return json_decode('"'.$res.'"');
+        return $res;
+        //return json_decode('"'.$res.'"');
     }
 
     /**
@@ -94,7 +95,6 @@ class QueryManager
             Helper::log("out to file");
             //write results
             $res_file = fopen($query->getOutputPath(), "w");
-            Helper::log($res);
             Helper::log(self::processResults($res));
             fwrite($res_file, self::processResults($res));
             fclose($res_file);
