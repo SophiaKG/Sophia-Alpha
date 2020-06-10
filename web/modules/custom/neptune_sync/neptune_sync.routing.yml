@@ -27,4 +27,17 @@ neptune_sync.displayGraph:
     _title: 'Local Graph'
   requirements:
     _permission: 'access content'
-
+neptune_sync.sparqlQueryForm:
+  path: '/sparql-query'
+  defaults:
+    _form: '\Drupal\neptune_sync\Form\SparqlQueryForm'
+    _title: 'Sparql Query form'
+  requirements:
+    _permission: 'access content'
+neptune_sync.testTemplate:
+  path: '/testt'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::test_template'
+    _title: 'template test'
+  requirements:
+    _permission: 'access content'

@@ -18,7 +18,7 @@ class Query {
      * [WEB_ROOT]/drupal8/web/ */
     protected $output_path;
 
-    public function __construct($dest, $out_path){
+    public function __construct($dest, $out_path=null){
 
         $this->destination = $dest;
         $this->output_path = $out_path;

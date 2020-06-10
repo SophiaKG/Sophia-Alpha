@@ -16,5 +16,16 @@ function neptune_sync_cron()
     $query_manager = new querier\QueryManager();
     $query_manager->syncAllDatasets();
 }
+
+/**
+ * Implements hook_theme().
+ */
+function neptune_sync_theme($existing, $type, $theme, $path) {
+  return [
+      'graph_template' => [
+          'variables' => ['test_var' => NULL],
+      ],
+  ];
+}
     
     

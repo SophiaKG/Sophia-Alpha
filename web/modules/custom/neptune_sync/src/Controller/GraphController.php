@@ -31,4 +31,12 @@ class GraphController extends ControllerBase
             '#markup' => '<img src="/drupal8/web/' . QueryBuilder::GRAPH_WORKING_DIR . $graphid . '">',
         ];
     }
+
+    public function test_template() {
+        return [
+            '#theme' => 'my_template',
+            '#test_var' => $this->t('Test Value'),
+        ];
+
+    }
 }
