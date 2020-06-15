@@ -24,7 +24,8 @@
         "flow/jsonpath": "~0.3",
         "drupal/token": "^1.7",
         "drupal/views_bulk_operations": "^2.6",
-        "drupal/webform": "^5.12"
+        "drupal/webform": "^5.12",
+        "easyrdf/easyrdf": "^0.9.1"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"

@@ -81,6 +81,7 @@ class QueryManager
      * @param $query
      *      The SPARQL query to wrap the execute command around
      * @return string|null
+     *      The queries result. Normally a graph in RDF form or a select result in json
      */
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
@@ -91,6 +92,8 @@ class QueryManager
         $res = shell_exec($cmd);
         Helper::log('Query executed.');
         Helper::log('Result: ' . $res);
+
+        //@todo: is this needed after the new graph rewrite?
         if($query->getOutputPath() != null) {
             Helper::log("out to file");
             //write results
@@ -98,12 +101,9 @@ class QueryManager
             Helper::log(self::processResults($res));
             fwrite($res_file, self::processResults($res));
             fclose($res_file);
+        }
 
-        }
-        else {
-            Helper::log('out to return');
-            return $res;
-        }
+        return self::processResults($res);
     }
 }
 

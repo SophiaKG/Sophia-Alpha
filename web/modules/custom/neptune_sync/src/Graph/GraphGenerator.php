@@ -5,6 +5,7 @@ namespace Drupal\neptune_sync\Graph;
 
 use Drupal\neptune_sync\querier\QueryBuilder;
 use Drupal\neptune_sync\querier\QueryManager;
+use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
 
 /**
@@ -65,10 +66,23 @@ class GraphGenerator
         $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
 
         $query_mgr = new QueryManager();
-        $query_mgr->runCustomQuery($this->query);
+        $graph_rdf = $query_mgr->runCustomQuery($this->query);
 
+        $this->rdfToGraph($graph_rdf);
         $this->buildGraph();
         return $this->formatGraph();
+    }
+
+    private function rdfToGraph($rdf){
+        $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
+        //kint(\EasyRdf_Format::getFormats());
+       // Helper::var_dump(\EasyRdf_Format::getFormats(), "formats");
+        $graph->parse($rdf, 'turtle');
+
+        Helper::log("easy rdf graph dump");
+        Helper::log($graph->dump());
+        Helper::log("dump complete");
+        kint($graph->toRdfPhp());
     }
 
     /**
@@ -85,7 +99,7 @@ class GraphGenerator
         $res = shell_exec($cmd);
 
         //log
-        \drupal::logger('neptune_syn c') ->notice('Graph ' . $this->name .
+        \drupal::logger('neptune_sync')->notice('Graph ' . $this->name .
             ' created. Cmd: ' . $cmd . "\n\nExec result:\n" . $res);
     }
 
@@ -102,7 +116,7 @@ class GraphGenerator
         $res = shell_exec($cmd);
 
         //log
-        \drupal::logger('neptune_sync') ->notice('Graph ' . $this->name .
+        \drupal::logger('neptune_sync')->notice('Graph ' . $this->name .
             ' converted to svg. Cmd: ' . $cmd . "\n\nExec result:\n" . $res);
 
         return '/sites/default/files/graphs/' . $this->name . '.' . self::GRAPH_FILETYPE;

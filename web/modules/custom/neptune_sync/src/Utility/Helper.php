@@ -27,4 +27,14 @@ class Helper
         }
         file_put_contents('neptune_sync.log', $str, FILE_APPEND);
     }
+
+    public static function var_dump($var, $text = null){
+        if($text != null)
+            Helper::log($text);
+
+        ob_flush();
+        ob_start();
+        self::var_dump($var);
+        Helper::log(ob_get_flush());
+    }
 }

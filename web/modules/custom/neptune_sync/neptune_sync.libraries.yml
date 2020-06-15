@@ -6,4 +6,4 @@ echart:
             css/echarts.css: {}
     header: true
     js:
-        js/echarts.min.js: {}
+        js/echarts.js: {}
