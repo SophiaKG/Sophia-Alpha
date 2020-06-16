@@ -99,12 +99,29 @@ class GraphGenerator
                     if($resource_b->getUri() == "http://www.w3.org/2002/07/owl#Class")
                         continue;
 
-                    $nodes[$resource_b->getUri()] = array('id'=>$resource_b->getUri(), 'label' => $resource_b->localName(), 'color' => '#1969c7', 'category' => $resource_b->type());
-                    $edges[$resource->getUri() . $resource_b->getUri()] = array('sourceID'=> $resource->getUri(), 'label' => $edge, 'targetID' => $resource_b->getUri());
+                    $nodes[$resource_b->getUri()] = array('id'=>$resource_b->getUri(),
+                                                            'label' => $resource_b->localName(),
+                                                            'color' => '#1969c7',
+                                                            'shape' => 'circle',
+                                                            'category' => $resource_b->type()
+                                                        );
+                    $edges[$resource->getUri() . $resource_b->getUri()] = array(
+                                                            'sourceID'=> $resource->getUri(),
+                                                            'label' => $edge,
+                                                            'targetID' => $resource_b->getUri()
+                                                        );
                 }
                 foreach($resource->allLiterals($edge) as $literal){ //for labels
-                    $nodes[$literal->getValue()] = array('id'=>$literal->getValue(), 'label' => $literal->getvalue(), 'color' => '#edbe13', 'category' => 'rdfs:label');
-                    $edges[$resource->getUri() . $literal->getValue()] = array('sourceID'=> $resource->getUri(), 'label' => $edge, 'targetID' => $literal->getValue());
+                    $nodes[$literal->getValue()] = array('id'=>$literal->getValue(),
+                                                            'label' => $literal->getvalue(),
+                                                            'color' => '#edbe13',
+                                                            'shape' => 'rect',
+                                                            'category' => 'rdfs:label'
+                                                        );
+                    $edges[$resource->getUri() . $literal->getValue()] = array(
+                                                            'sourceID'=> $resource->getUri(),
+                                                            'label' => $edge,
+                                                            'targetID' => $literal->getValue());
                 }
             }
             //add labels

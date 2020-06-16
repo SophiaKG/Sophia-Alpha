@@ -19,6 +19,8 @@
                 {
                     type: 'graph',
                     layout: 'force',
+                    edgeSymbol: ['circle', 'arrow'],
+                    edgeSymbolSize: [4, 10],
                     // progressiveThreshold: 700,
                     data: json.nodes.map(function (node) {
                         return {
@@ -26,7 +28,13 @@
                             y: null,
                             id: node.id,
                             name: node.label,
+                            symbol: node.shape,
                             symbolSize: 10,
+                            draggable: true,
+                            label: {
+                                show: true,
+                                position: 'inside'
+                            },
                             itemStyle: {
                                 color: node.color
                             }
@@ -35,23 +43,30 @@
                     edges: json.edges.map(function (edge) {
                         return {
                             source: edge.sourceID,
-                            target: edge.targetID,
-                            name: edge.label
+                            target: edge.targetID
+                            /*label: {
+                                show: true,
+
+                            }*/
                         };
                     }),
-                    emphasis: {
+                    /*emphasis: {
                         label: {
                             position: 'right',
                             show: true
                         }
-                    },
+                    },*/
                     roam: true,
                     focusNodeAdjacency: true,
                     lineStyle: {
-                        width: 2,
+                        width: 1,
                         curveness: 0,
-                        opacity: 0.8
-                    }
+                        opacity: 0.7
+                    },
+                    /*force: {
+                        repulsion: 100,
+                        friction: .9
+                    }*/
                 }
             ]
         }, true);
