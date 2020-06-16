@@ -83,6 +83,53 @@ class GraphGenerator
         Helper::log($graph->dump());
         Helper::log("dump complete");
         kint($graph->toRdfPhp());
+        kint($graph->resources());
+        $reso = $graph->resources();
+
+        $nodes = [];
+        $edges = [];
+
+        foreach($graph->resources() as $resource){
+
+            $nodes[$resource->getUri()] = array('id'=>$resource->getUri(), 'label' => $resource->localName(), 'color' => '#1969c7', 'category' => $resource->type());
+
+
+            foreach($resource->properties() as $edge){
+                foreach($resource->allResources($edge) as $resource_b){  //for resources
+                    if($resource_b->getUri() == "http://www.w3.org/2002/07/owl#Class")
+                        continue;
+
+                    $nodes[$resource_b->getUri()] = array('id'=>$resource_b->getUri(), 'label' => $resource_b->localName(), 'color' => '#1969c7', 'category' => $resource_b->type());
+                    $edges[$resource->getUri() . $resource_b->getUri()] = array('sourceID'=> $resource->getUri(), 'label' => $edge, 'targetID' => $resource_b->getUri());
+                }
+                foreach($resource->allLiterals($edge) as $literal){ //for labels
+                    $nodes[$literal->getValue()] = array('id'=>$literal->getValue(), 'label' => $literal->getvalue(), 'color' => '#edbe13', 'category' => 'rdfs:label');
+                    $edges[$resource->getUri() . $literal->getValue()] = array('sourceID'=> $resource->getUri(), 'label' => $edge, 'targetID' => $literal->getValue());
+                }
+            }
+            //add labels
+        }
+
+        $json = json_encode(array('nodes' => array_values($nodes), 'edges' => array_values($edges)));
+        Helper::log($json);
+
+
+
+        /*$node = 'file:///home/andnfitz/GovernmentEntities.owl#CommonwealthBody';
+        kint($reso[$node]->properties());
+        kint($reso[$node]->types());
+        kint($reso[$node]->label());
+        kint($reso[$node]->shorten());
+        kint($reso[$node]->localName());
+        kint($reso[$node]->primaryTopic());
+
+        $node = 'file:///home/andnfitz/GovernmentEntities.owl#ASPOFFSHORECOMPANYLIMITED-GLOBALOPPORTUNITIESSECONDARYFUNDII-A';*/
+       /* kint($reso[$node]->properties());
+        kint($reso[$node]->types());
+        kint($reso[$node]->label());
+        kint($reso[$node]->shorten());
+        kint($reso[$node]->localName());
+        kint($reso[$node]->primaryTopic());*/
     }
 
     /**

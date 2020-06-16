@@ -1,70 +1,59 @@
 {# neptune_sync/templates/my-template.html.twig #}
 {{ attach_library('neptune_sync/echart') }}
-<p>Test twig template!</p>
 
-<p>test_var: swwop {{ test_var }}</p>
-
-
-<!-- prepare a DOM container with width and height -->
-<div id="maingraph" style="width: 600px;height:400px;"></div>
+<div id="maingraph" style="width: 1700px;height:600px;"></div>
 <script type="text/javascript">
     // based on prepared DOM, initialize echarts instance
     var myChart = echarts.init(document.getElementById('maingraph'));
 
     myChart.showLoading();
-    $.get('les-miserables.gexf', function (xml) {
+    $.getJSON('http://3.25.10.229/filedump/graph.json', function (json) {
         myChart.hideLoading();
-
-        var graph = echarts.dataTool.gexf.parse(xml);
-        var categories = [];
-        for (var i = 0; i < 9; i++) {
-            categories[i] = {
-                name: '类目' + i
-            };
-        }
-        graph.nodes.forEach(function (node) {
-            node.itemStyle = null;
-            node.symbolSize = 10;
-            node.value = node.symbolSize;
-            node.category = node.attributes.modularity_class;
-            // Use random x, y
-            node.x = node.y = null;
-            node.draggable = true;
-        });
-        option = {
+        myChart.setOption(option = {
             title: {
-                text: 'Les Miserables',
-                subtext: 'Default layout',
-                top: 'bottom',
-                left: 'right'
+                text: 'testgraph'
             },
-            tooltip: {},
-            legend: [{
-                // selectedMode: 'single',
-                data: categories.map(function (a) {
-                    return a.name;
-                })
-            }],
-            animation: false,
+            animationDurationUpdate: 1500,
+            animationEasingUpdate: 'quinticInOut',
             series : [
                 {
-                    name: 'Les Miserables',
                     type: 'graph',
                     layout: 'force',
-                    data: graph.nodes,
-                    links: graph.links,
-                    categories: categories,
-                    roam: true,
-                    label: {
-                        position: 'right'
+                    // progressiveThreshold: 700,
+                    data: json.nodes.map(function (node) {
+                        return {
+                            x: null,
+                            y: null,
+                            id: node.id,
+                            name: node.label,
+                            symbolSize: 10,
+                            itemStyle: {
+                                color: node.color
+                            }
+                        };
+                    }),
+                    edges: json.edges.map(function (edge) {
+                        return {
+                            source: edge.sourceID,
+                            target: edge.targetID,
+                            name: edge.label
+                        };
+                    }),
+                    emphasis: {
+                        label: {
+                            position: 'right',
+                            show: true
+                        }
                     },
-                    force: {
-                        repulsion: 100
+                    roam: true,
+                    focusNodeAdjacency: true,
+                    lineStyle: {
+                        width: 2,
+                        curveness: 0,
+                        opacity: 0.8
                     }
                 }
             ]
-        };
-
-        myChart.setOption(option);
-    }, 'xml');
+        }, true);
+    });
 </script>
