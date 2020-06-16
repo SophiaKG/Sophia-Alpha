@@ -35,9 +35,9 @@ neptune_sync.sparqlQueryForm:
   requirements:
     _permission: 'access content'
 neptune_sync.testTemplate:
-  path: '/testt'
+  path: '/graph/dynamic/{nodename}'
   defaults:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::testTemplate'
-    _title: 'template test'
+    _title: ''
   requirements:
     _permission: 'access content'

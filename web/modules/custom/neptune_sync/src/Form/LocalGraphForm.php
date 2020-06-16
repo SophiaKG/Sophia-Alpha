@@ -157,14 +157,14 @@ class LocalGraphForm extends FormBase {
 
         $filters = $form_state->getValues();
         $graphGen = new GraphGenerator();
-        $graph_path = $graphGen->buildGraphFromFilters($filters);
+        /*$graph_path = */$graphGen->buildGraphFromFilters($filters);
 
         //extract graph id from the built graph path XXX this might be done better in the future?
-        $graph_id = substr($graph_path, strripos($graph_path, '/') + 1);
+        //$graph_id = substr($graph_path, strripos($graph_path, '/') + 1);
 
         //call simple route and redirect to it
-        $path = \Drupal\Core\Url::fromRoute('neptune_sync.displayGraph',
-            ['graphid' => $graph_id])->toString();
+        $path = \Drupal\Core\Url::fromRoute('neptune_sync.testTemplate',
+            ['nodename' => $filters['node_title']])->toString();
         $response = new RedirectResponse($path);
         $response->send();
     }

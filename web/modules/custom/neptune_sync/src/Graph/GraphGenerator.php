@@ -69,8 +69,8 @@ class GraphGenerator
         $graph_rdf = $query_mgr->runCustomQuery($this->query);
 
         $this->rdfToGraph($graph_rdf);
-        $this->buildGraph();
-        return $this->formatGraph();
+        /*$this->buildGraph();
+        return $this->formatGraph();*/
     }
 
     private function rdfToGraph($rdf){
@@ -82,8 +82,8 @@ class GraphGenerator
         Helper::log("easy rdf graph dump");
         Helper::log($graph->dump());
         Helper::log("dump complete");
-        kint($graph->toRdfPhp());
-        kint($graph->resources());
+        //kint($graph->toRdfPhp());
+        //kint($graph->resources());
         $reso = $graph->resources();
 
         $nodes = [];
@@ -112,7 +112,7 @@ class GraphGenerator
 
         $json = json_encode(array('nodes' => array_values($nodes), 'edges' => array_values($edges)));
         Helper::log($json);
-
+        file_put_contents('../../filedump/graph.json', $json);
 
 
         /*$node = 'file:///home/andnfitz/GovernmentEntities.owl#CommonwealthBody';
