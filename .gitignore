@@ -39,3 +39,7 @@
 # ignore Sophia specific files
 /web/neptune_sync.log
 
+#ignore unused reasources created by composer
+/modules
+/profiles
+/themes

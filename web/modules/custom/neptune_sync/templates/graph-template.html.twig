@@ -11,21 +11,20 @@
     (function() {
         myChart.hideLoading();
         var json = JSON.parse('{{ graph_json }}'.replace(/&quot;/g,'"'));
-
-        //var categories = ["rdfs:label","owl:NamedIndividual","owl:Class","misc"];
+        //var categories = ['rdfs:label','owl:NamedIndividual','owl:Class','misc'];
         myChart.setOption(option = {
             title: {
                 text: "{{ graph_name }}"
             },
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
-            /*tooltip: {},
+            tooltip: {},
             legend: [{
                 // selectedMode: 'single',
-                data: categories.map(function (a) {
-                    return a;
+                data: json.category.map(function (a) {
+                    return a.name;
                 })
-            }],*/
+            }],
             series : [
                 {
                     type: 'graph',
@@ -69,7 +68,7 @@
                         }
                     },*/
                     roam: true,
-                    //categories: categories,
+                    categories: json.category,
                     focusNodeAdjacency: true,
                     lineStyle: {
                         width: 1,

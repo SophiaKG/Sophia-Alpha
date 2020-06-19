@@ -86,11 +86,17 @@ class GraphGenerator
 
         $nodes = [];
         $edges = [];
+        $cat = [];
 
         foreach($graph->resources() as $resource){
 
-            $nodes[$resource->getUri()] = array('id'=>$resource->getUri(), 'label' => $resource->localName(), 'color' => '#1969c7', 'category' => $resource->type());
+            $nodes[$resource->getUri()] = array('id'=>$resource->getUri(),
+                                                'label' => $resource->localName(),
+                                                'color' => '#1969c7',
+                                                'category' => $this->getType($resource)
+                                            );
 
+            $cat[$this->getType($resource)] = array('name' =>  $this->getType($resource));
 
             foreach($resource->properties() as $edge){
                 foreach($resource->allResources($edge) as $resource_b){  //for resources
@@ -101,13 +107,14 @@ class GraphGenerator
                                                             'label' => $resource_b->localName(),
                                                             'color' => '#1969c7',
                                                             'shape' => 'circle',
-                                                            'category' => $resource_b->type()
+                                                            'category' => $this->getType($resource_b)
                                                         );
                     $edges[$resource->getUri() . $resource_b->getUri()] = array(
                                                             'sourceID'=> $resource->getUri(),
                                                             'label' => $edge,
                                                             'targetID' => $resource_b->getUri()
                                                         );
+                    $cat[$this->getType($resource_b)] = array('name' =>  $this->getType($resource_b));
                 }
                 foreach($resource->allLiterals($edge) as $literal){ //for labels
                     $nodes[$literal->getValue()] = array('id'=>$literal->getValue(),
@@ -125,7 +132,10 @@ class GraphGenerator
             //add labels
         }
 
-        return json_encode(array('nodes' => array_values($nodes), 'edges' => array_values($edges)));
+        $cat['rdfs:label'] = array('name' => 'rdfs:label');
+
+        $json = json_encode(array('category' => array_values($cat), 'nodes' => array_values($nodes), 'edges' => array_values($edges)));
+        return str_replace('"category":null', '"category":"misc"', $json);
 
         /*$node = 'file:///home/andnfitz/GovernmentEntities.owl#CommonwealthBody';
         kint($reso[$node]->properties());
@@ -142,6 +152,13 @@ class GraphGenerator
         kint($reso[$node]->shorten());
         kint($reso[$node]->localName());
         kint($reso[$node]->primaryTopic());*/
+    }
+
+    private function getType($resource){
+        if($resource->type() != null)
+            return $resource->type();
+        else
+            return "misc";
     }
 
     /**
