@@ -7,14 +7,25 @@
     var myChart = echarts.init(document.getElementById('maingraph'));
 
     myChart.showLoading();
-    $.getJSON('http://3.25.10.229/filedump/graph.json', function (json) {
+
+    (function() {
         myChart.hideLoading();
+        var json = JSON.parse('{{ graph_json }}'.replace(/&quot;/g,'"'));
+
+        //var categories = ["rdfs:label","owl:NamedIndividual","owl:Class","misc"];
         myChart.setOption(option = {
             title: {
-                text: "{{ test_var }}"
+                text: "{{ graph_name }}"
             },
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
+            /*tooltip: {},
+            legend: [{
+                // selectedMode: 'single',
+                data: categories.map(function (a) {
+                    return a;
+                })
+            }],*/
             series : [
                 {
                     type: 'graph',
@@ -31,6 +42,7 @@
                             symbol: node.shape,
                             symbolSize: 10,
                             draggable: true,
+                            category: node.category,
                             label: {
                                 show: true,
                                 position: 'inside'
@@ -57,6 +69,7 @@
                         }
                     },*/
                     roam: true,
+                    //categories: categories,
                     focusNodeAdjacency: true,
                     lineStyle: {
                         width: 1,
@@ -70,5 +83,5 @@
                 }
             ]
         }, true);
-    });
+    })();
 </script>

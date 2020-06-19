@@ -24,7 +24,7 @@ class GraphGenerator
     protected $name;
     protected $query;
 
-    /**
+    /**@TODO edit this
      * Builds a local graph to (currently) one step from the passed in node.
      * Logic: hash-name -> build query -> execute query -> build graph structure
      *          -> visualize graph
@@ -35,20 +35,18 @@ class GraphGenerator
      */
     public function buildGraphFromNode(NodeInterface $node){
 
-        try {
-            $this->name = bin2hex(random_bytes(5));
-        } catch (\Exception $e) { }
-
-        $this->query = QueryBuilder::buildLocalGraph($this->name, $node->getTitle());
-
+        $this->query = QueryBuilder::buildCustomLocalGraph($node);
         $query_mgr = new QueryManager();
-        $query_mgr->runCustomQuery($this->query);
+        //$query_mgr->runCustomQuery($this->query);
 
-        $this->buildGraph();
-        return $this->formatGraph();
+        $xxx = $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+        Helper::log("xxx = " . $xxx);
+
+        return $xxx;
     }
 
     /**
+     * @deprecated by echarts
      * Builds a local graph with the ability to modify certain aspects of the build via
      * passed in filters
      * @param array $filters
@@ -127,10 +125,7 @@ class GraphGenerator
             //add labels
         }
 
-        $json = json_encode(array('nodes' => array_values($nodes), 'edges' => array_values($edges)));
-        Helper::log($json);
-        file_put_contents('../../filedump/graph.json', $json);
-
+        return json_encode(array('nodes' => array_values($nodes), 'edges' => array_values($edges)));
 
         /*$node = 'file:///home/andnfitz/GovernmentEntities.owl#CommonwealthBody';
         kint($reso[$node]->properties());

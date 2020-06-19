@@ -5,6 +5,7 @@ namespace Drupal\neptune_sync\querier;
 use Drupal\neptune_sync\Graph\GraphFilters;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\neptune_sync\Utility\Helper;
+use Drupal\node\NodeInterface;
 
 /**
  * Class QueryBuilder
@@ -36,24 +37,24 @@ class QueryBuilder
         return self::buildMirroredQuery($query_name, $sub_q);
     }
 
-    public static function buildCustomLocalGraph($query_name, GraphFilters $filters){
+    public static function buildCustomLocalGraph(NodeInterface $node){
 
-        Helper::log('loop setup for ' . $filters->start_node);
+        Helper::log('loop setup for ' . $node->getTitle());
 
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT,
-            self::GRAPH_WORKING_DIR . $query_name . '.rdf');
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
 
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL .
-            'CONSTRUCT ' . self::expandGraphToK($filters, false) .
-            'WHERE ' . self::expandGraphToK($filters, true)
+            'CONSTRUCT ' . self::expandGraphToK($node->getTitle(), false) .
+            'WHERE ' . self::expandGraphToK($node->getTitle(), true)
         );
 
         return $q;
     }
 
     /**
+     * @TODO fix this, k is hard coded to 2
      * Builds a select statement that grows by $k
      * It is formats as:
      *       ?a1  ?p1 ?[STARTNODE] .
@@ -68,15 +69,15 @@ class QueryBuilder
      * @return string
      *      The built sub-query (select element) to k-neighbourhood
      */
-    private static function expandGraphToK(GraphFilters $filters, bool $build_where){
+    private static function expandGraphToK(string $start_node, bool $build_where){
 
         //start label of query, go to it's subject
-        $q = '{ ?a1 ?predicate0 "' . $filters->start_node . '" . ';
+        $q = '{ ?a1 ?predicate0 "' . $start_node . '" . ';
 
         $debug_where = $build_where ? 'true' : 'false';
         Helper::log('just before loop| where = ' . $debug_where);
         //keep looping, feeding the query into itself vi $c + 1 till K is reached
-        for($c = 1; $c <= $filters->steps; $c++){
+        for($c = 1; $c <= 2; $c++){
             if($build_where)
                 $q .= 'OPTIONAL {';
             $q .= '?a' . (string)$c . ' ?predicate' . (string)$c . ' ?a' . (string)($c + 1);

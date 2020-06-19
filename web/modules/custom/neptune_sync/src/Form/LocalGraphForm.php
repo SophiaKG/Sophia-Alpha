@@ -10,6 +10,7 @@ use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
+ * @deprecated by echarts dynamic display
  * Class LocalGraphForm
  * @package Drupal\neptune_sync\Form
  * @author Alexis Harper | DoF

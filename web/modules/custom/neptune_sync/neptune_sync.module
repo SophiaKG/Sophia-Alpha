@@ -23,7 +23,7 @@ function neptune_sync_cron()
 function neptune_sync_theme($existing, $type, $theme, $path) {
   return [
       'graph_template' => [
-          'variables' => ['test_var' => NULL],
+          'variables' => ['graph_name' => NULL, 'graph_json' => NULL],
       ],
   ];
 }

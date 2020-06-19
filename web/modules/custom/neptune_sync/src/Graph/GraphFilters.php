@@ -3,6 +3,7 @@
 namespace Drupal\neptune_sync\Graph;
 
 /**
+ * @deprecated by echarts
  * A struct class for storing filters to be applied to a graph generation.
  * @package Drupal\neptune_sync\Graph
  * @author Alexis Harper | DoF

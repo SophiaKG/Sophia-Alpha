@@ -34,10 +34,14 @@ neptune_sync.sparqlQueryForm:
     _title: 'Sparql Query form'
   requirements:
     _permission: 'access content'
-neptune_sync.testTemplate:
-  path: '/graph/dynamic/{nodename}'
+neptune_sync.displayIntGraph:
+  path: '/node/{node}/graph'
   defaults:
-    _controller: '\Drupal\neptune_sync\Controller\GraphController::testTemplate'
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::displayIntGraph'
     _title: ''
   requirements:
     _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
