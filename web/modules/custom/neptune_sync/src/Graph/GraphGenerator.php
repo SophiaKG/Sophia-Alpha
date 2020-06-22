@@ -73,92 +73,95 @@ class GraphGenerator
 
     private function rdfToGraph($rdf){
         $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
-        //kint(\EasyRdf_Format::getFormats());
-       // Helper::var_dump(\EasyRdf_Format::getFormats(), "formats");
         $graph->parse($rdf, 'turtle');
-
-        Helper::log("easy rdf graph dump");
-        Helper::log($graph->dump());
-        Helper::log("dump complete");
-        //kint($graph->toRdfPhp());
-        //kint($graph->resources());
-        $reso = $graph->resources();
 
         $nodes = [];
         $edges = [];
         $cat = [];
 
-        foreach($graph->resources() as $resource){
+        foreach($graph->resources() as $resource) {
 
-            $nodes[$resource->getUri()] = array('id'=>$resource->getUri(),
-                                                'label' => $resource->localName(),
-                                                'color' => '#1969c7',
-                                                'category' => $this->getType($resource)
-                                            );
+            //add root node
+            $nodes[$resource->getUri()] = $this->buildNode($resource);
 
-            $cat[$this->getType($resource)] = array('name' =>  $this->getType($resource));
+            //add its direct edges and their nodes
+            foreach ($resource->properties() as $edge) {
+                //resources and literals
+                foreach ($resource->all($edge) as $resource_b) {
 
-            foreach($resource->properties() as $edge){
-                foreach($resource->allResources($edge) as $resource_b){  //for resources
-                    if($resource_b->getUri() == "http://www.w3.org/2002/07/owl#Class")
-                        continue;
+                    $nodes[$this->getID($resource_b)] = $this->buildNode($resource_b);
+                    $edges[$this->getID($resource) . $this->getID($resource_b)] =
+                        $this->buildEdge($resource, $edge, $resource_b);
 
-                    $nodes[$resource_b->getUri()] = array('id'=>$resource_b->getUri(),
-                                                            'label' => $resource_b->localName(),
-                                                            'color' => '#1969c7',
-                                                            'shape' => 'circle',
-                                                            'category' => $this->getType($resource_b)
-                                                        );
-                    $edges[$resource->getUri() . $resource_b->getUri()] = array(
-                                                            'sourceID'=> $resource->getUri(),
-                                                            'label' => $edge,
-                                                            'targetID' => $resource_b->getUri()
-                                                        );
-                    $cat[$this->getType($resource_b)] = array('name' =>  $this->getType($resource_b));
-                }
-                foreach($resource->allLiterals($edge) as $literal){ //for labels
-                    $nodes[$literal->getValue()] = array('id'=>$literal->getValue(),
-                                                            'label' => $literal->getvalue(),
-                                                            'color' => '#edbe13',
-                                                            'shape' => 'rect',
-                                                            'category' => 'rdfs:label'
-                                                        );
-                    $edges[$resource->getUri() . $literal->getValue()] = array(
-                                                            'sourceID'=> $resource->getUri(),
-                                                            'label' => $edge,
-                                                            'targetID' => $literal->getValue());
+                    //add the type of both nodes to the distinct category set
+                    $cat[$this->getType($resource)] =
+                        array('name' => $this->getType($resource));
+                    $cat[$this->getType($resource_b)] =
+                        array('name' => $this->getType($resource_b));
                 }
             }
-            //add labels
         }
+        $json = json_encode(array('category' => array_values($cat),
+                                    'nodes' => array_values($nodes),
+                                    'edges' => array_values($edges)));
 
-        $cat['rdfs:label'] = array('name' => 'rdfs:label');
+        //kint($json);
+        Helper::log($json);
 
-        $json = json_encode(array('category' => array_values($cat), 'nodes' => array_values($nodes), 'edges' => array_values($edges)));
-        return str_replace('"category":null', '"category":"misc"', $json);
+        return $json;
+    }
 
-        /*$node = 'file:///home/andnfitz/GovernmentEntities.owl#CommonwealthBody';
-        kint($reso[$node]->properties());
-        kint($reso[$node]->types());
-        kint($reso[$node]->label());
-        kint($reso[$node]->shorten());
-        kint($reso[$node]->localName());
-        kint($reso[$node]->primaryTopic());
+    private function buildNode($resource){
 
-        $node = 'file:///home/andnfitz/GovernmentEntities.owl#ASPOFFSHORECOMPANYLIMITED-GLOBALOPPORTUNITIESSECONDARYFUNDII-A';*/
-       /* kint($reso[$node]->properties());
-        kint($reso[$node]->types());
-        kint($reso[$node]->label());
-        kint($reso[$node]->shorten());
-        kint($reso[$node]->localName());
-        kint($reso[$node]->primaryTopic());*/
+        //don't add Owl:class
+        if($this->getID($resource) == "http://www.w3.org/2002/07/owl#Class")
+            return array();
+
+        //If the node is a label
+        if(is_a($resource, 'EasyRdf_Literal')){
+            return array('id'=>$resource->getValue(),
+                'label' => $resource->getvalue(),
+                /*'color' => '#edbe13',*/
+                'shape' => 'rect',
+                'category' => $this->getType($resource)
+            );
+        } //if the node is a resource
+        else if(is_a($resource, 'EasyRdf_Resource')) {
+            return array('id' => $resource->getUri(),
+                'label' => $resource->localName(),
+                /*'color' => '#1969c7',*/
+                'shape' => 'circle',
+                'category' => $this->getType($resource)
+            );
+        }
+    }
+
+    private function buildEdge($a, $edge, $b){
+        return array(
+            'sourceID'=> $this->getID($a),
+            'label' => $edge,
+            'targetID' => $this->getID($b));
+    }
+
+    private function getID($resource){
+        if(is_a($resource, 'EasyRdf_Literal'))
+            return $resource->getValue();
+        elseif(is_a($resource, 'EasyRdf_Resource'))
+            return $resource->getUri();
     }
 
     private function getType($resource){
-        if($resource->type() != null)
-            return $resource->type();
-        else
-            return "misc";
+
+        $type = '';
+        if (is_a($resource, 'EasyRdf_Literal')) {
+            $type = 'rdfs:label';
+        } else if ($resource->type() != null) {
+            $type = $resource->type();
+        } else {
+            $type = 'misc';
+        }
+
+        return $type;
     }
 
     /**
