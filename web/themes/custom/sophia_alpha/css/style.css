@@ -4,3 +4,23 @@ a.nav-link{
 a.nav-link:hover {
     color: #b8bfc5;
 }
+
+article.node--type-legislation .node__meta {
+    display: none;
+}
+
+article.node--type-bodies .node__meta {
+    display: none;
+}
+
+article.node--type-portfolios .node__meta {
+    display: none;
+}
+
+article.node--type-bodies .field {
+    margin: 0 0 1.2em;
+}
+
+article.node--type-bodies .field .field__label {
+    font-weight: 800;
+}

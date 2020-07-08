@@ -45,12 +45,13 @@ class GraphController extends ControllerBase
         ];
     }
 
+    /**
+     * @param NodeInterface $node
+     * @return array returns variables to template
+     */
     public function displayIntGraph(NodeInterface $node) {
-        Helper::log("in controller for: " . $node->getTitle());
         $graphGen = new GraphGenerator();
         $json = $graphGen->buildGraphFromNode($node);
-
-        Helper::log("template json pre send: \n\n" . $json);
 
         return [
             '#theme' => 'graph_template',

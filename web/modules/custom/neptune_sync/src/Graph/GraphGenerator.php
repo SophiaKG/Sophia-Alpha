@@ -7,6 +7,8 @@ use Drupal\neptune_sync\querier\QueryBuilder;
 use Drupal\neptune_sync\querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
+use EasyRdf_Literal;
+use EasyRdf_Resource;
 
 /**
  * Class GraphGenerator
@@ -24,25 +26,25 @@ class GraphGenerator
     protected $name;
     protected $query;
 
-    /**@TODO edit this
-     * Builds a local graph to (currently) one step from the passed in node.
-     * Logic: hash-name -> build query -> execute query -> build graph structure
-     *          -> visualize graph
+    /**
+     * Builds a graph around a node with k =  2 expansion
+     *  -build query
+     *  -run query
+     *  -load returned RDF into easy_RDF
+     *  -build nodes and edges through easy_RDF
+     *  -convert node and edge set into json
+     *  -return
      * @param NodeInterface $node
      *      The node that is the origin of the graph to be built
      * @return string
-     *      the file path of the visual graph constructed
+     *      the json constructed from rdfToGraph
      */
     public function buildGraphFromNode(NodeInterface $node){
 
         $this->query = QueryBuilder::buildCustomLocalGraph($node);
         $query_mgr = new QueryManager();
-        //$query_mgr->runCustomQuery($this->query);
 
-        $xxx = $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
-        Helper::log("xxx = " . $xxx);
-
-        return $xxx;
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));;
     }
 
     /**
@@ -71,6 +73,24 @@ class GraphGenerator
         return $this->formatGraph();*/
     }
 
+    /**
+     * Converts a sparql construct query to json
+     *      "category": [],
+     *      "nodes": [
+     *         "id":,
+     *         "label":,
+     *         "shape":,
+     *          "category":
+     *      ],
+     *      "edges": [
+     *          "sourceID":,
+     *          "label":,
+     *          "targetID"
+     *      ]
+     * @param $rdf string return of a SPARQL construct query for the local graph
+     * @return string json of the local graph outputting [categories, nodes, edges]
+     * @throws \EasyRdf_Exception
+     */
     private function rdfToGraph($rdf){
         $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
         $graph->parse($rdf, 'turtle');
@@ -111,6 +131,13 @@ class GraphGenerator
         return $json;
     }
 
+    /**
+     * A utility function, takes a easy_rdf resource (node) and returns the node in
+     * an associate array
+     * @param $resource EasyRdf_Literal|EasyRdf_Resource the RDF node ro turn into
+     * a class
+     * @return array the node in an associative array
+     */
     private function buildNode($resource){
 
         //don't add Owl:class
@@ -136,6 +163,13 @@ class GraphGenerator
         }
     }
 
+    /**
+     * Builds an edge from two resource nodes and returns an associative array
+     * @param $a EasyRdf_Literal|EasyRdf_Resource the Easy_RDF source node
+     * @param $edge String the name of the edge
+     * @param $b EasyRdf_Literal|EasyRdf_Resource the Easy_RDF target node
+     * @return array the edge as an associative array
+     */
     private function buildEdge($a, $edge, $b){
         return array(
             'sourceID'=> $this->getID($a),
@@ -143,6 +177,12 @@ class GraphGenerator
             'targetID' => $this->getID($b));
     }
 
+    /**
+     * As EasyRdf_Literal and EasyRdf_Resource are commonly use in the same
+     * interface but uuids are accessed diffrently, this function resolves that issue
+     * @param $resource EasyRdf_Literal|EasyRdf_Resource the node to get the id for
+     * @return string|null the unique identifier for the resource
+     */
     private function getID($resource){
         if(is_a($resource, 'EasyRdf_Literal'))
             return $resource->getValue();
@@ -150,6 +190,11 @@ class GraphGenerator
             return $resource->getUri();
     }
 
+    /**
+     * Gets the foremost property type of a given resource
+     * @param $resource EasyRdf_Literal|EasyRdf_Resource resource to get the type of
+     * @return string the type of the node as a string
+     */
     private function getType($resource){
 
         $type = '';
@@ -160,7 +205,6 @@ class GraphGenerator
         } else {
             $type = 'misc';
         }
-
         return $type;
     }
 

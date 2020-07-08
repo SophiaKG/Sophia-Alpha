@@ -4,6 +4,9 @@
 namespace Drupal\neptune_sync\Graph;
 
 //XXX is this class even needed?
+/** @deprecated
+ *
+ */
 class Graph
 {
     protected $file_location;
