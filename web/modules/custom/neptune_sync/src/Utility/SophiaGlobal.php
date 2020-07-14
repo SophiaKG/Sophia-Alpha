@@ -14,6 +14,7 @@ class SophiaGlobal
     /**
      * SPARQL prefixes
      * notes: prefixes appear truncated in logger but work fine
+     * @todo: make this a linked array with the other cell holding its qid
      */
     private const PREFIX_NS1 = 'PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#>';
     private const PREFIX_RDFS = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>';

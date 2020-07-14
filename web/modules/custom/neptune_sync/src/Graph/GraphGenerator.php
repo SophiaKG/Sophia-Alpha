@@ -3,8 +3,8 @@
 namespace Drupal\neptune_sync\Graph;
 
 
-use Drupal\neptune_sync\querier\QueryBuilder;
-use Drupal\neptune_sync\querier\QueryManager;
+use Drupal\neptune_sync\Querier\QueryBuilder;
+use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
 use EasyRdf_Literal;
@@ -19,6 +19,9 @@ use EasyRdf_Resource;
 class GraphGenerator
 {
     const GRAPH_FILETYPE = 'svg';
+    /**
+     *
+     */
     const MODULE_RESOURCE_DIR = 'modules/custom/neptune_sync/resources/';
     const GRAPH_VISUALIZER_PATH = 'ontology-visualization/' .
                                     'ontology_viz.py';

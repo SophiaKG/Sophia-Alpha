@@ -17,6 +17,24 @@ article.node--type-portfolios .node__meta {
     display: none;
 }
 
+.view-taxonomy-term .graph__link {
+    display: none;
+}
+
+.view-taxonomy-term .sync__link {
+    display: none;
+}
+
+.view-taxonomy-term .node__content {
+    display: none;
+}
+
+.view-taxonomy-term h2.node__title a {
+    font-size: medium;
+    padding: 15px;
+    color: #40807F;
+}
+
 article.node--type-bodies .field {
     margin: 0 0 1.2em;
 }

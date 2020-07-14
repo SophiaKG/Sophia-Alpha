@@ -8,9 +8,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\neptune_sync\Graph\GraphGenerator;
-use Drupal\neptune_sync\querier\Query;
-use Drupal\neptune_sync\querier\QueryManager;
-use Drupal\neptune_sync\querier\QueryTemplate;
+use Drupal\neptune_sync\Querier\Query;
+use Drupal\neptune_sync\Querier\QueryManager;
+use Drupal\neptune_sync\Querier\QueryTemplate;
 use Drupal\neptune_sync\Utility\Helper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 

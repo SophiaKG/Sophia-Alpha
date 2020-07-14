@@ -3,7 +3,7 @@
 namespace Drupal\neptune_sync\Controller;
 
 use Drupal\neptune_sync\Graph\GraphGenerator;
-use Drupal\neptune_sync\querier\QueryBuilder;
+use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Controller\ControllerBase;

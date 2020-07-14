@@ -20,6 +20,17 @@ neptune_sync.localGraphQuery:
     parameters:
       node:
         type: entity:node
+neptune_sync.displayCharacterSheet:
+  path: '/node/{node}/character-sheet'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\CharacterSheetController::buildCharacterSheet'
+    _title: 'Character Sheet'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
 neptune_sync.displayGraph:
   path: '/graph/{graphid}'
   defaults:
