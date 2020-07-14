@@ -1,12 +1,9 @@
-uuid: 4b8cf4df-fe8f-416e-b7cf-b4d0c50d663f
 langcode: en
 status: closed
 dependencies:
   enforced:
     module:
       - webform_templates
-_core:
-  default_config_hash: U_59ceMAx8zOXo9Zzd5L38VP3e23SmmByVLzgwhaF3U
 open: null
 close: null
 weight: 0
@@ -59,6 +56,11 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
   submission_label: ''
   submission_log: false
   submission_views: {  }
@@ -219,3 +221,6 @@ handlers:
       sender_mail: ''
       sender_name: ''
 variants: {  }
+uuid: 4b8cf4df-fe8f-416e-b7cf-b4d0c50d663f
+_core:
+  default_config_hash: U_59ceMAx8zOXo9Zzd5L38VP3e23SmmByVLzgwhaF3U

@@ -6,6 +6,7 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  cer: 0
   ckeditor: 0
   color: 0
   comment: 0
@@ -77,6 +78,7 @@ theme:
   seven: 0
   bootstrap_barrio: 0
   finance: 0
+  sophia_alpha: 0
 profile: standard
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

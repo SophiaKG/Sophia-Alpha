@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.portfolios.feeds_item
+    - field.field.node.portfolios.field_bodies
     - node.type.portfolios
   module:
     - user
@@ -12,6 +13,14 @@ targetEntityType: node
 bundle: portfolios
 mode: default
 content:
+  field_bodies:
+    weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   links:
     weight: 100
     settings: {  }

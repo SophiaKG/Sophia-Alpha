@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.portfolios.feeds_item
+    - field.field.node.portfolios.field_bodies
     - node.type.portfolios
   module:
     - user
@@ -20,3 +21,4 @@ content:
     region: content
 hidden:
   feeds_item: true
+  field_bodies: true

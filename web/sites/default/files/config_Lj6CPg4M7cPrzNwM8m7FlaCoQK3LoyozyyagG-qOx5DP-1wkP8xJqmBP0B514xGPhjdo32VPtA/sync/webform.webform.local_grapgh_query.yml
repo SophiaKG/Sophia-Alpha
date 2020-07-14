@@ -1,4 +1,3 @@
-uuid: ae02dc3b-514f-4c32-b46e-6ba871178806
 langcode: en
 status: open
 dependencies: {  }
@@ -12,7 +11,7 @@ id: local_grapgh_query
 title: local_graph_query
 description: ''
 category: ''
-elements: "markup:\n  '#type': webform_markup\n  '#markup': 'just adding some text here'\nsize_of_local_graph:\n  '#type': select\n  '#title': 'Size of local graph'\n  '#help': 'The number of links that should be explored from the selected label'\n  '#options':\n    1: '1'\n    2: '2'\n    3: '3'\n    4: '4'\n    5: '5'\n  '#required': true\nignore_results_that_are:\n  '#type': webform_entity_select\n  '#title': 'Ignore results that are'\n  '#multiple': true\n  '#help': 'Do not explore nodes that are of the selected type/s'\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_class_type: rdf_class_type\n    sort:\n      field: name\n      direction: ASC\nignore_relationship_types_of:\n  '#type': webform_entity_select\n  '#title': 'Ignore relationship types of'\n  '#multiple': true\n  '#help': 'Do not explore down the provided relationship types'\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_relationships: rdf_relationships\n    sort:\n      field: name\n      direction: ASC\nrestrict_results_from_:\n  '#type': date\n  '#title': 'Restrict results from '\n  '#help': 'Provide the start of a range that results must fall under if they have a date attached. This field is optional&nbsp;'\n  '#default_value': 'Jan 1 1901'\n  '#date_date_min': 01-01-1901\n  '#datepicker': true\n  '#datepicker_button': true\nrestrict_results_to:\n  '#type': date\n  '#title': 'Restrict results to'\n  '#help': 'Provide the end of a range that results must fall under if they have a date attached. This field is optional&nbsp;'\n  '#default_value': today\n  '#date_date_max': Today\n  '#datepicker': true\n  '#datepicker_button': true"
+elements: "markup:\n  '#type': webform_markup\n  '#markup': 'just adding some text here'\nsize_of_local_graph:\n  '#type': select\n  '#title': 'Size of local graph'\n  '#help': 'The number of links that should be explored from the selected label'\n  '#options':\n    1: '1'\n    2: '2'\n    3: '3'\n    4: '4'\n    5: '5'\n  '#required': true\nignore_results_that_are:\n  '#type': webform_entity_select\n  '#title': 'Ignore results that are'\n  '#multiple': true\n  '#help': 'Do not explore nodes that are of the selected type/s'\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_class_type: rdf_class_type\n    sort:\n      field: name\n      direction: ASC\nignore_relationship_types_of:\n  '#type': webform_entity_select\n  '#title': 'Ignore relationship types of'\n  '#multiple': true\n  '#help': 'Do not explore down the provided relationship types'\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_relationships: rdf_relationships\n    sort:\n      field: name\n      direction: ASC\nrestrict_results_from_:\n  '#type': date\n  '#title': 'Restrict results from '\n  '#help': 'Provide the start of a range that results must fall under if they have a date attached. This field is optional&nbsp;'\n  '#default_value': 'Jan 1 1901'\n  '#date_date_min': 01-01-1901\n  '#datepicker': true\n  '#datepicker_button': true\nrestrict_results_to:\n  '#type': date\n  '#title': 'Restrict results to'\n  '#help': 'Provide the end of a range that results must fall under if they have a date attached. This field is optional&nbsp;'\n  '#default_value': today\n  '#date_date_max': Today\n  '#datepicker': true\n  '#datepicker_button': true\ntestkey:\n  '#type': webform_entity_checkboxes\n  '#title': test\n  '#options_display': three_columns\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_relationships: rdf_relationships\n    sort:\n      field: name\n      direction: ASC"
 css: ''
 javascript: ''
 settings:
@@ -54,6 +53,11 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
   submission_label: ''
   submission_log: false
   submission_views: {  }
@@ -178,3 +182,4 @@ access:
     permissions: {  }
 handlers: {  }
 variants: {  }
+uuid: ae02dc3b-514f-4c32-b46e-6ba871178806

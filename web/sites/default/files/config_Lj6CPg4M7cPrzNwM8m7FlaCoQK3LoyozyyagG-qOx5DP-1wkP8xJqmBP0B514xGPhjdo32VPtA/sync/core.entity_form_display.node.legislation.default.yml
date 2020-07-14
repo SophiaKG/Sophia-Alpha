@@ -4,8 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.node.legislation.feeds_item
+    - field.field.node.legislation.field_ink
+    - field.field.node.legislation.field_used_by
     - node.type.legislation
   module:
+    - link
     - path
 id: node.legislation.default
 targetEntityType: node
@@ -18,6 +21,24 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_ink:
+    weight: 121
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_used_by:
+    weight: 122
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   path:
     type: path
     weight: 30

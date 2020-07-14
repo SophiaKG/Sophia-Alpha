@@ -5,6 +5,8 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.legislation.feeds_item
+    - field.field.node.legislation.field_ink
+    - field.field.node.legislation.field_used_by
     - node.type.legislation
   module:
     - user
@@ -20,3 +22,5 @@ content:
     region: content
 hidden:
   feeds_item: true
+  field_ink: true
+  field_used_by: true
