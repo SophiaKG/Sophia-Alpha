@@ -1,0 +1,17 @@
+#block-sophia-alpha-content article.nonCorp {
+    background-color: rgb(204, 204, 255);
+    border-left-style: solid;
+    padding: 8px;
+}
+
+#block-sophia-alpha-content article.corp {
+    background-color: rgb(170, 225, 194);
+    border-left-style: dotted;
+    padding: 8px;
+}
+
+#block-sophia-alpha-content article.comCompany {
+    background-color: rgb(249, 238, 186);
+    border-left-style: double;
+    padding: 8px;
+}

@@ -59,7 +59,7 @@
  * @see template_preprocess_node()
  */
 #}
-{{ attach_library('bootstrap_barrio/node') }}
+{# [neptune_sync/templates/node__bodies__character_sheet.html.twig #}
 
 {%
   set classes = [
@@ -85,6 +85,12 @@
         </a>
     </div>
 {% endif %}
+{% if node.getType() == "bodies" %}
+    {#{ kint(content.field_type_of_body) }#}
+    {#  {{ kint(content) }} #}
+{#{{ kint(classes) }} #}
+{% endif %}
+
 <article{{ attributes.addClass(classes) }}>
   <header>
     {{ title_prefix }}

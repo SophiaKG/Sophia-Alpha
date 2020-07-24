@@ -21,11 +21,29 @@ function neptune_sync_cron()
  * Implements hook_theme().
  */
 function neptune_sync_theme($existing, $type, $theme, $path) {
-  return [
-      'graph_template' => [
-          'variables' => ['graph_name' => NULL, 'graph_json' => NULL],
-      ],
-  ];
+    return [
+        'graph_template' => [
+            'variables' => ['graph_name' => NULL, 'graph_json' => NULL],
+        ],
+        'node__bodies__character_sheet' => [
+           'template' => 'node--bodies--character-sheet',
+            'base hook' => 'node',
+        ],
+    ];
+}
+
+/**
+ * Implements hook_entity_view_mode_alter().
+ *
+ * Ensure legislation, bodies and portfolios are by default, viewed as a character sheet.
+ */
+function neptune_sync_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\EntityInterface $entity, $context) {
+
+    // Change the view mode to teaser on full page view for node ID 123.
+    if ($entity->getEntityTypeId() == 'node' && $view_mode == 'full')
+        if($entity->getType() == 'bodies' || $entity->getType() == 'legislation' || $entity->getType() == 'portfolios'){
+            $view_mode = 'character_sheet';
+        }
 }
     
     
