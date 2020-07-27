@@ -8,3 +8,9 @@ echart:
     js:
         js/echarts.js: {}
         //code.jquery.com/jquery-3.5.1.js: {}
+characterSheet:
+    version: 1.x
+    css:
+        theme:
+            css/characterSheet.css: {}
+    js:

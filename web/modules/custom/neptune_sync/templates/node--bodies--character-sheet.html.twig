@@ -60,7 +60,7 @@
  */
 #}
 {# [neptune_sync/templates/node__bodies__character_sheet.html.twig #}
-
+{{ attach_library('neptune_sync/characterSheet') }}
 {%
   set classes = [
     'node',
@@ -72,6 +72,8 @@
     'clearfix',
   ]
 %}
+
+{# node relative links #}
 {% if node.getType() == "bodies" or node.getType() == "legislation" or
     node.getType() == "portfolios" %}
     <div class="graph__link">
@@ -85,13 +87,25 @@
         </a>
     </div>
 {% endif %}
+
+
+{# character sheet style hooks#}
 {% if node.getType() == "bodies" %}
-    {#{ kint(content.field_type_of_body) }#}
-    {#  {{ kint(content) }} #}
-{#{{ kint(classes) }} #}
+
+    {# background color change#}
+    {% if content.field_type_of_body[0]['#title'] == 'Non-corporate Commonwealth entity' %}
+        {% set flipTheme = 'nonCorp' %}
+    {% elseif content.field_type_of_body[0]['#title'] == 'Corporate Commonwealth entity' %}
+        {% set flipTheme = 'corp' %}
+    {% elseif content.field_type_of_body[0]['#title'] == 'Commonwealth company' %}
+        {% set flipTheme = 'comCompany' %}
+    {% endif %}
+
 {% endif %}
 
-<article{{ attributes.addClass(classes) }}>
+ {# content.field_accountable_authority_or_g.0 #}
+
+<article{{ attributes.addClass(classes, flipTheme) }}>
   <header>
     {{ title_prefix }}
     {% if not page %}
