@@ -15,3 +15,11 @@
     border-left-style: double;
     padding: 8px;
 }
+
+#block-sophia-alpha-content div .character-sheet-keys {
+    font-weight: bolder;
+}
+
+#block-sophia-alpha-content article #material {
+    color: rgb(192, 0, 0);
+}
