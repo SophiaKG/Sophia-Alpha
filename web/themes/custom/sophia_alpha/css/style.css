@@ -42,3 +42,29 @@ article.node--type-bodies .field {
 article.node--type-bodies .field .field__label {
     font-weight: 800;
 }
+.view-flipchart .graph__link {
+    display: none;
+}
+.view-flipchart .sync__link {
+    display: none;
+}
+.view-flipchart div.node__content {
+    display: none;
+}
+.view-flipchart .view-content h3 {
+    order: 0;
+    flex: 1 1 100%; 
+}
+.view-flipchart .view-content .views-col {
+    max-width: 33% !important;
+    padding: 0px;
+    order: 1;
+    flex: 1 0 25%;
+}
+.view-flipchart .view-content .views-col span.field--name-title {
+    color: #3b3b3b;
+    font-size: x-small;
+}
+.view-flipchart .view-content .views-col .character-sheet-keys {
+    font-size: x-small;
+}

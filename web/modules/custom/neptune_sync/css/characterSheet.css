@@ -1,25 +1,50 @@
-#block-sophia-alpha-content article.nonCorp {
+div.field--name-field-flipchart-keys {
+    display: none;
+}
+div.character-sheet-keys a {
+    color: #3b3b3b;
+}
+h1.js-quickedit-page-title {
+    display: none;
+}
+article.nonCorp {
     background-color: rgb(204, 204, 255);
     border-left-style: solid;
     padding: 8px;
 }
-
-#block-sophia-alpha-content article.corp {
+article.corp {
     background-color: rgb(170, 225, 194);
     border-left-style: dotted;
     padding: 8px;
 }
-
-#block-sophia-alpha-content article.comCompany {
+article.comCompany {
     background-color: rgb(249, 238, 186);
     border-left-style: double;
     padding: 8px;
 }
-
 #block-sophia-alpha-content div .character-sheet-keys {
     font-weight: bolder;
 }
-
-#block-sophia-alpha-content article #material {
+#GBE {
+    color: rgb(0,96,171);
+}
+#eagency {
+    color: rgb(112,48,160);
+}
+#inter {
+    color: rgb(0,109,49);
+}
+#material {
     color: rgb(192, 0, 0);
 }
+#fin {
+    color: rgb(162,65,9);
+}
+#cpr {
+    color: rgb(167,9,104);
+}
+
+.view-flipchart thead {
+    display: none;
+}
+
