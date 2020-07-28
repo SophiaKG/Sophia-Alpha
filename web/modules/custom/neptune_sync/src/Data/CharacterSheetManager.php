@@ -24,12 +24,12 @@ class CharacterSheetManager
         $vals = ['CorporateCommonwealthEntity' => 88, 'NonCorporateCommonwealthEntity' => 87];
         $this->body->setTypeOfBody($this->check_property($vals, $node));
 
-        /** eco sector | General Govt Sector
+        /** eco sector | General Govt Sector, Public Financial Corporation, Public Nonfinancial Corporation
          * @TODO add other terms */
-        $vals =['GeneralGovernmentSectorEntity'=> 91];
+        $vals =['GeneralGovernmentSectorEntity'=> 91] ;
         $this->body->setEcoSector($this->check_property($vals, $node));
 
-        //fn class | Material, Government Business Enterprise, Non-Material
+        //fin class | Material, Government Business Enterprise, Non-Material
         $vals =['MaterialEntity' => 95,  'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109 ];
         $res = $this->check_property($vals, $node);
         if($res == null)
@@ -38,6 +38,7 @@ class CharacterSheetManager
 
         /** PSA 1999
          * @TODO what is M (refer to tax terms?) make this more readable
+         * this also doesnt work
          */
         $query = QueryBuilder::checkPsAct($node);
         if($this->evaluate($this->query_mgr->runCustomQuery($query)))

@@ -106,6 +106,10 @@
     {% if content.field_financial_classification[0]['#title'] == 'Material' %}
         {% set flipkey = flipkey ~ '<span id="material">M</span>' %}
     {% endif %}
+    {% if content.field_financial_classification[0]['#title'] == 'Government Business Enterprise' %}
+        {% set flipkey = flipkey ~ '<span id="GBE">B</span>' %}
+    {% endif %}
+
 
     {# Employment Arrangements #}
     {% if content.field_employment_arrangements[0]['#title'] == 'Public Service Act 1999'%}
