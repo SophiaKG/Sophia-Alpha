@@ -6,13 +6,13 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
-    - field.field.node.bodies.field_australian_business_number
     - field.field.node.bodies.field_cp_tabled
+    - field.field.node.bodies.field_demo
     - field.field.node.bodies.field_economic_sector
-    - field.field.node.bodies.field_employed_under_the_ps_act
-    - field.field.node.bodies.field_enabling_legislation
+    - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_ink
     - field.field.node.bodies.field_portfolio
     - field.field.node.bodies.field_reporting_arrangements
@@ -35,13 +35,13 @@ content:
 hidden:
   feeds_item: true
   field_accountable_authority_or_g: true
-  field_australian_business_number: true
   field_cp_tabled: true
+  field_demo: true
   field_economic_sector: true
-  field_employed_under_the_ps_act: true
-  field_enabling_legislation: true
+  field_employment_arrangements: true
   field_enabling_legislation_and_o: true
   field_financial_classification: true
+  field_flipchart_keys: true
   field_ink: true
   field_portfolio: true
   field_reporting_arrangements: true

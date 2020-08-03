@@ -26,7 +26,9 @@
         "drupal/views_bulk_operations": "^2.6",
         "drupal/webform": "^5.12",
         "easyrdf/easyrdf": "^0.9.1",
-        "drupal/cer": "^4.0"
+        "drupal/cer": "^4.0",
+        "drupal/panels": "^4.6",
+        "drupal/page_manager": "^4.0"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"

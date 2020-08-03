@@ -5,13 +5,13 @@ dependencies:
   config:
     - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
-    - field.field.node.bodies.field_australian_business_number
     - field.field.node.bodies.field_cp_tabled
+    - field.field.node.bodies.field_demo
     - field.field.node.bodies.field_economic_sector
-    - field.field.node.bodies.field_employed_under_the_ps_act
-    - field.field.node.bodies.field_enabling_legislation
+    - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_ink
     - field.field.node.bodies.field_portfolio
     - field.field.node.bodies.field_reporting_arrangements
@@ -34,14 +34,6 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_australian_business_number:
-    weight: 7
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_cp_tabled:
     weight: 12
     label: above
@@ -50,24 +42,26 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_demo:
+    weight: 18
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_economic_sector:
-    weight: 5
+    weight: 17
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_employed_under_the_ps_act:
-    weight: 10
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_enabling_legislation:
-    weight: 9
+  field_employment_arrangements:
+    weight: 16
     label: above
     settings:
       link: true
@@ -84,6 +78,14 @@ content:
     region: content
   field_financial_classification:
     weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_flipchart_keys:
+    weight: 19
     label: above
     settings:
       link: true

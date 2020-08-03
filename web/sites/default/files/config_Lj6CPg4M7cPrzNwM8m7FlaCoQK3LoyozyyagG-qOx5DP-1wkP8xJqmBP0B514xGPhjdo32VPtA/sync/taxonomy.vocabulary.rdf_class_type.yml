@@ -5,4 +5,4 @@ dependencies: {  }
 name: 'RDF Class type'
 vid: rdf_class_type
 description: 'The owl:Class(''s) found in Neptune'
-weight: 0
+weight: -4

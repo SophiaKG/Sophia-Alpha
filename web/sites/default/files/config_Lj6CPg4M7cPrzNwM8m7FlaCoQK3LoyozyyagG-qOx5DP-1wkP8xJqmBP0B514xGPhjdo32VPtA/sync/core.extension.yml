@@ -33,6 +33,9 @@ module:
   help: 0
   history: 0
   image: 0
+  jquery_ui: 0
+  jquery_ui_draggable: 0
+  jquery_ui_droppable: 0
   jsonapi: 0
   kint: 0
   layout_builder: 0
@@ -43,6 +46,10 @@ module:
   node: 0
   options: 0
   page_cache: 0
+  page_manager: 0
+  page_manager_ui: 0
+  panels: 0
+  panels_ipe: 0
   path: 0
   path_alias: 0
   quickedit: 0
