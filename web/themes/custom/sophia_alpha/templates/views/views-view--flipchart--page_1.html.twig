@@ -71,27 +71,45 @@
         {% set count = count + group['#rows']|length %}
       {% endfor %}
 
+      {% set halfrow = rows|length / 2 %}
+      {% set cola = (count/3)|round(0,'ceil') + halfrow %}
+      {% set colb = ((count-cola)/2)|round(0,'ceil') + cola + halfrow %}
+      {% set colc = rows|length %}
 
-      {% set cola = count/3 %}
-      {% set colb = (count-cola)/2 %}
-      {% set colc = ((count - cola) - colb) %}
-
-      {{ count }}
-      {{ cola }}
-      {{ colb }}
-      {{ colc }}
+      rows: {{ rows|length }}
+      total count: {{ count }}
+      a: {{ cola }}
+      b: {{ colb }}
+      c: {{ colc }}
 
       {% for group in rows %}
         min is {{ group['min'] }}
       {% endfor %}
 
-
+      {#{ kint(rows['1']|e, 'top') }}
       {{ kint(rows['1']['#title'], 'title') }}
       {{ kint(rows['1']['#grouping_level'], 'group') }}
       {% for val in rows['1']['#rows']|keys %}
         {{ kint(val, 'rows v2') }}
       {% endfor %}
-      {{ kint(rows['1']['#rows']|length) }}
+      {{ kint(rows['1']['#rows']|length) }#}
+      <br/>
+
+      <div class="row">
+        <div class="col">
+          col1 {{ halfrow }} to {{ cola }}
+          {{ rows|slice(halfrow, cola) }}
+        </div>
+        <div class="col">
+          col2 {{ cola + 1 }} to {{ colb}}
+          {{ rows|slice(cola + 1, colb) }}
+        </div>
+        <div class="col">
+          col3 {{ colb + 1 }} to {{ colc }}
+          {{ rows|slice(colb + 1, colc) }}
+        </div>
+      </div>
+
       {{ rows }}
     </div>
   {% elseif empty %}
