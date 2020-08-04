@@ -67,14 +67,14 @@
 
       {% set count = 0 %}
       {% for group in rows %}
-        {% set rows = rows| merge({ (loop.index0): {'min': count } }) %}
+        {#% set rows = rows| merge({ (loop.index0): {'min': count } }) %#}
         {% set count = count + group['#rows']|length %}
       {% endfor %}
 
       {% set halfrow = rows|length / 2 %}
-      {% set cola = (count/3)|round(0,'ceil') + halfrow %}
-      {% set colb = ((count-cola)/2)|round(0,'ceil') + cola + halfrow %}
-      {% set colc = rows|length %}
+      {% set cola = (count/3)|round(0,'ceil') %}
+      {% set colb = ((count-cola)/2)|round(0,'ceil') + cola %}
+      {% set colc = count %}
 
       rows: {{ rows|length }}
       total count: {{ count }}
@@ -82,9 +82,9 @@
       b: {{ colb }}
       c: {{ colc }}
 
-      {% for group in rows %}
+      {#% for group in rows %}
         min is {{ group['min'] }}
-      {% endfor %}
+      {% endfor %#}
 
       {#{ kint(rows['1']|e, 'top') }}
       {{ kint(rows['1']['#title'], 'title') }}
