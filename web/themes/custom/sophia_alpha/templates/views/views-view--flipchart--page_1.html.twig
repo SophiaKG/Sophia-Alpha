@@ -78,22 +78,39 @@
       {% set colb = ((count-cola)/2)|round(0,'ceil') + cola %}
       {% set colc = count %}
 
+      a: {{ cola }}
+      b: {{ colb }}
+      c: {{ colc }}
+      <br/>
+
       {% for row in countIndex %}
         itr =  {{ row }}
         {#{loop.index0 }} - {{ row }#}
         {% if row == cola %}
-          a = {{ loop.index0 }} - {{ row }}
+          <br/>
+          a = row {{ loop.index0 }} -  item {{ row }}
+          length = {{ row }}
+          <br/>
           {% set cola = loop.index0 %}
         {% endif %}
         {% if row == colb %}
-          b = {{loop.index0 }} - {{ row }}
+          <br/>
+          b = row {{loop.index0 }} - item {{ row }}
+          length = {{ colb - cola }}
           {% set colb = loop.index0 %}
+          <br/>
+
         {% endif %}
         {% if row == colc %}
-          c = {{loop.index0 }} - {{ row }}
+          <br/>
+          c = row {{loop.index0 }} - item {{ row }}
+
+          <br/>
           {% set colc = loop.index0 %}
         {% endif %}
       {% endfor %}
+    <br/>
+      c = xxx length = {{ count - cola - colb }}
 
       rows: {{ rows|length }}
       total count: {{ count }}
@@ -120,12 +137,12 @@
           {{ rows|slice(0, cola) }}
         </div>
         <div class="col">
-          col2 {{ cola + 1 }} to {{ colb }}
-          {{ rows|slice(cola + 1, colb) }}
+          col2 {{ cola + 1 }} to {{ colb - cola }}
+          {{ rows|slice(cola + 1, colb - cola ) }}
         </div>
         <div class="col">
-          col3 {{ colb + 1 }} to {{ colc }}
-          {{ rows|slice(colb + 1, colc) }}
+          col3 {{ colb + 1 }} to {{ colc - colb }}
+          {{ rows|slice(colb + 1, colc - colb) }}
         </div>
       </div>
 
