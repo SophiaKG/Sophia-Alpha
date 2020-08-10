@@ -158,14 +158,14 @@
   <header>
         {{ title_prefix }}
     {% if not page %}
-      <h2{{ title_attributes.addClass('node__title') }}>
+      <div{{ title_attributes.addClass('node__title') }}>
         <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
+        <span class="character-sheet-keys">
+            {{ flipkey|raw }}
+        </span>
+      </div>
     {% endif %}
     {{ title_suffix }}
-    <div class="character-sheet-keys">
-      {{ flipkey|raw }}
-    </div>
     {% if display_submitted %}
       <div class="node__meta">
         {{ author_picture }}

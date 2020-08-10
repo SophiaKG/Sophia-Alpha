@@ -66,15 +66,34 @@
       {# #mod here!#}
 
       {% set count = 0 %}
+      {% set countIndex = [] %}
       {% for group in rows %}
-        {#% set rows = rows| merge({ (loop.index0): {'min': count } }) %#}
+        {% set countIndex = countIndex | merge({ (loop.index0): count }) %}
         {% set count = count + group['#rows']|length %}
       {% endfor %}
 
-      {% set halfrow = rows|length / 2 %}
+      {#{ kint(countIndex) }#}
+
       {% set cola = (count/3)|round(0,'ceil') %}
       {% set colb = ((count-cola)/2)|round(0,'ceil') + cola %}
       {% set colc = count %}
+
+      {% for row in countIndex %}
+        itr =  {{ row }}
+        {#{loop.index0 }} - {{ row }#}
+        {% if row == cola %}
+          a = {{ loop.index0 }} - {{ row }}
+          {% set cola = loop.index0 %}
+        {% endif %}
+        {% if row == colb %}
+          b = {{loop.index0 }} - {{ row }}
+          {% set colb = loop.index0 %}
+        {% endif %}
+        {% if row == colc %}
+          c = {{loop.index0 }} - {{ row }}
+          {% set colc = loop.index0 %}
+        {% endif %}
+      {% endfor %}
 
       rows: {{ rows|length }}
       total count: {{ count }}
@@ -95,13 +114,13 @@
       {{ kint(rows['1']['#rows']|length) }#}
       <br/>
 
-      <div class="row">
+      <div class="row flipchart" >
         <div class="col">
-          col1 {{ halfrow }} to {{ cola }}
-          {{ rows|slice(halfrow, cola) }}
+          col1 0 to {{ cola }}
+          {{ rows|slice(0, cola) }}
         </div>
         <div class="col">
-          col2 {{ cola + 1 }} to {{ colb}}
+          col2 {{ cola + 1 }} to {{ colb }}
           {{ rows|slice(cola + 1, colb) }}
         </div>
         <div class="col">
@@ -110,7 +129,7 @@
         </div>
       </div>
 
-      {{ rows }}
+      {#{ rows }#}
     </div>
   {% elseif empty %}
     <div class="view-empty">

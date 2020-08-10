@@ -1,6 +1,136 @@
+/*-----------------Summary key block*/
+
+/* fix key to screen scrolling */
+.page-view-flipchart .sidebar_second {
+    position: fixed;
+    left: 25px;
+    width: 305px;
+    top: 243px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.page-view-flipchart .view-display-id-block_1 div.view-content {
+    max-height: 615px;
+    overflow-y: auto;
+}
+
+.page-view-flipchart .view-display-id-block_1 table {
+    background-color: aliceblue;
+    max-height: 600px;
+    overflow-y: auto;
+    margin: 2px 0 !important;
+}
+
+.page-view-flipchart .block-views-blocksummary-key-block-1 h2 {
+    text-align: center;
+}
+
+/* tables stuff */
+.page-view-flipchart .view-display-id-block_1 div.view-content table caption {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.page-view-flipchart .view-display-id-block_1 div.view-content table caption a {
+    font-weight: 700;
+    color: #504848;
+}
+
+.view-display-id-block_1 tbody td {
+    padding: 4px 4px;
+}
+
+.view-display-id-block_1 tbody td.views-field-name {
+    text-align: center;
+}
+
+.view-display-id-block_1 th.views-field-name {
+    width: 44px;
+    text-align: center;
+    padding: 4px 4px;
+}
+
+.view-display-id-block_1 tbody td p {
+    margin-bottom: 0;
+}
+
+/*buffer main content out from fix float key */
+.page-view-flipchart .main-content {
+    margin: 0px 70px !important;
+}
+
+/*-------------------summary view table*/
+
+.flipchart .item-list {
+    line-height: 1;
+}
+
+.flipchart .item-list a {
+    color: #000000;
+    font-weight: bolder;
+    font-size: small;
+}
+
+.flipchart .node--view-mode-character-sheet a span {
+    color: #000000;
+    font-weight: normal;
+    font-size: small;
+}
+
+.flipchart .node--view-mode-character-sheet .character-sheet-keys a span {
+    font-weight: bolder;
+}
+
+.flipchart .node--view-mode-character-sheet {
+    padding: 0px 4px;
+}
+
+.flipchart .col {
+    padding: 0px;
+}
+
+.flipchart ul {
+    border-bottom-width: medium;
+    border-bottom-style: solid;
+    margin: 0 0.25em 0.25em 0;
+}
+
+.flipchart ul li {
+    padding: 0 0 0 0;
+}
+
+.view-flipchart .graph__link {
+    display: none;
+}
+.view-flipchart .sync__link {
+    display: none;
+}
+.view-flipchart div.node__content {
+    display: none;
+}
+.view-flipchart .view-content h3 {
+    order: 0;
+    flex: 1 1 100%;
+}
+.view-flipchart .view-content .views-col {
+    max-width: 33% !important;
+    padding: 0px;
+    order: 1;
+    flex: 1 0 25%;
+}
+.view-flipchart .view-content .views-col span.field--name-title {
+    color: #3b3b3b;
+    font-size: x-small;
+}
+.view-flipchart .view-content .views-col .character-sheet-keys {
+    font-size: x-small;
+}
+
 a.nav-link{
     color: #242c33;
 }
+
 a.nav-link:hover {
     color: #b8bfc5;
 }
@@ -42,29 +172,4 @@ article.node--type-bodies .field {
 article.node--type-bodies .field .field__label {
     font-weight: 800;
 }
-.view-flipchart .graph__link {
-    display: none;
-}
-.view-flipchart .sync__link {
-    display: none;
-}
-.view-flipchart div.node__content {
-    display: none;
-}
-.view-flipchart .view-content h3 {
-    order: 0;
-    flex: 1 1 100%; 
-}
-.view-flipchart .view-content .views-col {
-    max-width: 33% !important;
-    padding: 0px;
-    order: 1;
-    flex: 1 0 25%;
-}
-.view-flipchart .view-content .views-col span.field--name-title {
-    color: #3b3b3b;
-    font-size: x-small;
-}
-.view-flipchart .view-content .views-col .character-sheet-keys {
-    font-size: x-small;
-}
+

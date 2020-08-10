@@ -29,7 +29,8 @@
         "drupal/cer": "^4.0",
         "drupal/panels": "^4.6",
         "drupal/page_manager": "^4.0",
-        "drupal/views_bulk_edit": "^2.4"
+        "drupal/views_bulk_edit": "^2.4",
+        "drupal/views_tree": "^2.0"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"
