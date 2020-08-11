@@ -1,3 +1,10 @@
+.node--view-mode-character-sheet span.field--name-title {
+    font-size: xx-large;
+    font-weight: bold;
+    color: black;
+    padding-right: 5px;
+}
+
 div.field--name-field-flipchart-keys {
     display: none;
 }

@@ -17,15 +17,18 @@ class CharacterSheet
     protected $eco_sector;
     //Financial classification
     protected $fin_class;
-    //Australian Business Number
+
+    /** @deprecated */
     protected $abn;
     //Enabling legislation and other key governance-related details
     protected $legislations = [];
+    //Employment type
+    protected $employment_type;
 
     /** Y/N/M
      * @var
      * @label('Employed under the PS Act')
-     */
+     * @deprecated */
     protected $ps_act;
 
     //booleans
@@ -83,6 +86,22 @@ class CharacterSheet
     public function getLegislations(): array
     {
         return $this->legislations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmploymentType()
+    {
+        return $this->employment_type;
+    }
+
+    /**
+     * @param mixed $employment_type
+     */
+    public function setEmploymentType($employment_type): void
+    {
+        $this->employment_type = $employment_type;
     }
 
     /**
