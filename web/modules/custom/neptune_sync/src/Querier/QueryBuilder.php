@@ -43,17 +43,18 @@ class QueryBuilder
 
     public static function getBodyPortfolio(NodeInterface $node){
 
-        /*$q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL .
-            'select distinct ?p ' .
-            'where {?sub rdfs:label "' . $node->getTitle() . '" ; ' . //label to sub
-            ''
-*/
+            'SELECT distinct ?s1 ' .
+            'WHERE {GRAPH ?g ' .
+                '{?o rdfs:label  ?s1. ' .
+                '?o1 ns1:FallsUnder ?o. ' .
+                '?o1 a ns1:CommonwealthBody. ' .
+                '?o1 rdfs:label "' . $node->getTitle() . '" .}}');
+        return $q;
     }
-
-
 
     /**
      * Builds a query for selecting the neighbours of a given node to one step.

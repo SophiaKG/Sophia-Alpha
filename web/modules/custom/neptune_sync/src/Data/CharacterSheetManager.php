@@ -23,44 +23,6 @@ class CharacterSheetManager
      */
     public function ctrlTest(NodeInterface $node){
 
-        /** Portfolio
-         *
-         */
-
-        /** Body Type
-         *      Non-corporate Commonwealth entity 87 | Corporate Commonwealth entity 88 | Commonwealth company 90
-         * @var  $vals
-         * @todo add comcompany, maybe as default?
-         */
-        $vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88, "NEPTUNEFIELD" /* can this be defaulted? */=> 90];
-        $this->body->setTypeOfBody($this->check_property($vals, $node));
-
-        /** Economic Sector
-         *      General Government Sector 91 | Public Financial Corporation 94 | Public Nonfinancial Corporation 92 | N/A 149
-         * @TODO add other terms */
-        $vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'N/A' => 149] ;
-        $res = $this->check_property($vals, $node);
-        if($res == null)
-            $res = $vals['N/A'];
-        $this->body->setEcoSector($res);
-
-        /** Financial classification
-         * Material 95, Government Business Enterprise 96, Non-Material 109
-         */
-        $vals =['MaterialEntity' => 95,  'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
-        $res = $this->check_property($vals, $node);
-        if($res == null)
-            $res = $vals['NonMaterialEntity'];
-        $this->body->setFinClass($res);
-
-        /** Employment type
-         * Public Service Act 1999 123 | Non-Public Service Act 1999 124 | Both 125 | Parliamentary Service Act 1999 126 | N/A 151
-         * @TODO everything
-         */
-        $vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'N/A' => 151];
-        if($res == null)
-            $res = $vals['N/A'];
-        $this->body->setEmploymentType($res);
 
         /** Flipchart keys
          *  E 129| I 131 | R 133 | * 134 | ℗ 144 | X 145
@@ -71,12 +33,12 @@ class CharacterSheetManager
          * @TODO remove this
          * this also doesnt work
          */
-        $query = QueryBuilder::checkPsAct($node);
+       /* $query = QueryBuilder::checkPsAct($node);
         if($this->evaluate($this->query_mgr->runCustomQuery($query)))
             $this->body->setPsAct(100); //psa = yay
         else
             $this->body->setPsAct(101); //psa = no
-
+*/
         /** Character sheet booleans
          *  NA 152
          * @TODO these are currently just defaulted values, these need review and hooking up
@@ -85,11 +47,85 @@ class CharacterSheetManager
         $this->updateNode($node);
     }
 
+
+    public function processPortfolio(NodeInterface $node){
+
+        $query = QueryBuilder::getBodyPortfolio($node);
+        $res = $this->query_mgr->runCustomQuery($query);
+        $obj = json_decode($res);
+        foreach( $obj->{'results'}->{'bindings'} as $bind){
+            $out = $bind->{'s1'}->{'value'};
+            Helper::log($out);
+        }
+    }
+
+    /** Body Type
+     * @param NodeInterface $node
+     *       Non-corporate Commonwealth entity 87 | Corporate Commonwealth entity 88 | Commonwealth company 90
+     * @todo add comcompany, maybe as default?  */
+    private function processBodyType(NodeInterface $node){
+
+        $vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88, "NEPTUNEFIELD" /* can this be defaulted? */=> 90];
+        $this->body->setTypeOfBody($this->check_property($vals, $node));
+    }
+
+    /**
+     * @param NodeInterface $node
+     * Economic Sector
+     *      General Government Sector 91 | Public Financial Corporation 94 | Public Nonfinancial Corporation 92 | N/A 149
+     * @TODO add other terms */
+    private function processEcoSector(NodeInterface $node){
+
+        $vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'N/A' => 149] ;
+        $res = $this->check_property($vals, $node);
+        if($res == null)
+            $res = $vals['N/A'];
+        $this->body->setEcoSector($res);
+    }
+
+    /**
+     * @param NodeInterface $node
+     * Financial classification
+     *      Material 95, Government Business Enterprise 96, Non-Material 109 */
+    private function processFinClass(NodeInterface $node){
+
+        $vals =['MaterialEntity' => 95,  'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
+        $res = $this->check_property($vals, $node);
+        if($res == null)
+            $res = $vals['NonMaterialEntity'];
+        $this->body->setFinClass($res);
+    }
+
+    /**
+     * @param NodeInterface $node
+     * Employment type
+     *      Public Service Act 1999 123 | Non-Public Service Act 1999 124 | Both 125 | Parliamentary Service Act 1999 126 | N/A 151
+     * @TODO everything */
+    private function processEmploymentType(NodeInterface $node){
+
+        $vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'N/A' => 151];
+        $res = null;
+        if($res == null)
+            $res = $vals['N/A'];
+        $this->body->setEmploymentType($res);
+    }
+
+    /**
+     * @param $res string result of an ASK query in json
+     * @return mixed returns the a php boolean on the results of a ASK query
+     */
     private function evaluate($res){
         $obj = json_decode($res);
         return $obj->{'boolean'};
     }
 
+    /**
+     * @param $vals array list of neptune label strings to attempt to match
+     * @param $node
+     * @return false|mixed
+     *
+     * Checks if a (Var) label can be found from a passed in nodes label
+     */
     private function check_property($vals, $node){
         foreach (array_keys($vals) as $val){
 
@@ -101,17 +137,6 @@ class CharacterSheetManager
         return false;
     }
 
-    private function processEcoSector(){
-
-    }
-
-    private function processFinClass(){
-
-    }
-
-    private function processPsAct(){
-
-    }
 
     private function updateNode(NodeInterface $node){
         $editNode = Node::load($node->id());

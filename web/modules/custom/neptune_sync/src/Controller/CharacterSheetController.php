@@ -11,7 +11,7 @@ class CharacterSheetController extends ControllerBase
 {
     public function buildCharacterSheet(NodeInterface $node){
         $c_mgr = new CharacterSheetManager();
-        $c_mgr->ctrlTest($node);
+        $c_mgr->processPortfolio($node);
 
         return [
             '#markup' => 'Updating... ' . $node->getTitle() .
