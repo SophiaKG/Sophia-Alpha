@@ -6,6 +6,7 @@ QUERY="query=\
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#i>\
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\
         PREFIX owl: <http://www.w3.org/2002/07/owl#>\
+        PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>\
         ${1}"
 
 echo $QUERY

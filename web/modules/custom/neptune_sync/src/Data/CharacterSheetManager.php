@@ -48,15 +48,32 @@ class CharacterSheetManager
     }
 
 
+    /** TODO -document first portfolio assumption
+     *         -make hash table on bulk usage
+     */
     public function processPortfolio(NodeInterface $node){
 
         $query = QueryBuilder::getBodyPortfolio($node);
         $res = $this->query_mgr->runCustomQuery($query);
         $obj = json_decode($res);
-        foreach( $obj->{'results'}->{'bindings'} as $bind){
+        $out = $obj->{'results'}->{'bindings'}[0]->{'s1'}->{'value'}; //get first portfolio only
+        if($out){
+            $query = \Drupal::entityQuery('node')
+                ->condition('title', $out)
+                ->condition('type', 'portfolios')
+                ->execute();
+            $portNid = reset($query);
+
+            $editNode = Node::load($node->id());
+            $editNode->field_portfolio = array(['target_id' => $portNid]);
+            $editNode->save();
+        }
+
+        Helper::log($out);
+        /*as $bind){
             $out = $bind->{'s1'}->{'value'};
             Helper::log($out);
-        }
+        }*/
     }
 
     /** Body Type
