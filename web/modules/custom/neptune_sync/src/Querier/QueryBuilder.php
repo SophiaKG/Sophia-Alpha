@@ -41,18 +41,28 @@ class QueryBuilder
         return $q;
     }
 
+    /**TODO this needs documenting urgently
+     * @param NodeInterface $node
+     * @return Query
+     */
     public static function getBodyPortfolio(NodeInterface $node){
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL .
-            'SELECT distinct ?s1 ' .
-            'WHERE {GRAPH ?g ' .
-                '{?o rdfs:label  ?s1. ' .
-                '?o1 ns1:FallsUnder ?o. ' .
-                '?o1 a ns1:CommonwealthBody. ' .
-                '?o1 rdfs:label "' . $node->getTitle() . '" .}}');
+            'SELECT DISTINCT ?port ?portlabel ?datetime ' .
+            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
+            'WHERE { ' .
+                '?body rdfs:label "' . $node->getTitle() . '" .' .
+                '?body a ns1:CommonwealthBody. ' .
+                '?body ns1:FallsUnder ?port. ' .
+                '?port rdfs:label ?portlabel. ' .
+                '?aao ns1:Defines ?port. ' .
+                '?event ns1:Empowers ?aao. ' .
+                '?event ns1:startsAtOrAfter ?datetime. ' .
+            '} ORDER BY DESC(?datetime) ' .
+            'LIMIT 1');
         return $q;
     }
 

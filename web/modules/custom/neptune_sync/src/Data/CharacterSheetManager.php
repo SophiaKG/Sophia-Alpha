@@ -48,18 +48,23 @@ class CharacterSheetManager
     }
 
 
-    /** TODO -document first portfolio assumption
+    /** TODO
      *         -make hash table on bulk usage
+     * @param NodeInterface $node
+     * @param bool $bulkOperation
+     * @throws \Drupal\Core\Entity\EntityStorageException
      */
-    public function processPortfolio(NodeInterface $node){
+    public function processPortfolio(NodeInterface $node, Bool $bulkOperation){
 
+        $porthash = self::createPortfolioHash('portfolios');
+        kint($porthash['12836']);
         $query = QueryBuilder::getBodyPortfolio($node);
-        $res = $this->query_mgr->runCustomQuery($query);
-        $obj = json_decode($res);
-        $out = $obj->{'results'}->{'bindings'}[0]->{'s1'}->{'value'}; //get first portfolio only
-        if($out){
+        $jsonResult = $this->query_mgr->runCustomQuery($query);
+        $jsonObject = json_decode($jsonResult);
+        $portfolioLabel = $jsonObject->{'results'}->{'bindings'}[0]->{'portlabel'}->{'value'};
+        if($portfolioLabel && !$bulkOperation){
             $query = \Drupal::entityQuery('node')
-                ->condition('title', $out)
+                ->condition('title', $portfolioLabel)
                 ->condition('type', 'portfolios')
                 ->execute();
             $portNid = reset($query);
@@ -68,12 +73,24 @@ class CharacterSheetManager
             $editNode->field_portfolio = array(['target_id' => $portNid]);
             $editNode->save();
         }
+    }
 
-        Helper::log($out);
-        /*as $bind){
-            $out = $bind->{'s1'}->{'value'};
-            Helper::log($out);
-        }*/
+    /**TODO comment this
+     * @variable NodeInterface $nodes
+     * @param String $nodeType
+     * @return String[] ['nid' => 'node title']
+     */
+    private function createNodeTypeIdHash(String $nodeType){
+        $nids = \Drupal::entityQuery('node')
+            ->condition('type', $nodeType)
+            ->execute();
+        $nodes =  Node::loadMultiple($nids);
+
+        $porthash = array();
+        foreach ($nodes as $node)
+            $porthash += array($node->id() => $node->getTitle());
+
+        return $porthash;
     }
 
     /** Body Type

@@ -22,4 +22,9 @@ class SophiaGlobal
 
     public const PREFIX_ALL = self::PREFIX_NS1 . ' ' . self::PREFIX_RDFS . ' ' . self::PREFIX_OWL;
 
+    /**
+     * GRAPHS:
+     */
+    public const GRAPH_0 = '<http://aws.amazon.com/neptune/vocab/v000>';
+    public const GRAPH_1 = '<http://aws.amazon.com/neptune/vocab/v001>';
 }
