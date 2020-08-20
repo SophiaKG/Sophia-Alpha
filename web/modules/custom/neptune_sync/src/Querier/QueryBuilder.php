@@ -37,11 +37,13 @@ class QueryBuilder
             SophiaGlobal::PREFIX_ALL .
             'ASK { ?subject rdfs:label "' . $node->getTitle() . '" . ' .
             ' ns1:PublicServiceAct1999 ns1:Enables ?subject . }');
+        //'select distinct ?b2l from <http://aws.amazon.com/neptune/vocab/v001> where { ?ct rdfs:label "Public Service Act 1999". ?auth ?e ?act. ?auth a ns2:Authority. ?auth ?e2 ?b2. ?b2 rdfs:label ?b2l}'
 
         return $q;
     }
 
     /**TODO this needs documenting urgently
+     * Graph0
      * @param NodeInterface $node
      * @return Query
      */
@@ -63,6 +65,29 @@ class QueryBuilder
                 '?event ns1:startsAtOrAfter ?datetime. ' .
             '} ORDER BY DESC(?datetime) ' .
             'LIMIT 1');
+        return $q;
+    }
+
+    /**
+     * Graph0
+     * @param NodeInterface $node
+     * @return Query
+     */
+    public static function getBodyLegislation(NodeInterface $node){
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        //Form the entire query
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL .
+            'SELECT DISTINCT ?legislationLabel ' .
+            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
+            'WHERE { '.
+                '?legislation rdfs:label ?legislationLabel. ' .
+                '?legislation ?e ?body. ' .
+                '?legislation a ns1:Legislation. ' .
+                '?body a ns1:CommonwealthBody. ' .
+                '?body rdfs:label "' . $node->getTitle() . '". ' .
+            '}');
         return $q;
     }
 

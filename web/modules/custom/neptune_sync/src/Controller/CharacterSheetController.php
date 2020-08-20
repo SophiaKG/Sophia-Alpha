@@ -22,4 +22,13 @@ class CharacterSheetController extends ControllerBase
                 </div>',
         ];
     }
+
+    public function buildAllCharacterSheets(){
+        $c_mgr = new CharacterSheetManager();
+        $c_mgr->updateAllCharacterSheets();
+
+        return [
+            '#markup' => 'Updating... hold onto your butts!',
+        ];
+    }
 }

@@ -15,7 +15,7 @@ class CharacterSheet
     protected $accountable_authority;
     //Economic sector
     protected $eco_sector;
-    //Financial classification
+    //Financial classification0
     protected $fin_class;
 
     /** @deprecated */
@@ -219,9 +219,9 @@ class CharacterSheet
     /**
      * @param array $legislations
      */
-    public function setLegislations(array $legislations): void
+    public function addLegislations(String $legislations): void
     {
-        $this->legislations = $legislations;
+        array_push($this->legislations, $legislations);
     }
 
     /**

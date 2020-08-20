@@ -66,9 +66,12 @@ module:
   token: 0
   toolbar: 0
   tour: 0
+  twig_tweak: 0
   update: 0
   user: 0
+  views_bulk_edit: 0
   views_bulk_operations: 0
+  views_tree: 0
   views_ui: 0
   webform: 0
   webform_devel: 0

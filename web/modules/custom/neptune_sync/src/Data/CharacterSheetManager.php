@@ -46,10 +46,12 @@ class CharacterSheetManager
 
         $this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
+        $this->processFinClass($node);
+        $this->processLegislation($node);
         $this->processEcoSector($node);
         $this->processEmploymentType($node);
-        $this->processFinClass($node);
 
+        //kint($this->body->getLegislations());
         $this->updateNode($node);
     }
 
@@ -96,33 +98,24 @@ class CharacterSheetManager
     }
 
     /**
-     * @variable NodeInterface $nodes
-     * @param String $nodeType
-     * @return String[] ['node title' => 'nid']
+     * @param NodeInterface $node
      */
-    private function createNodeTypeIdHash(String $nodeType){
+    private function processLegislation(NodeInterface $node){
 
-        static $nodeHash= array();
-        if(count($nodeHash) > 1 ) {
-            Helper::log("creating hash for " . $nodeType);
-            $nodes = $this->getAllNodeType($nodeType);
-            foreach ($nodes as $node)
-                $nodeHash += array($node->getTitle() => $node->id());
+        $query = QueryBuilder::getBodyLegislation($node);
+        $jsonResult = $this->query_mgr->runCustomQuery($query);
+        $jsonObject = json_decode($jsonResult);
+
+        foreach ( $jsonObject->{'results'}->{'bindings'} as $binding){
+            $query = \Drupal::entityQuery('node')
+                ->condition('title', $binding->{'legislationLabel'}->{'value'})
+                ->condition('type', 'legislation')
+                ->execute();
+            $legislationNid = reset($query);
+            $this->body->addLegislations($legislationNid);
         }
-
-        return $nodeHash;
     }
 
-    /**
-     * @param $nodeType
-     * @return NodeInterface[]
-     */
-    private function getAllNodeType($nodeType){
-        $nids = \Drupal::entityQuery('node')
-            ->condition('type', $nodeType)
-            ->execute();
-        return Node::loadMultiple($nids);
-    }
 
     /** Body Type
      * @param NodeInterface $node
@@ -202,6 +195,34 @@ class CharacterSheetManager
         return false;
     }
 
+    /**
+     * @variable NodeInterface $nodes
+     * @param String $nodeType
+     * @return String[] ['node title' => 'nid']
+     */
+    private function createNodeTypeIdHash(String $nodeType){
+
+        static $nodeHash= array();
+        if(count($nodeHash) > 1 ) {
+            Helper::log("creating hash for " . $nodeType);
+            $nodes = $this->getAllNodeType($nodeType);
+            foreach ($nodes as $node)
+                $nodeHash += array($node->getTitle() => $node->id());
+        }
+
+        return $nodeHash;
+    }
+
+    /**
+     * @param $nodeType
+     * @return NodeInterface[]
+     */
+    private function getAllNodeType($nodeType){
+        $nids = \Drupal::entityQuery('node')
+            ->condition('type', $nodeType)
+            ->execute();
+        return Node::loadMultiple($nids);
+    }
 
     private function updateNode(NodeInterface $node){
         $editNode = Node::load($node->id());
@@ -217,8 +238,8 @@ class CharacterSheetManager
             $editNode->field_financial_classification = array(['target_id' => $this->body->getFinClass()]);
         if($this->body->getEmploymentType())
             $editNode->field_employment_arrangements = array('target_id' => $this->body->getEmploymentType());
-        if($this->body->getLegislations())  //@todo node, multiplicity
-            $editNode->field_enabling_legislation_and_o = array(['target_id' => $this->body->getLegislations()]);
+        foreach($this->body->getLegislations() as $nid)  //@todo multiplicity
+            $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
         //flipkeys
 
         //default value these nodes until value is complete

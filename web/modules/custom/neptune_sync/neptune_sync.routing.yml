@@ -31,6 +31,13 @@ neptune_sync.displayCharacterSheet:
     parameters:
       node:
         type: entity:node
+neptune_sync.updateAllCharacterSheets:
+  path: '/admin/update-all-character-sheets'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\CharacterSheetController::buildAllCharacterSheets'
+    _title: 'Update all Character Sheets'
+  requirements:
+    _permission: 'administer modules'
 neptune_sync.displayGraph:
   path: '/graph/{graphid}'
   defaults:
