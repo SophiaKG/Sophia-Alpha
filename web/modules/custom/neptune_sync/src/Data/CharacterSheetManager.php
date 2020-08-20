@@ -21,7 +21,7 @@ class CharacterSheetManager
      * @param NodeInterface $node
      * @TODO remove N/A once all neptune queries are complete and tested
      */
-    public function ctrlTest(NodeInterface $node){
+    public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
 
 
         /** Flipchart keys
@@ -44,53 +44,84 @@ class CharacterSheetManager
          * @TODO these are currently just defaulted values, these need review and hooking up
          */
 
+        $this->processPortfolio($node, $bulkOperation);
+        $this->processBodyType($node);
+        $this->processEcoSector($node);
+        $this->processEmploymentType($node);
+        $this->processFinClass($node);
+
         $this->updateNode($node);
     }
 
+    public function updateAllCharacterSheets(){
 
-    /** TODO
-     *         -make hash table on bulk usage
+        $bodies = $this->getAllNodeType("bodies");
+        foreach($bodies as $bodyItr){
+            $this->body = new CharacterSheet();
+            $this->updateCharacterSheet($bodyItr);
+        }
+    }
+
+
+    /**
      * @param NodeInterface $node
      * @param bool $bulkOperation
-     * @throws \Drupal\Core\Entity\EntityStorageException
+     * Logic:
+     *      -Get and execute query to get portfolio from body
+     *      -Decode json result from query to php object
+     *      -Get nid of portfolio from the portfolios label
+     *      -add nid as entity reference to body
      */
-    public function processPortfolio(NodeInterface $node, Bool $bulkOperation){
+    private function processPortfolio(NodeInterface $node, Bool $bulkOperation){
 
-        $porthash = self::createPortfolioHash('portfolios');
-        kint($porthash['12836']);
         $query = QueryBuilder::getBodyPortfolio($node);
         $jsonResult = $this->query_mgr->runCustomQuery($query);
         $jsonObject = json_decode($jsonResult);
         $portfolioLabel = $jsonObject->{'results'}->{'bindings'}[0]->{'portlabel'}->{'value'};
-        if($portfolioLabel && !$bulkOperation){
+        $portNid = null;
+
+        if($portfolioLabel && !$bulkOperation) { //single execution, poll RDS
             $query = \Drupal::entityQuery('node')
                 ->condition('title', $portfolioLabel)
                 ->condition('type', 'portfolios')
                 ->execute();
             $portNid = reset($query);
-
-            $editNode = Node::load($node->id());
-            $editNode->field_portfolio = array(['target_id' => $portNid]);
-            $editNode->save();
+        } elseif ($portfolioLabel){ //part of a bulk execution, use pre-filled hash table
+            $portfolioHash = self::createNodeTypeIdHash('portfolios');
+            $portNid = $portfolioHash[$portfolioLabel];
         }
+
+        if($portNid)
+            $this->body->setPortfolio($portNid);
     }
 
-    /**TODO comment this
+    /**
      * @variable NodeInterface $nodes
      * @param String $nodeType
-     * @return String[] ['nid' => 'node title']
+     * @return String[] ['node title' => 'nid']
      */
     private function createNodeTypeIdHash(String $nodeType){
+
+        static $nodeHash= array();
+        if(count($nodeHash) > 1 ) {
+            Helper::log("creating hash for " . $nodeType);
+            $nodes = $this->getAllNodeType($nodeType);
+            foreach ($nodes as $node)
+                $nodeHash += array($node->getTitle() => $node->id());
+        }
+
+        return $nodeHash;
+    }
+
+    /**
+     * @param $nodeType
+     * @return NodeInterface[]
+     */
+    private function getAllNodeType($nodeType){
         $nids = \Drupal::entityQuery('node')
             ->condition('type', $nodeType)
             ->execute();
-        $nodes =  Node::loadMultiple($nids);
-
-        $porthash = array();
-        foreach ($nodes as $node)
-            $porthash += array($node->id() => $node->getTitle());
-
-        return $porthash;
+        return Node::loadMultiple($nids);
     }
 
     /** Body Type
@@ -174,9 +205,9 @@ class CharacterSheetManager
 
     private function updateNode(NodeInterface $node){
         $editNode = Node::load($node->id());
-        Helper::log($node->id());
+        Helper::log("updating " . $node->id());
 
-        if($this->body->getPortfolio()) //@todo node
+        if($this->body->getPortfolio())
             $editNode->field_portfolio = array(['target_id' => $this->body->getPortfolio()]);
         if($this->body->getTypeOfBody())
             $editNode->field_type_of_body = array(['target_id' => $this->body->getTypeOfBody()]);
@@ -205,11 +236,5 @@ class CharacterSheetManager
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
 
         $editNode->save();
-
-
-
     }
-
-
-
 }
