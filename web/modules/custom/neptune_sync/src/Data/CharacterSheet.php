@@ -31,6 +31,10 @@ class CharacterSheet
      * @deprecated */
     protected $ps_act;
 
+    public function compare(){
+
+    }
+
     //booleans
     /**
      * @return mixed

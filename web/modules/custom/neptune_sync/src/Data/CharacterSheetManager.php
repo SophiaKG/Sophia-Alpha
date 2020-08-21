@@ -1,6 +1,7 @@
 <?php
 namespace Drupal\neptune_sync\Data;
 
+use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\node\Entity\Node;
@@ -11,6 +12,7 @@ class CharacterSheetManager
 {
     protected $body;
     protected $query_mgr;
+    protected $toUpdate;
 
     public function __construct(){
         $this->body = new CharacterSheet();
@@ -53,6 +55,7 @@ class CharacterSheetManager
 
         //kint($this->body->getLegislations());
         $this->updateNode($node);
+        //$this->testfunc($node);
     }
 
     public function updateAllCharacterSheets(){
@@ -224,22 +227,60 @@ class CharacterSheetManager
         return Node::loadMultiple($nids);
     }
 
-    private function updateNode(NodeInterface $node){
+    private function testfunc($node){
         $editNode = Node::load($node->id());
-        Helper::log("updating " . $node->id());
 
-        if($this->body->getPortfolio())
-            $editNode->field_portfolio = array(['target_id' => $this->body->getPortfolio()]);
-        if($this->body->getTypeOfBody())
-            $editNode->field_type_of_body = array(['target_id' => $this->body->getTypeOfBody()]);
-        if($this->body->getEcoSector())
-            $editNode->field_economic_sector =  array(['target_id' => $this->body->getEcoSector()]);
-        if($this->body->getFinClass()) //@todo multiplicity
-            $editNode->field_financial_classification = array(['target_id' => $this->body->getFinClass()]);
-        if($this->body->getEmploymentType())
-            $editNode->field_employment_arrangements = array('target_id' => $this->body->getEmploymentType());
-        foreach($this->body->getLegislations() as $nid)  //@todo multiplicity
-            $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
+
+        foreach($editNode->get("field_enabling_legislation_and_o") as $ref)
+            kint(reset($ref->getValue()), $this->body->getLegislations());
+        foreach($editNode->get("field_portfolio") as $ref)
+            kint(reset($ref->getValue()), $this->body->getPortfolio());
+
+        /*kint($editNode->get("field_enabling_legislation_and_o")
+            ->first()->getValue(), $this->body->getLegislations());
+
+        if(reset($editNode->get("field_portfolio")
+            ->first()->getValue()) == $this->body->getPortfolio())
+            kint("we be matching");*/
+    }
+
+    /**
+     * @param NodeInterface $node
+     * @throws \Drupal\Core\Entity\EntityStorageException
+     */
+    private function updateNode(NodeInterface $node){
+
+        /** @var NodeInterface $editNode */
+        $editNode = Node::load($node->id());
+        $toUpdate = false;
+
+        if($this->shouldUpdate($editNode, "field_portfolio",
+            $this->body->getPortfolio()))
+                $editNode->field_portfolio =
+                    array(['target_id' => $this->body->getPortfolio()]);
+        if($this->shouldUpdate($editNode, "field_type_of_body",
+            $this->body->getTypeOfBody()))
+                $editNode->field_type_of_body =
+                    array(['target_id' => $this->body->getTypeOfBody()]);
+        if($this->shouldUpdate($editNode, "field_economic_sector",
+            $this->body->getEcoSector()))
+                $editNode->field_economic_sector =
+                    array(['target_id' => $this->body->getEcoSector()]);
+        if($this->shouldUpdate($editNode, "field_financial_classification",
+            $this->body->getFinClass())) //@todo multiplicity
+                $editNode->field_financial_classification =
+                    array(['target_id' => $this->body->getFinClass()]);
+        if($this->shouldUpdate($editNode, "field_employment_arrangements",
+            $this->body->getEmploymentType()))
+                $editNode->field_employment_arrangements =
+                    array('target_id' => $this->body->getEmploymentType());
+        if($this->shouldUpdate($editNode, "field_enabling_legislation_and_o",
+            $this->body->getLegislations())){
+                //clear current vals
+                foreach($this->body->getLegislations() as $nid)  //@todo multiplicity
+                    $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
+        }
+
         //flipkeys
 
         //default value these nodes until value is complete
@@ -256,6 +297,115 @@ class CharacterSheetManager
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
 
-        $editNode->save();
+        if($this->toUpdate) {
+            Helper::log("updating " . $node->id(), true);
+            $editNode->setNewRevision();
+            $editNode->save();
+        } else Helper::log("skipping " . $node->id(), true);
+    }
+
+    /** @deprecated  */
+    private function xxx (NodeInterface $editNode, String $mode, String $compareVal = ''){
+        try{
+            switch ($mode) {
+                case "portfolio":
+                    $array = $editNode->get("field_portfolio")
+                        ->first()->getValue(); // may lead to missing data
+                    if ($this->body->getPortfolio() &&
+                        reset($array) == $this->body->getPortfolio()) {
+                        $this->toUpdate = true;
+                        return true;
+                    } else return false;
+                case "typeOfBody":
+                    $array = $editNode->get("field_type_of_body")
+                        ->first()->getValue(); // may lead to missing data
+                    if ($this->body->getTypeOfBody() &&
+                        reset($array) == $this->body->getTypeOfBody()) {
+                        $this->toUpdate = true;
+                        return true;
+                    } else return false;
+                case "ecoSector":
+                    $array = $editNode->get("field_economic_sector")
+                        ->first()->getValue(); // may lead to missing data
+                    if ($this->body->getEcoSector() &&
+                        reset($array) == $this->body->getEcoSector()) {
+                        $this->toUpdate = true;
+                        return true;
+                    } else return false;
+                case "finClass": //multiplicity
+                    $array = $editNode->get("field_financial_classification")
+                        ->first()->getValue(); // may lead to missing data
+                    if ($this->body->getFinClass() &&
+                        reset($array) == $this->body->getFinClass()) {
+                        $this->toUpdate = true;
+                        return true;
+                    } else return false;
+                case "employmentType":
+                    $array = $editNode->get("field_employment_arrangements")
+                        ->first()->getValue(); // may lead to missing data
+                    if ($this->body->getEmploymentType() &&
+                        reset($array) == $this->body->getEmploymentType()) {
+                        $this->toUpdate = true;
+                        return true;
+                    } else return false;
+                case "legislation": //multiplicity
+                    $array = $editNode->get("field_enabling_legislation_and_o")
+                        ->first()->getValue(); // may lead to missing data
+                    if ($compareVal &&
+                        reset($array) == $compareVal) {
+                        $this->toUpdate = true;
+                        return true;
+                    } else return false;
+            }
+        }  catch (MissingDataException $e){
+            return false;
+        }
+    }
+
+    //how do we handle a removal
+
+    /**
+     * @param NodeInterface $editNode
+     * @param String $nodeField
+     * @param String|String[] $compVal
+     * @return bool
+     * @throws MissingDataException
+     */
+    private function shouldUpdate (NodeInterface $editNode, String $nodeField, $compVal){
+
+        Helper::log("shouldUpdate () attempting" . $nodeField);
+
+        //multi field
+        if(count($editNode->get($nodeField)) > 1 || is_array($compVal)){
+            Helper::log("shouldUpdate () multi match " . $nodeField);
+
+            //not equal size
+            if(count($editNode->get($nodeField)) != count($compVal)){
+                Helper::log("UPDATE FIELD!");
+                $this->toUpdate = true;
+                return true;
+            }
+
+            $subUpdateFlag = false;
+            //foreach array | foreach compVal || array contains|matches array
+
+        } else { //single field
+            Helper::log("shouldUpdate () single match " . $nodeField);
+            if($editNode->get($nodeField)->first() == null)
+                if($compVal) {
+                    Helper::log("UPDATE FIELD!1");
+                    $this->toUpdate = true;
+                    return true;
+                } else
+                    return false;
+
+            $array = $editNode->get($nodeField)->first()->getValue();
+            if($compVal && reset($array) != $compVal) {
+                Helper::log("UPDATE FIELD!2");
+                $this->toUpdate = true;
+                return true;
+            } else
+                return false;
+        }
     }
 }
