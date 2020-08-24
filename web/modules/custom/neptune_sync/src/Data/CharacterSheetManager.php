@@ -81,7 +81,7 @@ class CharacterSheetManager
         $query = QueryBuilder::getBodyPortfolio($node);
         $jsonResult = $this->query_mgr->runCustomQuery($query);
         $jsonObject = json_decode($jsonResult);
-        if(!is_array($jsonObject->{'results'}->{'bindings'}))//$jsonObject->{'results'}->{'bindings'} < 1) //if no portfolio found
+        if(count($jsonObject->{'results'}->{'bindings'}) == 0)//$jsonObject->{'results'}->{'bindings'} < 1) //if no portfolio found
             return;
         $portfolioLabel = $jsonObject->{'results'}->{'bindings'}[0]->{'portlabel'}->{'value'};
         $portNid = null;
@@ -393,6 +393,7 @@ class CharacterSheetManager
      * @param String|String[] $compVal
      * @return bool
      * @throws MissingDataException
+     * TODO rename $compVal to neptune val
      */
     private function shouldUpdate (NodeInterface $editNode, String $nodeField, $compVal){
 
@@ -428,13 +429,23 @@ class CharacterSheetManager
             }
         } else { //single field
             Helper::log("shouldUpdate () single match " . $nodeField);
+
+            //if node has no value and neptune does
             if ($editNode->get($nodeField)->first() == null)
                 if ($compVal) {
                     Helper::log("UPDATE FIELD!1");
                     return true;
                 } else
                     return false;
+            //if node has value and neptune doesnt
+            else if(!$compVal && $editNode->get($nodeField)->first() != null) {
+                Helper::log("UPDATE FIELD!3");
+                return true;
+            }
+
             $array = $editNode->get($nodeField)->first()->getValue();
+
+            //if neptune has a value and neptune does not equal node
             if ($compVal && reset($array) != $compVal) {
                 Helper::log("UPDATE FIELD!2");
                 return true;

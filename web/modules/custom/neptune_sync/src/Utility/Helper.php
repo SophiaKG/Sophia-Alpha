@@ -37,12 +37,12 @@ class Helper
                 break;
             case "array":
                 $str .= "Array: ";
-                foreach ($input as $item){
-                    $str .= "\n\t\t\tkey = " . key($item) . "val = ";
+                foreach ($input as $key => $item){
+                    $str .= "\n\t\t\tkey = [" . $key . "] val = ";
                     if(is_array($item)) {
                         $str .= "Array";
-                        foreach ($item as $subItem){
-                            $str .= "\n\t\t\t\tkey = " . key($subItem) . "val = ";
+                        foreach ($item as $subKey => $subItem){
+                            $str .= "\n\t\t\t\tkey = [" . $subKey . "] - val = ";
                             if(is_array($subItem))
                                 $str .= "array (too deep to expend)\n\t\t\t\t";
                             else
