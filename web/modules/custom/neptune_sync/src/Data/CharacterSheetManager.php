@@ -81,7 +81,7 @@ class CharacterSheetManager
         $query = QueryBuilder::getBodyPortfolio($node);
         $jsonResult = $this->query_mgr->runCustomQuery($query);
         $jsonObject = json_decode($jsonResult);
-        if(count($jsonObject->{'results'}->{'bindings'}) == 0)//$jsonObject->{'results'}->{'bindings'} < 1) //if no portfolio found
+        if(count($jsonObject->{'results'}->{'bindings'}) == 0)
             return;
         $portfolioLabel = $jsonObject->{'results'}->{'bindings'}[0]->{'portlabel'}->{'value'};
         $portNid = null;
@@ -228,26 +228,6 @@ class CharacterSheetManager
         return Node::loadMultiple($nids);
     }
 
-    private function testfunc($node){
-        $editNode = Node::load($node->id());
-
-        Helper::log("class type: " . gettype($editNode->get("field_enabling_legislation_and_o")) . " " .  get_class($editNode->get("field_enabling_legislation_and_o")));
-        kint($editNode->get("field_portfolio")->getValue(), "portfolio");
-        foreach($editNode->get("field_enabling_legislation_and_o") as $ref) {
-            Helper::log("ref type: " .  gettype($ref) . " " .  get_class($ref));
-            kint(reset($ref->getValue()), $this->body->getLegislations(), "leg", "count");
-        }
-        // foreach($editNode->get("field_portfolio") as $ref)
-          //  kint(reset($ref->getValue()), $this->body->getPortfolio(), "port", "count");
-
-        /*kint($editNode->get("field_enabling_legislation_and_o")
-            ->first()->getValue(), $this->body->getLegislations());
-
-        if(reset($editNode->get("field_portfolio")
-            ->first()->getValue()) == $this->body->getPortfolio())
-            kint("we be matching");*/
-    }
-
     /**
      * @param NodeInterface $node
      * @throws \Drupal\Core\Entity\EntityStorageException
@@ -302,8 +282,6 @@ class CharacterSheetManager
                 $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
         }
 
-        //$this->testfunc($node);
-
         //flipkeys
 
         //default value these nodes until value is complete
@@ -327,64 +305,6 @@ class CharacterSheetManager
         } else Helper::log("skipping " . $node->id(), true);
     }
 
-    /** @deprecated  */
-    private function xxx (NodeInterface $editNode, String $mode, String $compareVal = ''){
-        try{
-            switch ($mode) {
-                case "portfolio":
-                    $array = $editNode->get("field_portfolio")
-                        ->first()->getValue(); // may lead to missing data
-                    if ($this->body->getPortfolio() &&
-                        reset($array) == $this->body->getPortfolio()) {
-                        $this->toUpdate = true;
-                        return true;
-                    } else return false;
-                case "typeOfBody":
-                    $array = $editNode->get("field_type_of_body")
-                        ->first()->getValue(); // may lead to missing data
-                    if ($this->body->getTypeOfBody() &&
-                        reset($array) == $this->body->getTypeOfBody()) {
-                        $this->toUpdate = true;
-                        return true;
-                    } else return false;
-                case "ecoSector":
-                    $array = $editNode->get("field_economic_sector")
-                        ->first()->getValue(); // may lead to missing data
-                    if ($this->body->getEcoSector() &&
-                        reset($array) == $this->body->getEcoSector()) {
-                        $this->toUpdate = true;
-                        return true;
-                    } else return false;
-                case "finClass": //multiplicity
-                    $array = $editNode->get("field_financial_classification")
-                        ->first()->getValue(); // may lead to missing data
-                    if ($this->body->getFinClass() &&
-                        reset($array) == $this->body->getFinClass()) {
-                        $this->toUpdate = true;
-                        return true;
-                    } else return false;
-                case "employmentType":
-                    $array = $editNode->get("field_employment_arrangements")
-                        ->first()->getValue(); // may lead to missing data
-                    if ($this->body->getEmploymentType() &&
-                        reset($array) == $this->body->getEmploymentType()) {
-                        $this->toUpdate = true;
-                        return true;
-                    } else return false;
-                case "legislation": //multiplicity
-                    $array = $editNode->get("field_enabling_legislation_and_o")
-                        ->first()->getValue(); // may lead to missing data
-                    if ($compareVal &&
-                        reset($array) == $compareVal) {
-                        $this->toUpdate = true;
-                        return true;
-                    } else return false;
-            }
-        }  catch (MissingDataException $e){
-            return false;
-        }
-    }
-
     //how do we handle a removal
 
     /**
@@ -403,23 +323,14 @@ class CharacterSheetManager
         Helper::log("comp val count:" . count($compVal), false, $compVal);
         Helper::log("node vals count:" . count($editNode->get($nodeField)->getValue()),
             false, array_merge(...$editNode->get($nodeField)->getValue()));
-        Helper::log($editNode->get($nodeField)->getValue());
-        Helper::log(array_merge(...($editNode->get($nodeField)->getValue())));
+
         $nodeFieldArr = array();
         foreach ($editNode->get($nodeField)->getValue() as $val)
            $nodeFieldArr[] = $val['target_id'];
 
-        Helper::log($nodeFieldArr);
-        kint(
-            $editNode->get("field_enabling_legislation_and_o")->getValue(),
-            "target id");
-        if(is_array($compVal)){
-            Helper::log("first match");
-        }
-        if(count($editNode->get($nodeField)->getValue()) > 1)
-        {
-            Helper::log("second match size = " . count($editNode->get($nodeField)->getValue()));
-        }
+        Helper::log("modded node val", false, $nodeFieldArr);
+
+        //multi
         if (is_array($compVal) || count($editNode->get($nodeField)->getValue()) > 1) {
             Helper::log("shouldUpdate () multi match " . $nodeField);
             if ($nodeFieldArr != $compVal ||
