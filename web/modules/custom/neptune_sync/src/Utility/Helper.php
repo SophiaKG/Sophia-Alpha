@@ -38,11 +38,11 @@ class Helper
             case "array":
                 $str .= "Array: ";
                 foreach ($input as $item){
-                    $str .= "\n\t\t\tkey = " . key($item) .+ "val = ";
+                    $str .= "\n\t\t\tkey = " . key($item) . "val = ";
                     if(is_array($item)) {
                         $str .= "Array";
                         foreach ($item as $subItem){
-                            $str .= "\n\t\t\t\tkey = " . key($subItem) .+ "val = ";
+                            $str .= "\n\t\t\t\tkey = " . key($subItem) . "val = ";
                             if(is_array($subItem))
                                 $str .= "array (too deep to expend)\n\t\t\t\t";
                             else
@@ -53,7 +53,7 @@ class Helper
                 }
                 break;
             default:
-                $str .= " unable to print out " . gettype($input);
+                $str .= " unable to print out " . gettype($input) . " " . get_class($input);
                 break;
         }
 

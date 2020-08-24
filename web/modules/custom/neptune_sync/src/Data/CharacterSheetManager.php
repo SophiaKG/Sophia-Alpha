@@ -12,7 +12,6 @@ class CharacterSheetManager
 {
     protected $body;
     protected $query_mgr;
-    protected $toUpdate;
 
     public function __construct(){
         $this->body = new CharacterSheet();
@@ -82,6 +81,8 @@ class CharacterSheetManager
         $query = QueryBuilder::getBodyPortfolio($node);
         $jsonResult = $this->query_mgr->runCustomQuery($query);
         $jsonObject = json_decode($jsonResult);
+        if(!is_array($jsonObject->{'results'}->{'bindings'}))//$jsonObject->{'results'}->{'bindings'} < 1) //if no portfolio found
+            return;
         $portfolioLabel = $jsonObject->{'results'}->{'bindings'}[0]->{'portlabel'}->{'value'};
         $portNid = null;
 
@@ -230,11 +231,14 @@ class CharacterSheetManager
     private function testfunc($node){
         $editNode = Node::load($node->id());
 
-
-        foreach($editNode->get("field_enabling_legislation_and_o") as $ref)
-            kint(reset($ref->getValue()), $this->body->getLegislations());
-        foreach($editNode->get("field_portfolio") as $ref)
-            kint(reset($ref->getValue()), $this->body->getPortfolio());
+        Helper::log("class type: " . gettype($editNode->get("field_enabling_legislation_and_o")) . " " .  get_class($editNode->get("field_enabling_legislation_and_o")));
+        kint($editNode->get("field_portfolio")->getValue(), "portfolio");
+        foreach($editNode->get("field_enabling_legislation_and_o") as $ref) {
+            Helper::log("ref type: " .  gettype($ref) . " " .  get_class($ref));
+            kint(reset($ref->getValue()), $this->body->getLegislations(), "leg", "count");
+        }
+        // foreach($editNode->get("field_portfolio") as $ref)
+          //  kint(reset($ref->getValue()), $this->body->getPortfolio(), "port", "count");
 
         /*kint($editNode->get("field_enabling_legislation_and_o")
             ->first()->getValue(), $this->body->getLegislations());
@@ -255,31 +259,50 @@ class CharacterSheetManager
         $toUpdate = false;
 
         if($this->shouldUpdate($editNode, "field_portfolio",
-            $this->body->getPortfolio()))
-                $editNode->field_portfolio =
-                    array(['target_id' => $this->body->getPortfolio()]);
+            $this->body->getPortfolio())) {
+
+            $toUpdate = true;
+            $editNode->field_portfolio =
+                array(['target_id' => $this->body->getPortfolio()]);
+        }
         if($this->shouldUpdate($editNode, "field_type_of_body",
-            $this->body->getTypeOfBody()))
-                $editNode->field_type_of_body =
-                    array(['target_id' => $this->body->getTypeOfBody()]);
+            $this->body->getTypeOfBody())) {
+
+            $toUpdate = true;
+            $editNode->field_type_of_body =
+                array(['target_id' => $this->body->getTypeOfBody()]);
+        }
         if($this->shouldUpdate($editNode, "field_economic_sector",
-            $this->body->getEcoSector()))
-                $editNode->field_economic_sector =
-                    array(['target_id' => $this->body->getEcoSector()]);
+            $this->body->getEcoSector())) {
+
+            $toUpdate = true;
+            $editNode->field_economic_sector =
+                array(['target_id' => $this->body->getEcoSector()]);
+        }
         if($this->shouldUpdate($editNode, "field_financial_classification",
-            $this->body->getFinClass())) //@todo multiplicity
-                $editNode->field_financial_classification =
-                    array(['target_id' => $this->body->getFinClass()]);
+            $this->body->getFinClass())) { //@todo multiplicity
+
+            $toUpdate = true;
+            $editNode->field_financial_classification =
+                array(['target_id' => $this->body->getFinClass()]);
+        }
         if($this->shouldUpdate($editNode, "field_employment_arrangements",
-            $this->body->getEmploymentType()))
-                $editNode->field_employment_arrangements =
-                    array('target_id' => $this->body->getEmploymentType());
+            $this->body->getEmploymentType())) {
+
+            $toUpdate = true;
+            $editNode->field_employment_arrangements =
+                array('target_id' => $this->body->getEmploymentType());
+        }
         if($this->shouldUpdate($editNode, "field_enabling_legislation_and_o",
             $this->body->getLegislations())){
-                //clear current vals
-                foreach($this->body->getLegislations() as $nid)  //@todo multiplicity
-                    $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
+
+            $toUpdate = true;//clear current vals
+            $editNode->field_enabling_legislation_and_o = array();
+            foreach($this->body->getLegislations() as $nid)  //@todo multiplicity
+                $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
         }
+
+        //$this->testfunc($node);
 
         //flipkeys
 
@@ -297,7 +320,7 @@ class CharacterSheetManager
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
 
-        if($this->toUpdate) {
+        if($toUpdate) {
             Helper::log("updating " . $node->id(), true);
             $editNode->setNewRevision();
             $editNode->save();
@@ -375,37 +398,43 @@ class CharacterSheetManager
 
         Helper::log("shouldUpdate () attempting" . $nodeField);
 
-        //multi field
-        if(count($editNode->get($nodeField)) > 1 || is_array($compVal)){
+        //multi field | if either field is a multi val
+        Helper::log("comp val count:" . count($compVal), false, $compVal);
+        Helper::log("node vals count:" . count($editNode->get($nodeField)->getValue()),
+            false, array_merge(...$editNode->get($nodeField)->getValue()));
+        Helper::log($editNode->get($nodeField)->getValue());
+        Helper::log(array_merge(...($editNode->get($nodeField)->getValue())));
+        kint(
+            $editNode->get("field_enabling_legislation_and_o")->getValue(),
+            "target id");
+        if(is_array($compVal)){
+            Helper::log("first match");
+        }
+        if(count($editNode->get($nodeField)->getValue()) > 1)
+        {
+            Helper::log("second match size = " . count($editNode->get($nodeField)->getValue()));
+        }
+        if (is_array($compVal) || count($editNode->get($nodeField)->getValue()) > 1) {
             Helper::log("shouldUpdate () multi match " . $nodeField);
-
-            //not equal size
-            if(count($editNode->get($nodeField)) != count($compVal)){
-                Helper::log("UPDATE FIELD!");
-                $this->toUpdate = true;
+            if (array_merge(...$editNode->get($nodeField)->getValue()) != $compVal ||
+                count($compVal) != count($editNode->get($nodeField)->getValue())){
+                Helper::log("UPDATE FIELD!0");
                 return true;
             }
-
-            $subUpdateFlag = false;
-            //foreach array | foreach compVal || array contains|matches array
-
         } else { //single field
             Helper::log("shouldUpdate () single match " . $nodeField);
-            if($editNode->get($nodeField)->first() == null)
-                if($compVal) {
+            if ($editNode->get($nodeField)->first() == null)
+                if ($compVal) {
                     Helper::log("UPDATE FIELD!1");
-                    $this->toUpdate = true;
                     return true;
                 } else
                     return false;
-
             $array = $editNode->get($nodeField)->first()->getValue();
-            if($compVal && reset($array) != $compVal) {
+            if ($compVal && reset($array) != $compVal) {
                 Helper::log("UPDATE FIELD!2");
-                $this->toUpdate = true;
                 return true;
-            } else
-                return false;
+            }
         }
+        return false;
     }
 }
