@@ -404,6 +404,11 @@ class CharacterSheetManager
             false, array_merge(...$editNode->get($nodeField)->getValue()));
         Helper::log($editNode->get($nodeField)->getValue());
         Helper::log(array_merge(...($editNode->get($nodeField)->getValue())));
+        $nodeFieldArr = array();
+        foreach ($editNode->get($nodeField)->getValue() as $val)
+           $nodeFieldArr[] = $val['target_id'];
+
+        Helper::log($nodeFieldArr);
         kint(
             $editNode->get("field_enabling_legislation_and_o")->getValue(),
             "target id");
@@ -416,7 +421,7 @@ class CharacterSheetManager
         }
         if (is_array($compVal) || count($editNode->get($nodeField)->getValue()) > 1) {
             Helper::log("shouldUpdate () multi match " . $nodeField);
-            if (array_merge(...$editNode->get($nodeField)->getValue()) != $compVal ||
+            if ($nodeFieldArr != $compVal ||
                 count($compVal) != count($editNode->get($nodeField)->getValue())){
                 Helper::log("UPDATE FIELD!0");
                 return true;
