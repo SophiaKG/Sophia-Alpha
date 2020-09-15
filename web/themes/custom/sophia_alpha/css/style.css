@@ -57,8 +57,9 @@
 
 /*buffer main content out from fix float key */
 .page-view-flipchart .main-content {
-    margin: 0px 70px !important;
+    margin: 0px 70px 0px 220px !important;
 }
+
 
 /*-------------------summary view table*/
 

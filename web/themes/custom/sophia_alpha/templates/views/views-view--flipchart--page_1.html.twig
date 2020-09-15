@@ -100,15 +100,23 @@
       {{ kint(rows['1']['#rows']|length) }#}
       <br/>
 
+{#rows: {{ rows|length }}
+      total count: {{ count }}
+      a: {{ cola }}
+      b: {{ colb }}
+      c: {{ colc }}#}
+
+
+
       <div class="row flipchart" >
         <div class="col">
-          {{ rows|slice(0, cola) }}
+          {{ rows|slice(0, 6) }}
         </div>
         <div class="col">
-          {{ rows|slice(cola + 1, colb - cola ) }}
+          {{ rows|slice(6, 6 ) }}
         </div>
         <div class="col">
-          {{ rows|slice(colb + 1, colc) }}
+          {{ rows|slice(12, 5) }}
         </div>
       </div>
 

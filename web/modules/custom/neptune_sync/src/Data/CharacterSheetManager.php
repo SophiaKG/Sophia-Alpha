@@ -12,10 +12,14 @@ class CharacterSheetManager
 {
     protected $body;
     protected $query_mgr;
+    protected $countSkip;
+    protected $countupdated;
 
     public function __construct(){
         $this->body = new CharacterSheet();
         $this->query_mgr = new QueryManager();
+        $this->countSkip = 0;
+        $this->countupdated = 0;
     }
 
     /**
@@ -59,6 +63,7 @@ class CharacterSheetManager
 
     public function updateAllCharacterSheets(){
 
+        //TODO use this var instead of loading a node in update func
         $bodies = $this->getAllNodeType("bodies");
         foreach($bodies as $bodyItr){
             $this->body = new CharacterSheet();
@@ -120,15 +125,18 @@ class CharacterSheetManager
         }
     }
 
-
     /** Body Type
      * @param NodeInterface $node
-     *       Non-corporate Commonwealth entity 87 | Corporate Commonwealth entity 88 | Commonwealth company 90
+     *       Non-corporate Commonwealth entity 87 | Corporate Commonwealth entity 88 | Commonwealth company 90 |
      * @todo add comcompany, maybe as default?  */
     private function processBodyType(NodeInterface $node){
 
-        $vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88, "NEPTUNEFIELD" /* can this be defaulted? */=> 90];
-        $this->body->setTypeOfBody($this->check_property($vals, $node));
+        $vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88,
+            "NEPTUNEFIELD" /* can this be defaulted? */=> 90, 'NA' => 153];
+        $res = $this->check_property($vals, $node);
+        if(!$res)
+            $res = $vals['NA'];
+        $this->body->setTypeOfBody($res);
     }
 
     /**
@@ -138,10 +146,10 @@ class CharacterSheetManager
      * @TODO add other terms */
     private function processEcoSector(NodeInterface $node){
 
-        $vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'N/A' => 149] ;
+        $vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'NA' => 149] ;
         $res = $this->check_property($vals, $node);
         if($res == null)
-            $res = $vals['N/A'];
+            $res = $vals['NA'];
         $this->body->setEcoSector($res);
     }
 
@@ -165,10 +173,10 @@ class CharacterSheetManager
      * @TODO everything */
     private function processEmploymentType(NodeInterface $node){
 
-        $vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'N/A' => 151];
-        $res = null;
+        $vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'NA' => 151];
+        $res = null; //this is killing it
         if($res == null)
-            $res = $vals['N/A'];
+            $res = $vals['NA'];
         $this->body->setEmploymentType($res);
     }
 
@@ -271,7 +279,7 @@ class CharacterSheetManager
 
             $toUpdate = true;
             $editNode->field_employment_arrangements =
-                array('target_id' => $this->body->getEmploymentType());
+                array(['target_id' => $this->body->getEmploymentType()]);
         }
         if($this->shouldUpdate($editNode, "field_enabling_legislation_and_o",
             $this->body->getLegislations())){
@@ -297,12 +305,17 @@ class CharacterSheetManager
          */
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
-
         if($toUpdate) {
-            Helper::log("updating " . $node->id(), true);
             $editNode->setNewRevision();
+            $editNode->setRevisionUserId(47);
             $editNode->save();
-        } else Helper::log("skipping " . $node->id(), true);
+            $this->countupdated++;
+            Helper::log("updating " . $node->id() . " | Updated: " .
+                $this->countupdated . "\tSkipped: " . $this->countSkip, true);
+        } else {
+            $this->countSkip++;
+            Helper::log("skipping " . $node->id(), true);
+        }
     }
 
     //how do we handle a removal
@@ -317,7 +330,7 @@ class CharacterSheetManager
      */
     private function shouldUpdate (NodeInterface $editNode, String $nodeField, $compVal){
 
-        Helper::log("shouldUpdate () attempting" . $nodeField);
+        Helper::log("shouldUpdate () attempting " . $nodeField);
 
         //multi field | if either field is a multi val
         Helper::log("comp val count:" . count($compVal), false, $compVal);
