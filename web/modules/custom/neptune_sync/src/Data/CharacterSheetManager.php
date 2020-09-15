@@ -49,7 +49,8 @@ class CharacterSheetManager
          * @TODO these are currently just defaulted values, these need review and hooking up
          */
 
-        $this->processPortfolio($node, $bulkOperation);
+        $this->processCooperativeRelationships($node);
+        /*$this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
         $this->processFinClass($node);
         $this->processLegislation($node);
@@ -59,6 +60,7 @@ class CharacterSheetManager
         //kint($this->body->getLegislations());
         $this->updateNode($node);
         //$this->testfunc($node);
+        */
     }
 
     public function updateAllCharacterSheets(){
@@ -178,6 +180,13 @@ class CharacterSheetManager
         if($res == null)
             $res = $vals['NA'];
         $this->body->setEmploymentType($res);
+    }
+
+    private function processCooperativeRelationships(NodeInterface $node){
+
+        $query = QueryBuilder::getCooperativeRelationships($node);
+        $json = $this->query_mgr->runCustomQuery($query);
+        $obj = json_decode($json);
     }
 
     /**

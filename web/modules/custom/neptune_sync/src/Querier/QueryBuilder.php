@@ -92,6 +92,50 @@ class QueryBuilder
     }
 
     /**
+     * @param NodeInterface|null $node
+     * @return mixed
+     * Workbook:
+     * https://aws-neptune-sophia-dev.notebook.ap-southeast-2.sagemaker.aws/notebooks/Neptune/D.S.%20cooperation%20work.ipynb
+     */
+    public static function getCooperativeRelationships(NodeInterface $node = null){
+
+        //get all relations for all nodes
+        if ($node == null){
+            $selectStr = ' SELECT DISTINCT ?ent1Label ?progLabel ?outcomeLabel ?ent2label ' ;
+            $bindStr = '?ent1Label. ';
+        } else {
+            $selectStr = ' SELECT DISTINCT ?progLabel ?outcomeLabel ?ent2Label ';
+            $bindStr = '"' . $node->getTitle() . '". ';
+        }
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL .
+            $selectStr  .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+            'WHERE { ' .
+                '?auth ns2:Binds ?prog. ' .
+                '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
+                '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
+                '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
+                '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
+                '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
+                '?sendBody rdfs:label ' . $bindStr .     //ent label
+                '?prog rdfs:label ?progLabel. ' .       //program label
+                '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
+                '?recBody rdfs:label ?ent2Label.'  .     //rec body
+                '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
+                '?prog a ns2:Program. ' .
+                '?outcome a ns2:Outcome. ' .
+                '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
+                '?auth a/rdfs:subClassOf* ns2:Authority. ' .
+                '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
+                '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
+            '}');
+        return $q;
+    }
+
+    /**
      * Builds a query for selecting the neighbours of a given node to one step.
      *
      * @param $query_name

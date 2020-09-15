@@ -19,8 +19,9 @@ class SophiaGlobal
     private const PREFIX_NS1 = 'PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#>';
     private const PREFIX_RDFS = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>';
     private const PREFIX_OWL = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>';
+    private const PREFIX_NS2 = 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>'; //ns1 for graph1
 
-    public const PREFIX_ALL = self::PREFIX_NS1 . ' ' . self::PREFIX_RDFS . ' ' . self::PREFIX_OWL;
+    public const PREFIX_ALL = self::PREFIX_NS1 . ' ' . self::PREFIX_RDFS . ' ' . self::PREFIX_OWL . '' . self::PREFIX_NS2;
 
     /**
      * GRAPHS:
