@@ -4,7 +4,7 @@
 namespace Drupal\neptune_sync\Data;
 
 
-class CooperativeRelationship
+class CooperativeRelationship implements DrupalEntityExport
 {
     /** @var integer */
     protected $owner;
@@ -82,6 +82,21 @@ class CooperativeRelationship
         $this->receiver = $receiver;
     }
 
+    public function getEntityType(){
+        return 'node';
+    }
 
+    public function getSubType(){
+        return 'cooperative_relationships';
+    }
 
+    public function getEntityArray(){
+        return array(
+            'title' =>  $this->owner . " to " . $this->receiver,
+            'field_owner' => $this->owner,
+            'field_program' => $this->program,
+            'field_outcome' => $this->outcome,
+            'field_receiver' => $this->receiver
+        );
+    }
 }

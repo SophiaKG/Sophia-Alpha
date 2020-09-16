@@ -25,6 +25,8 @@ class CharacterSheet
     //Employment type
     protected $employment_type;
 
+    protected $cooperativeRelationships = [];
+
     /** Y/N/M
      * @var
      * @label('Employed under the PS Act')
@@ -266,6 +268,22 @@ class CharacterSheet
     public function setReportVariation(bool $report_variation): void
     {
         $this->report_variation = $report_variation;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCooperativeRelationships(): array
+    {
+        return $this->cooperativeRelationships;
+    }
+
+    /**
+     * @param array $cooperativeRelationships
+     */
+    public function addCooperativeRelationships(string $cooperativeRelationships): void
+    {
+        array_push($this->cooperativeRelationships, $cooperativeRelationships);
     }
 
 

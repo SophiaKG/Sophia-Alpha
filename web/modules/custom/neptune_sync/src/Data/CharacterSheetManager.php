@@ -13,12 +13,14 @@ class CharacterSheetManager
 {
     protected $body;
     protected $query_mgr;
+    protected $ent_mgr;
     protected $countSkip;
     protected $countupdated;
 
     public function __construct(){
         $this->body = new CharacterSheet();
         $this->query_mgr = new QueryManager();
+        $this->ent_mgr = new EntityManager();
         $this->countSkip = 0;
         $this->countupdated = 0;
     }
@@ -50,30 +52,29 @@ class CharacterSheetManager
          * @TODO these are currently just defaulted values, these need review and hooking up
          */
 
-        $this->processCooperativeRelationships($node);
-        /*$this->processPortfolio($node, $bulkOperation);
+        $this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
         $this->processFinClass($node);
         $this->processLegislation($node);
         $this->processEcoSector($node);
         $this->processEmploymentType($node);
+        $this->processCooperativeRelationships($node);
 
         //kint($this->body->getLegislations());
         $this->updateNode($node);
         //$this->testfunc($node);
-        */
+
     }
 
     public function updateAllCharacterSheets(){
 
         //TODO use this var instead of loading a node in update func
-        $bodies = $this->getAllNodeType("bodies");
+        $bodies = $this->ent_mgr->getAllNodeType("bodies");
         foreach($bodies as $bodyItr){
             $this->body = new CharacterSheet();
             $this->updateCharacterSheet($bodyItr);
         }
     }
-
 
     /**
      * @param NodeInterface $node
@@ -95,22 +96,19 @@ class CharacterSheetManager
         $portNid = null;
 
         if($portfolioLabel && !$bulkOperation) { //single execution, poll RDS
-            $query = \Drupal::entityQuery('node')
-                ->condition('title', $portfolioLabel)
-                ->condition('type', 'portfolios')
-                ->execute();
-            $portNid = reset($query);
+            $portNid = $this->ent_mgr->getEntityId(
+                $portfolioLabel, 'portfolios', $canCreate = false );
         } elseif ($portfolioLabel){ //part of a bulk execution, use pre-filled hash table
-            $portfolioHash = self::createNodeTypeIdHash('portfolios');
+            $portfolioHash = $this->ent_mgr->getEntTypeIdHash('portfolios', 'Node');
             $portNid = $portfolioHash[$portfolioLabel];
         }
-
         if($portNid)
             $this->body->setPortfolio($portNid);
     }
 
     /**
      * @param NodeInterface $node
+     * TODO make bulk maybe? examine diff between this and legis func
      */
     private function processLegislation(NodeInterface $node){
 
@@ -119,11 +117,10 @@ class CharacterSheetManager
         $jsonObject = json_decode($jsonResult);
 
         foreach ( $jsonObject->{'results'}->{'bindings'} as $binding){
-            $query = \Drupal::entityQuery('node')
-                ->condition('title', $binding->{'legislationLabel'}->{'value'})
-                ->condition('type', 'legislation')
-                ->execute();
-            $legislationNid = reset($query);
+            $legislationNid = $this->ent_mgr->getEntityId(
+                $binding->{'legislationLabel'}->{'value'},
+                'portfolios', $canCreate = false );
+
             $this->body->addLegislations($legislationNid);
         }
     }
@@ -192,49 +189,28 @@ class CharacterSheetManager
 
         //no results
         if (count($obj->{'results'}->{'bindings'}) == 0) {
-
+            //do we need to do anything?
             return;
         }
 
         //map results
-        $res = array();
         for ($c = 0; $c < count($obj->{'results'}->{'bindings'}); $c++) {
-            $res[$c] = [
-                'owner' => $node->id(),
+            $res = [
                 'program' => $obj->{'results'}->{'bindings'}->{'progLabel'}->{'value'},
                 'outcome' => $obj->{'results'}->{'bindings'}->{'outcomeLabel'}->{'value'},
                 'receiver'=> $obj->{'results'}->{'bindings'}->{'ent2Label'}->{'value'}
             ];
-        }
-
-        foreach($res as $relationship){
 
             $relationship = new CooperativeRelationship();
+
+            //if bulk
             $relationship->setOwner($node->id());
-
-            if(!$bulkOperation) { //single execution, poll RDS
-                $query = \Drupal::entityQuery('node')
-                    ->condition('title', $portfolioLabel)
-                    ->condition('type', 'portfolios')
-                    ->execute();
-                $portNid = reset($query);
-            } else {
-
-                $entHash = self::createEntTypeIdHash("outcome");
-                if(array_key_exists($res["outcome"], $entHash))
-                    $relationship->setOutcome($entHash[$res["outcome"]]);
-                else { //create then add to hash and relationship
-                    $id = 0; //createentityfunc;
-                    $relationship->setOutcome($id);
-                }
-
-
-                $entHash = self::createEntTypeIdHash('bodies');
-                $portNid = $entHash[$portfolioLabel];
-            }
-
-
-            //check if exist if not make, assing entid to model
+            $relationship->setOutcome($this->ent_mgr->getEntityIdFromHash(
+                $res['outcome'], 'outcome', true));
+            $relationship->setProgram($this->ent_mgr->getEntityIdFromHash(
+                $res['program'], 'program', true));
+            $relationship->setReceiver($this->ent_mgr->getEntityIdFromHash(
+                $res['receiver'], 'receiver', true));
         }
     }
 
@@ -265,57 +241,7 @@ class CharacterSheetManager
         return false;
     }
 
-    /**
-     * @variable NodeInterface $nodes
-     * @param string $entName The node type of vocab name supported are
-     * [portfolios, bodies, outcome, program]
-     * @param String $entType "Taxonomy"|"Node"
-     * @return String[] ['Ent title' => 'id'] of entName
-     */
-    private function createEntTypeIdHash(String $entName, String $entType){
 
-        static $entHash= array(
-            "portfolios" => array(),
-            "bodies" => array(),
-            "outcome" => array(),
-            "program" => array());
-
-        if(count($entHash[$entName]) > 1 ) {
-            Helper::log("creating hash for " . $entName);
-            if($entType == "Node") {
-                $nodes = $this->getAllNodeType($entName);
-                foreach ($nodes as $node)
-                    $entHash[$entName] += array($node->getTitle() => $node->id());
-            } elseif($entName == "Taxonomy") {
-                $terms = $this->getAllTaxonomyType($entName);
-                foreach ($terms as $term)
-                    $entHash[$entName] += array($term->getName(), $term->id());
-            }
-        }
-        return $entHash[$entName];
-    }
-
-    /**
-     * @param $nodeType
-     * @return NodeInterface[]
-     */
-    private function getAllNodeType($nodeType){
-        $nids = \Drupal::entityQuery('node')
-            ->condition('type', $nodeType)
-            ->execute();
-        return Node::loadMultiple($nids);
-    }
-
-    /**
-     * @param $vocabName
-     * @return \Drupal\taxonomy\TermInterface[]
-     */
-    private function getAllTaxonomyType($vocabName){
-        $tids = \Drupal::entityQuery('taxonomy_term')
-            ->condition('vid', $vocabName)
-            ->execute();
-        return Term::loadMultiple($tids);
-    }
 
     /**
      * @param NodeInterface $node
