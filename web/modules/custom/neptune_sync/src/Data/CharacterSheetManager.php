@@ -7,6 +7,7 @@ use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\node\Entity\Node;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
 
 class CharacterSheetManager
 {
@@ -182,11 +183,59 @@ class CharacterSheetManager
         $this->body->setEmploymentType($res);
     }
 
-    private function processCooperativeRelationships(NodeInterface $node){
+    private function processCooperativeRelationships(
+        NodeInterface $node,  Bool $bulkOperation = false){
 
         $query = QueryBuilder::getCooperativeRelationships($node);
         $json = $this->query_mgr->runCustomQuery($query);
         $obj = json_decode($json);
+
+        //no results
+        if (count($obj->{'results'}->{'bindings'}) == 0) {
+
+            return;
+        }
+
+        //map results
+        $res = array();
+        for ($c = 0; $c < count($obj->{'results'}->{'bindings'}); $c++) {
+            $res[$c] = [
+                'owner' => $node->id(),
+                'program' => $obj->{'results'}->{'bindings'}->{'progLabel'}->{'value'},
+                'outcome' => $obj->{'results'}->{'bindings'}->{'outcomeLabel'}->{'value'},
+                'receiver'=> $obj->{'results'}->{'bindings'}->{'ent2Label'}->{'value'}
+            ];
+        }
+
+        foreach($res as $relationship){
+
+            $relationship = new CooperativeRelationship();
+            $relationship->setOwner($node->id());
+
+            if(!$bulkOperation) { //single execution, poll RDS
+                $query = \Drupal::entityQuery('node')
+                    ->condition('title', $portfolioLabel)
+                    ->condition('type', 'portfolios')
+                    ->execute();
+                $portNid = reset($query);
+            } else {
+
+                $entHash = self::createEntTypeIdHash("outcome");
+                if(array_key_exists($res["outcome"], $entHash))
+                    $relationship->setOutcome($entHash[$res["outcome"]]);
+                else { //create then add to hash and relationship
+                    $id = 0; //createentityfunc;
+                    $relationship->setOutcome($id);
+                }
+
+
+                $entHash = self::createEntTypeIdHash('bodies');
+                $portNid = $entHash[$portfolioLabel];
+            }
+
+
+            //check if exist if not make, assing entid to model
+        }
     }
 
     /**
@@ -218,20 +267,32 @@ class CharacterSheetManager
 
     /**
      * @variable NodeInterface $nodes
-     * @param String $nodeType
-     * @return String[] ['node title' => 'nid']
+     * @param string $entName The node type of vocab name supported are
+     * [portfolios, bodies, outcome, program]
+     * @param String $entType "Taxonomy"|"Node"
+     * @return String[] ['Ent title' => 'id'] of entName
      */
-    private function createNodeTypeIdHash(String $nodeType){
+    private function createEntTypeIdHash(String $entName, String $entType){
 
-        static $nodeHash= array();
-        if(count($nodeHash) > 1 ) {
-            Helper::log("creating hash for " . $nodeType);
-            $nodes = $this->getAllNodeType($nodeType);
-            foreach ($nodes as $node)
-                $nodeHash += array($node->getTitle() => $node->id());
+        static $entHash= array(
+            "portfolios" => array(),
+            "bodies" => array(),
+            "outcome" => array(),
+            "program" => array());
+
+        if(count($entHash[$entName]) > 1 ) {
+            Helper::log("creating hash for " . $entName);
+            if($entType == "Node") {
+                $nodes = $this->getAllNodeType($entName);
+                foreach ($nodes as $node)
+                    $entHash[$entName] += array($node->getTitle() => $node->id());
+            } elseif($entName == "Taxonomy") {
+                $terms = $this->getAllTaxonomyType($entName);
+                foreach ($terms as $term)
+                    $entHash[$entName] += array($term->getName(), $term->id());
+            }
         }
-
-        return $nodeHash;
+        return $entHash[$entName];
     }
 
     /**
@@ -243,6 +304,17 @@ class CharacterSheetManager
             ->condition('type', $nodeType)
             ->execute();
         return Node::loadMultiple($nids);
+    }
+
+    /**
+     * @param $vocabName
+     * @return \Drupal\taxonomy\TermInterface[]
+     */
+    private function getAllTaxonomyType($vocabName){
+        $tids = \Drupal::entityQuery('taxonomy_term')
+            ->condition('vid', $vocabName)
+            ->execute();
+        return Term::loadMultiple($tids);
     }
 
     /**
