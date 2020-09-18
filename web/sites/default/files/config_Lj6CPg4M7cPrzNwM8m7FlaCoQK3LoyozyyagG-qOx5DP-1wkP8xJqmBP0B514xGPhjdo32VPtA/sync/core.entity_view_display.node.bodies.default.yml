@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
+    - field.field.node.bodies.field_cooperative_relationships
     - field.field.node.bodies.field_cp_tabled
     - field.field.node.bodies.field_demo
     - field.field.node.bodies.field_economic_sector
@@ -33,6 +34,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_cooperative_relationships:
+    weight: 20
+    label: inline
+    settings:
+      view_mode: character_sheet
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
     region: content
   field_cp_tabled:
     weight: 12

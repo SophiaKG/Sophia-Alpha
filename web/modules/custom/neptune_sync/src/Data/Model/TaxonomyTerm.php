@@ -1,8 +1,11 @@
 <?php
 
 
-namespace Drupal\neptune_sync\Data;
+namespace Drupal\neptune_sync\Data\Model;
 
+
+use Drupal\neptune_sync\Data\DrupalEntityExport;
+use Drupal\neptune_sync\Utility\SophiaGlobal;
 
 class TaxonomyTerm implements DrupalEntityExport
 {
@@ -12,6 +15,16 @@ class TaxonomyTerm implements DrupalEntityExport
     /** @var String */
     protected $vid;
 
+    /**
+     * TaxonomyTerm constructor.
+     * @param String $name
+     * @param String $vid
+     */
+    public function __construct(string $name, string $vid)
+    {
+        $this->name = $name;
+        $this->vid = $vid;
+    }
 
     /**
      * @return String
@@ -45,12 +58,17 @@ class TaxonomyTerm implements DrupalEntityExport
         $this->vid = $vid;
     }
 
+    public function getLabelKey()
+    {
+        return $this->name;
+    }
+
     public function getEntityType() {
-        return 'taxonomy_term';
+        return SophiaGlobal::TAXONOMY;
     }
 
     public function getSubType() {
-        // TODO: Implement getSubType() method.
+        return $this->vid;
     }
 
     public function getEntityArray() {
@@ -58,6 +76,5 @@ class TaxonomyTerm implements DrupalEntityExport
             'name'  => $this->name,
             'vid'   => $this->vid,
         );
-        // TODO: Implement getEntityArray() method.
     }
 }

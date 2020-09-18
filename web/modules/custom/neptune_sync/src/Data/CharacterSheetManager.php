@@ -3,12 +3,15 @@ namespace Drupal\neptune_sync\Data;
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\TypedData\Exception\MissingDataException;
+use Drupal\neptune_sync\Data\Model\CharacterSheet;
+use Drupal\neptune_sync\Data\Model\CooperativeRelationship;
+use Drupal\neptune_sync\Data\Model\TaxonomyTerm;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\node\Entity\Node;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
-use Drupal\taxonomy\Entity\Term;
+
 
 class CharacterSheetManager
 {
@@ -188,20 +191,26 @@ class CharacterSheetManager
 
         $query = QueryBuilder::getCooperativeRelationships($node);
         $json = $this->query_mgr->runCustomQuery($query);
-        $obj = json_decode($json);
+        $jsonObj = json_decode($json);
 
         //no results
-        if (count($obj->{'results'}->{'bindings'}) == 0) {
+        if (count($jsonObj->{'results'}->{'bindings'}) == 0) {
             //do we need to do anything?
             return;
         }
 
         //map results
-        for ($c = 0; $c < count($obj->{'results'}->{'bindings'}); $c++) {
+        foreach ($jsonObj->{'results'}->{'bindings'} as $obj) {
             $res = [
-                'program' => $obj->{'results'}->{'bindings'}->{'progLabel'}->{'value'},
-                'outcome' => $obj->{'results'}->{'bindings'}->{'outcomeLabel'}->{'value'},
-                'receiver'=> $obj->{'results'}->{'bindings'}->{'ent2Label'}->{'value'}
+                'program' => new TaxonomyTerm(
+                    $obj->{'progLabel'}->{'value'},
+                    'program'),
+                'outcome' => new TaxonomyTerm(
+                    $obj->{'outcomeLabel'}->{'value'},
+                    'outcome'),
+                'receiver'=> new namespace\Model\ Node(
+                    $obj->{'ent2Label'}->{'value'},
+                    'bodies'),
             ];
 
             $relationship = new CooperativeRelationship();
@@ -209,11 +218,19 @@ class CharacterSheetManager
             //if bulk
             $relationship->setOwner($node->id());
             $relationship->setOutcome($this->ent_mgr->getEntityIdFromHash(
-                $res['outcome'], 'outcome', true));
+                $res['outcome'], true));
             $relationship->setProgram($this->ent_mgr->getEntityIdFromHash(
-                $res['program'], 'program', true));
-            $relationship->setReceiver($this->ent_mgr->getEntityIdFromHash(
-                $res['receiver'], 'receiver', true));
+                $res['program'],  true));
+            $receiver = $this->ent_mgr->getEntityIdFromHash(
+                $res['receiver'], false);
+
+            //TODO this is dumb and needs fixing (catches lea bodies that don't exist)
+            if($receiver) {
+                Helper::log("Creating coop rel");
+                $relationship->setReceiver($receiver);
+                $this->body->addCooperativeRelationships(
+                    $this->ent_mgr->getEntityIdFromHash($relationship, True));
+            }
         }
     }
 
@@ -292,10 +309,19 @@ class CharacterSheetManager
         if($this->shouldUpdate($editNode, "field_enabling_legislation_and_o",
             $this->body->getLegislations())){
 
-            $toUpdate = true;//clear current vals
-            $editNode->field_enabling_legislation_and_o = array();
-            foreach($this->body->getLegislations() as $nid)  //@todo multiplicity
+            $toUpdate = true;
+            $editNode->field_enabling_legislation_and_o = array(); //clear current vals
+            foreach($this->body->getLegislations() as $nid)
                 $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
+        }
+
+        if($this->shouldUpdate($editNode, "field_cooperative_relationships",
+            $this->body->getCooperativeRelationships())){
+
+            $toUpdate = true;
+            $editNode->field_cooperative_relationships = array(); //clear current vals
+            foreach($this->body->getCooperativeRelationships() as $nid)
+                $editNode->field_cooperative_relationships[] = ['target_id' => $nid];
         }
 
         //flipkeys
@@ -330,9 +356,9 @@ class CharacterSheetManager
 
     /**
      * @param NodeInterface $editNode
-     * @param String $nodeField
-     * @param String|String[] $compVal
-     * @return bool
+     * @param String $nodeField values currently on drupal
+     * @param String|String[] $compVal values in model sourced from neptune
+     * @return bool if update should take place
      * @throws MissingDataException
      * TODO rename $compVal to neptune val
      */

@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\neptune_sync\Data;
+namespace Drupal\neptune_sync\Data\Model;
 
 /**
  * Class CharacterSheet
@@ -25,6 +25,7 @@ class CharacterSheet
     //Employment type
     protected $employment_type;
 
+    /** @var String[] node id entity refs */
     protected $cooperativeRelationships = [];
 
     /** Y/N/M

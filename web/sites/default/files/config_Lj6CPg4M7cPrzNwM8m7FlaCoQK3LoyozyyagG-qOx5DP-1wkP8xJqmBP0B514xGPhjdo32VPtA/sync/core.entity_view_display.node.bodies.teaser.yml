@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
+    - field.field.node.bodies.field_cooperative_relationships
     - field.field.node.bodies.field_cp_tabled
     - field.field.node.bodies.field_demo
     - field.field.node.bodies.field_economic_sector
@@ -35,6 +36,7 @@ content:
 hidden:
   feeds_item: true
   field_accountable_authority_or_g: true
+  field_cooperative_relationships: true
   field_cp_tabled: true
   field_demo: true
   field_economic_sector: true

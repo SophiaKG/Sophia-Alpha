@@ -28,4 +28,10 @@ class SophiaGlobal
      */
     public const GRAPH_0 = '<http://aws.amazon.com/neptune/vocab/v000>';
     public const GRAPH_1 = '<http://aws.amazon.com/neptune/vocab/v001>';
+
+    /*
+     * Drupal entity machine name identifiers
+     */
+    public const NODE = 'node';
+    public const TAXONOMY = 'taxonomy_term';
 }
