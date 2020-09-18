@@ -4,6 +4,7 @@
 namespace Drupal\neptune_sync\Data;
 
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -31,7 +32,7 @@ class EntityManager
      * @param bool $canCreate
      * @return mixed|string|null
      */
-    public function getEntityId($entTitle, $entType, bool $canCreate = false){
+    public function getEntityId($entTitle, $entType, $temp, bool $canCreate = false){
         if($this->entHash[$entType]['type'] == 'node') {                    //if Node
             $query = \Drupal::entityQuery('node')
                 ->condition('title', $entTitle)
@@ -70,6 +71,7 @@ class EntityManager
         }
         return null;
     }
+
     /**
      * @variable NodeInterface $nodes
      * @param string $entName The node type of vocab name supported are
@@ -80,7 +82,7 @@ class EntityManager
     protected function getEntTypeIdHash(String $entName){
 
         //if hash not built, build hash
-        if(count($this->entHash[$entName]) > 1 ) {
+        if(count($this->entHash[$entName]) > 1 ) { //> 1 as had hardcoded 'type' index
             Helper::log("creating hash for " . $entName);
             if($this->entHash[$entName]['type'] == "Node") {
                 $nodes = $this->getAllNodeType($entName);
@@ -95,19 +97,22 @@ class EntityManager
         return $this->entHash[$entName];
     }
 
-    //working here, make it dynamiclly use nodes and taxonomies. create model for taxonomies
-    public function createEntity($entName, $entType, DrupalEntityExport $classModel){
+    /**
+     * @param DrupalEntityExport $classModel
+     * @return int|string|null
+     * @throws \Drupal\Core\Entity\EntityStorageException
+     */
+    public function createEntity(DrupalEntityExport $classModel){
 
-        if($classModel->getEntityType() == 'node'){
-            $my_ent = Node::create(['type' => $classModel->getSubType()]);
-            foreach($classModel->getEntityArray() as $fieldKey => $fieldVal)
-                $my_ent->set($fieldKey, $fieldVal);
-            $my_ent->enforceIsNew();
-            $my_ent->save();
-        } else if ($classModel->getEntityType()  == 'taxonomy_term')
-        return "id";
+        $my_ent = EntityInterface::create(
+            ['type' => $classModel->getSubType()]);                         //create
+        foreach($classModel->getEntityArray() as $fieldKey => $fieldVal)    //save fields
+            $my_ent->set($fieldKey, $fieldVal);                             //polymorphic
+        $my_ent->enforceIsNew();                                            //marks as new
+        $my_ent->save();                                                    //save
+
+        return $my_ent->id();
     }
-
 
     /**
      * @param $nodeType

@@ -1,6 +1,7 @@
 <?php
 namespace Drupal\neptune_sync\Data;
 
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
@@ -27,6 +28,8 @@ class CharacterSheetManager
 
     /**
      * @param NodeInterface $node
+     * @param bool $bulkOperation
+     * @throws EntityStorageException
      * @TODO remove N/A once all neptune queries are complete and tested
      */
     public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
@@ -99,7 +102,7 @@ class CharacterSheetManager
             $portNid = $this->ent_mgr->getEntityId(
                 $portfolioLabel, 'portfolios', $canCreate = false );
         } elseif ($portfolioLabel){ //part of a bulk execution, use pre-filled hash table
-            $portfolioHash = $this->ent_mgr->getEntTypeIdHash('portfolios', 'Node');
+            $portfolioHash = $this->ent_mgr->getEntityIdFromHash('portfolios', 'Node');
             $portNid = $portfolioHash[$portfolioLabel];
         }
         if($portNid)
@@ -241,11 +244,9 @@ class CharacterSheetManager
         return false;
     }
 
-
-
     /**
      * @param NodeInterface $node
-     * @throws \Drupal\Core\Entity\EntityStorageException
+     * @throws EntityStorageException|MissingDataException
      */
     private function updateNode(NodeInterface $node){
 
