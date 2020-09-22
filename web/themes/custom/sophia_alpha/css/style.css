@@ -1,3 +1,37 @@
+/* ----------------Cooperative relationships for character sheet*/
+article.node--type-cooperative-relationships.node--view-mode-character-sheet
+.node__content {
+    display: flex;
+    flex-flow: row wrap;
+    /*flex-direction: row;*/
+    /*flex-wrap: nowrap;*/
+    justify-content: flex-start;
+}
+
+article.node--type-cooperative-relationships.node--view-mode-character-sheet
+.field{
+    width: 100px;  /* Or whatever */
+    margin: 5px;
+
+}
+
+article.node--type-cooperative-relationships.node--view-mode-character-sheet
+.field--name-field-program {
+    order: 1;
+}
+
+article.node--type-cooperative-relationships.node--view-mode-character-sheet
+.field--name-field-outcome {
+    order: 2;
+}
+
+article.node--type-cooperative-relationships.node--view-mode-character-sheet
+.field--name-field-receiver {
+    order: 3;
+    width: 300px;  /* Or whatever */
+}
+
+
 /*-----------------Summary key block*/
 
 /* fix key to screen scrolling */
