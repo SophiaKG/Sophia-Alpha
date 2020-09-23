@@ -13,8 +13,8 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
 
     /**
      * Node constructor.
-     * @param $title
-     * @param $nodeType
+     * @param String $title
+     * @param String $nodeType
      */
     public function __construct($title, $nodeType)
     {

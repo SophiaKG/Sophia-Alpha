@@ -32,7 +32,6 @@ class CharacterSheetManager
     /**
      * @param NodeInterface $node
      * @param bool $bulkOperation
-     * @throws EntityStorageException
      * @TODO remove N/A once all neptune queries are complete and tested
      */
     public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
@@ -61,13 +60,17 @@ class CharacterSheetManager
         $this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
         $this->processFinClass($node);
-        $this->processLegislation($node);
+        $this->processLegislation($node, $bulkOperation);
         $this->processEcoSector($node);
         $this->processEmploymentType($node);
-        $this->processCooperativeRelationships($node);
+        $this->processCooperativeRelationships($node, $bulkOperation);
 
         //kint($this->body->getLegislations());
-        $this->updateNode($node);
+        try {
+            $this->updateNode($node);
+        } catch (EntityStorageException|MissingDataException $e) {
+
+        }
         //$this->testfunc($node);
 
     }
@@ -78,7 +81,7 @@ class CharacterSheetManager
         $bodies = $this->ent_mgr->getAllNodeType("bodies");
         foreach($bodies as $bodyItr){
             $this->body = new CharacterSheet();
-            $this->updateCharacterSheet($bodyItr);
+            $this->updateCharacterSheet($bodyItr, true);
         }
     }
 
@@ -91,44 +94,35 @@ class CharacterSheetManager
      *      -Get nid of portfolio from the portfolios label
      *      -add nid as entity reference to body
      */
-    private function processPortfolio(NodeInterface $node, Bool $bulkOperation){
+    private function processPortfolio(NodeInterface $node, Bool $bulkOperation = false){
 
-        $query = QueryBuilder::getBodyPortfolio($node);
-        $jsonResult = $this->query_mgr->runCustomQuery($query);
-        $jsonObject = json_decode($jsonResult);
-        if(count($jsonObject->{'results'}->{'bindings'}) == 0)
-            return;
-        $portfolioLabel = $jsonObject->{'results'}->{'bindings'}[0]->{'portlabel'}->{'value'};
-        $portNid = null;
+        $portNid = $this->ent_mgr->getEntityIdFromQuery(
+            QueryBuilder::getBodyPortfolio($node),
+            'portlabel',
+            'portfolios',
+            $bulkOperation
+        );
 
-        if($portfolioLabel && !$bulkOperation) { //single execution, poll RDS
-            $portNid = $this->ent_mgr->getEntityId(
-                $portfolioLabel, 'portfolios', $canCreate = false );
-        } elseif ($portfolioLabel){ //part of a bulk execution, use pre-filled hash table
-            $portfolioHash = $this->ent_mgr->getEntityIdFromHash('portfolios', 'Node');
-            $portNid = $portfolioHash[$portfolioLabel];
-        }
-        if($portNid)
-            $this->body->setPortfolio($portNid);
+        if(count($portNid) > 1)
+            Helper::log("fill this later", true); //TODO
+        else if(count($portNid) == 1)
+            $this->body->setPortfolio(reset($portNid));
     }
 
     /**
      * @param NodeInterface $node
-     * TODO make bulk maybe? examine diff between this and legis func
+     * @param bool $bulkOperation
      */
-    private function processLegislation(NodeInterface $node){
+    private function processLegislation(NodeInterface $node,
+                                        Bool $bulkOperation = false){
 
-        $query = QueryBuilder::getBodyLegislation($node);
-        $jsonResult = $this->query_mgr->runCustomQuery($query);
-        $jsonObject = json_decode($jsonResult);
-
-        foreach ( $jsonObject->{'results'}->{'bindings'} as $binding){
-            $legislationNid = $this->ent_mgr->getEntityId(
-                $binding->{'legislationLabel'}->{'value'},
-                'portfolios', $canCreate = false );
-
+        foreach ($this->ent_mgr->getEntityIdFromQuery(
+                                    QueryBuilder::getBodyLegislation($node),
+                                    'legislationLabel',
+                                    'legislation',
+                                    $bulkOperation
+        ) as $legislationNid)
             $this->body->addLegislations($legislationNid);
-        }
     }
 
     /** Body Type
@@ -186,50 +180,50 @@ class CharacterSheetManager
         $this->body->setEmploymentType($res);
     }
 
+    /**
+     * @param NodeInterface $node
+     * @param bool $bulkOperation
+     */
     private function processCooperativeRelationships(
         NodeInterface $node,  Bool $bulkOperation = false){
 
+        /**TODO CHANGE THIS /W SINGLE EXE **/
+        $bulkOperation = true;
+
+        //get all cooperative relationships from Sparql for the node body
         $query = QueryBuilder::getCooperativeRelationships($node);
         $json = $this->query_mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
 
         //no results
         if (count($jsonObj->{'results'}->{'bindings'}) == 0) {
-            //do we need to do anything?
             return;
         }
 
         //map results
         foreach ($jsonObj->{'results'}->{'bindings'} as $obj) {
-            $res = [
-                'program' => new TaxonomyTerm(
-                    $obj->{'progLabel'}->{'value'},
-                    'program'),
-                'outcome' => new TaxonomyTerm(
-                    $obj->{'outcomeLabel'}->{'value'},
-                    'outcome'),
-                'receiver'=> new namespace\Model\ Node(
-                    $obj->{'ent2Label'}->{'value'},
-                    'bodies'),
-            ];
-
             $relationship = new CooperativeRelationship();
 
-            //if bulk
-            $relationship->setOwner($node->id());
-            $relationship->setOutcome($this->ent_mgr->getEntityIdFromHash(
-                $res['outcome'], true));
-            $relationship->setProgram($this->ent_mgr->getEntityIdFromHash(
-                $res['program'],  true));
-            $receiver = $this->ent_mgr->getEntityIdFromHash(
-                $res['receiver'], false);
 
-            //TODO this is dumb and needs fixing (catches lea bodies that don't exist)
+            $relationship->setOwner($node->id());
+            $relationship->setProgram( $obj->{'progLabel'}->{'value'});
+            $relationship->setProgramDesc($obj->{'progDesc'}->{'value'});
+            $relationship->setOutcome( $obj->{'outcomeLabel'}->{'value'});
+            $relationship->setOutcomeDesc($obj->{'outcomeDesc'}->{'value'});
+
+            //if bulk as we create a hash
+            $receiver = $this->ent_mgr->getEntityId(
+                new namespace\Model\ Node(
+                    $obj->{'ent2Label'}->{'value'}, 'bodies'),
+                false, $bulkOperation);
+
+            //TODO this is dumb and needs fixing (catches lead bodies that don't exist)
             if($receiver) {
                 Helper::log("Creating coop rel");
                 $relationship->setReceiver($receiver);
+                //add relationship to body, if relationship doesnt exist, add it
                 $this->body->addCooperativeRelationships(
-                    $this->ent_mgr->getEntityIdFromHash($relationship, True));
+                    $this->ent_mgr->getEntityId($relationship, True, $bulkOperation));
             }
         }
     }

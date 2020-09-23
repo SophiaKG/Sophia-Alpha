@@ -11,11 +11,17 @@ class CooperativeRelationship implements DrupalEntityExport
     /** @var String Nid for entity reference */
     protected $owner;
 
-    /** @var String Nid for entity reference*/
+    /** @var String text field 255 */
     protected $program;
 
-    /** @var String Nid for entity reference*/
+    /** @var String text field long*/
+    protected $programDesc;
+
+    /** @var String text field 255*/
     protected $outcome;
+
+    /** @var String text field long*/
+    protected $outcomeDesc;
 
     /** @var String Nid for entity reference*/
     protected $receiver;
@@ -84,6 +90,38 @@ class CooperativeRelationship implements DrupalEntityExport
         $this->receiver = $receiver;
     }
 
+    /**
+     * @return String
+     */
+    public function getProgramDesc(): string
+    {
+        return $this->programDesc;
+    }
+
+    /**
+     * @param String $programDesc
+     */
+    public function setProgramDesc(string $programDesc): void
+    {
+        $this->programDesc = $programDesc;
+    }
+
+    /**
+     * @return String
+     */
+    public function getOutcomeDesc(): string
+    {
+        return $this->outcomeDesc;
+    }
+
+    /**
+     * @param String $outcomeDesc
+     */
+    public function setOutcomeDesc(string $outcomeDesc): void
+    {
+        $this->outcomeDesc = $outcomeDesc;
+    }
+
     public function getLabelKey()
     {
         return $this->owner . '|' . $this->program . '|' . $this->outcome .
@@ -103,7 +141,9 @@ class CooperativeRelationship implements DrupalEntityExport
             'title' =>  $this->getLabelKey(),
             'field_owner' => $this->owner,
             'field_program' => $this->program,
+            'field_program_description_' => $this->programDesc,
             'field_outcome' => $this->outcome,
+            'field_outcome_description' => $this->outcomeDesc,
             'field_receiver' => $this->receiver
         );
     }

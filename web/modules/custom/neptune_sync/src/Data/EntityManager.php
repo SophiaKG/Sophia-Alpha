@@ -5,6 +5,8 @@ namespace Drupal\neptune_sync\Data;
 
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\Entity\Node;
@@ -17,43 +19,109 @@ class EntityManager
      * @var array['Name' => id] special case of ['type' => 'ENTTYPE']
      */
     protected $entHash;
+    protected $query_mgr;
 
     public function __construct(){
 
-        //TODO can type be removed
+        $this->query_mgr = new QueryManager();
+
         $this->entHash = array(
-            "cooperative_relationships" => array('type' => SophiaGlobal::NODE), //may not be inited proprly
-            "portfolios" => array('type' => SophiaGlobal::NODE),
-            "bodies" => array('type' => SophiaGlobal::NODE),
-            "outcome" => array('type' => SophiaGlobal::TAXONOMY),
-            "program" => array('type' => SophiaGlobal::TAXONOMY),
+            "cooperative_relationships" => array(),
+            "portfolios" => array(),
+            "legislation" => array(),
+            "bodies" => array(),
             );
     }
 
     /**
-     * @param $entTitle
-     * @param $entType
-     * @param bool $canCreate
-     * @return mixed|string|null
+     * Gets a drupal entity id of a node type.
+     * Only works for nodes (not taxonomies) and cannot create
+     * if the label of the entity has a corresponding drupal entity id
+     * return it. If no Id is found, we can create the entity passed in.
+     * Issues can arise if the label used is not unique
+     *
+     * @TODO make this more dynamic ie use header vars from returned query
+     * @param $query
+     * @param $nepLabel
+     * @param $nodeType
+     * @param bool $bulkOperation
+     * @return String[] an array of valid ids
      */
-    public function getEntityId($entTitle, $entType, $temp, bool $canCreate = false){
-        if($this->entHash[$entType]['type'] == SophiaGlobal::NODE) {                    //if Node
+    public function getEntityIdFromQuery($query, $nepLabel, $nodeType,  Bool $bulkOperation = false){
+
+        $jsonResult = $this->query_mgr->runCustomQuery($query);
+        $jsonObject = json_decode($jsonResult);
+
+        $NidArr = array();
+        foreach ( $jsonObject->{'results'}->{'bindings'} as $binding) {
+            $nid = $this->getEntityId(
+                new namespace\Model\ Node(
+                    $binding->{$nepLabel}->{'value'},
+                    $nodeType),
+                false, $bulkOperation);
+
+            if ($nid == null) {
+                Helper::log("Err500:  Something went seriously wrong \n" .
+                    "\t\t\tcase: Null Id return when attempting to get an id from a entity label match." .
+                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Label: " . $nepLabel);
+            } else
+                $NidArr[] = $nid;
+        }
+
+        return $NidArr;
+    }
+
+    /**
+     * if the label of the entity has a corresponding drupal entity id
+     *  return it. If no Id is found, we can create the entity passed in.
+     *  Issues can arise if the label used is not unique
+     *
+     * @param DrupalEntityExport $classModel
+     * @param bool $canCreate
+     * @param bool $bulkOperation
+     * @return array|int|mixed|String|null The id of the passed in class (ie. label of ent)
+     */
+    public function getEntityId(DrupalEntityExport $classModel,
+                                bool $canCreate = false,
+                                Bool $bulkOperation = false){
+
+        //if single or bulk controller
+        if($bulkOperation)
+            return $this->getEntityIdBulk($classModel, $canCreate);
+        else
+            return $this->getEntityIdSingle($classModel, $canCreate);
+    }
+
+    /**
+     * @param DrupalEntityExport $classModel
+     * @param bool $canCreate
+     * @return mixed|string|null The id of the passed in class (ie. label of ent)
+     *
+     * if the label of the entity has a corresponding drupal entity id,
+     *      return it. If no Id is found, we can create the entity passed in.
+     *      Issues can arise if the label used is not unique
+     */
+    protected function getEntityIdSingle(DrupalEntityExport $classModel, bool $canCreate = false){
+        if($classModel->getEntityType() == SophiaGlobal::NODE) {                    //if Node
             $query = \Drupal::entityQuery(SophiaGlobal::NODE)
-                ->condition('title', $entTitle)
-                ->condition('type', '$entType')
+                ->condition('title', $classModel->getLabelKey())
+                ->condition('type', $classModel->getSubType())
                 ->execute();
-        } else if ($this->entHash[$entType]['type'] == SophiaGlobal::TAXONOMY){    //if Tax
+        } else if ($classModel->getEntityType() == SophiaGlobal::TAXONOMY){    //if Tax
             $query = \Drupal::entityQuery(SophiaGlobal::TAXONOMY)
-                ->condition('name', $entTitle)
-                ->condition('vid', '$entType')
+                ->condition('name', $classModel->getLabelKey())
+                ->condition('vid', $classModel->getSubType())
                 ->execute();
         } else {
-            Helper::log("Err100: Something went seriously wrong", $event = true);
+            Helper::log("Err503-1: Something went seriously wrong\n\t\t\t" .
+                'Attempted to create an entity but the entity has no type.' .
+                'This really shouldn\'t be able to happen', $event = true);
             return null;
         }
 
+        /** if ent label doesn't match an ent id */
         if(count($query) == 0 && $canCreate) //ent doesnt exist
-            $entId = $this->createEntity($entTitle, $entType);
+            $entId = $this->createEntity($classModel);
         else
             $entId = reset($query);
 
@@ -63,24 +131,28 @@ class EntityManager
     /**
      * @param DrupalEntityExport $classModel
      * @param bool $canCreate
-     * @return String|null entity id
-     * @throws \Drupal\Core\Entity\EntityStorageException
+     * @return String|null Entity id
+     *
+     * Logic: if the label of the entity has a corresponding drupal entity id,
+     *      return it. If no Id is found, we can create the entity passed in.
+     *      Issues can arise if the label used is not unique
+     *
      */
-    public function getEntityIdFromHash(DrupalEntityExport $classModel,
+    public function getEntityIdBulk(DrupalEntityExport $classModel,
                                         bool $canCreate = false){
 
-        /** @var  $entHash array[] local scope of form array('label' => 'id')*/
-        $entHash = $this->getEntTypeIdHash($classModel);
-        Helper::log("Reporting to kint");
-        if(array_key_exists($classModel->getLabelKey(), $entHash))
-            return $entHash[$classModel->getLabelKey()];
+        /** @var  $localEntHash array[] local scope of form array('label' => 'id')*/
+        $localEntHash = $this->getEntTypeIdHash($classModel);
+
+        if(array_key_exists($classModel->getLabelKey(), $localEntHash))
+            return $localEntHash[$classModel->getLabelKey()];
         else if ($canCreate){ //create then add to hash and relationship
             return $this->createEntity($classModel);
         }
 
         Helper::log("Err501: Something went seriously wrong \n" .
             "\t\t\tcase: getEntityIdFromHash() Entity doesn't exist and not allowed to create one." .
-            " Null seeded.\n \t\t\tEntity details:\n\t\t\t " . $classModel->getLabelKey());
+            " Null seeded.\n \t\t\tEntity details:\n\t\t\t " . $classModel->getLabelKey(), true);
         return null;
     }
 
@@ -94,14 +166,15 @@ class EntityManager
         Helper::log("getting hash map of type " . $classModel->getSubType() .
             " size=" . count($this->entHash[$classModel->getSubType()]));
 
-        //if hash not built, build hash
-        if(count($this->entHash[$classModel->getSubType()]) < 2 ) { // < 2 as hardcoded 'type' index
+        //if hash is empty, build hash
+        if(count($this->entHash[$classModel->getSubType()]) < 1 ) {
             Helper::log("creating hash for " . $classModel->getSubType());
             if($classModel->getEntityType() == SophiaGlobal::NODE) {
                 $nodes = $this->getAllNodeType($classModel->getSubType());
                 foreach ($nodes as $node)
                     $this->entHash[$classModel->getSubType()] +=
                         array($node->getTitle() => $node->id());
+
             } elseif($classModel->getEntityType() == SophiaGlobal::TAXONOMY) {
                 $terms = $this->getAllTaxonomyType($classModel->getSubType());
                 foreach ($terms as $term)
@@ -114,8 +187,8 @@ class EntityManager
 
     /**
      * @param DrupalEntityExport $classModel
-     * @return int|string|null
-     * @throws \Drupal\Core\Entity\EntityStorageException
+     * @return int|string|null Entity id of created entity
+     *
      */
     public function createEntity(DrupalEntityExport $classModel){
 
@@ -127,12 +200,27 @@ class EntityManager
         elseif($classModel->getEntityType() == SophiaGlobal::TAXONOMY)
             $my_ent = Term::create(
                 ['vid' => $classModel->getSubType()]);
+        else {
+            Helper::log("Err503-2: Something went seriously wrong\n\t\t\t" .
+                'Attempted to create an entity but the entity has no type.' .
+                'This really shouldn\'t be able to happen', $event = true);
+            return null;
+        }
 
         foreach($classModel->getEntityArray() as $fieldKey => $fieldVal)    //save fields
             $my_ent->set($fieldKey, $fieldVal);                             //polymorphic
         $my_ent->enforceIsNew();                                            //marks as new
-        $my_ent->save();                                                    //save
+        try {
+            $my_ent->save();
+        } catch (EntityStorageException $e) { //save
 
+            Helper::log("Err502: Something went seriously wrong\n\t\t\t" .
+                'Attempting to save ' . $classModel->getLabelKey() .
+                ' But failed.',  $event = true);
+            return null;
+        }
+
+        //add to runtime hash
         $this->entHash[$classModel->getSubType()] +=
             array($classModel->getLabelKey() => $my_ent->id());
 

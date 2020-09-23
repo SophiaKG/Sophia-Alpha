@@ -21,14 +21,21 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 }
 
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
-.field--name-field-outcome {
-    order: 2;
+.field--name-field-outcome-description  {
+    order: 3;
+    width: 700px;
 }
 
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .field--name-field-receiver {
-    order: 3;
-    width: 300px;  /* Or whatever */
+    order: 2;
+    width: 200px;
+     /* Or whatever */
+}
+
+article.node--type-cooperative-relationships.node--view-mode-character-sheet
+.field--name-linkbtn {
+    order: 4;
 }
 
 
