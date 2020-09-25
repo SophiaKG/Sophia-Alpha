@@ -160,6 +160,17 @@ class CharacterSheetManager
         $this->body->setEmploymentType($res);
     }
 
+    private function processLink(NodeInterface $node){
+
+        $query = QueryBuilder::getResourceLink($node);
+        $json = $this->query_mgr->runCustomQuery($query);
+        $jsonObj = json_decode($json);
+
+        foreach ($jsonObj->{'results'}->{'bindings'} as $obj){
+            $linkUrl = $obj->{'link'}->{'value'};
+        }
+    }
+
     /**
      * @param NodeInterface $node
      * @param bool $bulkOperation
@@ -182,9 +193,8 @@ class CharacterSheetManager
 
         //map results
         foreach ($jsonObj->{'results'}->{'bindings'} as $obj) {
+
             $relationship = new CooperativeRelationship();
-
-
             $relationship->setOwner($node->id());
             $relationship->setProgram( $obj->{'progLabel'}->{'value'});
             $relationship->setProgramDesc($obj->{'progDesc'}->{'value'});
@@ -237,6 +247,7 @@ class CharacterSheetManager
     /**
      * @param NodeInterface $node
      * @throws EntityStorageException|MissingDataException
+     * @todo this needs rewriting to use the new entity api
      */
     private function updateNode(NodeInterface $node){
 

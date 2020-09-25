@@ -1,10 +1,13 @@
 <?php
 namespace Drupal\neptune_sync\Data\Model;
 
+use Drupal\neptune_sync\Data\DrupalEntityExport;
+use Drupal\neptune_sync\Utility\SophiaGlobal;
+
 /**
  * Class CharacterSheet
  */
-class CharacterSheet
+class CharacterSheet extends Node implements DrupalEntityExport
 {
 
     //Portfolio
@@ -17,6 +20,7 @@ class CharacterSheet
     protected $eco_sector;
     //Financial classification0
     protected $fin_class;
+    protected $link;
 
     /** @deprecated */
     protected $abn;
@@ -36,6 +40,11 @@ class CharacterSheet
 
     public function compare(){
 
+    }
+
+    public function __construct($title){
+
+        parent::__construct($title, SophiaGlobal::BODIES);
     }
 
     //booleans
@@ -287,5 +296,68 @@ class CharacterSheet
         array_push($this->cooperativeRelationships, $cooperativeRelationships);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
 
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link): void
+    {
+        $this->link = $link;
+    }
+
+    public function getEntityArray(){
+
+        $retArr =  array(
+            'title' =>  $this->getLabelKey(),
+            'field_portfolio' => [
+                'target_id' => $this->portfolio,
+            ],
+            'field_type_of_body' => [
+                'target_id' => $this->type_of_body,
+            ],
+            'field_economic_sector' => [
+                'target_id' => $this->eco_sector,
+            ],
+            'field_employment_arrangements' => [
+                'target_id' => $this->employment_type,
+            ],
+            'field_ink' => [
+                'uri' => $this->link,
+                'title' => 'Title',
+                'options' => [
+                    'attributes' => [
+                        'target' => '_blank',
+                    ],
+                ],
+            ],
+            'field_s35_3_pgpa_act_apply' => ['target_id' => 152], //152 is vid for n/a
+            'field_employed_under_the_ps_act' => ['target_id' => 152],
+            'field_reporting_variation' => ['target_id' => 152],
+            'field_cp_tabled' => ['target_id' => 152],
+        );
+
+        $addArr = array();
+        foreach($this->legislations as $leg)
+            $addArr[] = ['target_id' => $leg];
+        $retArr['field_enabling_legislation_and_o'] = $addArr;
+
+        $addArr = array();
+        foreach ($this->cooperativeRelationships as $rel)
+            $addArr[] = ['target_id' => $rel];
+        $retArr['field_cooperative_relationships'] = $addArr;
+
+        $addArr = array();
+        foreach ($this->fin_class as $class)
+            $addArr[] = ['target_id' => $class];
+        $retArr['field_financial_classification'] = $addArr;
+
+        return $retArr;
+    }
 }

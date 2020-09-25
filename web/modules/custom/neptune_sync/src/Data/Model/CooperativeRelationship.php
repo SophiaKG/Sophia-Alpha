@@ -5,8 +5,9 @@ namespace Drupal\neptune_sync\Data\Model;
 
 
 use Drupal\neptune_sync\Data\DrupalEntityExport;
+use Drupal\neptune_sync\Utility\SophiaGlobal;
 
-class CooperativeRelationship implements DrupalEntityExport
+class CooperativeRelationship extends Node implements DrupalEntityExport
 {
     /** @var String Nid for entity reference */
     protected $owner;
@@ -25,6 +26,13 @@ class CooperativeRelationship implements DrupalEntityExport
 
     /** @var String Nid for entity reference*/
     protected $receiver;
+
+    /**
+     * CooperativeRelationship constructor.
+     */
+    public function __construct(){
+        $this->nodeType = SophiaGlobal::COOPERATIVE_RELATIONSHIP;
+    }
 
     /**
      * @return String
@@ -126,14 +134,6 @@ class CooperativeRelationship implements DrupalEntityExport
     {
         return $this->owner . '|' . $this->program . '|' . $this->outcome .
             '|' . $this->receiver; //pseudo hash
-    }
-
-    public function getEntityType(){
-        return 'node';
-    }
-
-    public function getSubType(){
-        return 'cooperative_relationships';
     }
 
     public function getEntityArray(){
