@@ -10,18 +10,35 @@ namespace Drupal\neptune_sync\Utility;
  */
 class SophiaGlobal
 {
-
     /**
      * SPARQL prefixes
      * notes: prefixes appear truncated in logger but work fine
      * @todo: make this a linked array with the other cell holding its qid
      */
-    private const PREFIX_NS1 = 'PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#>';
-    private const PREFIX_RDFS = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>';
-    private const PREFIX_OWL = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>';
-    private const PREFIX_NS2 = 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>'; //ns1 for graph1
+    public const IRI = array(
+        'ns1' => array(
+            'prefix' => 'ns1:',
+            'IRI' => 'PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#>'),
+        'rdfs' => array(
+            'prefix' => 'rdfs:',
+            'IRI' => 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'),
+        'owl' => array(
+            'prefix' => 'owl:',
+            'IRI' => 'PREFIX owl: <http://www.w3.org/2002/07/owl#>'),
+        'ns2:' => array(
+            'prefix' => 'ns2:',
+            'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>'
+        )
+    );
 
-    public const PREFIX_ALL = self::PREFIX_NS1 . ' ' . self::PREFIX_RDFS . ' ' . self::PREFIX_OWL . '' . self::PREFIX_NS2;
+    public static function PREFIX_ALL(){
+
+        $str = '';
+        foreach (self::IRI as $iri){
+            $str .= $iri['IRI'] . ' ';
+        }
+        return $str;
+    }
 
     /**
      * GRAPHS:
@@ -29,9 +46,13 @@ class SophiaGlobal
     public const GRAPH_0 = '<http://aws.amazon.com/neptune/vocab/v000>';
     public const GRAPH_1 = '<http://aws.amazon.com/neptune/vocab/v001>';
 
-    /*
-     * Drupal entity machine name identifiers
-     */
+    /* Drupal entity machine name identifiers */
     public const NODE = 'node';
     public const TAXONOMY = 'taxonomy_term';
+
+    /* Drupal nde type machine names */
+    public const BODIES = 'bodies';
+    public const LEGISLATION = 'legislation';
+    public const PORTFOLIO = 'portfolios';
+    public const COOPERATIVE_RELATIONSHIP = 'cooperative_relationships';
 }

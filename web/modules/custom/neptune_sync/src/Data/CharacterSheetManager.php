@@ -36,27 +36,6 @@ class CharacterSheetManager
      */
     public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
 
-
-        /** Flipchart keys
-         *  E 129| I 131 | R 133 | * 134 | ℗ 144 | X 145
-         */
-
-        /** PSA 1999
-         * @TODO what is M (refer to tax terms?) make this more readable
-         * @TODO remove this
-         * this also doesnt work
-         */
-       /* $query = QueryBuilder::checkPsAct($node);
-        if($this->evaluate($this->query_mgr->runCustomQuery($query)))
-            $this->body->setPsAct(100); //psa = yay
-        else
-            $this->body->setPsAct(101); //psa = no
-*/
-        /** Character sheet booleans
-         *  NA 152
-         * @TODO these are currently just defaulted values, these need review and hooking up
-         */
-
         $this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
         $this->processFinClass($node);
@@ -65,13 +44,12 @@ class CharacterSheetManager
         $this->processEmploymentType($node);
         $this->processCooperativeRelationships($node, $bulkOperation);
 
-        //kint($this->body->getLegislations());
         try {
             $this->updateNode($node);
         } catch (EntityStorageException|MissingDataException $e) {
-
+            Helper::log("Err505: Update did not occur", true);
         }
-        //$this->testfunc($node);
+
 
     }
 
@@ -128,7 +106,7 @@ class CharacterSheetManager
     /** Body Type
      * @param NodeInterface $node
      *       Non-corporate Commonwealth entity 87 | Corporate Commonwealth entity 88 | Commonwealth company 90 |
-     * @todo add comcompany, maybe as default?  */
+     * @todo add comcompany, maybe as default?| Force to use graph 0 */
     private function processBodyType(NodeInterface $node){
 
         $vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88,
@@ -143,7 +121,7 @@ class CharacterSheetManager
      * @param NodeInterface $node
      * Economic Sector
      *      General Government Sector 91 | Public Financial Corporation 94 | Public Nonfinancial Corporation 92 | N/A 149
-     * @TODO add other terms */
+     * @TODO add other terms| Force to use graph 0 */
     private function processEcoSector(NodeInterface $node){
 
         $vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'NA' => 149] ;
@@ -156,7 +134,9 @@ class CharacterSheetManager
     /**
      * @param NodeInterface $node
      * Financial classification
-     *      Material 95, Government Business Enterprise 96, Non-Material 109 */
+     *      Material 95, Government Business Enterprise 96, Non-Material 109
+     *  @TODO Force to use graph 0
+     */
     private function processFinClass(NodeInterface $node){
 
         $vals =['MaterialEntity' => 95,  'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
@@ -170,7 +150,7 @@ class CharacterSheetManager
      * @param NodeInterface $node
      * Employment type
      *      Public Service Act 1999 123 | Non-Public Service Act 1999 124 | Both 125 | Parliamentary Service Act 1999 126 | N/A 151
-     * @TODO everything */
+     * @TODO everything | Force to use graph 0*/
     private function processEmploymentType(NodeInterface $node){
 
         $vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'NA' => 151];
@@ -187,7 +167,7 @@ class CharacterSheetManager
     private function processCooperativeRelationships(
         NodeInterface $node,  Bool $bulkOperation = false){
 
-        /**TODO CHANGE THIS /W SINGLE EXE **/
+        /**TODO: CHANGE THIS /W SINGLE EXE **/
         $bulkOperation = true;
 
         //get all cooperative relationships from Sparql for the node body
@@ -217,7 +197,6 @@ class CharacterSheetManager
                     $obj->{'ent2Label'}->{'value'}, 'bodies'),
                 false, $bulkOperation);
 
-            //TODO this is dumb and needs fixing (catches lead bodies that don't exist)
             if($receiver) {
                 Helper::log("Creating coop rel");
                 $relationship->setReceiver($receiver);
@@ -318,9 +297,10 @@ class CharacterSheetManager
                 $editNode->field_cooperative_relationships[] = ['target_id' => $nid];
         }
 
-        //flipkeys
-
-        //default value these nodes until value is complete
+        /** Character sheet booleans
+         *  NA 152
+         * @TODO these are currently just defaulted values, these need review and hooking up
+         */
         $editNode->field_s35_3_pgpa_act_apply = array(['target_id' => 152]);
         $editNode->field_employed_under_the_ps_act = array(['target_id' => 152]);
         $editNode->field_reporting_variation = array(['target_id' => 152]);

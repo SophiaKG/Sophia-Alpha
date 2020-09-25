@@ -2,7 +2,6 @@
 
 namespace Drupal\neptune_sync\Querier;
 
-use Drupal\neptune_sync\Graph\GraphFilters;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
@@ -22,7 +21,7 @@ class QueryBuilder
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             'ASK { ?subject rdfs:label "' . $node->getTitle() . '" ; ' .
                         ' a ns1:' . $is_a . ' }');
 
@@ -34,7 +33,7 @@ class QueryBuilder
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             'ASK { ?subject rdfs:label "' . $node->getTitle() . '" . ' .
             ' ns1:PublicServiceAct1999 ns1:Enables ?subject . }');
         //'select distinct ?b2l from <http://aws.amazon.com/neptune/vocab/v001> where { ?ct rdfs:label "Public Service Act 1999". ?auth ?e ?act. ?auth a ns2:Authority. ?auth ?e2 ?b2. ?b2 rdfs:label ?b2l}'
@@ -52,7 +51,7 @@ class QueryBuilder
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             'SELECT DISTINCT ?port ?portlabel ?datetime ' .
             'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
             'WHERE { ' .
@@ -78,7 +77,7 @@ class QueryBuilder
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             'SELECT DISTINCT ?legislationLabel ' .
             'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
             'WHERE { '.
@@ -111,7 +110,7 @@ class QueryBuilder
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             $selectStr  .
             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { ' .
@@ -137,6 +136,32 @@ class QueryBuilder
                 '?auth a/rdfs:subClassOf* ns2:Authority. ' .
                 '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
                 '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
+            '}');
+        return $q;
+    }
+
+    public static function getResourceLink(NodeInterface $node){
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+
+        switch ($node->getType()){
+            case SophiaGlobal::LEGISLATION:
+                $type = "Portfolio";
+                break;
+            case SophiaGlobal::BODIES:
+            default:
+                $type = "CommonwealthBodies";
+                break;
+        }
+
+        //Form the entire query
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL() .
+            'SELECT DISTINCT ?link ' .
+            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
+            'WHERE { '.
+                '?object rdfs:label "' . $node->getTitle() . '". ' .
+                '?object a ' . SophiaGlobal::IRI['ns1']['prefix'] . $type . '. ' .
+                '?object ' .  SophiaGlobal::IRI['ns1']['prefix'] . 'WebDataSource ?link.' .
             '}');
         return $q;
     }
@@ -169,7 +194,7 @@ class QueryBuilder
 
         //Form the entire query
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             'CONSTRUCT ' . self::expandGraphToK($node->getTitle(), false) .
             'WHERE ' . self::expandGraphToK($node->getTitle(), true)
         );
@@ -233,7 +258,7 @@ class QueryBuilder
 
         //Form the entire query
         $q->setQuery(
-            SophiaGlobal::PREFIX_ALL .
+            SophiaGlobal::PREFIX_ALL() .
             'CONSTRUCT ' . $qr .
             'WHERE ' . $mirrored_q
         );
