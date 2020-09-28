@@ -252,7 +252,7 @@ class CharacterSheetManager
 
         $toUpdate = true;
 
-        /***if($this->shouldUpdate($editNode, "field_portfolio",
+        /*if($this->shouldUpdate($editNode, "field_portfolio",
             $this->body->getPortfolio())) {
 
             $toUpdate = true;
@@ -303,16 +303,8 @@ class CharacterSheetManager
             $editNode->field_cooperative_relationships = array(); //clear current vals
             foreach($this->body->getCooperativeRelationships() as $nid)
                 $editNode->field_cooperative_relationships[] = ['target_id' => $nid];
-        }
+        }*/
 
-        /** Character sheet booleans
-         *  NA 152
-         * @TODO these are currently just defaulted values, these need review and hooking up
-         */
-        /***$editNode->field_s35_3_pgpa_act_apply = array(['target_id' => 152]);
-        $editNode->field_employed_under_the_ps_act = array(['target_id' => 152]);
-        $editNode->field_reporting_variation = array(['target_id' => 152]);
-        $editNode->field_cp_tabled = array(['target_id' => 152]);
 
         /** todo
          * field_accountable_authority_or_g
