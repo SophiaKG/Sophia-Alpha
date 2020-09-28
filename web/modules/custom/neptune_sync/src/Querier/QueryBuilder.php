@@ -149,7 +149,7 @@ class QueryBuilder
                 break;
             case SophiaGlobal::BODIES:
             default:
-                $type = "CommonwealthBodies";
+                $type = "CommonwealthBody";
                 break;
         }
 

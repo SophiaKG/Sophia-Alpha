@@ -330,7 +330,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
             ],
             'field_ink' => [  //sadly not a typo
                 'uri' => $this->link,
-                'title' => 'Title',
+                'title' => 'Homepage',
                 'options' => [
                     'attributes' => [
                         'target' => '_blank',

@@ -43,6 +43,7 @@ class CharacterSheetManager
         $this->processFinClass($node);
         $this->processLegislation($node, $bulkOperation);
         $this->processEcoSector($node);
+        $this->processLink($node);
         $this->processEmploymentType($node);
         $this->processCooperativeRelationships($node, $bulkOperation);
 
@@ -167,7 +168,7 @@ class CharacterSheetManager
         $jsonObj = json_decode($json);
 
         foreach ($jsonObj->{'results'}->{'bindings'} as $obj){
-            $linkUrl = $obj->{'link'}->{'value'};
+            $this->body->setLink($obj->{'link'}->{'value'});
         }
     }
 
