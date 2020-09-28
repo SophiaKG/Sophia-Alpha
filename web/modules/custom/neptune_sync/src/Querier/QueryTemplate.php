@@ -49,7 +49,7 @@ class QueryTemplate
 
     private static function getLegislations(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'legislation/legislation.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
                             'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a ns1:Legislation . ' .
                             '?Entity rdfs:label ?object . }');
@@ -58,7 +58,7 @@ class QueryTemplate
 
     private static function getBodies(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies/bodies.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
                             'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a ns1:CommonwealthBody . ' .
                                    '?Entity rdfs:label ?object .}');
@@ -67,7 +67,7 @@ class QueryTemplate
 
     private static function getPortfolios(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'portfolios/portfolios.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
                             'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a ns1:Portfolio . ' .
                             '?Entity rdfs:label ?object .}');
@@ -76,7 +76,7 @@ class QueryTemplate
 
     private static function getClasses(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'classes/classes.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
                             'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a owl:Class . ' .
                             '?Entity rdfs:label ?object .}');
@@ -85,7 +85,7 @@ class QueryTemplate
 
     private static function getProperties(){
         $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'properties/properties.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL .
+        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
                             'SELECT DISTINCT ?object ' .
                             'WHERE {?Entity a owl:ObjectProperty . ' .
                             '?Entity rdfs:label ?object .}');

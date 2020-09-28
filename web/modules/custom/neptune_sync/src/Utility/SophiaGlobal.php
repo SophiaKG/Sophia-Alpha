@@ -27,8 +27,7 @@ class SophiaGlobal
             'IRI' => 'PREFIX owl: <http://www.w3.org/2002/07/owl#>'),
         'ns2:' => array(
             'prefix' => 'ns2:',
-            'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>'
-        )
+            'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>')
     );
 
     public static function PREFIX_ALL(){
@@ -46,6 +45,9 @@ class SophiaGlobal
     public const GRAPH_0 = '<http://aws.amazon.com/neptune/vocab/v000>';
     public const GRAPH_1 = '<http://aws.amazon.com/neptune/vocab/v001>';
 
+    /**
+     * ENTITIES
+     */
     /* Drupal entity machine name identifiers */
     public const NODE = 'node';
     public const TAXONOMY = 'taxonomy_term';
@@ -55,4 +57,7 @@ class SophiaGlobal
     public const LEGISLATION = 'legislation';
     public const PORTFOLIO = 'portfolios';
     public const COOPERATIVE_RELATIONSHIP = 'cooperative_relationships';
+
+    /* Maintenance_bot user id */
+    public const MAINTENANCE_BOT = 47;
 }

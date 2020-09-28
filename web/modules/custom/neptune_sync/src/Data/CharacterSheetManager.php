@@ -8,6 +8,7 @@ use Drupal\neptune_sync\Data\Model\CooperativeRelationship;
 use Drupal\neptune_sync\Data\Model\TaxonomyTerm;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
+use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\Entity\Node;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
@@ -22,7 +23,6 @@ class CharacterSheetManager
     protected $countupdated;
 
     public function __construct(){
-        $this->body = new CharacterSheet();
         $this->query_mgr = new QueryManager();
         $this->ent_mgr = new EntityManager();
         $this->countSkip = 0;
@@ -35,6 +35,8 @@ class CharacterSheetManager
      * @TODO remove N/A once all neptune queries are complete and tested
      */
     public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
+
+        $this->body = new CharacterSheet($node->getTitle());
 
         $this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
@@ -55,10 +57,8 @@ class CharacterSheetManager
 
     public function updateAllCharacterSheets(){
 
-        //TODO use this var instead of loading a node in update func
         $bodies = $this->ent_mgr->getAllNodeType("bodies");
         foreach($bodies as $bodyItr){
-            $this->body = new CharacterSheet();
             $this->updateCharacterSheet($bodyItr, true);
         }
     }
@@ -143,7 +143,7 @@ class CharacterSheetManager
         $res = $this->check_property($vals, $node);
         if($res == null)
             $res = $vals['NonMaterialEntity'];
-        $this->body->setFinClass($res);
+        $this->body->addFinClass($res);
     }
 
     /**
@@ -246,16 +246,13 @@ class CharacterSheetManager
 
     /**
      * @param NodeInterface $node
-     * @throws EntityStorageException|MissingDataException
      * @todo this needs rewriting to use the new entity api
      */
     private function updateNode(NodeInterface $node){
 
-        /** @var NodeInterface $editNode */
-        $editNode = Node::load($node->id());
-        $toUpdate = false;
+        $toUpdate = true;
 
-        if($this->shouldUpdate($editNode, "field_portfolio",
+        /***if($this->shouldUpdate($editNode, "field_portfolio",
             $this->body->getPortfolio())) {
 
             $toUpdate = true;
@@ -312,7 +309,7 @@ class CharacterSheetManager
          *  NA 152
          * @TODO these are currently just defaulted values, these need review and hooking up
          */
-        $editNode->field_s35_3_pgpa_act_apply = array(['target_id' => 152]);
+        /***$editNode->field_s35_3_pgpa_act_apply = array(['target_id' => 152]);
         $editNode->field_employed_under_the_ps_act = array(['target_id' => 152]);
         $editNode->field_reporting_variation = array(['target_id' => 152]);
         $editNode->field_cp_tabled = array(['target_id' => 152]);
@@ -325,9 +322,7 @@ class CharacterSheetManager
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
         if($toUpdate) {
-            $editNode->setNewRevision();
-            $editNode->setRevisionUserId(47);
-            $editNode->save();
+            $this->ent_mgr->updateEntity($this->body, $node->id());
             $this->countupdated++;
             Helper::log("updating " . $node->id() . " | Updated: " .
                 $this->countupdated . "\tSkipped: " . $this->countSkip, true);

@@ -19,7 +19,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
     //Economic sector
     protected $eco_sector;
     //Financial classification0
-    protected $fin_class;
+    protected $fin_class = [];
     protected $link;
 
     /** @deprecated */
@@ -83,7 +83,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
     /**
      * @return mixed
      */
-    public function getFinClass()
+    public function getFinClass(): array
     {
         return $this->fin_class;
     }
@@ -219,9 +219,9 @@ class CharacterSheet extends Node implements DrupalEntityExport
     /**
      * @param mixed $fin_class
      */
-    public function setFinClass($fin_class): void
+    public function addFinClass(String $fin_class): void
     {
-        $this->fin_class = $fin_class;
+        array_push($this->fin_class, $fin_class);
     }
 
     /**
@@ -328,7 +328,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
             'field_employment_arrangements' => [
                 'target_id' => $this->employment_type,
             ],
-            'field_ink' => [
+            'field_ink' => [  //sadly not a typo
                 'uri' => $this->link,
                 'title' => 'Title',
                 'options' => [
@@ -338,7 +338,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
                 ],
             ],
             'field_s35_3_pgpa_act_apply' => ['target_id' => 152], //152 is vid for n/a
-            'field_employed_under_the_ps_act' => ['target_id' => 152],
+            //'field_employed_under_the_ps_act' => ['target_id' => 152],
             'field_reporting_variation' => ['target_id' => 152],
             'field_cp_tabled' => ['target_id' => 152],
         );

@@ -201,30 +201,61 @@ class EntityManager
             $my_ent = Term::create(
                 ['vid' => $classModel->getSubType()]);
         else {
-            Helper::log("Err503-2: Something went seriously wrong\n\t\t\t" .
+            Helper::log("Err503-3: Something went seriously wrong\n\t\t\t" .
                 'Attempted to create an entity but the entity has no type.' .
                 'This really shouldn\'t be able to happen', $event = true);
             return null;
         }
-
-        foreach($classModel->getEntityArray() as $fieldKey => $fieldVal)    //save fields
-            $my_ent->set($fieldKey, $fieldVal);                             //polymorphic
-        $my_ent->enforceIsNew();                                            //marks as new
-        try {
-            $my_ent->save();
-        } catch (EntityStorageException $e) { //save
-
-            Helper::log("Err502: Something went seriously wrong\n\t\t\t" .
-                'Attempting to save ' . $classModel->getLabelKey() .
-                ' But failed.',  $event = true);
-            return null;
-        }
+        if(!$this->updateFields($classModel, $my_ent, true))
+            return false;
 
         //add to runtime hash
         $this->entHash[$classModel->getSubType()] +=
             array($classModel->getLabelKey() => $my_ent->id());
 
         return $my_ent->id();
+    }
+
+    public function updateEntity(DrupalEntityExport $classModel, $entityId){
+
+        if($classModel->getEntityType() == SophiaGlobal::NODE)
+            $my_ent = Node::load($entityId);
+        elseif($classModel->getEntityType() == SophiaGlobal::TAXONOMY)
+            $my_ent = Term::load($entityId);
+        else {
+            Helper::log("Err503-2: Something went seriously wrong\n\t\t\t" .
+                'Attempted to update an entity but the entity has no type.' .
+                'This really shouldn\'t be able to happen', $event = true);
+            return false;
+        }
+
+        return $this->updateFields($classModel, $my_ent);
+    }
+
+    /**
+     * @param DrupalEntityExport $classModel
+     * @param EntityInterface $my_ent
+     * @param bool $isNew
+     * @return bool
+     */
+    private function updateFields(DrupalEntityExport $classModel, EntityInterface $my_ent, $isNew = false){
+
+        foreach($classModel->getEntityArray() as $fieldKey => $fieldVal)    //save fields
+            $my_ent->set($fieldKey, $fieldVal);                             //polymorphic
+        if($isNew)
+            $my_ent->enforceIsNew();                                            //marks as new
+        if ($my_ent->getEntityType() == SophiaGlobal::NODE)
+            $my_ent->setNewRevision();
+            $my_ent->setRevisionUserId(SophiaGlobal::MAINTENANCE_BOT);
+        try {
+            $my_ent->save();
+        } catch (EntityStorageException $e) { //save
+            Helper::log("Err502-2: Something went seriously wrong\n\t\t\t" .
+                'Attempting to save ' . $classModel->getLabelKey() .
+                ' But failed.',  $event = true);
+            return false;
+        }
+        return true;
     }
 
     /**
