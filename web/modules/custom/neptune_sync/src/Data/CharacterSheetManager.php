@@ -58,6 +58,8 @@ class CharacterSheetManager
 
     public function updateAllCharacterSheets(){
 
+        Helper::log("starting new bulk run", true);
+
         $bodies = $this->ent_mgr->getAllNodeType("bodies");
         foreach($bodies as $bodyItr){
             $this->updateCharacterSheet($bodyItr, true);
@@ -317,7 +319,7 @@ class CharacterSheetManager
         if($toUpdate) {
             $this->ent_mgr->updateEntity($this->body, $node->id());
             $this->countupdated++;
-            Helper::log("updating " . $node->id() . " | Updated: " .
+            Helper::log("updating body " . $node->id() . " | Updated: " .
                 $this->countupdated . "\tSkipped: " . $this->countSkip, true);
         } else {
             $this->countSkip++;

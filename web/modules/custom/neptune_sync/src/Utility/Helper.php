@@ -3,6 +3,8 @@
 
 namespace Drupal\neptune_sync\Utility;
 
+use Drupal\neptune_sync\Data\DrupalEntityExport;
+
 /**
  * Class Helper
  * @package Drupal\neptune_sync\Utility
@@ -23,6 +25,37 @@ class Helper
         $date_str = $date->format('Y-m-d H:i:s');
         $str ="\n" . $date_str . '| log: ';
 
+       $str .= Helper::print_var($input);
+
+        file_put_contents('neptune_sync.log', $str, FILE_APPEND);
+        if($event)
+            file_put_contents('neptune_sync_event.log', $str, FILE_APPEND);
+
+        foreach ($args as $k)
+            self::log($k, $event);
+    }
+
+    public static function var_dump($var, $text = null){
+        if($text != null)
+            Helper::log($text);
+
+        ob_flush();
+        ob_start();
+        self::var_dump($var);
+        Helper::log(ob_get_flush());
+    }
+
+    public static function print_entity(DrupalEntityExport $classModel, bool $fullDetails = false){
+
+        $str = "Entity details:\n\t\t\t Label " . $classModel->getLabelKey() . " Type: " . $classModel->getSubType();
+        if($fullDetails)
+            $str .= Helper::print_var($classModel->getEntityArray());
+        return $str;
+    }
+
+    public static function print_var($input){
+
+        $str = "";
         switch (gettype($input)) {
             case "boolean":
                 if($input)
@@ -56,22 +89,6 @@ class Helper
                 $str .= " unable to print out " . gettype($input) . " " . get_class($input);
                 break;
         }
-
-        file_put_contents('neptune_sync.log', $str, FILE_APPEND);
-        if($event)
-            file_put_contents('neptune_sync_event.log', $str, FILE_APPEND);
-
-        foreach ($args as $k)
-            self::log($k, $event);
-    }
-
-    public static function var_dump($var, $text = null){
-        if($text != null)
-            Helper::log($text);
-
-        ob_flush();
-        ob_start();
-        self::var_dump($var);
-        Helper::log(ob_get_flush());
+        return $str;
     }
 }
