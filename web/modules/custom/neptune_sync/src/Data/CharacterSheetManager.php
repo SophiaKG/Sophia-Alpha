@@ -52,8 +52,6 @@ class CharacterSheetManager
         } catch (EntityStorageException|MissingDataException $e) {
             Helper::log("Err505: Update did not occur", true);
         }
-
-
     }
 
     public function updateAllCharacterSheets(){
