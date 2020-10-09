@@ -41,6 +41,7 @@ module:
   layout_builder: 0
   layout_discovery: 0
   link: 0
+  login_history: 0
   menu_ui: 0
   neptune_sync: 0
   node: 0
@@ -74,6 +75,7 @@ module:
   views_bulk_operations: 0
   views_tree: 0
   views_ui: 0
+  visitors: 0
   webform: 0
   webform_devel: 0
   webform_templates: 0
