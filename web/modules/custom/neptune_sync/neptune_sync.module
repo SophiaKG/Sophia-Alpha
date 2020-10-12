@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\neptune_sync\querier;
+use Drupal\neptune_sync\Querier;
 /**
  * @file
  * Neptune sync hook implementations.
@@ -13,7 +13,7 @@ use Drupal\neptune_sync\querier;
 */
 function neptune_sync_cron()
 {
-    $query_manager = new querier\QueryManager();
+    $query_manager = new Querier\QueryManager();
     $query_manager->syncAllDatasets();
 }
 
