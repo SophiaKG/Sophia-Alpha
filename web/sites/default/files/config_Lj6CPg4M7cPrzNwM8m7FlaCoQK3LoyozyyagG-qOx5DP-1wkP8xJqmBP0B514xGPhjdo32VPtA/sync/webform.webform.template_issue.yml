@@ -1,3 +1,4 @@
+uuid: 38afec09-c18a-44a1-bc19-02158b8441fc
 langcode: en
 status: closed
 dependencies:
@@ -194,6 +195,5 @@ access:
     permissions: {  }
 handlers: {  }
 variants: {  }
-uuid: 38afec09-c18a-44a1-bc19-02158b8441fc
 _core:
   default_config_hash: _MtOhMQLOuU7buUpwebQ4LNWiY0h9U7m3IPeAXW86cA

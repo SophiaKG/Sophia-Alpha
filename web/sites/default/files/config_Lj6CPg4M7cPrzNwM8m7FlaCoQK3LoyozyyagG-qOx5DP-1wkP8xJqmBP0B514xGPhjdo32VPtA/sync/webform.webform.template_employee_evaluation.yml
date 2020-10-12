@@ -1,3 +1,4 @@
+uuid: 2beead34-28b8-4e03-838c-6fc227b0da63
 langcode: en
 status: closed
 dependencies:
@@ -194,6 +195,5 @@ access:
     permissions: {  }
 handlers: {  }
 variants: {  }
-uuid: 2beead34-28b8-4e03-838c-6fc227b0da63
 _core:
   default_config_hash: 8df7yWltOiustDVW1OaFA9ZUagFjgQ2iRtCxFjuNiqw

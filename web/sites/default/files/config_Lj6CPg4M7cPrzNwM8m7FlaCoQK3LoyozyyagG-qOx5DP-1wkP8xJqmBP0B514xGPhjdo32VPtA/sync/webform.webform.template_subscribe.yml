@@ -1,3 +1,4 @@
+uuid: c85070ee-ed7b-42bc-adec-dc51a4d9a974
 langcode: en
 status: closed
 dependencies:
@@ -196,6 +197,7 @@ handlers:
   email_notification:
     id: email
     label: 'Email Notification'
+    notes: ''
     handler_id: email_notification
     status: true
     conditions: {  }
@@ -230,6 +232,5 @@ handlers:
       theme_name: ''
       parameters: {  }
 variants: {  }
-uuid: c85070ee-ed7b-42bc-adec-dc51a4d9a974
 _core:
   default_config_hash: 3YHo9lS4MI-8Kt-7JnzNnn_oNFjwOapvicNwWYMXk1c
