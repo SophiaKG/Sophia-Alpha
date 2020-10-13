@@ -1,3 +1,27 @@
+body {
+    font-family: "Roboto",Helvetica,sans-serif,Arial;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+
+}
+.webform-element-description {
+    font-size: 1rem;
+}
+#sidebar_first {
+    display: block;
+}
+#sidebar_second aside #block-webform--2{
+    margin: 20px 0px;
+    padding: 20px 15px;
+    border-radius: 12px;
+}
+#sidebar_second aside #block-webform--2 h2{
+    border-bottom: 1px solid #1d84c3;
+}
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .node__content {

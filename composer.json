@@ -33,7 +33,9 @@
         "drupal/views_tree": "^2.0",
         "drupal/superfish": "^1.4",
         "drupal/visitors": "^2.7",
-        "drupal/login_history": "^1.0"
+        "drupal/login_history": "^1.0",
+        "drupal/admin_toolbar": "^2.4",
+        "drupal/pathauto": "^1.8"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"

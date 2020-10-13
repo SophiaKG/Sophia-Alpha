@@ -7,6 +7,7 @@ base theme: finance
 
 libraries:
   - sophia_alpha/global-styling
+  - sophia_alpha/fonts
 
 regions:
   top_header: Top Header
