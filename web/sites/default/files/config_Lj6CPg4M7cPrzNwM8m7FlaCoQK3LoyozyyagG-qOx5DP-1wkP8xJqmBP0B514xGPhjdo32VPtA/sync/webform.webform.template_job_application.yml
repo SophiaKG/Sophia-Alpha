@@ -1,18 +1,21 @@
-uuid: 4b8cf4df-fe8f-416e-b7cf-b4d0c50d663f
+uuid: b4d2db64-524e-47ed-bfb5-093421a62bac
 langcode: en
-status: open
-dependencies: {  }
+status: closed
+dependencies:
+  enforced:
+    module:
+      - webform_templates
 open: null
 close: null
 weight: 0
-uid: 1
-template: false
+uid: null
+template: true
 archive: false
-id: sync_data
-title: 'Sync data'
-description: ''
+id: template_job_application
+title: 'Job Application'
+description: 'A job application webform template.'
 category: ''
-elements: "wipe_data:\n  '#type': checkboxes\n  '#title': 'Wipe data'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n    cooperative_relationships: 'Cooperative Relationships'\n  '#options_all': true\n  '#options_none': true\nsync_node_creation:\n  '#type': checkboxes\n  '#title': 'Sync node creation'\n  '#description': 'This creates nodes only, in a blank state. Sync data is needed to fill out data.'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n  '#options_all': true\n  '#options_none': true\nsync_neptune_data:\n  '#type': checkbox\n  '#title': 'Sync Neptune data'\n  '#description': 'Sync Node fields for all existing bodies to Neptune.'"
+elements: "information:\n  '#title': 'Your Information'\n  '#type': webform_section\n  first_name:\n    '#title': 'First Name'\n    '#type': textfield\n    '#required': true\n  last_name:\n    '#title': 'Last Name'\n    '#type': textfield\n    '#required': true\n  gender:\n    '#type': webform_radios_other\n    '#title': Gender\n    '#options': gender\n    '#required': true\ncontact_information:\n  '#title': 'Contact Information'\n  '#type': webform_section\n  contact:\n    '#type': webform_contact\n    '#title': Contact\n    '#title_display': invisible\n    '#name__access': false\n    '#company__access': false\nresume:\n  '#title': 'Your Resume'\n  '#type': webform_section\n  resume_method:\n    '#type': radios\n    '#options':\n      attach: 'Attach resume file'\n      paste: 'Paste your resume'\n    '#prefix': '<div class=\"container-inline\">'\n    '#suffix': '</div>'\n    '#default_value': attach\n  resume_file:\n    '#type': managed_file\n    '#title': Resume\n    '#title_display': invisible\n    '#states':\n      visible:\n        ':input[name=\"resume_method\"]':\n          value: attach\n      required:\n        ':input[name=\"resume_method\"]':\n          value: attach\n      enabled:\n        ':input[name=\"resume_method\"]':\n          value: attach\n  resume_text:\n    '#type': textarea\n    '#title': Resume\n    '#title_display': invisible\n    '#states':\n      visible:\n        ':input[name=\"resume_method\"]':\n          value: paste\n      required:\n        ':input[name=\"resume_method\"]':\n          value: paste\n      enabled:\n        ':input[name=\"resume_method\"]':\n          value: paste\nactions:\n  '#type': webform_actions\n  '#title': 'Submit button(s)'\n  '#submit__label': Apply\n"
 css: ''
 javascript: ''
 settings:
@@ -25,7 +28,7 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_exception_message: ''
   form_open_message: ''
@@ -59,7 +62,7 @@ settings:
   share_theme_name: ''
   share_title: true
   share_page_body_attributes: {  }
-  submission_label: Sync
+  submission_label: ''
   submission_log: false
   submission_views: {  }
   submission_views_replace: {  }
@@ -114,7 +117,7 @@ settings:
   draft_pending_multiple_message: ''
   confirmation_type: page
   confirmation_title: ''
-  confirmation_message: ''
+  confirmation_message: 'Thank you for applying.'
   confirmation_url: ''
   confirmation_attributes: {  }
   confirmation_back: true
@@ -142,7 +145,6 @@ settings:
   results_customize: false
   token_view: false
   token_update: false
-  token_delete: false
   serial_disabled: false
 access:
   create:
@@ -231,4 +233,4 @@ handlers:
       parameters: {  }
 variants: {  }
 _core:
-  default_config_hash: U_59ceMAx8zOXo9Zzd5L38VP3e23SmmByVLzgwhaF3U
+  default_config_hash: wGgz0Pm3SP3WyZEzdEUmiYLlE7ntOdPHPpW6QKVEa1Y
