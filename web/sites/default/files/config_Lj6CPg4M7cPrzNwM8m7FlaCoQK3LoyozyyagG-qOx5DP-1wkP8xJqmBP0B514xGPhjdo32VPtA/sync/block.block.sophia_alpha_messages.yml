@@ -1,0 +1,22 @@
+uuid: 90328c9c-8770-4121-8bc6-12b16e8582e6
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - sophia_alpha
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: sophia_alpha_messages
+theme: sophia_alpha
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

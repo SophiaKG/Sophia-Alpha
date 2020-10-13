@@ -1,0 +1,19 @@
+uuid: 52827f77-d5d4-4030-b1f4-5991e44ea809
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_ink
+field_name: field_ink
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

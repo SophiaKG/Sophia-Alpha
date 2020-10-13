@@ -141,7 +141,7 @@ class QueryBuilder
     }
 
     /**
-     * @todo need to re-examine nks using graph1 and thus lead bodies at a different date
+     * @todo need to re-examine links using graph1 and thus lead bodies at a different date
      * @param NodeInterface $node
      * @return Query
      */

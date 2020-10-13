@@ -1,0 +1,29 @@
+uuid: 7296e8ab-5d84-41fd-8549-82b0d7fc4781
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_financial_classification
+    - node.type.bodies
+    - taxonomy.vocabulary.financial_classification
+id: node.bodies.field_financial_classification
+field_name: field_financial_classification
+entity_type: node
+bundle: bodies
+label: 'Financial classification'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      financial_classification: financial_classification
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,12 @@
+uuid: facac80c-4b66-4680-832f-830f354081e7
+langcode: en
+status: true
+dependencies: {  }
+id: portfolios_linking_bodies
+label: 'Portfolios linking bodies'
+enabled: true
+first_field: field_portfolio
+second_field: field_bodies
+bundles:
+  node:
+    - '*'

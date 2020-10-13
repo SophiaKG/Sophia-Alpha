@@ -1,0 +1,23 @@
+uuid: 596c0281-ca0d-41d7-94c1-28601d52aedc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_demo
+    - node.type.bodies
+id: node.bodies.field_demo
+field_name: field_demo
+entity_type: node
+bundle: bodies
+label: Demo
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
