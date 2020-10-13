@@ -63,3 +63,10 @@ neptune_sync.displayIntGraph:
     parameters:
       node:
         type: entity:node
+neptune_sync.runAdminFunc:
+  path: '/admin/foo'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\AdminController::executeAdminFunc'
+    _title: 'Runs a custom php function'
+  requirements:
+    _permission: 'administer modules'

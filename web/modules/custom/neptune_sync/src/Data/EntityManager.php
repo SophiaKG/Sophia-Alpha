@@ -151,8 +151,8 @@ class EntityManager
         }
 
         Helper::log("Err501: Something went seriously wrong \n" .
-            "\t\t\tcase: getEntityIdFromHash() Entity doesn't exist and not allowed to create one." .
-            " Null seeded.\n \t\t\tEntity details:\n\t\t\t " . $classModel->getLabelKey(), true);
+            "\t\t\tcase: getEntityIdFromHash() Entity doesn't exist and not allowed to 
+            create one. Null seeded\n \t\t\t" . Helper::print_entity($classModel), true);
         return null;
     }
 
@@ -215,6 +215,8 @@ class EntityManager
 
         return $my_ent->id();
     }
+
+
 
     public function updateEntity(DrupalEntityExport $classModel, $entityId){
 

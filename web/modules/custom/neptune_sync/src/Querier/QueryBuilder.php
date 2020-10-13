@@ -140,6 +140,11 @@ class QueryBuilder
         return $q;
     }
 
+    /**
+     * @todo need to re-examine nks using graph1 and thus lead bodies at a different date
+     * @param NodeInterface $node
+     * @return Query
+     */
     public static function getResourceLink(NodeInterface $node){
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
 

@@ -29,14 +29,14 @@ bundle: bodies
 mode: default
 content:
   field_accountable_authority_or_g:
-    weight: 4
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_cooperative_relationships:
-    weight: 20
+    weight: 15
     label: inline
     settings:
       view_mode: character_sheet
@@ -45,7 +45,7 @@ content:
     type: entity_reference_entity_view
     region: content
   field_cp_tabled:
-    weight: 12
+    weight: 7
     label: above
     settings:
       link: true
@@ -53,7 +53,7 @@ content:
     type: entity_reference_label
     region: content
   field_demo:
-    weight: 18
+    weight: 13
     label: above
     settings:
       format: default
@@ -63,7 +63,7 @@ content:
     type: boolean
     region: content
   field_economic_sector:
-    weight: 17
+    weight: 11
     label: above
     settings:
       link: true
@@ -71,7 +71,7 @@ content:
     type: entity_reference_label
     region: content
   field_employment_arrangements:
-    weight: 16
+    weight: 10
     label: above
     settings:
       link: true
@@ -79,7 +79,7 @@ content:
     type: entity_reference_label
     region: content
   field_enabling_legislation_and_o:
-    weight: 8
+    weight: 5
     label: above
     settings:
       link: true
@@ -87,7 +87,7 @@ content:
     type: entity_reference_label
     region: content
   field_financial_classification:
-    weight: 6
+    weight: 4
     label: above
     settings:
       link: true
@@ -95,7 +95,7 @@ content:
     type: entity_reference_label
     region: content
   field_flipchart_keys:
-    weight: 19
+    weight: 14
     label: above
     settings:
       link: true
@@ -103,7 +103,7 @@ content:
     type: entity_reference_label
     region: content
   field_ink:
-    weight: 1
+    weight: 12
     label: above
     settings:
       trim_length: 80
@@ -115,7 +115,7 @@ content:
     type: link
     region: content
   field_portfolio:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link: true
@@ -123,14 +123,14 @@ content:
     type: entity_reference_label
     region: content
   field_reporting_arrangements:
-    weight: 14
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_reporting_variation:
-    weight: 13
+    weight: 8
     label: above
     settings:
       link: true
@@ -138,7 +138,7 @@ content:
     type: entity_reference_label
     region: content
   field_s35_3_pgpa_act_apply:
-    weight: 11
+    weight: 6
     label: above
     settings:
       link: true
@@ -146,7 +146,7 @@ content:
     type: entity_reference_label
     region: content
   field_type_of_body:
-    weight: 3
+    weight: 2
     label: above
     settings:
       link: true

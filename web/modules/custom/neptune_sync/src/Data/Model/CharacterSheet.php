@@ -309,6 +309,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
      */
     public function setLink($link): void
     {
+        //schema validation
+        if(substr($link,0,3) == 'www' ||
+            substr($link,0,3) == 'WWW')
+            $link = 'http://' . $link;
         $this->link = $link;
     }
 
