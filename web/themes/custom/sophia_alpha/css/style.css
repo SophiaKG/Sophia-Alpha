@@ -30,6 +30,8 @@ body {
     padding: 20px 15px;
     border-radius: 12px;
     background-color: #efefef;
+    max-height: 990px;
+    overflow-y: auto;
 }
 .sidebar .block,
 .sidebar aside.section,
