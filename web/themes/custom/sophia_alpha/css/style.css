@@ -11,16 +11,61 @@ body {
 .webform-element-description {
     font-size: 1rem;
 }
-#sidebar_first {
-    display: block;
+.page-view-flipchart #sidebar_first {
+    display: block ! important;
+    max-width: unset;
 }
-#sidebar_second aside #block-webform--2{
+#sidebar_first,
+#sidebar_second{
     margin: 20px 0px;
+}
+#sidebar_first {
     padding: 20px 15px;
     border-radius: 12px;
+    background-color: #efefef;
+    max-height: 600px;
+    overflow-y: auto;
+}
+#sidebar_second {
+    padding: 20px 15px;
+    border-radius: 12px;
+    background-color: #efefef;
+}
+.sidebar .block,
+.sidebar aside.section,
+#sidebar_second aside #block-webform--2{
+    background-color: transparent;
+    border: unset;
 }
 #sidebar_second aside #block-webform--2 h2{
     border-bottom: 1px solid #1d84c3;
+}
+nav.tabs {
+    position: relative !important;
+    height: auto !important;
+}
+.header,
+#header,
+header#header {
+    background-color: #1d84c3;
+    height: 160px;
+}
+#navbar-main {
+    padding-top: 20px;
+}
+a.navbar-brand{
+    margin: unset;
+    margin-right: 20px;
+}
+#block-sophia-alpha-search #edit-keys {
+    width: 225px;
+}
+#block-sophia-alpha-search #edit-submit {
+    margin: auto;
+    margin-top: 1px;
+    position: absolute;
+    right: 20px;
+    width: fit-content;
 }
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
@@ -65,7 +110,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 
 /*-----------------Summary key block*/
 
-/* fix key to screen scrolling */
+/* fix key to screen scrolling 
 .page-view-flipchart .sidebar_second {
     position: fixed;
     left: 25px;
@@ -73,6 +118,10 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     top: 243px;
     padding-right: 0px;
     padding-left: 0px;
+}
+*/
+.page-view-flipchart main#content{
+    padding-top: 20px;
 }
 
 .page-view-flipchart .view-display-id-block_1 div.view-content {
@@ -120,28 +169,32 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     margin-bottom: 0;
 }
 
-/*buffer main content out from fix float key */
+/*buffer main content out from fix float key 
 .page-view-flipchart .main-content {
     margin: 0px 70px 0px 220px !important;
 }
-
+*/
 
 /*-------------------summary view table*/
 
 .flipchart .item-list {
     line-height: 1;
+    margin: 16px 0px;
 }
 
 .flipchart .item-list a {
     color: #000000;
     font-weight: bolder;
-    font-size: small;
+    font-size: 1rem;
+}
+.flipchart .item-list ul li {
+    padding-top: 6px;
 }
 
 .flipchart .node--view-mode-character-sheet a span {
     color: #000000;
     font-weight: normal;
-    font-size: small;
+    font-size: 0.9rem;
 }
 
 .flipchart .node--view-mode-character-sheet .character-sheet-keys a span {
@@ -151,11 +204,13 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .flipchart .node--view-mode-character-sheet {
     padding: 0px 4px;
 }
-
-.flipchart .col {
-    padding: 0px;
+/*
+.flipchart {
+    padding: 18px 8px;
+    border-radius: 12px;
+    background-color: #efefef;
 }
-
+*/
 .flipchart ul {
     border-bottom-width: medium;
     border-bottom-style: solid;
