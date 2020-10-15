@@ -141,6 +141,77 @@ class QueryBuilder
     }
 
     /**
+     * @param NodeInterface[] $nodes
+     * @return Query
+     *
+     * Workbook:
+     * https://aws-neptune-sophia-dev.notebook.ap-southeast-2.sagemaker.aws/notebooks/Neptune/D.S.%20cooperation%20work.ipynb
+     * @: Graph query
+     */
+    public static function getCooperativeRelationshipsGraph(array $nodes){
+
+        //build value string
+        $valStr = "";
+        $ValStrKey = "";
+        if(empty($nodes)) {                         //Show all relationships
+            $valStr = '';
+            $ValStrKey = '?ent1Label. ';
+        } else {                                    //Show relationships for node/s
+            $valStr = 'values ?sents {';
+            $ValStrKey = '?sents. ';
+            foreach ($nodes as $node)
+                $valStr .= '"' . $node->getTitle() . '" ';
+            $valStr .= "} ";
+        }
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL() .
+            'CONSTRUCT {' .
+                '?sendBody ns2:Grants ?prog. ' .
+                '?prog ns2:Enables ?outcome. ' .
+                '?outcome ns2:Empowers ?recBody. ' .
+                '?sendBody rdfs:label ' . $ValStrKey .
+                '?prog rdfs:label ?progLabel. ' .
+                '?outcome rdfs:label ?outcomeLabel. ' .
+                '?recBody rdfs:label ?ent2label. ' .
+                '?sendBody rdf:type ns2:CommonwealthBody. ' .
+                '?recBody rdf:type ns2:CommonwealthBody. ' .
+                '?prog rdf:type ns2:Program. ' .
+                '?outcome rdf:type ns2:Outcome. ' .
+            '} ' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+            'WHERE { ' .
+                $valStr .
+                //Graph logic
+                '?auth ns2:Binds ?prog. ' .
+                '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
+                '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
+                '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
+                '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
+                '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
+                //get labels
+                '?prog ns2:Content ?progDesc. ' .       //get the description of the program
+                '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
+                '?sendBody rdfs:label ' . $ValStrKey .    //ent label
+                '?prog rdfs:label ?progLabel. ' .       //program label
+                '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
+                '?recBody rdfs:label ?ent2Label.'  .    //rec body
+                //Apply filters to constrain to classes
+                '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
+                '?prog a ns2:Program. ' .
+                '?outcome a ns2:Outcome. ' .
+                '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
+                '?auth a/rdfs:subClassOf* ns2:Authority. ' .
+                '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
+                '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
+            '}'
+        );
+
+        return $q;
+    }
+
+    /**
      * @todo need to re-examine links using graph1 and thus lead bodies at a different date
      * @param NodeInterface $node
      * @return Query

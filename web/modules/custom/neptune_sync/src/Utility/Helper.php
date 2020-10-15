@@ -45,6 +45,12 @@ class Helper
         Helper::log(ob_get_flush());
     }
 
+    public static function file_dump($filename, $input){
+
+        $str = Helper::print_var($input);
+        file_put_contents($filename, $str);
+    }
+
     public static function print_entity(DrupalEntityExport $classModel, bool $fullDetails = false){
 
         $str = "Entity details:\n\t\t\t Label " . $classModel->getLabelKey() . " Type: " . $classModel->getSubType();

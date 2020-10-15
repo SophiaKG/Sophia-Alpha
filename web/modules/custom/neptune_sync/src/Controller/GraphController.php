@@ -58,6 +58,24 @@ class GraphController extends ControllerBase
             '#graph_name' => $this->t($node->getTitle()),
             '#graph_json' => $json,
         ];
+    }
 
+
+    public function displayCoopGraph(NodeInterface $node){
+        $graphGen = new GraphGenerator();
+        $json = $graphGen->buildCoopGraphFromNode($node);
+        Helper::log($json);
+
+        return [
+            '#theme' => 'graph_template',
+            '#graph_name' => $this->t($node->getTitle()),
+            '#graph_json' => $json,
+        ];
+    }
+
+
+    public function coopGraphQuery(){
+        return [
+            'form' => \Drupal::formBuilder()->getForm('\Drupal\neptune_sync\Form\CoopGraphForm')];
     }
 }

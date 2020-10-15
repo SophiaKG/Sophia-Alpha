@@ -18,16 +18,24 @@ class SophiaGlobal
     public const IRI = array(
         'ns1' => array(
             'prefix' => 'ns1:',
-            'IRI' => 'PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#>'),
+            'IRI' => 'PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#>',
+            'name' => 'ns1',
+            'loc' => 'file:///home/andnfitz/GovernmentEntities.owl#'),
         'rdfs' => array(
             'prefix' => 'rdfs:',
-            'IRI' => 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'),
+            'IRI' => 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>',
+            'name' => 'rdfs',
+            'loc' => 'http://www.w3.org/2000/01/rdf-schema#'),
         'owl' => array(
             'prefix' => 'owl:',
-            'IRI' => 'PREFIX owl: <http://www.w3.org/2002/07/owl#>'),
-        'ns2:' => array(
+            'IRI' => 'PREFIX owl: <http://www.w3.org/2002/07/owl#>',
+            'name' => 'owl',
+            'loc' => 'http://www.w3.org/2002/07/owl#'),
+        'ns2' => array(
             'prefix' => 'ns2:',
-            'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>')
+            'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>',
+            'name' => 'ns2',
+            'loc' => 'file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#')
     );
 
     public static function PREFIX_ALL(){

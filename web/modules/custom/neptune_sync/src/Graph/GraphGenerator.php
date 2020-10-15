@@ -6,7 +6,9 @@ namespace Drupal\neptune_sync\Graph;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
+use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\NodeInterface;
+use EasyRdf\RdfNamespace;
 use EasyRdf_Literal;
 use EasyRdf_Resource;
 
@@ -29,6 +31,12 @@ class GraphGenerator
     protected $name;
     protected $query;
 
+    public function __construct(){
+
+        \EasyRdf_Namespace::set(SophiaGlobal::IRI['ns1']['name'], SophiaGlobal::IRI['ns1']['loc']);
+        \EasyRdf_Namespace::set(SophiaGlobal::IRI['ns2']['name'], SophiaGlobal::IRI['ns2']['loc']);
+    }
+
     /**
      * Builds a graph around a node with k =  2 expansion
      *  -build query
@@ -47,7 +55,15 @@ class GraphGenerator
         $this->query = QueryBuilder::buildCustomLocalGraph($node);
         $query_mgr = new QueryManager();
 
-        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));;
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+    }
+
+    public function buildCoopGraphFromNode(NodeInterface $node){
+
+        $this->query = QueryBuilder::getCooperativeRelationshipsGraph($arr = [$node]);
+        $query_mgr = new QueryManager();
+
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
     }
 
     /**
@@ -83,7 +99,7 @@ class GraphGenerator
      *         "id":,
      *         "label":,
      *         "shape":,
-     *          "category":
+     *         "category":
      *      ],
      *      "edges": [
      *          "sourceID":,
@@ -95,6 +111,61 @@ class GraphGenerator
      * @throws \EasyRdf_Exception
      */
     private function rdfToGraph($rdf){
+        $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
+        //$rdf = '@PREFIX ns2: <file:///home/andnfitz/GovernmentEntities.owl#> . @PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @PREFIX owl: <http://www.w3.org/2002/07/owl#> . @PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#> . ' . $rdf;
+
+        Helper::log("updated RDF: \n" . $rdf);
+        $graph->parse($rdf, 'turtle');
+
+        $nodes = [];
+        $edges = [];
+        $cat = [];
+
+        Helper::file_dump('easyrdf.html', $graph->dump('html'));
+
+        foreach($graph->resources() as $resource) {
+
+            //add root node
+            $nodes[$resource->getUri()] = $this->buildNode($resource);
+
+            //add its direct edges and their nodes
+            Helper::log("Resource " . $resource->getUri(). " contains properties: ");
+            Helper::log($resource->properties());
+
+            foreach ($resource->properties() as $edgeTypeName) {
+                //resources and literals
+
+                Helper::log("\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName);
+                Helper::log("\tShortened = " . $resource->shorten());
+
+                foreach ($resource->all($edgeTypeName) as $resource_b) {
+
+                    Helper::log("\t\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName . " connecting to node: " . $resource_b->__toString());
+                    $nodes[$this->getID($resource_b)] = $this->buildNode($resource_b);
+                    $edges[$this->getID($resource) . $this->getID($resource_b)] =
+                        $this->buildEdge($resource, $edgeTypeName, $resource_b);
+
+                    //add the type of both nodes to the distinct category set
+                    $cat[$this->getType($resource)] =
+                        array('name' => $this->getType($resource));
+                    $cat[$this->getType($resource_b)] =
+                        array('name' => $this->getType($resource_b));
+                }
+            }
+        }
+        return json_encode(array('category' => array_values($cat),
+                                    'nodes' => array_values($nodes),
+                                    'edges' => array_values($edges)));
+    }
+
+    /***
+     *
+     *
+     *
+     *
+     *
+     */
+    private function testfoo($rdf){
         $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
         $graph->parse($rdf, 'turtle');
 
@@ -125,11 +196,8 @@ class GraphGenerator
             }
         }
         $json = json_encode(array('category' => array_values($cat),
-                                    'nodes' => array_values($nodes),
-                                    'edges' => array_values($edges)));
-
-        //kint($json);
-        Helper::log($json);
+            'nodes' => array_values($nodes),
+            'edges' => array_values($edges)));
 
         return $json;
     }
