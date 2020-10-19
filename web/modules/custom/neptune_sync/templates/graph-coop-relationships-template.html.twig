@@ -5,15 +5,22 @@
 <script type="text/javascript">
     // based on prepared DOM, initialize echarts instance
     var myChart = echarts.init(document.getElementById('maingraph'));
+
     myChart.showLoading();
+
     (function() {
         myChart.hideLoading();
         var json = JSON.parse('{{ graph_json }}'.replace(/&quot;/g,'"'));
         //var categories = ['rdfs:label','owl:NamedIndividual','owl:Class','misc'];
         myChart.setOption(option = {
             title: {
-                text: "{{ graph_name }}"
+                text: "{{ graph_name }}",
+                top: '10',
+                left: '10',
+                color: '#000',
+                backgroundColor: '#fff',
             },
+            backgroundColor: '#000',
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
             tooltip: {},
@@ -21,12 +28,16 @@
                 // selectedMode: 'single',
                 data: json.category.map(function (a) {
                     return a.name;
-                })
+                }),
+                top: '40',
+                left: '10',
+                backgroundColor: '#fff',
             }],
             series : [
                 {
                     type: 'graph',
                     layout: 'force',
+                    zoom: 2,
                     edgeSymbol: ['circle', 'arrow'],
                     edgeSymbolSize: [4, 10],
                     // progressiveThreshold: 700,
@@ -45,25 +56,30 @@
                                 position: 'inside'
                             },
                             itemStyle: {
-                                color: node.color
+                                color: node.color,
+                                emphasis: {
+                                shadowBlur: 100,
+                                shadowColor: '#fff',
+                                opacity: 1,
+                                },
                             }
                         };
                     }),
                     edges: json.edges.map(function (edge) {
                         return {
                             source: edge.sourceID,
-                            target: edge.targetID
-                            /*label: {
+                            target: edge.targetID,
+                            emphasis: {
+                                label: {
                                 show: true,
-                            }*/
+                                position: 'insideTopLeft',
+                                color: '#cc99ff',
+                                fontSize: 16,
+                                }
+                            },
                         };
                     }),
-                    /*emphasis: {
-                        label: {
-                            position: 'right',
-                            show: true
-                        }
-                    },*/
+                    
                     roam: true,
                     categories: json.category,
                     focusNodeAdjacency: true,
@@ -72,10 +88,7 @@
                         curveness: 0,
                         opacity: 0.7
                     },
-                    /*force: {
-                        repulsion: 100,
-                        friction: .9
-                    }*/
+                    
                 }
             ]
         }, true);

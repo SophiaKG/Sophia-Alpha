@@ -45,6 +45,13 @@ neptune_sync.displayGraph:
     _title: 'Local Graph'
   requirements:
     _permission: 'access content'
+neptune_sync.displayCoopGraph:
+  path: '/node/{node}/coop-graph'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::displayGraph'
+    _title: 'Cooperative Relationships Graph'
+  requirements:
+    _permission: 'access content'
 neptune_sync.sparqlQueryForm:
   path: '/sparql-query'
   defaults:

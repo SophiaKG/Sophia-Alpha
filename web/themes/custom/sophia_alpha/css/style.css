@@ -8,6 +8,44 @@ body {
     letter-spacing: normal;
 
 }
+a {
+    text-decoration: none !important;
+}
+a:hover {
+    background-color: none !important;
+    text-decoration: underline;
+}
+.graph__link,
+.coop_graph__link,
+.sync__link {
+    border: 2px solid #1d84c3;
+    min-width: 220px;
+    max-width: auto;
+    padding: 3px 12px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    color: #1d79ed;
+    background: transparent;
+    display: inline-block;
+    margin: 10px 12px 10px 0px;
+    
+
+}
+.graph__link:hover,
+.coop_graph__link:hover,
+.sync__link:hover {
+box-shadow: 1px 2px #1d84c3;
+}
+.main-content a,
+.sidebar a {
+ color: #1d84c3 !important;
+}
+.main-content a:hover,
+.sidebar a:hover {
+ background-color: transparent !important;
+}
 .webform-element-description {
     font-size: 1rem;
 }
@@ -17,21 +55,20 @@ body {
 }
 #sidebar_first,
 #sidebar_second{
-    margin: 20px 0px;
+    margin: 25px 0px;
 }
 #sidebar_first {
-    padding: 20px 15px;
+    padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
     max-height: 600px;
-    overflow-y: auto;
+   /* overflow-y: auto;*/
 }
 #sidebar_second {
-    padding: 20px 15px;
     border-radius: 12px;
     background-color: #efefef;
     max-height: 990px;
-    overflow-y: auto;
+   /* overflow-y: auto;*/
 }
 .sidebar .block,
 .sidebar aside.section,
@@ -39,8 +76,11 @@ body {
     background-color: transparent;
     border: unset;
 }
+#sidebar_second aside #block-webform--2 {
+    padding: unset;
+}
 #sidebar_second aside #block-webform--2 h2{
-    border-bottom: 1px solid #1d84c3;
+    border-bottom: 2px solid #1d84c3;
 }
 nav.tabs {
     position: relative !important;
@@ -67,8 +107,17 @@ a.navbar-brand{
     margin-top: 1px;
     position: absolute;
     right: 20px;
-    width: fit-content;
+    width: auto;
 }
+
+
+#maingraph,
+#maingraph div{
+    width: 100% !important;
+    min-height: auto !important;
+
+}
+
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .node__content {
@@ -178,10 +227,21 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 */
 
 /*-------------------summary view table*/
+.flipchart .col {
+    padding-right: 5px;
+    padding-left: 5px;
+}
 
 .flipchart .item-list {
     line-height: 1;
     margin: 16px 0px;
+    border: 1px solid #efefef;
+    padding: 16px 0px 10px 6px;
+    border-radius: 10px;
+}
+.flipchart .item-list:hover {
+    border: 1px solid #1d84c3;
+    box-shadow: 4px 8px #1d84c3;
 }
 
 .flipchart .item-list a {
@@ -189,8 +249,16 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     font-weight: bolder;
     font-size: 1rem;
 }
+.flipchart .item-list ul {
+    border-top: 2px solid #1d84c3;
+}
+
 .flipchart .item-list ul li {
     padding-top: 6px;
+}
+
+.flipchart .item-list ul li article{
+    min-height: 2.5rem;
 }
 
 .flipchart .node--view-mode-character-sheet a span {
@@ -203,8 +271,13 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     font-weight: bolder;
 }
 
-.flipchart .node--view-mode-character-sheet {
-    padding: 0px 4px;
+
+
+.flipchart .character-sheet-keys a span {
+    border: 1px solid #1d84c3;
+    margin: 2px 5px;
+    border-radius: 4px;
+    text-align: center;
 }
 /*
 .flipchart {
@@ -212,12 +285,14 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     border-radius: 12px;
     background-color: #efefef;
 }
-*/
 .flipchart ul {
     border-bottom-width: medium;
     border-bottom-style: solid;
     margin: 0 0.25em 0.25em 0;
 }
+
+*/
+
 
 .flipchart ul li {
     padding: 0 0 0 0;
@@ -227,6 +302,9 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     display: none;
 }
 .view-flipchart .sync__link {
+    display: none;
+}
+.view-flipchart .coop_graph__link {
     display: none;
 }
 .view-flipchart div.node__content {
@@ -274,6 +352,10 @@ article.node--type-portfolios .node__meta {
     display: none;
 }
 
+.view-taxonomy-term  .coop_graph__link {
+    display: none;
+}
+
 .view-taxonomy-term .sync__link {
     display: none;
 }
@@ -296,3 +378,23 @@ article.node--type-bodies .field .field__label {
     font-weight: 800;
 }
 
+article.nonCorp {
+    border-left: 6px solid rgb(204, 204, 255) !important;
+    border-bottom: 1px solid rgb(204, 204, 255);
+    background-color: unset !important;
+}
+article.corp {
+    border-left: 6px solid rgb(170, 225, 194) !important;
+    border-bottom: 1px solid rgb(170, 225, 194);
+    background-color: unset !important;
+    
+}
+article.comCompany {
+    border-left: 6px solid rgb(249, 238, 186) !important;
+    border-bottom: 1px solid rgb(249, 238, 186);
+    background-color: unset !important;
+    
+}
+#block-sophia-alpha-footer {
+    margin: auto;
+}
