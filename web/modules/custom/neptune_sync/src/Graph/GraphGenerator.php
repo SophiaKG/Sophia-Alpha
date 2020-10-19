@@ -228,8 +228,6 @@ class GraphGenerator
         if($this->getID($resource) == "http://www.w3.org/2002/07/owl#Class")
             return array();
 
-
-
         //If the node is a label
         if(is_a($resource, 'EasyRdf_Literal') && !$easyRead){
             return array('id'=>$resource->getValue(),
@@ -276,7 +274,11 @@ class GraphGenerator
      * @param $b EasyRdf_Literal|EasyRdf_Resource the Easy_RDF target node
      * @return array the edge as an associative array
      */
-    private function buildEdge($a, $edge, $b){
+    private function buildEdge($a, $edge, $b, $easyRead = true){
+
+        if($easyRead)
+            $edge = substr($edge, strpos($edge, ':') + 1);
+
         return array(
             'sourceID'=> $this->getID($a),
             'label' => $edge,
