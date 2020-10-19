@@ -1,0 +1,25 @@
+uuid: 98a01669-39ae-410f-bdab-a1040ccfaac9
+langcode: en
+status: true
+dependencies:
+  config:
+    - webform.webform.feedback
+  module:
+    - webform
+  theme:
+    - sophia_alpha
+id: webform
+theme: sophia_alpha
+region: sidebar_second
+weight: 0
+provider: null
+plugin: webform_block
+settings:
+  id: webform_block
+  label: Feedback
+  provider: webform
+  label_display: visible
+  webform_id: feedback
+  default_data: ''
+  redirect: false
+visibility: {  }

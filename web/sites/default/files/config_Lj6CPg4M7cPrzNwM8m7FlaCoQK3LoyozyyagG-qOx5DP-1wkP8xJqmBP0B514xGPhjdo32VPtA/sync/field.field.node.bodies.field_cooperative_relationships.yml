@@ -1,0 +1,28 @@
+uuid: 90e6b67f-4342-4ec6-960b-b4873565d16b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cooperative_relationships
+    - node.type.bodies
+    - node.type.cooperative_relationships
+id: node.bodies.field_cooperative_relationships
+field_name: field_cooperative_relationships
+entity_type: node
+bundle: bodies
+label: 'Cooperative Relationships'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      cooperative_relationships: cooperative_relationships
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

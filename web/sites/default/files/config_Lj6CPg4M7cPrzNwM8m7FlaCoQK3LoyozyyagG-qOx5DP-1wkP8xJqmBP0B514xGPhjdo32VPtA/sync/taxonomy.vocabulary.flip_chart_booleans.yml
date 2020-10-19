@@ -1,0 +1,8 @@
+uuid: c183209c-1924-41bd-a6a6-af27734e505d
+langcode: en
+status: true
+dependencies: {  }
+name: 'Flip chart Booleans'
+vid: flip_chart_booleans
+description: ''
+weight: -5

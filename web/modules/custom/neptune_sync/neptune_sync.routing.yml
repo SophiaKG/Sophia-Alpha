@@ -70,6 +70,17 @@ neptune_sync.displayIntGraph:
     parameters:
       node:
         type: entity:node
+neptune_sync.displayCoopGraph:
+  path: '/node/{node}/coop-graph'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraph'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
 neptune_sync.runAdminFunc:
   path: '/admin/foo'
   defaults:

@@ -1,0 +1,13 @@
+chart_height: 430
+chart_width: 700
+exclude_administer_users: 0
+flush_log_timer: 0
+items_per_page: 10
+show_last_registered_user: 1
+show_published_nodes: 1
+show_registered_users_count: 1
+show_since_date: 1
+show_total_visitors: 1
+show_unique_visitor: 1
+show_user_ip: 1
+start_count_total_visitors: 0

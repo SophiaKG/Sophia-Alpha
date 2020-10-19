@@ -6,7 +6,9 @@ namespace Drupal\neptune_sync\Graph;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
+use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\NodeInterface;
+use EasyRdf\RdfNamespace;
 use EasyRdf_Literal;
 use EasyRdf_Resource;
 
@@ -29,6 +31,12 @@ class GraphGenerator
     protected $name;
     protected $query;
 
+    public function __construct(){
+
+        \EasyRdf_Namespace::set(SophiaGlobal::IRI['ns1']['name'], SophiaGlobal::IRI['ns1']['loc']);
+        \EasyRdf_Namespace::set(SophiaGlobal::IRI['ns2']['name'], SophiaGlobal::IRI['ns2']['loc']);
+    }
+
     /**
      * Builds a graph around a node with k =  2 expansion
      *  -build query
@@ -47,7 +55,15 @@ class GraphGenerator
         $this->query = QueryBuilder::buildCustomLocalGraph($node);
         $query_mgr = new QueryManager();
 
-        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));;
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+    }
+
+    public function buildCoopGraphFromNode(NodeInterface $node){
+
+        $this->query = QueryBuilder::getCooperativeRelationshipsGraph($arr = [$node]);
+        $query_mgr = new QueryManager();
+
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
     }
 
     /**
@@ -83,7 +99,7 @@ class GraphGenerator
      *         "id":,
      *         "label":,
      *         "shape":,
-     *          "category":
+     *         "category":
      *      ],
      *      "edges": [
      *          "sourceID":,
@@ -96,6 +112,73 @@ class GraphGenerator
      */
     private function rdfToGraph($rdf){
         $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
+        //$rdf = '@PREFIX ns2: <file:///home/andnfitz/GovernmentEntities.owl#> . @PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @PREFIX owl: <http://www.w3.org/2002/07/owl#> . @PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#> . ' . $rdf;
+
+        Helper::log("attempting to parse into easyRDF");
+        $graph->parse($rdf, 'turtle');
+        Helper::log("parse complete");
+
+        $nodes = [];
+        $edges = [];
+        $cat = [];
+
+        Helper::file_dump('easyrdf.html', $graph->dump('html'));
+
+        foreach($graph->resources() as $resource) {
+
+            //add root node - Use local name to merge nodes from ns1 & ns2
+            /** TODO can this be done better?*/
+            $addNode = $this->buildNode($resource);
+            if($addNode) {
+                $nodes[$this->getID($resource)] = $addNode;
+                $cat[$this->getType($resource)] =
+                    array('name' => $this->getType($resource));
+            }
+
+            //add its direct edges and their nodes
+            Helper::log("Resource " . $resource->getUri(). " contains properties: ");
+            Helper::log($resource->properties());
+
+            foreach ($resource->properties() as $edgeTypeName) {
+                //resources and literals
+
+                Helper::log("\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName);
+                Helper::log("\tShortened = " . $resource->shorten());
+
+                foreach ($resource->all($edgeTypeName) as $resource_b) {
+
+                    Helper::log("\t\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName . " connecting to node: " . $resource_b->__toString());
+                    /** TODO can this be done better?*/
+                    $addNode = $this->buildNode($resource_b);
+                    if ($addNode) {
+                        $nodes[$this->getID($resource_b)] = $addNode;
+                        $cat[$this->getType($resource_b)] =
+                            array('name' => $this->getType($resource_b));
+                    }
+
+                    $edges[$this->getID($resource) . $this->getID($resource_b)] =
+                        $this->buildEdge($resource, $edgeTypeName, $resource_b);
+
+                    //add the type of both nodes to the distinct category set
+
+
+                }
+            }
+        }
+        return json_encode(array('category' => array_values($cat),
+                                    'nodes' => array_values($nodes),
+                                    'edges' => array_values($edges)));
+    }
+
+    /***
+     *
+     *
+     *
+     *
+     *
+     *
+    private function testfoo($rdf){
+        $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
         $graph->parse($rdf, 'turtle');
 
         $nodes = [];
@@ -105,7 +188,7 @@ class GraphGenerator
         foreach($graph->resources() as $resource) {
 
             //add root node
-            $nodes[$resource->getUri()] = $this->buildNode($resource);
+            $nodes[$this->getID($resource)] = $this->buildNode($resource);
 
             //add its direct edges and their nodes
             foreach ($resource->properties() as $edge) {
@@ -113,7 +196,7 @@ class GraphGenerator
                 foreach ($resource->all($edge) as $resource_b) {
 
                     $nodes[$this->getID($resource_b)] = $this->buildNode($resource_b);
-                    $edges[$this->getID($resource) . $this->getID($resource_b)] =
+                    $edges[$this->getID($resource, false) . $this->getID($resource_b, false)] =
                         $this->buildEdge($resource, $edge, $resource_b);
 
                     //add the type of both nodes to the distinct category set
@@ -125,30 +208,28 @@ class GraphGenerator
             }
         }
         $json = json_encode(array('category' => array_values($cat),
-                                    'nodes' => array_values($nodes),
-                                    'edges' => array_values($edges)));
-
-        //kint($json);
-        Helper::log($json);
+            'nodes' => array_values($nodes),
+            'edges' => array_values($edges)));
 
         return $json;
     }
-
+*/
     /**
      * A utility function, takes a easy_rdf resource (node) and returns the node in
      * an associate array
      * @param $resource EasyRdf_Literal|EasyRdf_Resource the RDF node ro turn into
      * a class
-     * @return array the node in an associative array
+     * @param bool $easyRead
+     * @return bool|array the node in an associative array or false if no add should happen
      */
-    private function buildNode($resource){
+    private function buildNode($resource, $easyRead = true){
 
         //don't add Owl:class
         if($this->getID($resource) == "http://www.w3.org/2002/07/owl#Class")
             return array();
 
         //If the node is a label
-        if(is_a($resource, 'EasyRdf_Literal')){
+        if(is_a($resource, 'EasyRdf_Literal') && !$easyRead){
             return array('id'=>$resource->getValue(),
                 'label' => $resource->getvalue(),
                 /*'color' => '#edbe13',*/
@@ -157,13 +238,33 @@ class GraphGenerator
             );
         } //if the node is a resource
         else if(is_a($resource, 'EasyRdf_Resource')) {
-            return array('id' => $resource->getUri(),
-                'label' => $resource->localName(),
-                /*'color' => '#1969c7',*/
-                'shape' => 'circle',
-                'category' => $this->getType($resource)
-            );
+            if($easyRead){
+                if($resource->type() == null)
+                    return false;
+                $label = $resource->getLiteral("rdfs:label");
+                Helper::log("in build node, getting label: " . $label);
+                if($label == null) {
+                    $label = $resource->localName();
+                    Helper::log("Label was null, adding instead:" . $label);
+                } else
+                   $label = $label->getvalue();
+
+                return array('id' => $this->getID($resource),
+                    'label' => $label,
+                    /*'color' => '#1969c7',*/
+                    'shape' => 'circle',
+                    'category' => $this->getType($resource)
+                );
+            } else {
+                return array('id' => $this->getID($resource),
+                    'label' => $resource->localName(),
+                    /*'color' => '#1969c7',*/
+                    'shape' => 'circle',
+                    'category' => $this->getType($resource)
+                );
+            }
         }
+        return false;
     }
 
     /**
@@ -173,7 +274,11 @@ class GraphGenerator
      * @param $b EasyRdf_Literal|EasyRdf_Resource the Easy_RDF target node
      * @return array the edge as an associative array
      */
-    private function buildEdge($a, $edge, $b){
+    private function buildEdge($a, $edge, $b, $easyRead = true){
+
+        if($easyRead)
+            $edge = substr($edge, strpos($edge, ':') + 1);
+
         return array(
             'sourceID'=> $this->getID($a),
             'label' => $edge,
@@ -184,13 +289,18 @@ class GraphGenerator
      * As EasyRdf_Literal and EasyRdf_Resource are commonly use in the same
      * interface but uuids are accessed diffrently, this function resolves that issue
      * @param $resource EasyRdf_Literal|EasyRdf_Resource the node to get the id for
+     * @param bool $localName if the local name (i.e post prefix) should be used instead of
+     *      full name
      * @return string|null the unique identifier for the resource
      */
-    private function getID($resource){
+    private function getID($resource,  bool $localName = true){
         if(is_a($resource, 'EasyRdf_Literal'))
             return $resource->getValue();
-        elseif(is_a($resource, 'EasyRdf_Resource'))
-            return $resource->getUri();
+        else if(is_a($resource, 'EasyRdf_Resource'))
+            if($localName == true)
+                return $resource->localName();
+            else
+                return $resource->getUri();
     }
 
     /**
@@ -202,9 +312,11 @@ class GraphGenerator
 
         $type = '';
         if (is_a($resource, 'EasyRdf_Literal')) {
-            $type = 'rdfs:label';
-        } else if ($resource->type() != null) {
-            $type = $resource->type();
+            $type = 'Label';
+        } else if ($resource->types() != null) {
+            foreach ($resource->types() as $type)
+                if($type != 'owl:NamedIndividual') //ensure we use a more helpful label
+                    return substr($type, strpos($type, ':') + 1); //remove prefix
         } else {
             $type = 'misc';
         }

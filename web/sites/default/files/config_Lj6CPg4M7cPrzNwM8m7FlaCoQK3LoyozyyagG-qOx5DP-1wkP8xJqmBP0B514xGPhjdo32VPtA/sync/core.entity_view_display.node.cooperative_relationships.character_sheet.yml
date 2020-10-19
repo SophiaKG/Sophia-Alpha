@@ -1,0 +1,53 @@
+uuid: e5da5688-bafa-4ab3-befc-163c11278c29
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.character_sheet
+    - field.field.node.cooperative_relationships.field_outcome
+    - field.field.node.cooperative_relationships.field_outcome_description
+    - field.field.node.cooperative_relationships.field_owner
+    - field.field.node.cooperative_relationships.field_program
+    - field.field.node.cooperative_relationships.field_program_description_
+    - field.field.node.cooperative_relationships.field_receiver
+    - node.type.cooperative_relationships
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.cooperative_relationships.character_sheet
+targetEntityType: node
+bundle: cooperative_relationships
+mode: character_sheet
+content:
+  field_outcome_description:
+    type: basic_string
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_program:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_receiver:
+    weight: 1
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  field_outcome: true
+  field_owner: true
+  field_program_description_: true
+  links: true

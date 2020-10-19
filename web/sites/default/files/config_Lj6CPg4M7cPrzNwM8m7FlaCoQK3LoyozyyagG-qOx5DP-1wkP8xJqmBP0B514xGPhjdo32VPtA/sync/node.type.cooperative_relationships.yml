@@ -1,0 +1,17 @@
+uuid: a570822f-3c58-4fbe-b7e3-b3bbc77beadf
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Cooperative relationships'
+type: cooperative_relationships
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true
