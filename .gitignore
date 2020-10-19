@@ -41,6 +41,7 @@
 /web/neptune_sync.log
 /web/neptune_sync_event.log
 /web/themes/.gitignore
+/web/easyrdf.html
 
 #ignore unused reasources created by composer
 /modules
