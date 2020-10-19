@@ -31,11 +31,16 @@ class SophiaGlobal
             'IRI' => 'PREFIX owl: <http://www.w3.org/2002/07/owl#>',
             'name' => 'owl',
             'loc' => 'http://www.w3.org/2002/07/owl#'),
+        'rdf' => array(
+            'prefix' => 'rdf',
+            'IRI' => 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>',
+            'name' => 'rdf',
+            'loc' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'),
         'ns2' => array(
             'prefix' => 'ns2:',
             'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>',
             'name' => 'ns2',
-            'loc' => 'file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#')
+            'loc' => 'file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#'),
     );
 
     public static function PREFIX_ALL(){

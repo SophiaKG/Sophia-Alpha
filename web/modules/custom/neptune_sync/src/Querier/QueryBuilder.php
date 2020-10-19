@@ -53,15 +53,15 @@ class QueryBuilder
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
             'SELECT DISTINCT ?port ?portlabel ?datetime ' .
-            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' . //TODO
             'WHERE { ' .
                 '?body rdfs:label "' . $node->getTitle() . '" .' .
-                '?body a ns1:CommonwealthBody. ' .
-                '?body ns1:FallsUnder ?port. ' .
+                '?body a ns2:CommonwealthBody. ' .
+                '?body ns2:FallsUnder ?port. ' .
                 '?port rdfs:label ?portlabel. ' .
-                '?aao ns1:Defines ?port. ' .
-                '?event ns1:Empowers ?aao. ' .
-                '?event ns1:startsAtOrAfter ?datetime. ' .
+                '?aao ns2:Defines ?port. ' .
+                '?event ns2:Empowers ?aao. ' .
+                '?event ns2:startsAtOrAfter ?datetime. ' .
             '} ORDER BY DESC(?datetime) ' .
             'LIMIT 1');
         return $q;
@@ -196,7 +196,7 @@ class QueryBuilder
                 '?sendBody rdfs:label ' . $ValStrKey .    //ent label
                 '?prog rdfs:label ?progLabel. ' .       //program label
                 '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-                '?recBody rdfs:label ?ent2Label.'  .    //rec body
+                '?recBody rdfs:label ?ent2label. '  .    //rec body
                 //Apply filters to constrain to classes
                 '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
                 '?prog a ns2:Program. ' .
