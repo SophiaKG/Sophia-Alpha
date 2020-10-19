@@ -127,7 +127,7 @@ class QueryBuilder
                 '?sendBody rdfs:label ' . $bindStr .    //ent label
                 '?prog rdfs:label ?progLabel. ' .       //program label
                 '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-                '?recBody rdfs:label ?ent2Label.'  .    //rec body
+                '?recBody rdfs:label ?ent2label.'  .    //rec body
                 //Apply filters to constrain to classes
                 '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
                 '?prog a ns2:Program. ' .

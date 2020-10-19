@@ -114,7 +114,9 @@ class GraphGenerator
         $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
         //$rdf = '@PREFIX ns2: <file:///home/andnfitz/GovernmentEntities.owl#> . @PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @PREFIX owl: <http://www.w3.org/2002/07/owl#> . @PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#> . ' . $rdf;
 
+        Helper::log("attempting to parse into easyRDF");
         $graph->parse($rdf, 'turtle');
+        Helper::log("parse complete");
 
         $nodes = [];
         $edges = [];
@@ -127,8 +129,11 @@ class GraphGenerator
             //add root node - Use local name to merge nodes from ns1 & ns2
             /** TODO can this be done better?*/
             $addNode = $this->buildNode($resource);
-            if($addNode)
+            if($addNode) {
                 $nodes[$this->getID($resource)] = $addNode;
+                $cat[$this->getType($resource)] =
+                    array('name' => $this->getType($resource));
+            }
 
             //add its direct edges and their nodes
             Helper::log("Resource " . $resource->getUri(). " contains properties: ");
@@ -145,17 +150,18 @@ class GraphGenerator
                     Helper::log("\t\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName . " connecting to node: " . $resource_b->__toString());
                     /** TODO can this be done better?*/
                     $addNode = $this->buildNode($resource_b);
-                    if ($addNode)
+                    if ($addNode) {
                         $nodes[$this->getID($resource_b)] = $addNode;
+                        $cat[$this->getType($resource_b)] =
+                            array('name' => $this->getType($resource_b));
+                    }
 
                     $edges[$this->getID($resource) . $this->getID($resource_b)] =
                         $this->buildEdge($resource, $edgeTypeName, $resource_b);
 
                     //add the type of both nodes to the distinct category set
-                    $cat[$this->getType($resource)] =
-                        array('name' => $this->getType($resource));
-                    $cat[$this->getType($resource_b)] =
-                        array('name' => $this->getType($resource_b));
+
+
                 }
             }
         }
@@ -304,9 +310,11 @@ class GraphGenerator
 
         $type = '';
         if (is_a($resource, 'EasyRdf_Literal')) {
-            $type = 'rdfs:label';
-        } else if ($resource->type() != null) {
-            $type = $resource->type();
+            $type = 'Label';
+        } else if ($resource->types() != null) {
+            foreach ($resource->types() as $type)
+                if($type != 'owl:NamedIndividual') //ensure we use a more helpful label
+                    return substr($type, strpos($type, ':') + 1); //remove prefix
         } else {
             $type = 'misc';
         }
