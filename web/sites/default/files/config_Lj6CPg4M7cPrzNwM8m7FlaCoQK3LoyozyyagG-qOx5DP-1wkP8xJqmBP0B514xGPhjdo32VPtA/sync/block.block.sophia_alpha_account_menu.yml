@@ -12,8 +12,8 @@ _core:
   default_config_hash: 8a31Ywc1t2zlddGd3bmDrFMefWqgSK2E02ceFdr-bfc
 id: sophia_alpha_account_menu
 theme: sophia_alpha
-region: secondary_menu
-weight: 0
+region: sidebar_second
+weight: -9
 provider: null
 plugin: 'system_menu_block:account'
 settings:

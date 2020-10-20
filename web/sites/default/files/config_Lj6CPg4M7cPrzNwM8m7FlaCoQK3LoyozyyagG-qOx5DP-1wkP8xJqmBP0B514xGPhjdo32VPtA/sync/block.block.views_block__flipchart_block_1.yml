@@ -2,11 +2,8 @@ uuid: 3623e42e-175d-4a71-826f-2235fbd61791
 langcode: en
 status: true
 dependencies:
-  config:
-    - views.view.flipchart
   module:
     - system
-    - views
   theme:
     - sophia_alpha
 id: views_block__flipchart_block_1

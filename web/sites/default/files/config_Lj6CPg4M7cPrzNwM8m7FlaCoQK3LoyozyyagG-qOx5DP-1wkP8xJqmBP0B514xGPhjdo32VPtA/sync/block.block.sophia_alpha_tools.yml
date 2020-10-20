@@ -1,6 +1,6 @@
 uuid: 02c8857e-d6b1-496c-b73d-e3aefd26a640
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.tools
@@ -13,7 +13,7 @@ _core:
 id: sophia_alpha_tools
 theme: sophia_alpha
 region: sidebar_first
-weight: 0
+weight: -8
 provider: null
 plugin: 'system_menu_block:tools'
 settings:

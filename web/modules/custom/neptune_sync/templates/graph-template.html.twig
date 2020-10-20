@@ -1,6 +1,11 @@
 {# neptune_sync/templates/my-template.html.twig #}
 {{ attach_library('neptune_sync/echart') }}
 
+{# below form element creates a back button on all graph pages#}
+<form>
+    <input type="button" class="graph_back_btn" value="Back to entity page" onclick="history.back()">
+</form>
+
 <div id="maingraph" style="width: 1700px;height:600px;"></div>
 <script type="text/javascript">
     // based on prepared DOM, initialize echarts instance
@@ -16,7 +21,11 @@
             },
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
-            tooltip: {},
+            tooltip: {
+                textStyle: {
+                    width: 10,
+                },
+            },
             legend: [{
                 // selectedMode: 'single',
                 data: json.category.map(function (a) {
@@ -27,6 +36,11 @@
                 {
                     type: 'graph',
                     layout: 'force',
+                    tooltip: {
+                        textStyle: {
+                            width: 10,
+                        },
+                    },
                     edgeSymbol: ['circle', 'arrow'],
                     edgeSymbolSize: [4, 10],
                     // progressiveThreshold: 700,

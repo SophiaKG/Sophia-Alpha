@@ -5,6 +5,8 @@ dependencies:
   enforced:
     module:
       - webform_templates
+_core:
+  default_config_hash: J3tMUgJkdhKzi0abze4QYRgunr2DwPYzCWcDE-WnU4M
 open: null
 close: null
 weight: 0
@@ -232,5 +234,3 @@ handlers:
       theme_name: ''
       parameters: {  }
 variants: {  }
-_core:
-  default_config_hash: J3tMUgJkdhKzi0abze4QYRgunr2DwPYzCWcDE-WnU4M
