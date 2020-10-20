@@ -1,4 +1,11 @@
 #maingraph{
-    width: 1700px;
+    width: 550px;
     height: 600px;
+}
+
+@media (min-width: 576px){
+    #maingraph{
+        width: 1020px;
+        height: 600px;
+    }
 }
