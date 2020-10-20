@@ -121,12 +121,12 @@ a.navbar-brand{
         }
 }
 
-#maingraph,
-#maingraph div{
+/*#maingraph
+{
     width: 100% !important;
     min-height: auto !important;
 
-}
+}*/
 
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
