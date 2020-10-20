@@ -43,6 +43,7 @@
                     // progressiveThreshold: 700,
                     data: json.nodes.map(function (node) {
                         return {
+                            itemStyle: null,
                             x: null,
                             y: null,
                             id: node.id,
@@ -50,31 +51,26 @@
                             symbol: node.shape,
                             symbolSize: 10,
                             draggable: true,
+                            tooltip: node.value,
                             category: node.category,
                             label: {
                                 show: true,
-                                position: 'inside'
+                                position: 'inside',
                             },
-                            itemStyle: {
-                                color: node.color,
-                                emphasis: {
-                                shadowBlur: 100,
-                                shadowColor: '#fff',
-                                opacity: 1,
-                                },
-                            }
                         };
                     }),
                     edges: json.edges.map(function (edge) {
                         return {
                             source: edge.sourceID,
                             target: edge.targetID,
+                            value: edge.label,
                             emphasis: {
                                 label: {
-                                show: true,
-                                position: 'insideTopLeft',
-                                color: '#cc99ff',
-                                fontSize: 16,
+                                    show: true,
+                                    position: 'insideTopLeft',
+                                    color: '#cc99ff',
+                                    fontSize: 16,
+                                    formatter: '{c}', //uses value for label
                                 }
                             },
                         };

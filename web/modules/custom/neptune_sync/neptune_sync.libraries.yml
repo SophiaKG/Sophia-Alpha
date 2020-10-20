@@ -12,4 +12,3 @@ characterSheet:
     css:
         theme:
             css/characterSheet.css: {}
-    js:

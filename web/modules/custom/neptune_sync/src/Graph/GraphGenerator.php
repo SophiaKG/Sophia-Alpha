@@ -241,17 +241,27 @@ class GraphGenerator
             if($easyRead){
                 if($resource->type() == null)
                     return false;
+
+                //label replace
                 $label = $resource->getLiteral("rdfs:label");
                 Helper::log("in build node, getting label: " . $label);
-                if($label == null) {
+                if(!$label) {
                     $label = $resource->localName();
                     Helper::log("Label was null, adding instead:" . $label);
                 } else
                    $label = $label->getvalue();
 
+                //get content value for tooltip
+                $tooltip = $resource->getLiteral("ns2:Content");
+                if(!$tooltip)
+                    $tooltip = $resource->localName();
+                else
+                    $tooltip = $tooltip->getvalue();
+
                 return array('id' => $this->getID($resource),
                     'label' => $label,
                     /*'color' => '#1969c7',*/
+                    'value' => $tooltip,
                     'shape' => 'circle',
                     'category' => $this->getType($resource)
                 );

@@ -67,7 +67,7 @@ class GraphController extends ControllerBase
         Helper::log($json);
 
         return [
-            '#theme' => 'graph_template',
+            '#theme' => 'graph_coop_relationships_template',
             '#graph_name' => $this->t($node->getTitle()),
             '#graph_json' => $json,
         ];

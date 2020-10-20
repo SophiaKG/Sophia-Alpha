@@ -175,6 +175,8 @@ class QueryBuilder
                 '?prog rdfs:label ?progLabel. ' .
                 '?outcome rdfs:label ?outcomeLabel. ' .
                 '?recBody rdfs:label ?ent2label. ' .
+                '?prog ns2:Content ?progDesc. ' .
+                '?outcome ns2:Content ?outcomeDesc. ' .
                 '?sendBody rdf:type ns2:CommonwealthBody. ' .
                 '?recBody rdf:type ns2:CommonwealthBody. ' .
                 '?prog rdf:type ns2:Program. ' .

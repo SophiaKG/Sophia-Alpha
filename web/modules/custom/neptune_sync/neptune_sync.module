@@ -29,6 +29,9 @@ function neptune_sync_theme($existing, $type, $theme, $path) {
            'template' => 'node--bodies--character-sheet',
             'base hook' => 'node',
         ],
+        'graph_coop_relationships_template' => [
+            'variables' => ['graph_name' => NULL, 'graph_json' => NULL],
+        ],
     ];
 }
 
