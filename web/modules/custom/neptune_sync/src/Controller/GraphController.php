@@ -73,6 +73,18 @@ class GraphController extends ControllerBase
         ];
     }
 
+    public function displayCoopGraphIntersect(Request $request){
+
+        $graphGen = new GraphGenerator();
+        $json = $graphGen->buildCoopGraphIntersect( $request->query->get('bodies'));
+
+        return[
+            '#theme' => 'graph_coop_relationships_template',
+            '#graph_name' => 'Cooperative Graph Intersect',
+            '#graph_json' => $json,
+        ];
+    }
+
 
     public function coopGraphQuery(){
         return [

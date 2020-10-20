@@ -64,7 +64,7 @@ neptune_sync.displayIntGraph:
       node:
         type: entity:node
 neptune_sync.displayCoopGraph:
-  path: '/node/{node}/coop-graph'
+  path: '/node/{node}/relationship-graph'
   defaults:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraph'
     _title: ''
@@ -74,6 +74,19 @@ neptune_sync.displayCoopGraph:
     parameters:
       node:
         type: entity:node
+neptune_sync.intersectCoopGraph:
+  path: '/relationship-graph-intersect-form'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::coopGraphQuery'
+    _title: 'Relationship Graph Intersect'
+  requirements:
+    _permission: 'access content'
+neptune_sync.displayCoopGraphIntersect:
+  path: '/relationship-graph-intersect'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraphIntersect'
+  requirements:
+    _permission: 'access content'
 neptune_sync.runAdminFunc:
   path: '/admin/foo'
   defaults:

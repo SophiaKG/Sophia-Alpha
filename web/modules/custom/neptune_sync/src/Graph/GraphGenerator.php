@@ -3,6 +3,8 @@
 namespace Drupal\neptune_sync\Graph;
 
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
@@ -61,6 +63,22 @@ class GraphGenerator
     public function buildCoopGraphFromNode(NodeInterface $node){
 
         $this->query = QueryBuilder::getCooperativeRelationshipsGraph($arr = [$node]);
+        $query_mgr = new QueryManager();
+
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+    }
+
+    public function buildCoopGraphIntersect(array $ids){
+
+        try {
+            $nodes = \Drupal::entityTypeManager()->getStorage(SophiaGlobal::NODE)
+                ->loadMultiple($ids);
+        } catch (InvalidPluginDefinitionException|PluginNotFoundException $e) {
+            Helper::log("Err506-1: Unable to loads Nodes from Id array while building
+             graph. Id array = ", true, $ids);
+        }
+
+        $this->query = QueryBuilder::getCooperativeRelationshipsGraph($nodes);
         $query_mgr = new QueryManager();
 
         return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
