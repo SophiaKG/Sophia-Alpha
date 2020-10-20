@@ -671,7 +671,7 @@ display:
         description: ''
         expanded: false
         parent: 'menu_link_content:ec5c9a25-cc0d-4b6a-81c0-bb0daf7bb837'
-        weight: 0
+        weight: -48
         context: '0'
         menu_name: main
     cache_metadata:
