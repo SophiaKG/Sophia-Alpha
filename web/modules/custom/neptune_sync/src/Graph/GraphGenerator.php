@@ -271,14 +271,14 @@ class GraphGenerator
 
                 //get content value for tooltip
                 $tooltip = $resource->getLiteral("ns2:Content");
-                if(!$tooltip)
+                if(!$tooltip) {
                     $tooltip = $resource->localName();
-                else
+                } else
                     $tooltip = $tooltip->getvalue();
 
+                //change shape based on type
                 $shape = "";
                 switch ($this->getType($resource)){
-
                     case 'Program':
                         $shape = 'rect';
                         break;
@@ -320,10 +320,27 @@ class GraphGenerator
         if($easyRead)
             $edge = substr($edge, strpos($edge, ':') + 1);
 
+        $emphasis = "false";
+        //both are resources and not literals
+        if(is_a($a, 'EasyRdf_Resource') && is_a($b, 'EasyRdf_Resource')){
+
+            Helper::log("Edge creation: both nodes, checking emphasis for type " .
+                $this->getType($a) . " and type " . $this->getType($b));
+
+            if ($this->getType($a) == "CommonwealthBody" &&
+                ($this->getType($b) == "Program" || $this->getType($b) == "Outcome"))
+                $emphasis = "true";
+            else if (($this->getType($a) == "Program" || $this->getType($a) == "Outcome") &&
+                $this->getType($b) == "CommonwealthBody")
+                $emphasis = "true";
+
+            Helper::log("Emphasis = " . $emphasis);
+        }
+
         return array(
             'sourceID' => $this->getID($a),
             'label' => $edge,
-            'emphasis' => 'false',
+            'emphasis' => $emphasis,
             'targetID' => $this->getID($b));
     }
 
