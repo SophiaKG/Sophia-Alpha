@@ -127,7 +127,28 @@ a.navbar-brand{
     min-height: auto !important;
 
 }*/
+#maingraph div:nth-child(2) {
+    width: 300px;
+    white-space: unset !important;
+}
 
+.shapes-legend {
+    color: #1d84c3;
+    padding: 10px 20px;
+    text-align: center;
+
+}
+.shapes-legend p {
+    border-bottom: 1px solid #1d84c3;
+    
+}
+
+.shapes-legend p i{
+    font-size: 25px;
+    color: #000;
+    vertical-align: middle;
+    
+}
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .node__content {
@@ -278,7 +299,8 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 }
 
 .flipchart .node--view-mode-character-sheet .character-sheet-keys a span {
-    font-weight: bolder;
+    /*font-weight: bolder;*/
+    font-size: 0.7rem;
 }
 
 
@@ -288,6 +310,12 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     margin: 2px 5px;
     border-radius: 4px;
     text-align: center;
+    padding: 2px 5px;
+}
+
+#block-sophia-alpha-content div .character-sheet-keys {
+    display: inline-block;
+    margin: 5px 0px;
 }
 /*
 .flipchart {
