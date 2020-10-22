@@ -2,10 +2,20 @@
 {{ attach_library('neptune_sync/echart') }}
 
 {# below form element creates a back button on all graph pages#}
-<form>
-    <input type="button" class="graph_back_btn" value="Back to entity page" onclick="history.back()">
-</form>
-
+<div class="row">
+    <div class="col-md-6">
+        <form>
+            <input type="button" class="graph_back_btn" value="Back to entity page" onclick="history.back()">
+        </form>
+</div>
+<div class="col-md-6 shapes-legend">
+    <p>Shapes |  
+    <i class="far fa-circle"></i> - Commonwealth body, 
+    <i class="far fa-triangle"></i> - Outcome,
+    <i class="far fa-square"></i> - Program
+</p>
+</div>
+</div>
 <div id="maingraph"></div>
 <script type="text/javascript">
     // based on prepared DOM, initialize echarts instance
@@ -19,6 +29,10 @@
         //var categories = ['rdfs:label','owl:NamedIndividual','owl:Class','misc'];
         myChart.setOption(option = {
             title: {
+                formatter: [
+                    '{title} <br/>',
+
+                ].join('\n'),
                 text: "{{ graph_name }}",
                 top: '10',
                 left: '10',
@@ -28,7 +42,9 @@
             backgroundColor: '#000',
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
-            tooltip: {},
+            tooltip: {
+                confine: true,
+            },
             legend: [{
                 // selectedMode: 'single',
                 data: json.category.map(function (a) {
@@ -38,6 +54,8 @@
                 left: '10',
                 backgroundColor: '#fff',
             }],
+            nodeScaleRatio: 0.8,
+            
             series : [
                 {
                     type: 'graph',
@@ -48,13 +66,13 @@
                     // progressiveThreshold: 700,
                     data: json.nodes.map(function (node) {
                         return {
-                            itemStyle: null,
+                            //itemStyle: null,
                             x: null,
                             y: null,
                             id: node.id,
                             name: node.label,
                             symbol: node.shape,
-                            symbolSize: 10,
+                            symbolSize: node.symbolSize,
                             draggable: true,
                             tooltip: node.value,
                             category: node.category,
@@ -76,7 +94,13 @@
                                     color: '#cc99ff',
                                     fontSize: 16,
                                     formatter: '{c}', //uses value for label
-                                }
+                                    width: 100,
+                                },
+                                lineStyle: {
+                                    color: "#00b300",
+                                    width: 10,
+                                    type: 'dashed',
+                                },
                             },
                         };
                     }),
