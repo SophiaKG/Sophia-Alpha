@@ -209,7 +209,7 @@ class CharacterSheetManager
                 false, $bulkOperation);
 
             if($receiver) {
-                Helper::log("Creating coop rel");
+                Helper::log("Coop rel found");
                 $relationship->setReceiver($receiver);
                 //add relationship to body, if relationship doesnt exist, add it
                 $this->body->addCooperativeRelationships(

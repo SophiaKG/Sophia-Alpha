@@ -127,7 +127,7 @@ class QueryBuilder
                 '?sendBody rdfs:label ' . $bindStr .    //ent label
                 '?prog rdfs:label ?progLabel. ' .       //program label
                 '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-                '?recBody rdfs:label ?ent2label.'  .    //rec body
+                '?recBody rdfs:label ?ent2Label.'  .    //rec body
                 //Apply filters to constrain to classes
                 '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
                 '?prog a ns2:Program. ' .
@@ -174,7 +174,7 @@ class QueryBuilder
                 '?sendBody rdfs:label ' . $ValStrKey .
                 '?prog rdfs:label ?progLabel. ' .
                 '?outcome rdfs:label ?outcomeLabel. ' .
-                '?recBody rdfs:label ?ent2label. ' .
+                '?recBody rdfs:label ?ent2Label. ' .
                 '?prog ns2:Content ?progDesc. ' .
                 '?outcome ns2:Content ?outcomeDesc. ' .
                 '?sendBody rdf:type ns2:CommonwealthBody. ' .
@@ -198,7 +198,7 @@ class QueryBuilder
                 '?sendBody rdfs:label ' . $ValStrKey .    //ent label
                 '?prog rdfs:label ?progLabel. ' .       //program label
                 '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-                '?recBody rdfs:label ?ent2label. '  .    //rec body
+                '?recBody rdfs:label ?ent2Label. '  .    //rec body
                 //Apply filters to constrain to classes
                 '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
                 '?prog a ns2:Program. ' .

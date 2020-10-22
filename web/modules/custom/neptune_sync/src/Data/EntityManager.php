@@ -61,12 +61,14 @@ class EntityManager
                 false, $bulkOperation);
 
             if ($nid == null) {
-                Helper::log("Err500:  Something went seriously wrong \n" .
+                Helper::log("Err500:  Something went wrong \n" .
                     "\t\t\tcase: Null Id return when attempting to get an id from a entity label match." .
-                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Label: " . $nepLabel);
+                    "This might be expected from portfolios or legislations." .
+                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Label: " . $nepLabel, true);
             } else
                 $NidArr[] = $nid;
         }
+
 
         return $NidArr;
     }
@@ -144,9 +146,11 @@ class EntityManager
         /** @var  $localEntHash array[] local scope of form array('label' => 'id')*/
         $localEntHash = $this->getEntTypeIdHash($classModel);
 
-        if(array_key_exists($classModel->getLabelKey(), $localEntHash))
+        if(array_key_exists($classModel->getLabelKey(), $localEntHash)) {
+            Helper::log("Entity found, referencing " . $classModel->getLabelKey());
             return $localEntHash[$classModel->getLabelKey()];
-        else if ($canCreate){ //create then add to hash and relationship
+        } else if ($canCreate){ //create then add to hash and relationship
+            Helper::log("Entity not found, creating");
             return $this->createEntity($classModel);
         }
 
