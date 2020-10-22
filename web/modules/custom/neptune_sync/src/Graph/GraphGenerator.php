@@ -289,11 +289,25 @@ class GraphGenerator
                         $shape = 'circle';
                 }
 
+                //dosize
+                $linkCount = 0;
+                if($this->getType($resource) == "CommonwealthBody") {
+                    foreach ($resource->properties() as $edgeTypeName) {
+                        if ($edgeTypeName == "rdf:type")
+                            continue;
+                        Helper::log("counting edgenum for " . $resource->localName() .
+                            "edge " . $edgeTypeName . " has " . sizeof($resource->allResources($edgeTypeName)) .
+                            "edges for running total of: " . $linkCount);
+                        $linkCount += sizeof($resource->allResources($edgeTypeName));
+                    }
+                }
+
                 return array('id' => $this->getID($resource),
                     'label' => $label,
                     /*'color' => '#1969c7',*/
                     'value' => $tooltip,
                     'shape' => $shape,
+                    'symbolSize' => strval(3 + $linkCount),
                     'category' => $this->getType($resource)
                 );
             } else {
