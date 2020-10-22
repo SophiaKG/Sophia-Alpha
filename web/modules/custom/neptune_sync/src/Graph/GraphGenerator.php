@@ -276,11 +276,24 @@ class GraphGenerator
                 else
                     $tooltip = $tooltip->getvalue();
 
+                $shape = "";
+                switch ($this->getType($resource)){
+
+                    case 'Program':
+                        $shape = 'rect';
+                        break;
+                    case 'Outcome':
+                        $shape = 'triangle';
+                        break;
+                    default:
+                        $shape = 'circle';
+                }
+
                 return array('id' => $this->getID($resource),
                     'label' => $label,
                     /*'color' => '#1969c7',*/
                     'value' => $tooltip,
-                    'shape' => 'circle',
+                    'shape' => $shape,
                     'category' => $this->getType($resource)
                 );
             } else {
@@ -308,8 +321,9 @@ class GraphGenerator
             $edge = substr($edge, strpos($edge, ':') + 1);
 
         return array(
-            'sourceID'=> $this->getID($a),
+            'sourceID' => $this->getID($a),
             'label' => $edge,
+            'emphasis' => 'false',
             'targetID' => $this->getID($b));
     }
 
