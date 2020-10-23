@@ -52,6 +52,7 @@ class GraphController extends ControllerBase
     public function displayIntGraph(NodeInterface $node) {
         $graphGen = new GraphGenerator();
         $json = $graphGen->buildGraphFromNode($node);
+        Helper::log("Json local Graph for:" . $node->getTitle() . "\n\n\t\t" . $json);
 
         return [
             '#theme' => 'graph_template',
@@ -64,7 +65,7 @@ class GraphController extends ControllerBase
     public function displayCoopGraph(NodeInterface $node){
         $graphGen = new GraphGenerator();
         $json = $graphGen->buildCoopGraphFromNode($node);
-        Helper::log($json);
+        Helper::log("Json coop Graph for:" . $node->getTitle() . "\n\n\t\t" . $json);
 
         return [
             '#theme' => 'graph_coop_relationships_template',

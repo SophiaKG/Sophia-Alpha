@@ -265,7 +265,7 @@ class GraphGenerator
                 Helper::log("in build node, getting label: " . $label);
                 if(!$label) {
                     $label = $resource->localName();
-                    Helper::log("Label was null, adding instead:" . $label);
+                    Helper::log("Label was null, adding instead: " . $label);
                 } else
                    $label = $label->getvalue();
 
@@ -295,10 +295,11 @@ class GraphGenerator
                     foreach ($resource->properties() as $edgeTypeName) {
                         if ($edgeTypeName == "rdf:type")
                             continue;
+
+                        $linkCount += sizeof($resource->allResources($edgeTypeName));
                         Helper::log("counting edgenum for " . $resource->localName() .
                             "edge " . $edgeTypeName . " has " . sizeof($resource->allResources($edgeTypeName)) .
                             "edges for running total of: " . $linkCount);
-                        $linkCount += sizeof($resource->allResources($edgeTypeName));
                     }
                 }
 

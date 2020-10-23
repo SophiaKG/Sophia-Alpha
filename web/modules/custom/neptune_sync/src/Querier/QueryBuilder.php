@@ -53,15 +53,17 @@ class QueryBuilder
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
             'SELECT DISTINCT ?port ?portlabel ?datetime ' .
-            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' . //TODO
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' . //TODO
             'WHERE { ' .
                 '?body rdfs:label "' . $node->getTitle() . '" .' .
-                '?body a ns1:CommonwealthBody. ' .
-                '?body ns1:FallsUnder ?port. ' .
-                '?port rdfs:label ?portlabel. ' .
-                '?aao ns1:Defines ?port. ' .
-                '?event ns1:Empowers ?aao. ' .
-                '?event ns1:startsAtOrAfter ?datetime. ' .
+                '?body a/ rdfs:subClassOf* ns2:CommonwealthAgent. ' .
+                '?body ns2:FallsUnder ?port. ' .
+                '?port ns2:CanonicalName ?portlabel. ' .
+                '?authority ns2:Binds ns2:Establishment. ' .
+                '?authority ns2:BindsTo ?port. ' .
+                '?aao ns2:Grants ?authority. ' .
+                '?event ns2:Empowers ?aao. ' .
+                '?event ns2:startsAtOrAfter ?datetime. ' .
             '} ORDER BY DESC(?datetime) ' .
             'LIMIT 1');
         return $q;
@@ -298,8 +300,12 @@ class QueryBuilder
      */
     private static function expandGraphToK(string $start_node, bool $build_where){
 
-        //start label of query, go to it's subject
+        //start label of query, go to it's subject, subject must be a body as labels arnt unique
         $q = '{ ?a1 ?predicate0 "' . $start_node . '" . ';
+        if($build_where) {
+            $q .= 'VALUES ?val {ns2:CommonwealthAgent ns1:CommonwealthBody} ';
+            $q .= '?a1 a/rdfs:subClassOf* ?val. ';
+        }
 
         $debug_where = $build_where ? 'true' : 'false';
         Helper::log('just before loop| where = ' . $debug_where);

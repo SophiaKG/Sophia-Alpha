@@ -65,7 +65,7 @@
     <div class="view-content row">
       {# #mod here!#}
 
-      {% set count = 0 %}
+      {#  {% set count = 0 %}
       {% set countIndex = [] %}
       {% for group in rows %}
         {% set countIndex = countIndex | merge({ (loop.index0): count }) %}
@@ -106,17 +106,15 @@
       b: {{ colb }}
       c: {{ colc }}#}
 
-
-
       <div class="row flipchart" >
         <div class="col">
-          {{ rows|slice(0, 6) }}
+          {{ rows[:5] }}
         </div>
         <div class="col">
-          {{ rows|slice(6, 6 ) }}
+          {{ rows|slice(5, 5) }}
         </div>
         <div class="col">
-          {{ rows|slice(12, 5) }}
+          {{ rows[10:] }}
         </div>
       </div>
 
