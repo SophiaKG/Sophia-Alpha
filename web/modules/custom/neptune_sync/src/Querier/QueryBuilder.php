@@ -53,15 +53,17 @@ class QueryBuilder
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
             'SELECT DISTINCT ?port ?portlabel ?datetime ' .
-            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' . //TODO
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' . //TODO
             'WHERE { ' .
                 '?body rdfs:label "' . $node->getTitle() . '" .' .
-                '?body a ns1:CommonwealthBody. ' .
-                '?body ns1:FallsUnder ?port. ' .
-                '?port rdfs:label ?portlabel. ' .
-                '?aao ns1:Defines ?port. ' .
-                '?event ns1:Empowers ?aao. ' .
-                '?event ns1:startsAtOrAfter ?datetime. ' .
+                '?body a/ rdfs:subClassOf* ns2:CommonwealthAgent. ' .
+                '?body ns2:FallsUnder ?port. ' .
+                '?port ns2:CanonicalName ?portlabel. ' .
+                '?authority ns2:Binds ns2:Establishment. ' .
+                '?authority ns2:BindsTo ?port. ' .
+                '?aao ns2:Grants ?authority. ' .
+                '?event ns2:Empowers ?aao. ' .
+                '?event ns2:startsAtOrAfter ?datetime. ' .
             '} ORDER BY DESC(?datetime) ' .
             'LIMIT 1');
         return $q;
