@@ -376,6 +376,72 @@ display:
         weight: -50
         context: '0'
         menu_name: main
+      relationships:
+        field_portfolio:
+          id: field_portfolio
+          table: node__field_portfolio
+          field: field_portfolio
+          relationship: none
+          group_type: group
+          admin_label: 'field_portfolio: Content'
+          required: true
+          plugin_id: standard
+      defaults:
+        relationships: false
+        sorts: false
+      sorts:
+        field_portfolio_target_id:
+          id: field_portfolio_target_id
+          table: node__field_portfolio
+          field: field_portfolio_target_id
+          relationship: field_portfolio
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: field_portfolio
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
+        field_type_of_body_target_id:
+          id: field_type_of_body_target_id
+          table: node__field_type_of_body
+          field: field_type_of_body_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
+        title_1:
+          id: title_1
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:

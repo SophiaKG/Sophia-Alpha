@@ -60,9 +60,14 @@
                 {
                     type: 'graph',
                     layout: 'force',
-                    zoom: 2,
+                    zoom: 3,
                     edgeSymbol: ['circle', 'arrow'],
                     edgeSymbolSize: [4, 10],
+                    edgeLabel: {
+                        show: true,
+                        position: 'middle',
+                        formatter: '{c}', //uses value for label
+                    },
                     // progressiveThreshold: 700,
                     data: json.nodes.map(function (node) {
                         return {
@@ -88,19 +93,10 @@
                             target: edge.targetID,
                             value: edge.label,
                             emphasis: {
-                                label: {
-                                    show: true,
-                                    position: 'insideTopLeft',
-                                    color: '#cc99ff',
-                                    fontSize: 16,
-                                    formatter: '{c}', //uses value for label
-                                    width: 100,
-                                },
-                                lineStyle: {
-                                    color: "#00b300",
-                                    width: 10,
-                                    type: 'dashed',
-                                },
+                                show: edge.emphasis,
+                                shadowColor: 'red',
+                                fontSize: 18,
+
                             },
                         };
                     }),
@@ -119,3 +115,28 @@
         }, true);
     })();
 </script>
+{#
+
+    
+                            emphasis: {
+                                show: edge.emphasis,
+                                label: {
+                                    
+                                    position: 'insideTopLeft',
+                                    color: '#cc99ff',
+                                    fontSize: 20,
+                                    formatter: '{c}', //uses value for label
+                                    width: 100,
+                                },
+                                lineStyle: {
+                                    emphasis: {
+                                        show: edge.emphasis,
+                                        backgroundColor: 'red',
+                                    }
+                                    //color: "#00b300",
+                                    //width: 10,
+                                    //type: 'dashed',
+                                },
+                            },
+    
+#}
