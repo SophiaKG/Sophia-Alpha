@@ -300,8 +300,12 @@ class QueryBuilder
      */
     private static function expandGraphToK(string $start_node, bool $build_where){
 
-        //start label of query, go to it's subject
+        //start label of query, go to it's subject, subject must be a body as labels arnt unique
         $q = '{ ?a1 ?predicate0 "' . $start_node . '" . ';
+        if($build_where) {
+            $q .= 'VALUES ?val {ns2:CommonwealthAgent ns1:CommonwealthBody} ';
+            $q .= '?a1 a/rdfs:subClassOf* ?val. ';
+        }
 
         $debug_where = $build_where ? 'true' : 'false';
         Helper::log('just before loop| where = ' . $debug_where);
