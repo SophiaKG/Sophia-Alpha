@@ -273,14 +273,20 @@ class GraphGenerator
                 if($resource->type() == null)
                     return false;
 
-                //label replace
-                $label = $resource->getLiteral("rdfs:label");
-                Helper::log("in build node, getting label: " . $label);
+                //label replace (favour "CanonicalName" as label)
+                $label = $resource->getLiteral("ns2:CanonicalName");
+                Helper::log("in build node, getting CanonicalName: " . $label);
                 if(!$label) {
-                    $label = $resource->localName();
-                    Helper::log("Label was null, adding instead: " . $label);
-                } else
-                   $label = $label->getvalue();
+                    $label = $resource->getLiteral("rdfs:label");
+                    Helper::log("CanonicalName null,  getting label: " . $label);
+                    if (!$label) {
+                        $label = $resource->localName();
+                        Helper::log("Label was null, adding instead: " . $label);
+                    } else
+                        $label = $label->getvalue();
+                }
+                else
+                    $label = $label->getvalue();
 
                 //get content value for tooltip
                 $tooltip = $resource->getLiteral("ns2:Content");
