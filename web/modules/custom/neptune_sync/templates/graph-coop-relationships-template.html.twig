@@ -16,7 +16,7 @@
 </p>
 </div>
 </div>
-<div id="maingraph"></div>
+<div id="maingraph" class="container"></div>
 <script type="text/javascript">
     // based on prepared DOM, initialize echarts instance
     var myChart = echarts.init(document.getElementById('maingraph'));
@@ -39,7 +39,7 @@
                 color: '#000',
                 backgroundColor: '#fff',
             },
-            backgroundColor: '#000',
+            backgroundColor: '#fff',
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
             tooltip: {
@@ -52,9 +52,11 @@
                 }),
                 top: '40',
                 left: '10',
-                backgroundColor: '#fff',
+                backgroundColor: '#efefef',
             }],
-            nodeScaleRatio: 0.8,
+            borderColor: '#1d84c3',
+            borderWidth: 3,
+            //nodeScaleRatio: 0.8,
             
             series : [
                 {
@@ -67,6 +69,9 @@
                         show: true,
                         position: 'middle',
                         formatter: '{c}', //uses value for label
+                        color: '#000',
+                        fontSize: 14,
+                        borderColor: 'transparent',
                     },
                     // progressiveThreshold: 700,
                     data: json.nodes.map(function (node) {
@@ -83,7 +88,12 @@
                             category: node.category,
                             label: {
                                 show: true,
-                                position: 'inside',
+                                position: 'top',
+                                color: '#000',
+                                borderColor: 'transparent',
+                                //backgroundColor: '#efefef',
+                                textBorderColor: '#000',
+                                shadowColor: 'transparent',
                             },
                         };
                     }),
@@ -93,9 +103,17 @@
                             target: edge.targetID,
                             value: edge.label,
                             emphasis: {
+                                
+                                edgeLabel: {
                                 show: edge.emphasis,
                                 shadowColor: 'red',
                                 fontSize: 18,
+                                },
+                                lineStyle: {
+                                    //color: "#00b300",
+                                    color: "#1d84c3",
+                                    width: 4,
+                                },
 
                             },
                         };

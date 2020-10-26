@@ -131,7 +131,10 @@ a.navbar-brand{
     width: 300px;
     white-space: unset !important;
 }
-
+canvas {
+    border: 4px solid #efefef;
+    border-radius: 4px;
+}
 .shapes-legend {
     color: #1d84c3;
     padding: 10px 20px;
@@ -147,6 +150,7 @@ a.navbar-brand{
     font-size: 25px;
     color: #000;
     vertical-align: middle;
+    padding-bottom: 4px;
     
 }
 /* ----------------Cooperative relationships for character sheet*/
