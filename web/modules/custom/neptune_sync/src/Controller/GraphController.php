@@ -74,6 +74,18 @@ class GraphController extends ControllerBase
         ];
     }
 
+    public function displayCoopGraphAll(NodeInterface $node){
+        $graphGen = new GraphGenerator();
+        $json = $graphGen->buildCoopGraphAllFromNode($node);
+        Helper::log("Json coop Graph for:" . $node->getTitle() . "\n\n\t\t" . $json);
+
+        return [
+            '#theme' => 'graph_coop_relationships_template',
+            '#graph_name' => $this->t($node->getTitle()),
+            '#graph_json' => $json,
+        ];
+    }
+
     public function displayCoopGraphIntersect(Request $request){
 
         $graphGen = new GraphGenerator();

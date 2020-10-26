@@ -74,6 +74,17 @@ neptune_sync.displayCoopGraph:
     parameters:
       node:
         type: entity:node
+neptune_sync.displayCoopGraphAll:
+  path: '/node/{node}/coop-graph-all'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraphAll'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
 neptune_sync.intersectCoopGraph:
   path: '/relationship-graph-intersect-form'
   defaults:

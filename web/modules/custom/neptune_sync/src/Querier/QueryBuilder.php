@@ -59,7 +59,8 @@ class QueryBuilder
                 '?body a/ rdfs:subClassOf* ns2:CommonwealthAgent. ' .
                 '?body ns2:FallsUnder ?port. ' .
                 '?port ns2:CanonicalName ?portlabel. ' .
-                '?authority ns2:Binds ns2:Establishment. ' .
+                '?authority ns2:Binds ?est. ' .
+                '?est a ns2:Establishment. ' .
                 '?authority ns2:BindsTo ?port. ' .
                 '?aao ns2:Grants ?authority. ' .
                 '?event ns2:Empowers ?aao. ' .
@@ -210,6 +211,88 @@ class QueryBuilder
                 '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
                 '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
             '}'
+        );
+
+        return $q;
+    }
+
+    /**
+     * @param NodeInterface $node
+     * @return Query
+     * @deprecated This is a temp func to show incoming and outgoing relationship for a node
+     */
+    public static function getCooperativeRelationshipsGraphAll(NodeInterface $node){
+
+        $ValStrKey = '"' . $node->getTitle() . '". ';
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL() .
+            'CONSTRUCT {' .
+            '?sendBody ns2:Grants ?prog. ' .
+            '?prog ns2:Enables ?outcome. ' .
+            '?outcome ns2:Empowers ?recBody. ' .
+            '?sendBody rdfs:label ?ent1Label. ' .
+            '?sendBody rdfs:label ' . $ValStrKey .
+            '?prog rdfs:label ?progLabel. ' .
+            '?outcome rdfs:label ?outcomeLabel. ' .
+            '?recBody rdfs:label ?ent2Label. ' .
+            '?recBody rdfs:label ' . $ValStrKey .
+            '?prog ns2:Content ?progDesc. ' .
+            '?outcome ns2:Content ?outcomeDesc. ' .
+            '?sendBody rdf:type ns2:CommonwealthBody. ' .
+            '?recBody rdf:type ns2:CommonwealthBody. ' .
+            '?prog rdf:type ns2:Program. ' .
+            '?outcome rdf:type ns2:Outcome. ' .
+            '} ' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+            'WHERE { {' .
+            //Graph logic
+            '?auth ns2:Binds ?prog. ' .
+            '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
+            '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
+            '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
+            '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
+            '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
+            //get labels
+            '?prog ns2:Content ?progDesc. ' .       //get the description of the program
+            '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
+            '?sendBody rdfs:label ' . $ValStrKey .    //ent label
+            '?prog rdfs:label ?progLabel. ' .       //program label
+            '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
+            '?recBody rdfs:label ?ent2Label. ' .    //rec body
+            //Apply filters to constrain to classes
+            '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
+            '?prog a ns2:Program. ' .
+            '?outcome a ns2:Outcome. ' .
+            '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
+            '?auth a/rdfs:subClassOf* ns2:Authority. ' .
+            '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
+            '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
+            '} UNION { ' .
+            //Graph logic
+            '?auth ns2:Binds ?prog. ' .
+            '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
+            '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
+            '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
+            '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
+            '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
+            //get labels
+            '?prog ns2:Content ?progDesc. ' .       //get the description of the program
+            '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
+            '?sendBody rdfs:label ?ent1Label. ' .    //ent label
+            '?prog rdfs:label ?progLabel. ' .       //program label
+            '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
+            '?recBody rdfs:label ' . $ValStrKey .    //rec body
+            //Apply filters to constrain to classes
+            '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
+            '?prog a ns2:Program. ' .
+            '?outcome a ns2:Outcome. ' .
+            '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
+            '?auth a/rdfs:subClassOf* ns2:Authority. ' .
+            '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
+            '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
+            '}}'
         );
 
         return $q;

@@ -49,11 +49,11 @@ class CharacterSheetManager
 
 
         //TODO THIS NEEDS REPLACING! This forces lead bodies to appear on the summary view
-        if(strtoupper($node->getTitle()) == $node->getTitle()){
+      /*  if(strtoupper($node->getTitle()) == $node->getTitle()){
             Helper::log($this->body->getLabelKey() . " detected as lead body, ensuring it appears
             on the summary view");
             $this->body->setTypeOfBody(87);
-        }
+        }*/
         try {
             $this->updateNode($node);
         } catch (EntityStorageException|MissingDataException $e) {

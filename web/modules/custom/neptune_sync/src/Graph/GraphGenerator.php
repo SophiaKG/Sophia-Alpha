@@ -68,6 +68,19 @@ class GraphGenerator
         return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
     }
 
+    /**
+     * @deprecated temp function for ssc, shows incoming and outgoing
+     * @param NodeInterface $node
+     * @return string
+     * @throws \EasyRdf_Exception
+     */
+    public function buildCoopGraphAllFromNode(NodeInterface $node){
+        $this->query = QueryBuilder::getCooperativeRelationshipsGraphAll($node);
+        $query_mgr = new QueryManager();
+
+        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+    }
+
     public function buildCoopGraphIntersect(array $ids){
 
         try {
@@ -308,7 +321,7 @@ class GraphGenerator
                     /*'color' => '#1969c7',*/
                     'value' => $tooltip,
                     'shape' => $shape,
-                    'symbolSize' => strval(3 + $linkCount),
+                    'symbolSize' => strval(10 + ($linkCount * 2)),
                     'category' => $this->getType($resource)
                 );
             } else {
