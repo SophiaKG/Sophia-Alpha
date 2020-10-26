@@ -293,10 +293,10 @@ class GraphGenerator
                 $shape = "";
                 switch ($this->getType($resource)){
                     case 'Program':
-                        $shape = 'rect';
+                        $shape = 'triangle';
                         break;
                     case 'Outcome':
-                        $shape = 'triangle';
+                        $shape = 'rect';
                         break;
                     default:
                         $shape = 'circle';
