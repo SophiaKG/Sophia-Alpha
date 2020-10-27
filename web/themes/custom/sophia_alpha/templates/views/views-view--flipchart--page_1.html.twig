@@ -39,6 +39,9 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
   ]
 %}
+
+
+
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if title %}
@@ -111,10 +114,10 @@
           {{ rows[:5] }}
         </div>
         <div class="col">
-          {{ rows|slice(5, 5) }}
+          {{ rows|slice(5, 4) }}
         </div>
         <div class="col">
-          {{ rows[10:] }}
+          {{ rows[9:] }}
         </div>
       </div>
 

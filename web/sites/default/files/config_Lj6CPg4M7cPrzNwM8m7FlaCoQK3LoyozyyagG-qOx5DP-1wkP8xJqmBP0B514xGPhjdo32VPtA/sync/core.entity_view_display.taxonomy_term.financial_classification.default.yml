@@ -1,0 +1,21 @@
+uuid: 2d0619a4-57cc-433d-9839-40b25d551e4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.financial_classification
+  module:
+    - text
+id: taxonomy_term.financial_classification.default
+targetEntityType: taxonomy_term
+bundle: financial_classification
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
