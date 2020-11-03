@@ -8,6 +8,7 @@ use Drupal\node\NodeInterface;
 
 /**
  * Class QueryBuilder
+ * @static
  * @package Drupal\neptune_sync\Querier
  * @author: Alexis Harper | DoF
  * This class is for building dynamic SPARQL queries
