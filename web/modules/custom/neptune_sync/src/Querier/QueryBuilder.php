@@ -16,7 +16,17 @@ class QueryBuilder
 {
     const GRAPH_WORKING_DIR = 'sites/default/files/graphs/';
 
-    public static function checkAskBody(NodeInterface $node, $is_a) {
+
+    /**
+     * Checks if a passed in node (Government Body) is part of a ns1 class
+     *
+     * @param NodeInterface $node the node to run the query for
+     * @param $is_a string the NS1 class we are testing against
+     * @return Query
+     *
+     * @TODO pass in IrI for a more powerful check
+     */
+    public static function checkAskBody(NodeInterface $node, String $is_a) {
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         //Form the entire query
@@ -28,6 +38,11 @@ class QueryBuilder
         return $q;
     }
 
+    /**
+     * @TODO WIP
+     * @param NodeInterface $node
+     * @return Query
+     */
     public static function checkPsAct(NodeInterface $node) {
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
@@ -42,7 +57,9 @@ class QueryBuilder
     }
 
     /**
-     * Uses Graph1
+     * Finds the single relevant portfolio for a Government body
+     * Uses Graph1 & NS2
+     * @uses \Drupal\neptune_sync\Utility\SophiaGlobal::GRAPH_1
      * @param NodeInterface $node The node to get the portfolio  for
      * @return Query The query ready to execute
      * Sparql reference: https://aws-neptune-sophia-dev.notebook.ap-southeast-2.sagemaker.aws/notebooks/Neptune/Sophia%20Alpha%20QueryBuilder%20refrence.ipynb
@@ -72,7 +89,9 @@ class QueryBuilder
     }
 
     /**
+     * Gets the legislation for a Government Body
      * Graph0
+     * @uses \Drupal\neptune_sync\Utility\SophiaGlobal::GRAPH_0
      * @param NodeInterface $node
      * @return Query
      */
@@ -94,217 +113,11 @@ class QueryBuilder
         return $q;
     }
 
-
-
-
-
     /**
-     * @param NodeInterface|null $node
-     * @return mixed
-     * Workbook:
-     * https://aws-neptune-sophia-dev.notebook.ap-southeast-2.sagemaker.aws/notebooks/Neptune/D.S.%20cooperation%20work.ipynb
-     * @: New with add desc to term
-     */
-    public static function getCooperativeRelationships(NodeInterface $node = null){
-
-        //get all relations for all nodes
-        if ($node == null){
-            $selectStr = ' SELECT DISTINCT ?ent1Label ?progLabel ?progDesc ?outcomeLabel ?outcomeDesc ?ent2label ' ;
-            $bindStr = '?ent1Label. ';
-        } else {
-            $selectStr = ' SELECT DISTINCT ?progLabel ?progDesc ?outcomeLabel ?outcomeDesc ?ent2Label ';
-            $bindStr = '"' . $node->getTitle() . '". ';
-        }
-
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL() .
-            $selectStr  .
-            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
-            'WHERE { ' .
-                //Graph logic
-                '?auth ns2:Binds ?prog. ' .
-                '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
-                '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
-                '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
-                '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
-                '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
-                //get labels
-                '?prog ns2:Content ?progDesc. ' .       //get the description of the program
-                '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
-                '?sendBody rdfs:label ' . $bindStr .    //ent label
-                '?prog rdfs:label ?progLabel. ' .       //program label
-                '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-                '?recBody rdfs:label ?ent2Label.'  .    //rec body
-                //Apply filters to constrain to classes
-                '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
-                '?prog a ns2:Program. ' .
-                '?outcome a ns2:Outcome. ' .
-                '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
-                '?auth a/rdfs:subClassOf* ns2:Authority. ' .
-                '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
-                '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
-            '}');
-        return $q;
-    }
-
-    /**
-     * @param NodeInterface[] $nodes
-     * @return Query
+     * Gets the url resource of a Node (either legislation or commonwealth body)
+     * @TODO need to re-examine links using graph1 and thus lead bodies at a different date
      *
-     * Workbook:
-     * https://aws-neptune-sophia-dev.notebook.ap-southeast-2.sagemaker.aws/notebooks/Neptune/D.S.%20cooperation%20work.ipynb
-     * @: Graph query
-     */
-    public static function getCooperativeRelationshipsGraph(array $nodes){
-
-        //build value string
-        $valStr = "";
-        $ValStrKey = "";
-        if(empty($nodes)) {                         //Show all relationships
-            $valStr = '';
-            $ValStrKey = '?ent1Label. ';
-        } else {                                    //Show relationships for node/s
-            $valStr = 'values ?sents {';
-            $ValStrKey = '?sents. ';
-            foreach ($nodes as $node)
-                $valStr .= '"' . $node->getTitle() . '" ';
-            $valStr .= "} ";
-        }
-
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL() .
-            'CONSTRUCT {' .
-                '?sendBody ns2:Grants ?prog. ' .
-                '?prog ns2:Enables ?outcome. ' .
-                '?outcome ns2:Empowers ?recBody. ' .
-                '?sendBody rdfs:label ' . $ValStrKey .
-                '?prog rdfs:label ?progLabel. ' .
-                '?outcome rdfs:label ?outcomeLabel. ' .
-                '?recBody rdfs:label ?ent2Label. ' .
-                '?prog ns2:Content ?progDesc. ' .
-                '?outcome ns2:Content ?outcomeDesc. ' .
-                '?sendBody rdf:type ns2:CommonwealthBody. ' .
-                '?recBody rdf:type ns2:CommonwealthBody. ' .
-                '?prog rdf:type ns2:Program. ' .
-                '?outcome rdf:type ns2:Outcome. ' .
-            '} ' .
-            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
-            'WHERE { ' .
-                $valStr .
-                //Graph logic
-                '?auth ns2:Binds ?prog. ' .
-                '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
-                '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
-                '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
-                '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
-                '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
-                //get labels
-                '?prog ns2:Content ?progDesc. ' .       //get the description of the program
-                '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
-                '?sendBody rdfs:label ' . $ValStrKey .    //ent label
-                '?prog rdfs:label ?progLabel. ' .       //program label
-                '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-                '?recBody rdfs:label ?ent2Label. '  .    //rec body
-                //Apply filters to constrain to classes
-                '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
-                '?prog a ns2:Program. ' .
-                '?outcome a ns2:Outcome. ' .
-                '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
-                '?auth a/rdfs:subClassOf* ns2:Authority. ' .
-                '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
-                '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
-            '}'
-        );
-
-        return $q;
-    }
-
-    /**
-     * @param NodeInterface $node
-     * @return Query
-     * @deprecated This is a temp func to show incoming and outgoing relationship for a node
-     */
-    public static function getCooperativeRelationshipsGraphAll(NodeInterface $node){
-
-        $ValStrKey = '"' . $node->getTitle() . '". ';
-
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL() .
-            'CONSTRUCT {' .
-            '?sendBody ns2:Grants ?prog. ' .
-            '?prog ns2:Enables ?outcome. ' .
-            '?outcome ns2:Empowers ?recBody. ' .
-            '?sendBody rdfs:label ?ent1Label. ' .
-            '?sendBody rdfs:label ' . $ValStrKey .
-            '?prog rdfs:label ?progLabel. ' .
-            '?outcome rdfs:label ?outcomeLabel. ' .
-            '?recBody rdfs:label ?ent2Label. ' .
-            '?recBody rdfs:label ' . $ValStrKey .
-            '?prog ns2:Content ?progDesc. ' .
-            '?outcome ns2:Content ?outcomeDesc. ' .
-            '?sendBody rdf:type ns2:CommonwealthBody. ' .
-            '?recBody rdf:type ns2:CommonwealthBody. ' .
-            '?prog rdf:type ns2:Program. ' .
-            '?outcome rdf:type ns2:Outcome. ' .
-            '} ' .
-            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
-            'WHERE { {' .
-            //Graph logic
-            '?auth ns2:Binds ?prog. ' .
-            '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
-            '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
-            '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
-            '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
-            '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
-            //get labels
-            '?prog ns2:Content ?progDesc. ' .       //get the description of the program
-            '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
-            '?sendBody rdfs:label ' . $ValStrKey .    //ent label
-            '?prog rdfs:label ?progLabel. ' .       //program label
-            '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-            '?recBody rdfs:label ?ent2Label. ' .    //rec body
-            //Apply filters to constrain to classes
-            '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
-            '?prog a ns2:Program. ' .
-            '?outcome a ns2:Outcome. ' .
-            '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
-            '?auth a/rdfs:subClassOf* ns2:Authority. ' .
-            '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
-            '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
-            '} UNION { ' .
-            //Graph logic
-            '?auth ns2:Binds ?prog. ' .
-            '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
-            '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
-            '?auth1 ns2:BindsTo ?sendBody. ' .      //go over BindsTo to get to lead body (ie: commonwealthbody)
-            '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
-            '?auth2 ns2:BindsTo ?recBody. ' .       //get the rec. body from auth
-            //get labels
-            '?prog ns2:Content ?progDesc. ' .       //get the description of the program
-            '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcom
-            '?sendBody rdfs:label ?ent1Label. ' .    //ent label
-            '?prog rdfs:label ?progLabel. ' .       //program label
-            '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab
-            '?recBody rdfs:label ' . $ValStrKey .    //rec body
-            //Apply filters to constrain to classes
-            '?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .   //Filters: super and all subclasses
-            '?prog a ns2:Program. ' .
-            '?outcome a ns2:Outcome. ' .
-            '?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ' .
-            '?auth a/rdfs:subClassOf* ns2:Authority. ' .
-            '?auth1 a/rdfs:subClassOf* ns2:Authority. ' .
-            '?auth2 a/rdfs:subClassOf* ns2:Authority. ' .
-            '}}'
-        );
-
-        return $q;
-    }
-
-    /**
-     * @todo need to re-examine links using graph1 and thus lead bodies at a different date
+     * @uses \Drupal\neptune_sync\Utility\SophiaGlobal::GRAPH_0
      * @param NodeInterface $node
      * @return Query
      */
@@ -335,25 +148,11 @@ class QueryBuilder
     }
 
     /**
-     * Builds a query for selecting the neighbours of a given node to one step.
+     * Build a local graph for 2 steps of the RDF object of a node (government body, legislation, portfolio)
      *
-     * @param $query_name
-     * The hashed identifier of the query
-     * @param $query_start_label
-     * A string of the nodes title (i.e. a triples label)
+     * @param NodeInterface $node
      * @return Query
-     * The query, ready to execute
      */
-    public static function buildLocalGraph($query_name, $query_start_label){
-
-        //Form selection part of query
-        $sub_q =
-            '{ ?subject ?predicate1 "' . $query_start_label . '" . ' .
-            '?subject ?predicate2 ?label .}';
-
-        return self::buildMirroredQuery($query_name, $sub_q);
-    }
-
     public static function buildCustomLocalGraph(NodeInterface $node){
 
         Helper::log('loop setup for ' . $node->getTitle());
@@ -379,12 +178,9 @@ class QueryBuilder
      *       ?a2  ?p3* ?a3 .
      *       ?a3  ?p4* ?a4 .
      *
-     * @param GraphFilters $filters
-     *      Filters passed in from the form to customise how the query is built
-     *
-     * @param bool $build_where
-     * @return string
-     *      The built sub-query (select element) to k-neighbourhood
+     * @param string $start_node The origin node (government body) to start the graph from
+     * @param bool $build_where If we are building the where clause. If false we are building the select
+     * @return string The built sub-query (select element) to k-neighbourhood
      */
     private static function expandGraphToK(string $start_node, bool $build_where){
 
@@ -415,7 +211,29 @@ class QueryBuilder
         return $q;
     }
 
-    /**@deprecated replace with
+    /**
+     * Builds a query for selecting the neighbours of a given node to one step.
+     *
+     * @deprecated from ontologyViz days
+     * @param $query_name
+     * The hashed identifier of the query
+     * @param $query_start_label
+     * A string of the nodes title (i.e. a triples label)
+     * @return Query
+     * The query, ready to execute
+     */
+    public static function buildLocalGraph($query_name, $query_start_label){
+
+        //Form selection part of query
+        $sub_q =
+            '{ ?subject ?predicate1 "' . $query_start_label . '" . ' .
+            '?subject ?predicate2 ?label .}';
+
+        return self::buildMirroredQuery($query_name, $sub_q);
+    }
+
+    /**
+     * @deprecated replaced with buildCustomLocalGraph()
      * @param $query_name
      * @param $mirrored_q
      * @return Query
