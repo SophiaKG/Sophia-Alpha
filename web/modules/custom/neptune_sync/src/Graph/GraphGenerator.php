@@ -6,6 +6,7 @@ namespace Drupal\neptune_sync\Graph;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
+use Drupal\neptune_sync\Querier\Query;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
@@ -29,7 +30,7 @@ class GraphGenerator
     const GRAPH_VISUALIZER_PATH = 'ontology-visualization/' .
                                     'ontology_viz.py';
 
-    protected $name;
+    //protected $name;
     protected $query; //The query we are using to generate the graph from
 
     public function __construct(){
@@ -55,18 +56,16 @@ class GraphGenerator
     public function buildGraphFromNode(NodeInterface $node){
 
         $this->query = QueryBuilder::buildCustomLocalGraph($node);
-        $query_mgr = new QueryManager();
 
-        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+        return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
     public function buildCoopGraphFromNode(NodeInterface $node){
 
         $this->query =  CoopGraphQuerier::getCooperativeRelationships(array($node),
             (CoopGraphQuerier::BUILD_GRAPH | CoopGraphQuerier::OUTGOING_PROGRAMS ));
-        $query_mgr = new QueryManager();
 
-        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+        return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
     /**
@@ -80,9 +79,8 @@ class GraphGenerator
             (CoopGraphQuerier::BUILD_GRAPH |
                 CoopGraphQuerier::OUTGOING_PROGRAMS |
                 CoopGraphQuerier::INCOMING_OUTCOMES ));
-        $query_mgr = new QueryManager();
 
-        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+        return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
     public function buildCoopGraphIntersect(array $ids){
@@ -97,38 +95,14 @@ class GraphGenerator
 
         $this->query = CoopGraphQuerier::getCooperativeRelationships($nodes,
             (CoopGraphQuerier::BUILD_GRAPH |  CoopGraphQuerier::OUTGOING_PROGRAMS));
-        $query_mgr = new QueryManager();
 
-        return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
+        return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
-    /**
-     * @deprecated by echarts
-     * Builds a local graph with the ability to modify certain aspects of the build via
-     * passed in filters
-     * @param array $filters
-     *      filters to add details to how the graph is built, mapped to struct in
-     *      GraphFilters constructor
-     * @return string
-     *      returns the server filepath of the graph generated
-     */
-    public function buildGraphFromFilters(array $filters){
-        try {
-            $this->name = bin2hex(random_bytes(5));
-        } catch (\Exception $e) { }
-
-        $filters = new GraphFilters($filters);
-        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
+    private function parseGraph(Query $query, bool $easyRead){
 
         $query_mgr = new QueryManager();
-        $graph_rdf = $query_mgr->runCustomQuery($this->query);
-
-        $this->rdfToGraph($graph_rdf);
-        /*$this->buildGraph();
-        return $this->formatGraph();*/
-    }
-
-    private function parseGraph(bool $easyRead){
+        $rdf = $query_mgr->runCustomQuery($this->query);
 
         $rdfGraph = new \EasyRdf_Graph(null, $rdf, 'turtle');
 
@@ -144,7 +118,7 @@ class GraphGenerator
         Helper::log("parse complete");
         Helper::file_dump('easyrdf.html', $rdfGraph->dump('html'));
 
-        return $graph = new GraphBuilder($rdfGraph, $easyRead);
+        return new GraphBuilder($rdfGraph, $easyRead);
     }
 
     /**
@@ -214,51 +188,6 @@ class GraphGenerator
         return $graph->getJsonGraph();
     }
 
-    /***
-     *
-     *
-     *
-     *
-     *
-     *
-    private function testfoo($rdf){
-        $graph = new \EasyRdf_Graph(null, $rdf, 'turtle');
-        $graph->parse($rdf, 'turtle');
-
-        $nodes = [];
-        $edges = [];
-        $cat = [];
-
-        foreach($graph->resources() as $resource) {
-
-            //add root node
-            $nodes[$this->getID($resource)] = $this->buildNode($resource);
-
-            //add its direct edges and their nodes
-            foreach ($resource->properties() as $edge) {
-                //resources and literals
-                foreach ($resource->all($edge) as $resource_b) {
-
-                    $nodes[$this->getID($resource_b)] = $this->buildNode($resource_b);
-                    $edges[$this->getID($resource, false) . $this->getID($resource_b, false)] =
-                        $this->buildEdge($resource, $edge, $resource_b);
-
-                    //add the type of both nodes to the distinct category set
-                    $cat[$this->getType($resource)] =
-                        array('name' => $this->getType($resource));
-                    $cat[$this->getType($resource_b)] =
-                        array('name' => $this->getType($resource_b));
-                }
-            }
-        }
-        $json = json_encode(array('category' => array_values($cat),
-            'nodes' => array_values($nodes),
-            'edges' => array_values($edges)));
-
-        return $json;
-    }
-*/
-
     /**
      * Builds a graph from RDF/ttl syntax
      * Input is pulled from the queries output parameter XXX(can we pass this value through?)
@@ -296,5 +225,31 @@ class GraphGenerator
             ' converted to svg. Cmd: ' . $cmd . "\n\nExec result:\n" . $res);
 
         return '/sites/default/files/graphs/' . $this->name . '.' . self::GRAPH_FILETYPE;
+    }
+
+    /**
+     * @deprecated by eCharts
+     * Builds a local graph with the ability to modify certain aspects of the build via
+     * passed in filters
+     * @param array $filters
+     *      filters to add details to how the graph is built, mapped to struct in
+     *      GraphFilters constructor
+     * @return string
+     *      returns the server filepath of the graph generated
+     */
+    public function buildGraphFromFilters(array $filters){
+        try {
+            $this->name = bin2hex(random_bytes(5));
+        } catch (\Exception $e) { }
+
+        $filters = new GraphFilters($filters);
+        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
+
+        $query_mgr = new QueryManager();
+        $graph_rdf = $query_mgr->runCustomQuery($this->query);
+
+        $this->rdfToGraph($graph_rdf);
+        /*$this->buildGraph();
+        return $this->formatGraph();*/
     }
 }

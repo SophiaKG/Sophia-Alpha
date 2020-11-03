@@ -54,74 +54,21 @@ class GraphBuilder
 
         //don't add Owl:class
         if($this->getID($resource) == "http://www.w3.org/2002/07/owl#Class")
-            return array();
+            return false;
 
-        //If the node is a label
+        //If the node is a label && not easyRead
         if(is_a($resource, 'EasyRdf_Literal') && !$this->easyRead){
-            return array('id'=>$resource->getValue(),
+            $node = array('id'=>$resource->getValue(),
                 'label' => $resource->getvalue(),
-                /*'color' => '#edbe13',*/
                 'shape' => 'rect',
                 'category' => $this->getType($resource)
             );
         } //if the node is a resource
         else if(is_a($resource, 'EasyRdf_Resource')) {
             if($this->easyRead){
-                if($resource->type() == null)
-                    return false;
-
-                //label replace (favour "CanonicalName" as label)
-                $label = $resource->getLiteral("ns2:CanonicalName");
-                Helper::log("in build node, getting CanonicalName: " . $label);
-                if(!$label) {
-                    $label = $resource->getLiteral("rdfs:label");
-                    Helper::log("CanonicalName null,  getting label: " . $label);
-                    if (!$label) {
-                        $label = $resource->localName();
-                        Helper::log("Label was null, adding instead: " . $label);
-                    } else
-                        $label = $label->getvalue();
-                }
-                else
-                    $label = $label->getvalue();
-
-                //get content value for tooltip
-                $tooltip = $resource->getLiteral("ns2:Content");
-                if(!$tooltip) {
-                    $tooltip = $resource->localName();
-                } else
-                    $tooltip = $tooltip->getvalue();
-
-                //change shape based on type
-                $shape = "";
-                switch ($this->getType($resource)){
-                    case 'Program':
-                        $shape = 'triangle';
-                        break;
-                    case 'Outcome':
-                        $shape = 'rect';
-                        break;
-                    default:
-                        $shape = 'circle';
-                }
-
-                //dosize
-                $linkCount = 0;
-                if($this->getType($resource) == "CommonwealthBody") {
-                    foreach ($resource->properties() as $edgeTypeName) {
-                        if ($edgeTypeName == "rdf:type")
-                            continue;
-
-                        $linkCount += sizeof($resource->allResources($edgeTypeName));
-                        Helper::log("counting edgenum for " . $resource->localName() .
-                            "edge " . $edgeTypeName . " has " . sizeof($resource->allResources($edgeTypeName)) .
-                            "edges for running total of: " . $linkCount);
-                    }
-                }
 
                 return array('id' => $this->getID($resource),
                     'label' => $label,
-                    /*'color' => '#1969c7',*/
                     'value' => $tooltip,
                     'shape' => $shape,
                     'symbolSize' => strval(10 + ($linkCount * 2)),
@@ -130,13 +77,67 @@ class GraphBuilder
             } else {
                 return array('id' => $this->getID($resource),
                     'label' => $resource->localName(),
-                    /*'color' => '#1969c7',*/
                     'shape' => 'circle',
                     'category' => $this->getType($resource)
                 );
             }
         }
         return false;
+    }
+
+    private function ProcessEasyReadNode($resource){
+
+        if($resource->type() == null)
+            return false;
+
+        //label replace (favour "CanonicalName" as label)
+        $label = $resource->getLiteral("ns2:CanonicalName");
+        Helper::log("in build node, getting CanonicalName: " . $label);
+        if(!$label) {
+            $label = $resource->getLiteral("rdfs:label");
+            Helper::log("CanonicalName null,  getting label: " . $label);
+            if (!$label) {
+                $label = $resource->localName();
+                Helper::log("Label was null, adding instead: " . $label);
+            } else
+                $label = $label->getvalue();
+        }
+        else
+            $label = $label->getvalue();
+
+        //get content value for tooltip
+        $tooltip = $resource->getLiteral("ns2:Content");
+        if(!$tooltip) {
+            $tooltip = $resource->localName();
+        } else
+            $tooltip = $tooltip->getvalue();
+
+        //change shape based on type
+        $shape = "";
+        switch ($this->getType($resource)){
+            case 'Program':
+                $shape = 'triangle';
+                break;
+            case 'Outcome':
+                $shape = 'rect';
+                break;
+            default:
+                $shape = 'circle';
+        }
+
+        //dosize
+        $linkCount = 0;
+        if($this->getType($resource) == "CommonwealthBody") {
+            foreach ($resource->properties() as $edgeTypeName) {
+                if ($edgeTypeName == "rdf:type")
+                    continue;
+
+                $linkCount += sizeof($resource->allResources($edgeTypeName));
+                Helper::log("counting edgenum for " . $resource->localName() .
+                    "edge " . $edgeTypeName . " has " . sizeof($resource->allResources($edgeTypeName)) .
+                    "edges for running total of: " . $linkCount);
+            }
+        }
     }
 
     /**
