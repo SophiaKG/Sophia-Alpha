@@ -5,6 +5,7 @@ namespace Drupal\neptune_sync\Graph;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
@@ -62,7 +63,8 @@ class GraphGenerator
 
     public function buildCoopGraphFromNode(NodeInterface $node){
 
-        $this->query = QueryBuilder::getCooperativeRelationshipsGraph($arr = [$node]);
+        $this->query =  CoopGraphQuerier::getCooperativeRelationships(array($node),
+            (CoopGraphQuerier::BUILD_GRAPH | CoopGraphQuerier::OUTGOING_PROGRAMS ));
         $query_mgr = new QueryManager();
 
         return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
@@ -75,7 +77,10 @@ class GraphGenerator
      * @throws \EasyRdf_Exception
      */
     public function buildCoopGraphAllFromNode(NodeInterface $node){
-        $this->query = QueryBuilder::getCooperativeRelationshipsGraphAll($node);
+        $this->query = CoopGraphQuerier::getCooperativeRelationships(array($node),
+            (CoopGraphQuerier::BUILD_GRAPH |
+                CoopGraphQuerier::OUTGOING_PROGRAMS |
+                CoopGraphQuerier::INCOMING_OUTCOMES ));
         $query_mgr = new QueryManager();
 
         return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));
@@ -91,7 +96,8 @@ class GraphGenerator
              graph. Id array = ", true, $ids);
         }
 
-        $this->query = QueryBuilder::getCooperativeRelationshipsGraph($nodes);
+        $this->query = CoopGraphQuerier::getCooperativeRelationships($nodes,
+            (CoopGraphQuerier::BUILD_GRAPH |  CoopGraphQuerier::OUTGOING_PROGRAMS));
         $query_mgr = new QueryManager();
 
         return $this->rdfToGraph($query_mgr->runCustomQuery($this->query));

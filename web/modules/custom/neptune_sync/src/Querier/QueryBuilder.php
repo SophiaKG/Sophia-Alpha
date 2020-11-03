@@ -53,10 +53,10 @@ class QueryBuilder
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
-            'SELECT DISTINCT ?portlabel' .
+            'SELECT DISTINCT ?portlabel ' .
             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { ' .
-                '?body rdfs:label "' . $node->getTitle() . '" .' .
+                '?body rdfs:label "' . $node->getTitle() . '" . ' .
                 '?body a/ rdfs:subClassOf* ns2:CommonwealthAgent. ' .
                 '?body ns2:FallsUnder ?port. ' .
                 '?port ns2:CanonicalName ?portlabel. ' .
