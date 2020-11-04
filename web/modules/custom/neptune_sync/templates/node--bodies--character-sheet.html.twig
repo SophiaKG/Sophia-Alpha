@@ -113,7 +113,7 @@
     {% for finclass in content.field_financial_classification %}
         {% if finclass['#title'] == 'Government Business Enterprise' %}
             {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/96"><span id="GBE">B </span></a>' %}
-        {% elseif finclass['#title'] == 'Material' %}
+        {% elseif finclass['#title'] == 'Material - ( M )' %}
             {% set flipkey = flipkey ~ '<a href="/drupal8/web/summary/95"><span id="material">M </span></a>' %}
         {% endif %}
     {% endfor %}
