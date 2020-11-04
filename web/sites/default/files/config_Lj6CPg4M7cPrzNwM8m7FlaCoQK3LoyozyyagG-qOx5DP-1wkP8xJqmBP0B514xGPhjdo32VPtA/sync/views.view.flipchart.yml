@@ -9,7 +9,6 @@ dependencies:
     - system.menu.main
     - taxonomy.vocabulary.type_of_body
   content:
-    - 'taxonomy_term:financial_classification:66e3f57e-09c0-4289-9f8f-868dd37bb3fe'
     - 'taxonomy_term:type_of_body:6722eaf6-7f4b-46e4-bd80-12566fe24cae'
     - 'taxonomy_term:type_of_body:6cd70b1a-f1be-4a78-a18b-f956d522435c'
     - 'taxonomy_term:type_of_body:7996b09b-dec3-4f78-8272-b9ec3e4d2fcd'
@@ -378,20 +377,7 @@ display:
           plugin_id: boolean
       sorts: {  }
       title: Summary
-      header:
-        entity_taxonomy_term:
-          id: entity_taxonomy_term
-          table: views
-          field: entity_taxonomy_term
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          tokenize: true
-          target: 66e3f57e-09c0-4289-9f8f-868dd37bb3fe
-          view_mode: default
-          bypass_access: false
-          plugin_id: entity
+      header: {  }
       footer: {  }
       empty: {  }
       relationships:

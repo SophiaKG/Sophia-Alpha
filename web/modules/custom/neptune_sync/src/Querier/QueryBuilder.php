@@ -41,10 +41,11 @@ class QueryBuilder
         return $q;
     }
 
-    /**TODO this needs documenting urgently
-     * Graph0
-     * @param NodeInterface $node
-     * @return Query
+    /**
+     * Uses Graph1
+     * @param NodeInterface $node The node to get the portfolio  for
+     * @return Query The query ready to execute
+     * Sparql reference: https://aws-neptune-sophia-dev.notebook.ap-southeast-2.sagemaker.aws/notebooks/Neptune/Sophia%20Alpha%20QueryBuilder%20refrence.ipynb
      */
     public static function getBodyPortfolio(NodeInterface $node){
 
@@ -52,8 +53,8 @@ class QueryBuilder
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
-            'SELECT DISTINCT ?port ?portlabel ?datetime ' .
-            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' . //TODO
+            'SELECT DISTINCT ?portlabel' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { ' .
                 '?body rdfs:label "' . $node->getTitle() . '" .' .
                 '?body a/ rdfs:subClassOf* ns2:CommonwealthAgent. ' .
@@ -92,6 +93,10 @@ class QueryBuilder
             '}');
         return $q;
     }
+
+
+
+
 
     /**
      * @param NodeInterface|null $node
