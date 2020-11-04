@@ -11,7 +11,7 @@ dependencies:
 id: mainnavigation
 theme: sophia_alpha
 region: primary_menu
-weight: 0
+weight: -9
 provider: null
 plugin: 'superfish:main'
 settings:
@@ -20,15 +20,15 @@ settings:
   provider: superfish
   label_display: '0'
   level: '1'
-  depth: '0'
+  depth: '2'
   expand_all_items: false
   menu_type: horizontal
-  style: default
+  style: white
   arrow: 1
   shadow: 1
   speed: fast
   delay: '800'
-  slide: vertical
+  slide: diagonal
   supposition: 1
   hoverintent: 1
   touch: '0'
@@ -51,11 +51,11 @@ settings:
   smallech: ''
   smallicm: ''
   smallich: ''
-  smallamt: ''
+  smallamt: Menu
   smallabt: '1'
   supersubs: 1
-  minwidth: '12'
-  maxwidth: '27'
+  minwidth: '15'
+  maxwidth: '15'
   multicolumn: 0
   multicolumn_depth: '1'
   multicolumn_levels: '1'

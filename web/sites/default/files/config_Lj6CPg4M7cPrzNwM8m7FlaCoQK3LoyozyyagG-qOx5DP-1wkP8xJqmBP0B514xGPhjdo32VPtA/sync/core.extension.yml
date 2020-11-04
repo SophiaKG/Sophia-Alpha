@@ -23,6 +23,7 @@ module:
   dblog: 0
   devel: 0
   devel_generate: 0
+  disable_messages: 0
   dynamic_page_cache: 0
   editor: 0
   feeds: 0
@@ -44,6 +45,8 @@ module:
   layout_discovery: 0
   link: 0
   login_history: 0
+  media: 0
+  media_library: 0
   menu_ui: 0
   neptune_sync: 0
   node: 0

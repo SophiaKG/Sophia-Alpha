@@ -10,8 +10,8 @@ dependencies:
     - sophia_alpha
 id: sophia_alpha_sitetitle
 theme: sophia_alpha
-region: header
-weight: -6
+region: top_header
+weight: -8
 provider: null
 plugin: 'block_content:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
 settings:

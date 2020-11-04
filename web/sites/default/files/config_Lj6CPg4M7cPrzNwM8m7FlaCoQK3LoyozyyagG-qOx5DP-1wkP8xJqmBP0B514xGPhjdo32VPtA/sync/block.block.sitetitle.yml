@@ -10,7 +10,7 @@ dependencies:
     - finance
 id: sitetitle
 theme: finance
-region: header
+region: top_header
 weight: -6
 provider: null
 plugin: 'block_content:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'

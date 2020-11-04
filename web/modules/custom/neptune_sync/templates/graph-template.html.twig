@@ -17,7 +17,11 @@
         //var categories = ['rdfs:label','owl:NamedIndividual','owl:Class','misc'];
         myChart.setOption(option = {
             title: {
-                text: "{{ graph_name }}"
+                text: "{{ graph_name }}",
+                top: '10',
+                left: '10',
+                color: '#000',
+                backgroundColor: '#efefef',
             },
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
@@ -30,7 +34,10 @@
                 // selectedMode: 'single',
                 data: json.category.map(function (a) {
                     return a.name;
-                })
+                }),
+                top: '40',
+                left: '10',
+                backgroundColor: '#efefef',
             }],
             series : [
                 {

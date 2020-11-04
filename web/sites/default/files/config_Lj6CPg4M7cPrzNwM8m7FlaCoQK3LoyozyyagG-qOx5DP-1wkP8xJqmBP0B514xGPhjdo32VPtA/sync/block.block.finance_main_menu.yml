@@ -12,7 +12,7 @@ _core:
   default_config_hash: ChCx7DYNUrPTt5uiRdQAPDKJQMc-_SyAQTrZh8H0o-c
 id: finance_main_menu
 theme: finance
-region: primary_menu
+region: secondary_menu
 weight: 0
 provider: null
 plugin: 'system_menu_block:main'
