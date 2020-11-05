@@ -113,7 +113,7 @@
     {% for finclass in content.field_financial_classification %}
         {% if finclass['#title'] == 'Government Business Enterprise' %}
             {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/96"><span id="GBE">B </span></a>' %}
-        {% elseif finclass['#title'] == 'Material' %}
+        {% elseif finclass['#title'] == 'Material - ( M )' %}
             {% set flipkey = flipkey ~ '<a href="/drupal8/web/summary/95"><span id="material">M </span></a>' %}
         {% endif %}
     {% endfor %}
@@ -134,7 +134,7 @@
         {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/94"><span id="fin">F </span></a>' %}
     {% elseif content.field_economic_sector[0]['#title'] == 'Public Nonfinancial Corporation' %}
         {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/92"><span id="nfin">T </span></a>' %}
-    {% elseif content.field_economic_sector[0]['#title'] == 'General Government Sector' %}
+    {% elseif content.field_economic_sector[0]['#title'] == 'General Government Sector - (GGS)' %}
         {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/91"><span id="GGS">GGS </span></a>' %}
     {% endif %}
 

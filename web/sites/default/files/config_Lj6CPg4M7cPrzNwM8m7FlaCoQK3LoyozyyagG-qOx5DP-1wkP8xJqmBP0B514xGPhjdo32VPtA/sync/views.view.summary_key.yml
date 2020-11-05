@@ -397,8 +397,21 @@ display:
           entity_type: taxonomy_term
           entity_field: weight
           plugin_id: standard
-      title: 'Summary key'
-      header: {  }
+      title: 'Summary keys'
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: '<div id="scroll_msg">*** Scroll down for more or view <a data-dialog-type="modal"  href="/drupal8/web/Summary_Key_Details">page</a></div>'
+            format: full_html
+          plugin_id: text
       footer: {  }
       empty: {  }
       relationships: {  }
@@ -419,6 +432,53 @@ display:
     display_options:
       display_extenders: {  }
       block_description: 'Summary key'
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: "<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
+            format: full_html
+          plugin_id: text
+      defaults:
+        header: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.permissions
+      tags: {  }
+  page_1:
+    display_plugin: page
+    id: page_1
+    display_title: Page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: Summary_Key_Details
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: '<div class="graph_back_btn"><a href="/drupal8/web/Summary">Back to Summary View</a></div>'
+            format: full_html
+          plugin_id: text
+      defaults:
+        header: false
     cache_metadata:
       max-age: -1
       contexts:

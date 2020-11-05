@@ -217,12 +217,14 @@ display:
             group_items: {  }
           plugin_id: boolean
       style:
-        type: default
+        type: html_list
         options:
-          grouping: {  }
           row_class: ''
           default_row_class: true
           uses_fields: false
+          type: ul
+          wrapper_class: item-list
+          class: ''
       row:
         type: 'entity:node'
         options:

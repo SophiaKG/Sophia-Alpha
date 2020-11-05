@@ -15,6 +15,86 @@ a:hover {
     background-color: none !important;
     text-decoration: underline;
 }
+a.navbar-brand{
+    margin: 10px 20px;
+}
+
+#block-sophia-alpha-sitetitle h1 {
+    margin: 4rem 2rem;
+}
+
+nav.menu--main,
+.block-superfish {
+    width: auto;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.menu-toggle {
+    background-color: aliceblue;
+    border: 1px solid aliceblue;
+}
+/*Menu toggles is displayed as part of theme with search block placement in top header form (right). 
+Not required for use yet */
+
+.menu.toggles {
+    display: none;
+}
+
+/* SuperFish menu modifications*/
+ul.sf-menu.menu {
+    width: fit-content;
+    margin: auto;
+    float: none !important;
+}
+ul.sf-menu .sf-sub-indicator {
+    width: 1rem;
+    height: 1rem;
+}
+ul.sf-menu.menu li {
+    margin-bottom: 0.5rem;
+}
+.navbar-toggler {
+    background-color: #414042;
+    border: 1px solid #e8f2f9;
+    margin: 0.25rem;
+    position: absolute;
+    right: 3%;
+    top: -110px;
+}
+.navbar-toggler:hover {
+    background: red;
+}
+
+main#content table thead,
+table thead,
+main#content table tr th {
+    background-color: #3390c9;
+}
+main#content table th:first-child {
+    border-top-left-radius: 8px;
+}
+main#content table th:last-child {
+    border-top-right-radius: 8px;
+}
+main#content table > tbody > tr:hover {
+    background-color: #e8f2f9 !important;
+}
+thead > tr {
+    border-bottom: 0px;
+    height: 3rem;
+}
+
+main#content table > thead > tr > th {
+    vertical-align: middle;
+}
+
+.pagination {
+    max-width: 60%; /* fixes issue with IE */
+    width: fit-content;
+    margin: auto;
+}
+
 .graph__link,
 .coop_graph__link,
 .sync__link,
@@ -59,6 +139,10 @@ box-shadow: 1px 2px #1d84c3;
     display: block ! important;
     max-width: unset;
 }
+.page-view-flipchart .view-display-id-block_1 div.view-content {
+ -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
 #sidebar_first,
 #sidebar_second{
     margin: 25px 0px;
@@ -67,7 +151,7 @@ box-shadow: 1px 2px #1d84c3;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
-    max-height: 600px;
+    max-height: 615px;
    /* overflow-y: auto;*/
 }
 #sidebar_second {
@@ -85,7 +169,15 @@ box-shadow: 1px 2px #1d84c3;
 #sidebar_second aside #block-webform--2 {
     padding: unset;
 }
-#sidebar_second aside #block-webform--2 h2{
+#print-icon {
+    display: contents;
+}
+#sidebar_second aside #block-webform > h2{
+    border-bottom: 2px solid #1d84c3;
+}
+/* Below h2 border fixes the border display for IE.
+*/
+.block-region-sidebar-second.block-webform-block h2 {
     border-bottom: 2px solid #1d84c3;
 }
 nav.tabs {
@@ -96,29 +188,98 @@ nav.tabs {
 #header,
 header#header {
     background-color: #1d84c3;
-    height: 160px;
 }
-#navbar-main {
-    padding-top: 20px;
+#navbar-top {
+    background-color: #1d84c3;
+    padding-top: 1.25rem;
 }
-a.navbar-brand{
-    margin: unset;
-    margin-right: 20px;
-}
+
+
+
 #block-sophia-alpha-search #edit-keys {
     width: 225px;
 }
+#block-sophia-alpha-search #edit-actions {
+    margin-top: 6px;
+    position: absolute;
+    top: 5px;
+    right: 0px;
+}
+/*
 #block-sophia-alpha-search #edit-submit {
     margin: auto;
     margin-top: 1px;
     position: absolute;
-    right: 20px;
+    right: 68px;
+    top: 48px;
     width: auto;
 }
+*/
+.lead-in-cards {
+    min-height: 180px;
+    text-align: center;
+}
+.lead-in-cards a i {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.lead-in-cards.purple > a {
+    border-bottom: 3px solid #1d84c3 !important;
+    box-shadow: 0 2px 4px 0 #1d84c3, 0 0px 10px 0 #1d84c3 !important;
+}
+/* .path-taxonomy - fixing margins on taxonomy pages with current filtered views */
+.path-taxonomy .item-list{
+    margin-left: 15px;
+}
+.path-taxonomy .item-list article{
+    margin-bottom: 0px;
+}
+
+.path-taxonomy .view-header {
+    border-bottom: 1px solid #1d84c3;
+}
+/* scroll mesage is used for Summary key block message - Scroll Down or view page*/
+#scroll_msg {
+    text-align: center;
+    font-size: 0.7rem;
+    color: orange;
+    font-weight: 600;
+}
+
+#scroll_msg a {
+    text-decoration: none !important;
+    color: orange !important;
+}
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
+    width: 80%;
+    z-index: 10000;
+    position: absolute;
+    left: 100px;
+    height: 90%;
+}
+#search-block-form--2 {
+    display: flex;
+    position: relative;
+}
+
+#search-block-form--2 #edit-keys--2 {
+    width: 250px;
+}
+
+#search-block-form--2 #edit-actions--2 {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+}
+
 @media (min-width: 576px){
     .form-inline .form-group {
         align-items: normal;
         }
+}
+#search-block-form {
+    display: none;
 }
 
 /*#maingraph
@@ -135,6 +296,10 @@ canvas {
     border: 4px solid #efefef;
     border-radius: 4px;
 }
+
+/* shapes-legend is used to provide legend that explains
+   shapes above the coop relationships graph.
+*/
 .shapes-legend {
     color: #1d84c3;
     padding: 10px 20px;
@@ -262,6 +427,12 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 */
 
 /*-------------------summary view table*/
+
+.flipchart {
+    width: 100%;
+    margin: auto;
+}
+
 .flipchart .col {
     padding-right: 5px;
     padding-left: 5px;
@@ -322,11 +493,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     margin: 5px 0px;
 }
 /*
-.flipchart {
-    padding: 18px 8px;
-    border-radius: 12px;
-    background-color: #efefef;
-}
+
 .flipchart ul {
     border-bottom-width: medium;
     border-bottom-style: solid;
@@ -423,20 +590,33 @@ article.node--type-bodies .field .field__label {
 article.nonCorp {
     border-left: 6px solid rgb(204, 204, 255) !important;
     border-bottom: 1px solid rgb(204, 204, 255);
-    background-color: unset !important;
+    background-color: transparent;
 }
 article.corp {
     border-left: 6px solid rgb(170, 225, 194) !important;
     border-bottom: 1px solid rgb(170, 225, 194);
-    background-color: unset !important;
+    background-color: transparent;
     
 }
 article.comCompany {
     border-left: 6px solid rgb(249, 238, 186) !important;
     border-bottom: 1px solid rgb(249, 238, 186);
-    background-color: unset !important;
+    background-color: transparent;
     
 }
 #block-sophia-alpha-footer {
     margin: auto;
+}
+
+@media only screen and (min-width: 992px) {
+    #search-block-form {
+        display: inline-block;
+        position: relative;
+    }
+    #search-block-form--2 {
+        display: none;
+    }
+    #block-sophia-alpha-sitetitle h1 {
+        margin: 2.2rem;
+    }
 }

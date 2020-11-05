@@ -1,0 +1,21 @@
+uuid: b5fc1c92-387a-4657-92e5-f7e3ebf83c7c
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - sophia_alpha
+id: searchform_2
+theme: sophia_alpha
+region: content_top
+weight: 0
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: '0'
+  page_id: ''
+visibility: {  }
