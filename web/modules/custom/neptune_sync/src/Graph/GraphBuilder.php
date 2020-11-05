@@ -25,8 +25,11 @@ class GraphBuilder
      * Alters graph built to be more user friendly
      * Replaces RDF notations/conventions with more human readable outputs
      * Does the following:
-     *  -Replaces objects with the first relevant label
      *  -Strips IRI's from display
+     *  -Replaces objects with the first relevant label
+     *  -adds tooltips to certain nodes
+     *  -changes shape of node based on type
+     *  -changes node size based on links
      */
     protected $easyRead;
 
@@ -36,7 +39,8 @@ class GraphBuilder
 
     /**
      * GraphBuilder constructor.
-     * @param bool $easyRead
+     * @param \EasyRdf_Graph $easyRdfGraph the graph to which we build an eChart array from
+     * @param bool $easyRead see protected $easyRead
      */
     public function __construct(\EasyRdf_Graph $easyRdfGraph, bool $easyRead){
         $this->easyRdfGraph= $easyRdfGraph;
@@ -44,11 +48,13 @@ class GraphBuilder
     }
 
     /**
-     * A utility function, takes a easy_rdf resource (node) and returns the node in
-     * an associate array
+     * A utility function, takes a easy_rdf resource (node) and processes it as an
+     * associate array to use for eChart. Saves the node as well as returning it.
+     * @uses $easyRead
      * @param $resource EasyRdf_Literal|EasyRdf_Resource the RDF node ro turn into
      * a class
-     * @return bool|array the node in an associative array or false if no add should happen
+     * @return bool|array the node in an associative array that was saved or false
+     *      if the node shouldn't be processed and wasn't added.
      */
     public function buildNode($resource){
 
@@ -56,7 +62,9 @@ class GraphBuilder
         if($this->getID($resource) == "http://www.w3.org/2002/07/owl#Class")
             return false;
 
-        //If the node is a label && not easyRead
+        $node = false;
+
+        //If the node is a label && not easyRead, literals should not display on easyRead
         if(is_a($resource, 'EasyRdf_Literal') && !$this->easyRead){
             $node = array('id'=>$resource->getValue(),
                 'label' => $resource->getvalue(),
@@ -65,34 +73,58 @@ class GraphBuilder
             );
         } //if the node is a resource
         else if(is_a($resource, 'EasyRdf_Resource')) {
-            if($this->easyRead){
-
-                return array('id' => $this->getID($resource),
-                    'label' => $label,
-                    'value' => $tooltip,
-                    'shape' => $shape,
-                    'symbolSize' => strval(10 + ($linkCount * 2)),
+            if($this->easyRead){  //human readable
+                $node = array_merge(
+                    array('id' => $this->getID($resource),
                     'category' => $this->getType($resource)
+                    ),
+                    $this->ProcessEasyReadNode($resource)
                 );
-            } else {
-                return array('id' => $this->getID($resource),
+            } else { //oncologist readable
+                $node = array('id' => $this->getID($resource),
                     'label' => $resource->localName(),
                     'shape' => 'circle',
                     'category' => $this->getType($resource)
                 );
             }
         }
-        return false;
+
+        $this->nodes =+ $node;
+        return $node;
     }
 
+    /**
+     * Alters graph built to be more user friendly
+     * Replaces RDF notations/conventions with more human readable outputs
+     * Does the following:
+     *  -Strips IRI's from display
+     *  -Replaces objects with the first relevant label
+     *  -adds tooltips to certain nodes
+     *  -changes shape of node based on type
+     *  -changes node size based on links
+     *
+     * @param $resource EasyRdf_Resource node to make user friendly
+     * @return array|false an associative array to combine with the default values in
+     *      $nodes or false if the node is not easyRead viable.
+     */
     private function ProcessEasyReadNode($resource){
 
+        /** If the node has no type, don't display it.
+         *  XXX what the hell would trigger this?
+         */
         if($resource->type() == null)
             return false;
 
-        //label replace (favour "CanonicalName" as label)
+        $nodeRetArr = [];
+
+        /**Label replace
+         * Replace object with its label
+         * - favour "CanonicalName" as replacement
+         * - else, get first 'rdfs:label', at random
+         * - else, use local name of object node
+         */
         $label = $resource->getLiteral("ns2:CanonicalName");
-        Helper::log("in build node, getting CanonicalName: " . $label);
+        Helper::log("In build node, getting CanonicalName: " . $label);
         if(!$label) {
             $label = $resource->getLiteral("rdfs:label");
             Helper::log("CanonicalName null,  getting label: " . $label);
@@ -105,27 +137,39 @@ class GraphBuilder
         else
             $label = $label->getvalue();
 
-        //get content value for tooltip
+        $nodeRetArr += ['label' => $label];
+
+        /** Build tooltip value
+         * create a "value" field for node based on:
+         * - if the node has a ns2:content edge, use the linked node.
+         * - else, use the local name (after ':') of the node
+         */
         $tooltip = $resource->getLiteral("ns2:Content");
         if(!$tooltip) {
-            $tooltip = $resource->localName();
+            $nodeRetArr += ['value' => $resource->localName()];
         } else
-            $tooltip = $tooltip->getvalue();
+            $nodeRetArr += ['value' => $tooltip->getvalue()];
 
-        //change shape based on type
-        $shape = "";
+        /** Change shape, based on if the node belong to a certain class.
+         *  Currently only works for coop-graph.
+         *  Warning: $this->getType returns a single type of the node when many may exist.
+         *      Thus it is possible the node may be a "Program" but may not trigger the below
+         *      switch.
+         */
         switch ($this->getType($resource)){
             case 'Program':
-                $shape = 'triangle';
+                $nodeRetArr += ['shape' => 'triangle'];
                 break;
             case 'Outcome':
-                $shape = 'rect';
+                $nodeRetArr += ['shape' => 'rect'];
                 break;
             default:
-                $shape = 'circle';
+                $nodeRetArr += ['shape' => 'circle'];
         }
 
-        //dosize
+        /** Base size of the node on teh graph based on how many outgoing links it has.
+         *  Ignore class "rdf:type" links
+         */
         $linkCount = 0;
         if($this->getType($resource) == "CommonwealthBody") {
             foreach ($resource->properties() as $edgeTypeName) {
@@ -133,11 +177,16 @@ class GraphBuilder
                     continue;
 
                 $linkCount += sizeof($resource->allResources($edgeTypeName));
+
                 Helper::log("counting edgenum for " . $resource->localName() .
                     "edge " . $edgeTypeName . " has " . sizeof($resource->allResources($edgeTypeName)) .
                     "edges for running total of: " . $linkCount);
             }
+
         }
+        $nodeRetArr += ['symbolSize' => strval(10 + ($linkCount * 2))];
+
+        return $nodeRetArr;
     }
 
     /**
@@ -181,7 +230,7 @@ class GraphBuilder
 
     /**
      * As EasyRdf_Literal and EasyRdf_Resource are commonly use in the same
-     * interface but uuids are accessed diffrently, this function resolves that issue
+     * interface but uuids are accessed differently, this function resolves that issue
      * @param $resource EasyRdf_Literal|EasyRdf_Resource the node to get the id for
      * @param bool $localName if the local name (i.e post prefix) should be used instead of
      *      full name
@@ -190,17 +239,20 @@ class GraphBuilder
     public function getID($resource,  bool $localName = true){
         if(is_a($resource, 'EasyRdf_Literal'))
             return $resource->getValue();
-        else if(is_a($resource, 'EasyRdf_Resource'))
-            if($localName == true)
-                return $resource->localName();
-            else
-                return $resource->getUri();
+        else
+            if(is_a($resource, 'EasyRdf_Resource'))
+                if($localName == true)
+                    return $resource->localName();
+                else
+                    return $resource->getUri();
+        return false; //is not EasyRdf_Literal|EasyRdf_Resource
     }
 
     /**
-     * Gets the foremost property type of a given resource
+     * Gets the foremost relevant property type of a given resource
+     *  -ignores NamedIndividual type
      * @param $resource EasyRdf_Literal|EasyRdf_Resource resource to get the type of
-     * @return string the type of the node as a string
+     * @return string the type of the node as a string, stripped from its IRI
      */
     public function getType($resource){
 
@@ -211,12 +263,17 @@ class GraphBuilder
             foreach ($resource->types() as $type)
                 if($type != 'owl:NamedIndividual') //ensure we use a more helpful label
                     return substr($type, strpos($type, ':') + 1); //remove prefix
-        } else {
+        /** what would trigger misc? if the node doesn't have an "rdf:type" or 'a' link.
+        * is this even possible in RDF */
+        } else
             $type = 'misc';
-        }
+
         return $type;
     }
 
+    /**
+     * @return string a Json encoded string with an eChart version of the easyRdf Graph
+     */
     public function getJsonGraph(){
         return json_encode(array(
             'category' => array_values($this->cat),
