@@ -46,7 +46,7 @@ class GraphGenerator
      *  -run query
      *  -load returned RDF into easy_RDF
      *  -build nodes and edges through easy_RDF
-     *  -convert node and edge set into json
+     *  -convert node and edge set into json with themed values
      *  -return
      * @param NodeInterface $node
      *      The node that is the origin of the graph to be built
@@ -83,6 +83,10 @@ class GraphGenerator
         return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
+    /** builds a unionised graph based on the id's passed in.
+     * @param array $ids
+     * @return string
+     */
     public function buildCoopGraphIntersect(array $ids){
 
         try {
@@ -99,6 +103,12 @@ class GraphGenerator
         return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
+    /**
+     * Loads the results of a SparQL construct query into an EasyRDF Graph structure
+     * @param Query $query
+     * @param bool $easyRead
+     * @return GraphBuilder
+     */
     private function parseGraph(Query $query, bool $easyRead){
 
         $query_mgr = new QueryManager();
@@ -111,7 +121,7 @@ class GraphGenerator
         try {
             $rdfGraph->parse($rdf, 'turtle');
         } catch (\EasyRdf_Exception $e) {
-            Helper::log("Failed to parse RDF. Exception:\n\t\t" . $e .
+            Helper::log("Err507 - Failed to parse RDF. Exception:\n\t\t" . $e .
                 "\nRDF:\n\t\t" . $rdf);
         }
 
@@ -122,12 +132,15 @@ class GraphGenerator
     }
 
     /**
-     * Converts a sparql construct query to json
+     * Builds a eChart json based on easyRDF resources
+     * eChart json format in the form of:
      *      "category": [],
      *      "nodes": [
      *         "id":,
      *         "label":,
+     *         "value":,
      *         "shape":,
+     *         "symbolSize":,
      *         "category":
      *      ],
      *      "edges": [
@@ -135,56 +148,33 @@ class GraphGenerator
      *          "label":,
      *          "targetID"
      *      ]
-     * @param $rdf string return of a SPARQL construct query for the local graph
+     * @param GraphBuilder $graph A blank initialised graph to build eChart json from
      * @return string json of the local graph outputting [categories, nodes, edges]
      */
     private function rdfToGraph(GraphBuilder $graph){
-
 
         /** Go through each resource (not literals) as $resource
          *      Finds each type of their edges & finds each edge of that type as $edgeTypeName
          *          For each edge, get the values (resource or literal) it joins as $resource_b */
         foreach($graph->easyRdfGraph->resources() as $resource) {
-
-            //add root node - Use local name to merge nodes from ns1 & ns2
-            /** TODO can this be done better?*/
-            $addNode = $graph->buildNode($resource);
-            if($addNode) {
-                $nodes[$graph->getID($resource)] = $addNode;
-                $cat[$graph->getType($resource)] =
-                    array('name' => $graph->getType($resource));
-            }
-
-            //add its direct edges and their nodes
             Helper::log("Resource " . $resource->getUri(). " contains properties: ");
             Helper::log($resource->properties());
+            $graph->buildNode($resource);
 
+            /** ITR edge type **/
             foreach ($resource->properties() as $edgeTypeName) {
-
                 Helper::log("\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName);
                 Helper::log("\tShortened = " . $resource->shorten());
 
-                //resources and literals
+                /** ITR nodes connect via edge type */
                 foreach ($resource->all($edgeTypeName) as $resource_b) {
-
                     Helper::log("\t\tResource: " . $resource->getUri() . " In edge name:  " . $edgeTypeName . " connecting to node: " . $resource_b->__toString());
-                    /** TODO can this be done better?*/
-                    $addNode = $graph->buildNode($resource_b);
-                    if ($addNode) {
-                        $nodes[$graph->getID($resource_b)] = $addNode;
-                        $cat[$graph->getType($resource_b)] =
-                            array('name' => $graph->getType($resource_b));
-                    }
-
-                    $edges[$graph->getID($resource) . $graph->getID($resource_b)] =
-                        $graph->buildEdge($resource, $edgeTypeName, $resource_b);
-
-                    //add the type of both nodes to the distinct category set
-
-
+                    $graph->buildNode($resource_b);
+                    $graph->buildEdge($resource, $edgeTypeName, $resource_b);
                 }
             }
         }
+
         return $graph->getJsonGraph();
     }
 

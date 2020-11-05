@@ -74,12 +74,16 @@ class GraphBuilder
         } //if the node is a resource
         else if(is_a($resource, 'EasyRdf_Resource')) {
             if($this->easyRead){  //human readable
-                $node = array_merge(
-                    array('id' => $this->getID($resource),
-                    'category' => $this->getType($resource)
-                    ),
-                    $this->ProcessEasyReadNode($resource)
-                );
+                $easyReadArr =  $this->ProcessEasyReadNode($resource);
+                if(!is_array($easyReadArr))
+                    return false;
+                else
+                    $node = array_merge(
+                        array('id' => $this->getID($resource),
+                        'category' => $this->getType($resource)
+                        ),
+                        $this->ProcessEasyReadNode($resource)
+                    );
             } else { //oncologist readable
                 $node = array('id' => $this->getID($resource),
                     'label' => $resource->localName(),
@@ -89,7 +93,30 @@ class GraphBuilder
             }
         }
 
-        $this->nodes =+ $node;
+        if($node == false)
+            return false;
+
+        Helper::log("pre switch! type is " . $this->getType($resource));
+
+        //add node
+        switch ($this->getType($resource)){
+            //If multiples will exist and we want them to appear as one
+            case "Portfolio":
+            case "LeadBody":
+                Helper::log("adding via local name");
+                $this->nodes[$node['label']] = $node;
+                break;
+
+            //If multiples exist, and we want them to appear separate
+            default:
+                Helper::log("adding via id");
+                $this->nodes[$this->getID($resource)] = $node;
+        }
+
+        //add type to category set
+        $this->cat[$this->getType($resource)] =
+            array('name' => $this->getType($resource));
+
         return $node;
     }
 
@@ -104,7 +131,7 @@ class GraphBuilder
      *  -changes node size based on links
      *
      * @param $resource EasyRdf_Resource node to make user friendly
-     * @return array|false an associative array to combine with the default values in
+     * @return String[]|false an associative array to combine with the default values in
      *      $nodes or false if the node is not easyRead viable.
      */
     private function ProcessEasyReadNode($resource){
@@ -198,11 +225,21 @@ class GraphBuilder
      */
     public function buildEdge($a, $edgeName, $b){
 
+        /** adds properties local name as edge label*/
         if($this->easyRead)
             $edgeName = substr($edgeName, strpos($edgeName, ':') + 1);
 
+
+        /** Finds if the edge should be emphasised
+         * Only relevant for coop-graph
+         * logic:
+         *      if A && B are both resources and not labels
+         *      if A[body] links B[program||outcome]
+         *          true
+         *      if A [program||outcome] links B[body]
+         *          true
+         */
         $emphasis = "false";
-        //both are resources and not literals
         if(is_a($a, 'EasyRdf_Resource') && is_a($b, 'EasyRdf_Resource')){
 
             Helper::log("Edge creation: both nodes, checking emphasis for type " .
@@ -224,7 +261,8 @@ class GraphBuilder
             'emphasis' => $emphasis,
             'targetID' => $this->getID($b));
 
-        $this->edges[] = $edge;
+        //add to edge set via id union hash
+        $this->edges[$this->getID($a) . $this->getID($b)] = $edge;
         return $edge;
     }
 
@@ -233,8 +271,8 @@ class GraphBuilder
      * interface but uuids are accessed differently, this function resolves that issue
      * @param $resource EasyRdf_Literal|EasyRdf_Resource the node to get the id for
      * @param bool $localName if the local name (i.e post prefix) should be used instead of
-     *      full name
-     * @return string|null the unique identifier for the resource
+     *      full name (uri)
+     * @return string|null the unique identifier for the resource either
      */
     public function getID($resource,  bool $localName = true){
         if(is_a($resource, 'EasyRdf_Literal'))
@@ -275,6 +313,9 @@ class GraphBuilder
      * @return string a Json encoded string with an eChart version of the easyRdf Graph
      */
     public function getJsonGraph(){
+
+        Helper::log("nodes: " );
+        Helper::log($this->nodes);
         return json_encode(array(
             'category' => array_values($this->cat),
             'nodes' => array_values($this->nodes),
