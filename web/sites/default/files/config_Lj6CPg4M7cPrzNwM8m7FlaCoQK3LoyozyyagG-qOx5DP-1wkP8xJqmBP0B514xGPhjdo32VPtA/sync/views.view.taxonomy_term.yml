@@ -228,6 +228,7 @@ display:
       row:
         type: 'entity:node'
         options:
+          relationship: none
           view_mode: teaser
       header:
         entity_taxonomy_term:
@@ -243,6 +244,19 @@ display:
           view_mode: full
           bypass_access: false
           plugin_id: entity
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: '<div class="graph_back_btn"><a href="/drupal8/web/Summary">Back to Summary View</a></div>'
+            format: full_html
+          plugin_id: text
       footer: {  }
       empty: {  }
       relationships: {  }
