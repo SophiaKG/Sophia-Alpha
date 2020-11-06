@@ -275,6 +275,16 @@ class EntityManager
         return Node::loadMultiple($nids);
     }
 
+    public function getAllNeptunetypes(){
+        $nids = \Drupal::entityQuery(SophiaGlobal::NODE, 'OR')
+            ->condition('type', SophiaGlobal::BODIES)
+            ->condition('type', SophiaGlobal::PORTFOLIO)
+            ->condition('type', SophiaGlobal::LEGISLATION)
+            ->condition('type', SophiaGlobal::COOPERATIVE_RELATIONSHIP)
+            ->execute();
+        return Node::loadMultiple($nids);
+    }
+
     /**
      * @param $vocabName
      * @return \Drupal\taxonomy\TermInterface[]
