@@ -44,5 +44,6 @@ class AdminController extends ControllerBase
 
         $importer = new NeptuneImporter();
         $importer->wipeNodes();
+        $importer->importBodies();
     }
 }

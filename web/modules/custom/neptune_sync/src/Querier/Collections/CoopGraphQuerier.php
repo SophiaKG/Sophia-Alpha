@@ -51,6 +51,8 @@ class CoopGraphQuerier{
             $queryForm = self::constructCoopGraphStatement($selectKey);
         } else { //select query
             $selectKey['default'] = array(
+                '?sendBody',
+                '?recBody',
                 '?progLabel',
                 '?progDesc',
                 '?outcomeLabel',

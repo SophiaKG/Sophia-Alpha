@@ -53,7 +53,7 @@ class Helper
 
     public static function print_entity(DrupalEntityExport $classModel, bool $fullDetails = false){
 
-        $str = "Entity details:\n\t\t\t Label " . $classModel->getLabelKey() . " Type: " . $classModel->getSubType();
+        $str = "Entity details:\n\t\t\t Label " . $classModel->getTitle() . " Type: " . $classModel->getSubType();
         if($fullDetails)
             $str .= Helper::print_var($classModel->getEntityArray());
         return $str;

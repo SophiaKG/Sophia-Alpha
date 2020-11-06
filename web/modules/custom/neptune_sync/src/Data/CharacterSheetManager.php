@@ -6,6 +6,7 @@ use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\neptune_sync\Data\Model\CharacterSheet;
 use Drupal\neptune_sync\Data\Model\CooperativeRelationship;
 use Drupal\neptune_sync\Data\Model\TaxonomyTerm;
+use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
@@ -36,7 +37,8 @@ class CharacterSheetManager
      */
     public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
 
-        $this->body = new CharacterSheet($node->getTitle());
+        $this->body = new CharacterSheet($node->getTitle(),
+            $node->get("field_neptune_uri")->getString());
 
         $this->processPortfolio($node, $bulkOperation);
         $this->processBodyType($node);
@@ -190,7 +192,8 @@ class CharacterSheetManager
         $bulkOperation = true;
 
         //get all cooperative relationships from Sparql for the node body
-        $query = QueryBuilder::getCooperativeRelationships($node);
+        $query = CoopGraphQuerier::getCooperativeRelationships([$node],
+            CoopGraphQuerier::OUTGOING_PROGRAMS);
         $json = $this->query_mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
 
@@ -212,7 +215,8 @@ class CharacterSheetManager
             //if bulk as we create a hash
             $receiver = $this->ent_mgr->getEntityId(
                 new namespace\Model\ Node(
-                    $obj->{'ent2Label'}->{'value'}, 'bodies'),
+                    $obj->{'ent2Label'}->{'value'}, $obj->{'recBody'}->{'value'},
+                    'bodies'),
                 false, $bulkOperation);
 
             if($receiver) {

@@ -42,12 +42,12 @@ class EntityManager
      *
      * @TODO make this more dynamic ie use header vars from returned query
      * @param $query
-     * @param $nepLabel
+     * @param $nepId String the object uri in neptune
      * @param $nodeType
      * @param bool $bulkOperation
      * @return String[] an array of valid ids
      */
-    public function getEntityIdFromQuery($query, $nepLabel, $nodeType,  Bool $bulkOperation = false){
+    public function getEntityIdFromQuery($query, $nepId, $nodeType,  Bool $bulkOperation = false){
 
         $jsonResult = $this->query_mgr->runCustomQuery($query);
         $jsonObject = json_decode($jsonResult);
@@ -55,8 +55,8 @@ class EntityManager
         $NidArr = array();
         foreach ( $jsonObject->{'results'}->{'bindings'} as $binding) {
             $nid = $this->getEntityId(
-                new namespace\Model\ Node(
-                    $binding->{$nepLabel}->{'value'},
+                new namespace\Model\ Node("N/A", /*xxx this must be fixed!!!!!!!*/
+                    $binding->{$nepId}->{'value'},
                     $nodeType),
                 false, $bulkOperation);
 
@@ -106,12 +106,12 @@ class EntityManager
     protected function getEntityIdSingle(DrupalEntityExport $classModel, bool $canCreate = false){
         if($classModel->getEntityType() == SophiaGlobal::NODE) {                    //if Node
             $query = \Drupal::entityQuery(SophiaGlobal::NODE)
-                ->condition('title', $classModel->getLabelKey())
+                ->condition('field_neptune_uri', $classModel->getIdKey())
                 ->condition('type', $classModel->getSubType())
                 ->execute();
         } else if ($classModel->getEntityType() == SophiaGlobal::TAXONOMY){    //if Tax
             $query = \Drupal::entityQuery(SophiaGlobal::TAXONOMY)
-                ->condition('name', $classModel->getLabelKey())
+                ->condition('name', $classModel->getTitle())
                 ->condition('vid', $classModel->getSubType())
                 ->execute();
         } else {
@@ -146,9 +146,9 @@ class EntityManager
         /** @var  $localEntHash array[] local scope of form array('label' => 'id')*/
         $localEntHash = $this->getEntTypeIdHash($classModel);
 
-        if(array_key_exists($classModel->getLabelKey(), $localEntHash)) {
-            Helper::log("Entity found, referencing " . $classModel->getLabelKey());
-            return $localEntHash[$classModel->getLabelKey()];
+        if(array_key_exists($classModel->getIdKey(), $localEntHash)) {
+            Helper::log("Entity found, referencing " . $classModel->getIdKey());
+            return $localEntHash[$classModel->getIdKey()];
         } else if ($canCreate){ //create then add to hash and relationship
             Helper::log("Entity not found, creating");
             return $this->createEntity($classModel);
@@ -163,7 +163,7 @@ class EntityManager
     /**
      * @variable NodeInterface $nodes
      * @param DrupalEntityExport $classModel
-     * @return String[] ['Ent title' => 'id'] of entName
+     * @return String[] ['idkey' => 'Nid'] of entName
      */
     protected function getEntTypeIdHash(DrupalEntityExport $classModel){
 
@@ -177,7 +177,7 @@ class EntityManager
                 $nodes = $this->getAllNodeType($classModel->getSubType());
                 foreach ($nodes as $node)
                     $this->entHash[$classModel->getSubType()] +=
-                        array($node->getTitle() => $node->id());
+                        array($node->get("field_neptune_uri")->getString() => $node->id());
 
             } elseif($classModel->getEntityType() == SophiaGlobal::TAXONOMY) {
                 $terms = $this->getAllTaxonomyType($classModel->getSubType());
@@ -196,7 +196,7 @@ class EntityManager
      */
     public function createEntity(DrupalEntityExport $classModel){
 
-        Helper::log("creating entity! label: ". $classModel->getLabelKey());
+        Helper::log("creating entity! label: ". $classModel->getIdKey());
 
         if($classModel->getEntityType() == SophiaGlobal::NODE)              //create
             $my_ent = Node::create(
@@ -215,7 +215,7 @@ class EntityManager
 
         //add to runtime hash
         $this->entHash[$classModel->getSubType()] +=
-            array($classModel->getLabelKey() => $my_ent->id());
+            array($classModel->getIdKey() => $my_ent->id());
 
         return $my_ent->id();
     }
@@ -257,7 +257,7 @@ class EntityManager
             $my_ent->save();
         } catch (EntityStorageException $e) { //save
             Helper::log("Err502-2: Something went seriously wrong\n\t\t\t" .
-                'Attempting to save ' . $classModel->getLabelKey() .
+                'Attempting to save ' . $classModel->getTitle() .
                 ' But failed.',  $event = true);
             return false;
         }

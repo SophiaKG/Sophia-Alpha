@@ -17,7 +17,6 @@ class QueryBuilder
 {
     const GRAPH_WORKING_DIR = 'sites/default/files/graphs/';
 
-
     /**
      * Checks if a passed in node (Government Body) is part of a ns1 class
      *

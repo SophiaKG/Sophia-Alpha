@@ -56,12 +56,16 @@ class QueryTemplate
         return $q;
     }
 
-    private static function getBodies(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies/bodies.json');
+    public static function getBodies(){
+        $q = new Query(self::NEPTUNE_ENDPOINT);
         $q->setQuery(SophiaGlobal::PREFIX_ALL() .
-                            'SELECT DISTINCT ?object ' .
-                            'WHERE {?Entity a ns1:CommonwealthBody . ' .
-                                   '?Entity rdfs:label ?object .}');
+                            'SELECT DISTINCT ?body ?bodyLabel ' .
+                            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+                            'WHERE { ' .
+                                'VALUES ?type {ns2:CommonwealthBody ns2:LeadBody} ' .
+                                '?body a ?type. ' .
+                                '?body rdfs:label ?bodyLabel. ' .
+                            '}');
         return $q;
     }
 
