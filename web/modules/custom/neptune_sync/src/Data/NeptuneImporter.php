@@ -4,12 +4,12 @@
 namespace Drupal\neptune_sync\Data;
 
 use Drupal\Core\Entity\EntityStorageException;
-use Drupal\neptune_sync\Data\Model\CharacterSheet;
+use Drupal\neptune_sync\Querier\Query;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Querier\QueryTemplate;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
-use Drupal\node\Entity\Node;
+use Drupal\views\Plugin\views\field\Boolean;
 
 class NeptuneImporter
 {
@@ -52,22 +52,32 @@ class NeptuneImporter
         return true;
     }
 
-    public function importBodies(){
+    public function importNeptuneData(bool $wipeData){
 
-        $query = QueryTemplate::getBodies();
+        if($wipeData)
+            $this->wipeNodes();
+
+        //$this->importFromQuery(QueryTemplate::getPortfolios(), SophiaGlobal::PORTFOLIO);
+        $this->importFromQuery(QueryTemplate::getLegislations(), SophiaGlobal::LEGISLATION);
+        //$this->importFromQuery(QueryTemplate::getBodies(), SophiaGlobal::BODIES);
+    }
+
+    public function importFromQuery(Query $query, $subType){
+
         $json = $this->query_Mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
 
         $addCount = 0;
         $skipCount = 0;
         foreach ($jsonObj->{'results'}->{'bindings'} as $obj) {
-            $addBody = new CharacterSheet($obj->{'bodyLabel'}->{'value'},
-                $obj->{'body'}->{'value'});
-            $nid = $this->entity_Mgr->getEntityId($addBody, true, true);
+            $addNode = new Model\Node(
+                $obj->{'objLabel'}->{'value'},
+                $obj->{'obj'}->{'value'}, $subType);
+            $nid = $this->entity_Mgr->getEntityId($addNode, true, true);
             if($nid) {
                 $addCount++;
-                Helper::log($addBody->getSubType() . " added through import. Id: " .
-                    $nid . " Title: " . $addBody->getTitle() . " Running total: " .
+                Helper::log($addNode->getSubType() . " added through import. Id: " .
+                    $nid . " Title: " . $addNode->getTitle() . " Running total: " .
                     $addCount . " added, " . $skipCount . " skipped", true);
             }
             else
@@ -79,6 +89,10 @@ class NeptuneImporter
     }
 
     private function importPortfolios(){
+
+        $query = QueryTemplate::getPortfolios();
+        $json = $this->query_Mgr->runCustomQuery($query);
+        $jsonObj = json_decode($json);
 
     }
 

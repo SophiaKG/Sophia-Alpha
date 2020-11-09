@@ -258,7 +258,7 @@ class EntityManager
         } catch (EntityStorageException $e) { //save
             Helper::log("Err502-2: Something went seriously wrong\n\t\t\t" .
                 'Attempting to save ' . $classModel->getTitle() .
-                ' But failed.',  $event = true);
+                ' But failed. \n' . $e,  $event = true);
             return false;
         }
         return true;

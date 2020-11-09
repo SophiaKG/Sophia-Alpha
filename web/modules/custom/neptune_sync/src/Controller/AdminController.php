@@ -44,7 +44,6 @@ class AdminController extends ControllerBase
     private function wipeNeptuneContent(){
 
         $importer = new NeptuneImporter();
-        $importer->wipeNodes();
-        $importer->importBodies();
+        $importer->importNeptuneData(false);
     }
 }

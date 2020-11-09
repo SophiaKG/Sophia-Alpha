@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.legislation.feeds_item
     - field.field.node.legislation.field_ink
+    - field.field.node.legislation.field_neptune_uri
     - field.field.node.legislation.field_used_by
     - node.type.legislation
   module:
@@ -28,6 +29,14 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_neptune_uri:
+    weight: 123
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_used_by:
     weight: 122

@@ -41,6 +41,9 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
     }
 
     public function getEntityArray(){
-        return array();
+        return array(
+            'title' =>  $this->getTitle(),
+            'field_neptune_uri' => $this->getIdKey(),
+        );
     }
 }
