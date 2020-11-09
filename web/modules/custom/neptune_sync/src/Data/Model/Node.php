@@ -18,8 +18,7 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
      * @param $idKey
      * @param String $nodeType
      */
-    public function __construct($title, $idKey, $nodeType)
-    {
+    public function __construct($title, $idKey, $nodeType){
         $this->title = $title;
         $this->idKey = $idKey;
         $this->nodeType = $nodeType;
@@ -33,18 +32,15 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
         return $this->idKey;
     }
 
-    public function getEntityType()
-    {
+    public function getEntityType(){
         return SophiaGlobal::NODE;
     }
 
-    public function getSubType()
-    {
+    public function getSubType(){
         return $this->nodeType;
     }
 
-    public function getEntityArray()
-    {
+    public function getEntityArray(){
         return array();
     }
 }

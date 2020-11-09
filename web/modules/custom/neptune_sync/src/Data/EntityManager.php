@@ -133,7 +133,7 @@ class EntityManager
     /**
      * @param DrupalEntityExport $classModel
      * @param bool $canCreate
-     * @return String|null Entity id
+     * @return String|null (Drupal) Entity id
      *
      * Logic: if the label of the entity has a corresponding drupal entity id,
      *      return it. If no Id is found, we can create the entity passed in.
@@ -286,6 +286,7 @@ class EntityManager
     }
 
     /**
+     *
      * @param $vocabName
      * @return \Drupal\taxonomy\TermInterface[]
      */

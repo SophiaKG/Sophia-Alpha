@@ -6,6 +6,7 @@ namespace Drupal\neptune_sync\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\neptune_sync\Data\NeptuneImporter;
+use Drupal\neptune_sync\Utility\Helper;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\Entity\Node;
 

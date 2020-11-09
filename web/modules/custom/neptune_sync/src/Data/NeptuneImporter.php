@@ -54,37 +54,28 @@ class NeptuneImporter
 
     public function importBodies(){
 
-        $c_mgr = new CharacterSheetManager();
-
         $query = QueryTemplate::getBodies();
         $json = $this->query_Mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
-        $drupalBodies = $this->entity_Mgr->getAllNodeType(SophiaGlobal::BODIES);
 
-        $doesExist = false;
+        $addCount = 0;
+        $skipCount = 0;
         foreach ($jsonObj->{'results'}->{'bindings'} as $obj) {
-            foreach ($drupalBodies as $drupalBody)
-                if ($obj->{'body'}->{'value'} ==
-                    $drupalBody->get("field_neptune_uri")->getString()) {
-
-                    $doesExist = true;
-                    $c_mgr->updateCharacterSheet($drupalBody); //if it already exist, sync it
-                }
-
-            //if the queried body does not exist in drupal, add it.
-            if ($doesExist == false) {
-                //create body
-                $addBody = new CharacterSheet($obj->{'bodyLabel'}->{'value'},
-                    $obj->{'body'}->{'value'});
-                $addId = $this->entity_Mgr->createEntity($addBody);
-
-                /** reload addBody (CharacterSheet) as $addNodeInterface (NodeInterface) due to hook
-                 * changes when saving, then seed it with init data from neptune */
-                $addNodeInterface = Node::load($addId);
-                $c_mgr->updateCharacterSheet($addNodeInterface);
+            $addBody = new CharacterSheet($obj->{'bodyLabel'}->{'value'},
+                $obj->{'body'}->{'value'});
+            $nid = $this->entity_Mgr->getEntityId($addBody, true, true);
+            if($nid) {
+                $addCount++;
+                Helper::log($addBody->getSubType() . " added through import. Id: " .
+                    $nid . " Title: " . $addBody->getTitle() . " Running total: " .
+                    $addCount . " added, " . $skipCount . " skipped", true);
             }
+            else
+                $skipCount++;
 
         }
+        Helper::log("Records imported!", true);
+        return true;
     }
 
     private function importPortfolios(){
