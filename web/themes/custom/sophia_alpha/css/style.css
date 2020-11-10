@@ -63,7 +63,7 @@ ul.sf-menu.menu li {
     top: -110px;
 }
 .navbar-toggler:hover {
-    background: red;
+    background: #efefef;
 }
 
 main#content table thead,
@@ -194,19 +194,63 @@ header#header {
     padding-top: 1.25rem;
 }
 
+.form-row .form-actions {
+    align-self: center;
+    margin: auto;
+}
+#block-exposedformsearchpage-1-2 .form-row {
+    padding: 1rem;
+}
+#block-exposedformsearchpage-1-2 .form-row fieldset {
+    padding: unset;
+}
+#block-exposedformsearchpage-1-2 .form-group {
+    margin-bottom: 0px;
+}
+#views-exposed-form-search-page-1 .form-submit.btn,
+#views-exposed-form-search-page-1-2 .form-submit.btn,
+#views-exposed-form-search-page-2 .form-submit.btn {
+    float: left;
+    width: fit-content;
+    margin-left: 1rem;
+}
+#block-exposedformsearchpage-2 .form-submit.btn {
+    margin-top: 0.7rem;
+}
 
+#edit-reset--2 {
+    display: none;
+}
+.form-text {
+    margin-top: unset;
+}
 
-#block-sophia-alpha-search #edit-keys {
+#block-exposedformsearchpage-1 #edit-keys {
     width: 225px;
 }
-#block-sophia-alpha-search #edit-actions {
-    margin-top: 6px;
+#block-exposedformsearchpage-1 #edit-actions,
+#block-exposedformsearchpage-1 #edit-actions--2 {
+    margin-top: 1px;
     position: absolute;
     top: 5px;
-    right: 0px;
+    right: -10px;
+}
+
+.path-search .views-row,
+.path-objects-search .views-row
+ {
+    margin: .25rem 0rem;
+    padding: 1rem 0rem;
+    border-bottom: 1px solid #1d84c3;
+}
+.path-search .views-row:hover,
+.path-objects-search .views-row:hover {
+    background: #e8f2f9;
+    border-bottom: 5px solid #1d84c3;
+    transition: all .2s ease-in-out;
 }
 /*
-#block-sophia-alpha-search #edit-submit {
+#block-exposedformsearchpage-1 #edit-submit {
     margin: auto;
     margin-top: 1px;
     position: absolute;
@@ -237,7 +281,11 @@ header#header {
 }
 
 .path-taxonomy .view-header {
-    border-bottom: 1px solid #1d84c3;
+   /* border-bottom: 1px solid #1d84c3; */
+    background-color: #efefef;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
 }
 /* scroll mesage is used for Summary key block message - Scroll Down or view page*/
 #scroll_msg {
@@ -258,19 +306,32 @@ header#header {
     left: 100px;
     height: 90%;
 }
-#search-block-form--2 {
+
+
+#block-exposedformsearchpage-1-2 ,
+#block-exposedformsearchpage-2 {
+    background: #efefef;
+    padding: 10px;
+    border-radius: 12px;
+    width: 100%;
     display: flex;
     position: relative;
 }
 
-#search-block-form--2 #edit-keys--2 {
-    width: 250px;
+#block-exposedformsearchpage-1-2 .content,
+#block-exposedformsearchpage-2 .content{
+    margin: auto;
 }
 
-#search-block-form--2 #edit-actions--2 {
-    position: absolute;
+
+#block-exposedformsearchpage-1-2 #edit-search-api-fulltext--2 {
+    width: 400px;
+}
+
+#block-exposedformsearchpage-2 #edit-actions--4 {
+    position: relative;
     right: 0px;
-    top: 5px;
+    top: 14px;
 }
 
 @media (min-width: 576px){
@@ -278,8 +339,15 @@ header#header {
         align-items: normal;
         }
 }
-#search-block-form {
+#block-exposedformsearchpage-1 {
     display: none;
+}
+.view-search .views-label {
+    font-weight: 600;
+}
+.view-search .views-field-title {
+    margin-bottom: 0.3rem;
+    font-weight: large;
 }
 
 /*#maingraph
@@ -609,12 +677,15 @@ article.comCompany {
 }
 
 @media only screen and (min-width: 992px) {
-    #search-block-form {
+    #block-exposedformsearchpage-1 {
         display: inline-block;
         position: relative;
     }
-    #search-block-form--2 {
+    #block-exposedformsearchpage-1-2 {
         display: none;
+    }
+    .path-search #block-exposedformsearchpage-1-2{
+        display: flex;
     }
     #block-sophia-alpha-sitetitle h1 {
         margin: 2.2rem;
