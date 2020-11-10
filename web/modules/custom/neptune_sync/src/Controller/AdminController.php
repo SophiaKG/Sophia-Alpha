@@ -5,13 +5,14 @@ namespace Drupal\neptune_sync\Controller;
 
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\neptune_sync\Data\NeptuneImporter;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\Entity\Node;
 
 class AdminController extends ControllerBase
 {
     public function executeAdminFunc(){
-        $this->modifyNode();
+        $this->wipeNeptuneContent();
         return [
             '#markup' => 'Your function was ran',
         ];
@@ -37,5 +38,11 @@ class AdminController extends ControllerBase
         $my_ent->setRevisionUserId(SophiaGlobal::MAINTENANCE_BOT);
         $my_ent->save();
 
+    }
+
+    private function wipeNeptuneContent(){
+
+        $importer = new NeptuneImporter();
+        $importer->importNeptuneData(true);
     }
 }

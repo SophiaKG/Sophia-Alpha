@@ -51,13 +51,15 @@ class CoopGraphQuerier{
             $queryForm = self::constructCoopGraphStatement($selectKey);
         } else { //select query
             $selectKey['default'] = array(
+                '?sendBody',
+                '?recBody',
                 '?progLabel',
                 '?progDesc',
                 '?outcomeLabel',
                 '?outcomeDesc',
             );
 
-            $queryForm = "SELECT ";
+            $queryForm = "SELECT DISTINCT ";
             foreach ($selectKey as $key => $val)
                 if ($key = 'default')               //build with default keys
                     foreach ($val as $subval)

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_bodies
+    - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
     - node.type.portfolios
   module:
@@ -29,6 +30,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_neptune_uri:
+    weight: 123
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_summary_view:
     weight: 122

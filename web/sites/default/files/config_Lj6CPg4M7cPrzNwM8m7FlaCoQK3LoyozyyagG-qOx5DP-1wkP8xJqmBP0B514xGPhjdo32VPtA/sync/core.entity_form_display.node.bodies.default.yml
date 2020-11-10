@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.bodies.field_financial_classification
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_neptune_uri
     - field.field.node.bodies.field_portfolio
     - field.field.node.bodies.field_reporting_arrangements
     - field.field.node.bodies.field_reporting_variation
@@ -126,6 +127,14 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_neptune_uri:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_portfolio:
     weight: 7

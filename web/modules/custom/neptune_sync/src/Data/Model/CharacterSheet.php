@@ -9,7 +9,6 @@ use Drupal\neptune_sync\Utility\SophiaGlobal;
  */
 class CharacterSheet extends Node implements DrupalEntityExport
 {
-
     //Portfolio
     protected $portfolio;
     //Type of Body
@@ -42,9 +41,8 @@ class CharacterSheet extends Node implements DrupalEntityExport
 
     }
 
-    public function __construct($title){
-
-        parent::__construct($title, SophiaGlobal::BODIES);
+    public function __construct($title, $neptune_uri){
+        parent::__construct($title, $neptune_uri,SophiaGlobal::BODIES);
     }
 
     //booleans
@@ -319,7 +317,8 @@ class CharacterSheet extends Node implements DrupalEntityExport
     public function getEntityArray(){
 
         $retArr =  array(
-            'title' =>  $this->getLabelKey(),
+            'title' =>  $this->getTitle(),
+            'field_neptune_uri' => $this->getIdKey(),
             'field_portfolio' => [
                 'target_id' => $this->portfolio,
             ],

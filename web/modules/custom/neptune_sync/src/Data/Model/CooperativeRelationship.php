@@ -31,6 +31,7 @@ class CooperativeRelationship extends Node implements DrupalEntityExport
      * CooperativeRelationship constructor.
      */
     public function __construct(){
+        //parent::__construct($title, $neptune_uri, SophiaGlobal::COOPERATIVE_RELATIONSHIP);
         $this->nodeType = SophiaGlobal::COOPERATIVE_RELATIONSHIP;
     }
 
@@ -130,7 +131,7 @@ class CooperativeRelationship extends Node implements DrupalEntityExport
         $this->outcomeDesc = $outcomeDesc;
     }
 
-    public function getLabelKey()
+    public function getIDKey()
     {
         return $this->owner . '|' . $this->program . '|' . $this->outcome .
             '|' . $this->receiver; //pseudo hash
@@ -138,7 +139,7 @@ class CooperativeRelationship extends Node implements DrupalEntityExport
 
     public function getEntityArray(){
         return array(
-            'title' =>  $this->getLabelKey(),
+            'title' =>  $this->getIDKey(),
             'field_owner' => $this->owner,
             'field_program' => $this->program,
             'field_program_description_' => $this->programDesc,

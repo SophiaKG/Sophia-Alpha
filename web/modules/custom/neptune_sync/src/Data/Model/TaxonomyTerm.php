@@ -20,8 +20,7 @@ class TaxonomyTerm implements DrupalEntityExport
      * @param String $name
      * @param String $vid
      */
-    public function __construct(string $name, string $vid)
-    {
+    public function __construct(string $name, string $vid){
         $this->name = $name;
         $this->vid = $vid;
     }
@@ -29,37 +28,36 @@ class TaxonomyTerm implements DrupalEntityExport
     /**
      * @return String
      */
-    public function getName(): string
-    {
+    public function getName(): string{
         return $this->name;
     }
 
     /**
      * @param String $name
      */
-    public function setName(string $name): void
-    {
+    public function setName(string $name): void{
         $this->name = $name;
     }
 
     /**
      * @return String
      */
-    public function getVid(): string
-    {
+    public function getVid(): string{
         return $this->vid;
     }
 
     /**
      * @param String $vid
      */
-    public function setVid(string $vid): void
-    {
+    public function setVid(string $vid): void{
         $this->vid = $vid;
     }
 
-    public function getLabelKey()
-    {
+    public function getTitle(){
+        return $this->name;
+    }
+
+    public function getIdKey(){
         return $this->name;
     }
 

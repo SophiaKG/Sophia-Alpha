@@ -47,30 +47,40 @@ class QueryTemplate
         return $q;
     }
 
-    private static function getLegislations(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'legislation/legislation.json');
+    public static function getLegislations(){
+        $q = new Query(self::NEPTUNE_ENDPOINT);
         $q->setQuery(SophiaGlobal::PREFIX_ALL() .
-                            'SELECT DISTINCT ?object ' .
-                            'WHERE {?Entity a ns1:Legislation . ' .
-                            '?Entity rdfs:label ?object . }');
+                            'SELECT DISTINCT ?obj ?objLabel ' .
+                            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+                            'WHERE { ' .
+                                '?obj a ns2:Series. ' .
+                                '?obj rdfs:label ?objLabel. ' .
+                            '}');
         return $q;
     }
 
-    private static function getBodies(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'bodies/bodies.json');
+    public static function getBodies(){
+        $q = new Query(self::NEPTUNE_ENDPOINT);
         $q->setQuery(SophiaGlobal::PREFIX_ALL() .
-                            'SELECT DISTINCT ?object ' .
-                            'WHERE {?Entity a ns1:CommonwealthBody . ' .
-                                   '?Entity rdfs:label ?object .}');
+                            'SELECT DISTINCT ?obj ?objLabel ' .
+                            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+                            'WHERE { ' .
+                                'VALUES ?type {ns2:CommonwealthBody ns2:LeadBody} ' .
+                                '?obj a ?type. ' .
+                                '?obj rdfs:label ?objLabel. ' .
+                            '}');
         return $q;
     }
 
-    private static function getPortfolios(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'portfolios/portfolios.json');
+    public static function getPortfolios(){
+        $q = new Query(self::NEPTUNE_ENDPOINT);
         $q->setQuery(SophiaGlobal::PREFIX_ALL() .
-                            'SELECT DISTINCT ?object ' .
-                            'WHERE {?Entity a ns1:Portfolio . ' .
-                            '?Entity rdfs:label ?object .}');
+                            'SELECT DISTINCT ?obj ?objLabel ' .
+                            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+                            'WHERE { ' .
+                                '?obj a ns2:Portfolio. ' .
+                                '?obj rdfs:label ?objLabel. ' .
+                            '}');
         return $q;
     }
 
