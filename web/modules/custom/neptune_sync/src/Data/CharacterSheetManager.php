@@ -86,8 +86,8 @@ class CharacterSheetManager
 
         $portNid = $this->ent_mgr->getEntityIdFromQuery(
             QueryBuilder::getBodyPortfolio($node),
-            'portlabel',
-            'portfolios',
+            'port',
+            SophiaGlobal::PORTFOLIO,
             $bulkOperation
         );
 
@@ -106,8 +106,8 @@ class CharacterSheetManager
 
         foreach ($this->ent_mgr->getEntityIdFromQuery(
                                     QueryBuilder::getBodyLegislation($node),
-                                    'legislationLabel',
                                     'legislation',
+                                    SophiaGlobal::LEGISLATION,
                                     $bulkOperation
         ) as $legislationNid)
             $this->body->addLegislations($legislationNid);

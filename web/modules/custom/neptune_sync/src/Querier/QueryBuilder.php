@@ -70,7 +70,7 @@ class QueryBuilder
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
-            'SELECT DISTINCT ?portlabel ' .
+            'SELECT DISTINCT ?port ?portlabel ' .
             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { ' .
                 '?body rdfs:label "' . $node->getTitle() . '" . ' .
@@ -101,13 +101,16 @@ class QueryBuilder
         //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
-            'SELECT DISTINCT ?legislationLabel ' .
-            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
+            'SELECT DISTINCT ?legislation ?legislationLabel ' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { '.
                 '?legislation rdfs:label ?legislationLabel. ' .
-                '?legislation ?e ?body. ' .
-                '?legislation a ns1:Legislation. ' .
-                '?body a ns1:CommonwealthBody. ' .
+                '?legislation a ns2:Series. ' .
+                '?legislation ns2:Grants ?authority. ' .
+                '?authority ns2:Binds ?est. ' .
+                '?est a ns2:Establishment. ' .
+                '?authority ns2:BindsTo ?body. ' .
+                '?body a ns2:CommonwealthBody. ' .
                 '?body rdfs:label "' . $node->getTitle() . '". ' .
             '}');
         return $q;

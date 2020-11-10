@@ -55,7 +55,7 @@ class EntityManager
         $NidArr = array();
         foreach ( $jsonObject->{'results'}->{'bindings'} as $binding) {
             $nid = $this->getEntityId(
-                new namespace\Model\ Node("N/A", /*xxx this must be fixed!!!!!!!*/
+                new namespace\Model\ Node("N/A",
                     $binding->{$nepId}->{'value'},
                     $nodeType),
                 false, $bulkOperation);
@@ -64,7 +64,7 @@ class EntityManager
                 Helper::log("Err500:  Something went wrong \n" .
                     "\t\t\tcase: Null Id return when attempting to get an id from a entity label match." .
                     "This might be expected from portfolios or legislations." .
-                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Label: " . $nepLabel, true);
+                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Id: " . $nepId, true);
             } else
                 $NidArr[] = $nid;
         }
@@ -176,8 +176,12 @@ class EntityManager
             if($classModel->getEntityType() == SophiaGlobal::NODE) {
                 $nodes = $this->getAllNodeType($classModel->getSubType());
                 foreach ($nodes as $node)
-                    $this->entHash[$classModel->getSubType()] +=
-                        array($node->get("field_neptune_uri")->getString() => $node->id());
+                    if($node->hasField("field_neptune_uri"))
+                        $this->entHash[$classModel->getSubType()] +=
+                            array($node->get("field_neptune_uri")->getString() => $node->id());
+                    else
+                        $this->entHash[$classModel->getSubType()] +=
+                            array($node->get("title")->getString() => $node->id());
 
             } elseif($classModel->getEntityType() == SophiaGlobal::TAXONOMY) {
                 $terms = $this->getAllTaxonomyType($classModel->getSubType());
@@ -275,14 +279,13 @@ class EntityManager
         return Node::loadMultiple($nids);
     }
 
-    public function getAllNeptunetypes(){
-        $nids = \Drupal::entityQuery(SophiaGlobal::NODE, 'OR')
+    public function getAllNeptunetypesId(){
+        return \Drupal::entityQuery(SophiaGlobal::NODE, 'OR')
             ->condition('type', SophiaGlobal::BODIES)
             ->condition('type', SophiaGlobal::PORTFOLIO)
             ->condition('type', SophiaGlobal::LEGISLATION)
             ->condition('type', SophiaGlobal::COOPERATIVE_RELATIONSHIP)
             ->execute();
-        return Node::loadMultiple($nids);
     }
 
     /**

@@ -3,6 +3,8 @@
 
 namespace Drupal\neptune_sync\Data;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\neptune_sync\Querier\Query;
 use Drupal\neptune_sync\Querier\QueryManager;
@@ -39,15 +41,22 @@ class NeptuneImporter
 
 
     public function wipeNodes(){
+
         Helper::log("Deleting all Neptune data...",true);
-        $nodes = $this->entity_Mgr->getAllNeptunetypes();
-        foreach ($nodes as $node)
-            try {
-                $node->delete();
-            } catch (EntityStorageException $e) {
-                Helper::log("Err508 - Error deleting nodes during mass delete. Exiting. Error: " . $e);
-                return false;
-            }
+
+        $nodeIds = $this->entity_Mgr->getAllNeptunetypesId();
+        try {
+            $storage_handler = \Drupal::entityTypeManager()->getStorage(
+                SophiaGlobal::NODE);
+            $entities = $storage_handler->loadMultiple($nodeIds);
+            $storage_handler->delete($entities);
+        } catch (InvalidPluginDefinitionException|PluginNotFoundException|
+            EntityStorageException $e) {
+
+            Helper::log("Err508 - Error deleting nodes during mass delete. Exiting. Error: " . $e);
+            return false;
+        }
+
         Helper::log("Finished deleting all neptune data", true);
         return true;
     }
@@ -57,9 +66,9 @@ class NeptuneImporter
         if($wipeData)
             $this->wipeNodes();
 
-        //$this->importFromQuery(QueryTemplate::getPortfolios(), SophiaGlobal::PORTFOLIO);
+        $this->importFromQuery(QueryTemplate::getPortfolios(), SophiaGlobal::PORTFOLIO);
         $this->importFromQuery(QueryTemplate::getLegislations(), SophiaGlobal::LEGISLATION);
-        //$this->importFromQuery(QueryTemplate::getBodies(), SophiaGlobal::BODIES);
+        $this->importFromQuery(QueryTemplate::getBodies(), SophiaGlobal::BODIES);
     }
 
     public function importFromQuery(Query $query, $subType){

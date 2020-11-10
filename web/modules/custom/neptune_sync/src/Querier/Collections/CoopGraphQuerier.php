@@ -59,7 +59,7 @@ class CoopGraphQuerier{
                 '?outcomeDesc',
             );
 
-            $queryForm = "SELECT ";
+            $queryForm = "SELECT DISTINCT ";
             foreach ($selectKey as $key => $val)
                 if ($key = 'default')               //build with default keys
                     foreach ($val as $subval)

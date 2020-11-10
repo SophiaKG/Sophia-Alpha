@@ -53,7 +53,7 @@ class QueryTemplate
                             'SELECT DISTINCT ?obj ?objLabel ' .
                             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
                             'WHERE { ' .
-                                '?obj a ns2:Legislation. ' .
+                                '?obj a ns2:Series. ' .
                                 '?obj rdfs:label ?objLabel. ' .
                             '}');
         return $q;
