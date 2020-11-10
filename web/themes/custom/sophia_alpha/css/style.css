@@ -196,6 +196,30 @@ header#header {
 
 .form-row .form-actions {
     align-self: center;
+    margin: auto;
+}
+#block-exposedformsearchpage-1-2 .form-row {
+    padding: 1rem;
+}
+#block-exposedformsearchpage-1-2 .form-row fieldset {
+    padding: unset;
+}
+#block-exposedformsearchpage-1-2 .form-group {
+    margin-bottom: 0px;
+}
+#views-exposed-form-search-page-1 .form-submit.btn,
+#views-exposed-form-search-page-1-2 .form-submit.btn,
+#views-exposed-form-search-page-2 .form-submit.btn {
+    float: left;
+    width: fit-content;
+    margin-left: 1rem;
+}
+#block-exposedformsearchpage-2 .form-submit.btn {
+    margin-top: 0.7rem;
+}
+
+#edit-reset--2 {
+    display: none;
 }
 .form-text {
     margin-top: unset;

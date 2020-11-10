@@ -3,9 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
     - field.storage.node.field_bodies
+    - field.storage.node.body
     - field.storage.node.field_flipchart_keys
+    - field.storage.node.field_outcome_description
+    - field.storage.node.field_program
+    - field.storage.node.field_program_description_
     - search_api.server.default_server
     - core.entity_view_mode.node.search_index
   module:
@@ -43,6 +46,32 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_flipchart_keys
+  field_outcome_description:
+    label: 'Outcome Description'
+    datasource_id: 'entity:node'
+    property_path: field_outcome_description
+    type: text
+    boost: !!float 8
+    dependencies:
+      config:
+        - field.storage.node.field_outcome_description
+  field_program:
+    label: Program
+    datasource_id: 'entity:node'
+    property_path: field_program
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_program
+  field_program_description_:
+    label: 'Program Description '
+    datasource_id: 'entity:node'
+    property_path: field_program_description_
+    type: text
+    boost: !!float 5
+    dependencies:
+      config:
+        - field.storage.node.field_program_description_
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -80,7 +109,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: text
-    boost: !!float 8
+    boost: !!float 21
     dependencies:
       module:
         - node
@@ -94,7 +123,7 @@ field_settings:
       module:
         - node
   uid:
-    label: null
+    label: uid
     datasource_id: 'entity:node'
     property_path: uid
     type: integer
@@ -106,31 +135,33 @@ field_settings:
 datasource_settings:
   'entity:node':
     bundles:
-      default: false
-      selected:
-        - bodies
-        - cooperative_relationships
-        - legislation
-        - page
-        - portfolios
+      default: true
+      selected: {  }
     languages:
       default: true
       selected: {  }
 processor_settings:
-  type_boost:
-    boosts:
-      'entity:node':
-        datasource_boost: !!float 8
-        bundle_boosts:
-          bodies: !!float 13
-          cooperative_relationships: !!float 8
-          legislation: !!float 5
-          portfolios: !!float 21
-    weights:
-      preprocess_index: -49
+  add_url: {  }
+  aggregated_field: {  }
   content_access:
     weights:
       preprocess_query: -30
+  hierarchy:
+    fields:
+      field_bodies: node-field_portfolio
+      field_flipchart_keys: taxonomy_term-parent
+    weights:
+      preprocess_index: -48
+  highlight:
+    highlight: always
+    highlight_partial: false
+    excerpt: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    prefix: '<strong>'
+    suffix: '</strong>'
+    weights:
+      postprocess_query: 0
   html_filter:
     all_fields: false
     fields:
@@ -148,23 +179,19 @@ processor_settings:
     weights:
       preprocess_index: -15
       preprocess_query: -15
-  highlight:
-    highlight: always
-    highlight_partial: false
-    excerpt: true
-    excerpt_length: 256
-    exclude_fields: {  }
-    prefix: '<strong>'
-    suffix: '</strong>'
-    weights:
-      postprocess_query: 0
-  hierarchy:
+  ignorecase:
+    all_fields: false
     fields:
-      field_bodies: node-field_portfolio
-      field_flipchart_keys: taxonomy_term-parent
+      - body
+      - field_bodies
+      - title
+      - type
     weights:
-      preprocess_index: -48
+      preprocess_index: -50
+      preprocess_query: -20
   language_with_fallback: {  }
+  rendered_item: {  }
+  reverse_entity_references: {  }
   stemmer:
     all_fields: false
     fields:
@@ -180,20 +207,6 @@ processor_settings:
     weights:
       preprocess_index: 0
       preprocess_query: 0
-  add_url: {  }
-  ignorecase:
-    all_fields: false
-    fields:
-      - body
-      - field_bodies
-      - title
-      - type
-    weights:
-      preprocess_index: -50
-      preprocess_query: -20
-  rendered_item: {  }
-  aggregated_field: {  }
-  reverse_entity_references: {  }
   tokenizer:
     all_fields: false
     fields:
@@ -210,6 +223,17 @@ processor_settings:
     weights:
       preprocess_index: -6
       preprocess_query: -6
+  type_boost:
+    boosts:
+      'entity:node':
+        datasource_boost: !!float 8
+        bundle_boosts:
+          bodies: !!float 13
+          cooperative_relationships: !!float 8
+          legislation: !!float 5
+          portfolios: !!float 21
+    weights:
+      preprocess_index: -49
 tracker_settings:
   default:
     indexing_order: fifo
