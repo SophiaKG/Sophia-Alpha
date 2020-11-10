@@ -763,7 +763,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: and
           value:
             bodies: bodies
           group: 1
