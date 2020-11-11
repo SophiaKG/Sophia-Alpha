@@ -30,6 +30,20 @@ nav.menu--main,
     margin-top: 10px;
 }
 
+@media ( max-width: 770px ) {
+    .sf-accordion-toggle {
+        display: none;
+    }
+
+    #superfish-main {
+        display: block !important;
+    }
+    #block-sophia-alpha-sitetitle h1 {
+        margin: 4rem 0rem;
+        font-size: 1.5rem;
+    }
+}
+
 .menu-toggle {
     background-color: aliceblue;
     border: 1px solid aliceblue;
