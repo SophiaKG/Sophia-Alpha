@@ -38,6 +38,9 @@ nav.menu--main,
     #superfish-main {
         display: block !important;
     }
+    ul.sf-menu.menu {
+        width: 70%; /* addresses IE behaviour*/
+    }
     #block-sophia-alpha-sitetitle h1 {
         margin: 4rem 0rem;
         font-size: 1.5rem;
@@ -704,4 +707,20 @@ article.comCompany {
     #block-sophia-alpha-sitetitle h1 {
         margin: 2.2rem;
     }
+}
+
+.path-summary-print .view-display-id-block_1 div.view-content {
+    max-height: none;
+    height: auto;
+}
+
+.path-summary-print .view-display-id-block_1 div.view-content table.cols-2 {
+    width: 32% !important;
+    padding: 5px !important;
+}
+.path-summary-print .cols-2 thead .views-field-name {
+    width: 15%;
+}
+.path-summary-print .cols-2 caption {
+    height: 75px;
 }
