@@ -397,7 +397,7 @@ display:
           entity_type: taxonomy_term
           entity_field: weight
           plugin_id: standard
-      title: 'Summary keys'
+      title: 'key to Symbols'
       header:
         area:
           id: area
@@ -448,6 +448,98 @@ display:
           plugin_id: text
       defaults:
         header: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.permissions
+      tags: {  }
+  block_2:
+    display_plugin: block
+    id: block_2
+    display_title: 'Print Block'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      block_description: 'Summary Print'
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: "<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
+            format: full_html
+          plugin_id: text
+      defaults:
+        header: false
+        style: false
+        row: false
+        sorts: false
+      display_description: ''
+      style:
+        type: table
+        options:
+          grouping:
+            -
+              field: parent_target_id
+              rendered: true
+              rendered_strip: false
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            name: name
+            description__value: description__value
+            parent_target_id: parent_target_id
+          info:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            description__value:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            parent_target_id:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: true
+      row:
+        type: fields
+        options: {  }
+      sorts:
+        parent_target_id:
+          id: parent_target_id
+          table: taxonomy_term__parent
+          field: parent_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: taxonomy_term
+          entity_field: parent
+          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:

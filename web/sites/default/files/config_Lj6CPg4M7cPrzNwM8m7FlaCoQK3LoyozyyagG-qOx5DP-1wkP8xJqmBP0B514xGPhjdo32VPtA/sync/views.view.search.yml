@@ -7,6 +7,7 @@ dependencies:
     - field.storage.node.field_flipchart_keys
     - field.storage.node.field_portfolio
     - field.storage.node.field_program
+    - field.storage.node.field_type_of_body
     - search_api.index.all_content
     - taxonomy.vocabulary.flip_chart_keys
   module:
@@ -83,7 +84,8 @@ display:
         type: fields
         options:
           default_field_elements: true
-          inline: {  }
+          inline:
+            field_type_of_body: field_type_of_body
           separator: ''
           hide_empty: false
       fields:
@@ -156,6 +158,105 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
+          entity_type: node
+          plugin_id: search_api_field
+        field_type_of_body:
+          id: field_type_of_body
+          table: search_api_datasource_all_content_entity_node
+          field: field_type_of_body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Type
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: true
+          fallback_handler: search_api_entity
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+            display_methods:
+              economic_sector:
+                display_method: label
+              employment_type:
+                display_method: label
+              financial_classification:
+                display_method: label
+                view_mode: default
+              flip_chart_booleans:
+                display_method: label
+              flip_chart_keys:
+                display_method: label
+              outcome:
+                display_method: label
+              portfolio:
+                display_method: label
+              program:
+                display_method: label
+              rdf_class_type:
+                display_method: label
+              rdf_relationships:
+                display_method: label
+              tags:
+                display_method: label
+              test_rdf_import:
+                display_method: label
+              type_of_body:
+                display_method: label
           entity_type: node
           plugin_id: search_api_field
         field_flipchart_keys:
@@ -665,6 +766,7 @@ display:
         - 'config:field.storage.node.field_flipchart_keys'
         - 'config:field.storage.node.field_portfolio'
         - 'config:field.storage.node.field_program'
+        - 'config:field.storage.node.field_type_of_body'
         - 'config:search_api.index.all_content'
   page_1:
     display_plugin: page
@@ -860,6 +962,7 @@ display:
         - 'config:field.storage.node.field_flipchart_keys'
         - 'config:field.storage.node.field_portfolio'
         - 'config:field.storage.node.field_program'
+        - 'config:field.storage.node.field_type_of_body'
         - 'config:search_api.index.all_content'
   page_2:
     display_plugin: page
@@ -1115,4 +1218,5 @@ display:
         - 'config:field.storage.node.field_flipchart_keys'
         - 'config:field.storage.node.field_portfolio'
         - 'config:field.storage.node.field_program'
+        - 'config:field.storage.node.field_type_of_body'
         - 'config:search_api.index.all_content'

@@ -24,4 +24,9 @@ settings:
   level: 1
   depth: 1
   expand_all_items: false
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /summary-print
+    negate: true
+    context_mapping: {  }

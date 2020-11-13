@@ -81,6 +81,7 @@ ul.sf-menu.menu li {
 }
 .navbar-toggler:hover {
     background: #efefef;
+    border-color: #414042;
 }
 
 main#content table thead,
@@ -677,17 +678,26 @@ article.nonCorp {
     border-bottom: 1px solid rgb(204, 204, 255);
     background-color: transparent;
 }
+.ncce {
+    color: rgb(204, 204, 255) !important;
+}
 article.corp {
     border-left: 6px solid rgb(170, 225, 194) !important;
     border-bottom: 1px solid rgb(170, 225, 194);
     background-color: transparent;
     
 }
+.cce {
+    color: rgb(170, 225, 194) !important;
+}
 article.comCompany {
     border-left: 6px solid rgb(249, 238, 186) !important;
     border-bottom: 1px solid rgb(249, 238, 186);
     background-color: transparent;
     
+}
+.ccmp {
+    color: rgb(249, 238, 186) !important;
 }
 #block-sophia-alpha-footer {
     margin: auto;
