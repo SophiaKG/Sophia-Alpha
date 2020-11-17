@@ -3,10 +3,10 @@ disable_messages_filter_by_page: 0
 disable_messages_page_filter_paths: ''
 disable_messages_enable_debug: '0'
 disable_messages_debug_visible_div: '0'
-disable_messages_ignore_patterns: 'Notice: Undefined offset:'
+disable_messages_ignore_patterns: ''
 disable_messages_exclude_users: 'AtamDhillon, Alexis_Harper, Andrew_Fitzgerald'
 disable_messages_ignore_case: '1'
 disable_messages_ignore_regex:
-  - '/^Notice: Undefined offset:$/i'
+  - /^$/i
 _core:
   default_config_hash: 1KtMq77r11Up8xB2acdeDhrNIlFzu-Edepx453c20Ws

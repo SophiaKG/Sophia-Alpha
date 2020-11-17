@@ -547,14 +547,14 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
-  page_1:
-    display_plugin: page
-    id: page_1
-    display_title: Page
+  block_3:
+    display_plugin: block
+    id: block_3
+    display_title: 'Summary Key frontpage'
     position: 1
     display_options:
       display_extenders: {  }
-      path: Summary_Key_Details
+      block_description: 'Summary key frontpage'
       header:
         area:
           id: area
@@ -566,11 +566,132 @@ display:
           empty: false
           tokenize: false
           content:
-            value: '<div class="graph_back_btn"><a href="/drupal8/web/Summary">Back to Summary View</a></div>'
+            value: "<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
             format: full_html
           plugin_id: text
       defaults:
         header: false
+        style: false
+        row: false
+      display_description: ''
+      style:
+        type: table
+        options:
+          grouping:
+            -
+              field: parent_target_id
+              rendered: true
+              rendered_strip: false
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            name: name
+            description__value: description__value
+            parent_target_id: parent_target_id
+          info:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            description__value:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            parent_target_id:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: true
+      row:
+        type: fields
+        options: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.permissions
+      tags: {  }
+  page_1:
+    display_plugin: page
+    id: page_1
+    display_title: Page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: "<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
+            format: full_html
+          plugin_id: text
+      defaults:
+        header: false
+        style: false
+        row: false
+      display_description: ''
+      style:
+        type: table
+        options:
+          grouping:
+            -
+              field: parent_target_id
+              rendered: true
+              rendered_strip: false
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            name: name
+            description__value: description__value
+            parent_target_id: parent_target_id
+          info:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: views-align-left
+              separator: ''
+              empty_column: false
+              responsive: ''
+            description__value:
+              align: views-align-left
+              separator: ''
+              empty_column: false
+              responsive: ''
+            parent_target_id:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: false
+      row:
+        type: fields
+        options: {  }
+      path: Summary_Key_Details
     cache_metadata:
       max-age: -1
       contexts:

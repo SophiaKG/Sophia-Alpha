@@ -15,6 +15,11 @@ a:hover {
     background-color: none !important;
     text-decoration: underline;
 }
+
+.modal-dialog {
+    margin: 18vw auto !important;
+}
+
 a.navbar-brand{
     margin: 10px 20px;
 }
@@ -171,6 +176,13 @@ box-shadow: 1px 2px #1d84c3;
     background-color: #efefef;
     max-height: 615px;
    /* overflow-y: auto;*/
+}
+#block-views-block-summary-key-block-3 {
+    height: 600px;
+    overflow: auto;
+}
+#block-views-block-summary-key-block-3 .table-responsive {
+    overflow-x: unset !important;
 }
 #sidebar_second {
     border-radius: 12px;
@@ -386,13 +398,19 @@ canvas {
 /* shapes-legend is used to provide legend that explains
    shapes above the coop relationships graph.
 */
-.shapes-legend {
+.shapes-legend,
+.color-keys {
     color: #1d84c3;
     padding: 10px 20px;
     text-align: center;
 
 }
-.shapes-legend p {
+.color-keys {
+    font-weight: 600;
+    font-size: smaller;
+}
+.shapes-legend p,
+.color-keys p {
     border-bottom: 1px solid #1d84c3;
     
 }
@@ -403,6 +421,11 @@ canvas {
     vertical-align: middle;
     padding-bottom: 4px;
     
+}
+.color-keys p i {
+    font-size: 20px;
+    vertical-align: middle;
+    padding-bottom: 4px;
 }
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
@@ -473,7 +496,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     margin: 2px 0 !important;
 }
 
-.page-view-flipchart .block-views-blocksummary-key-block-1 h2 {
+.page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
 

@@ -112,9 +112,9 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
-  confirmation_title: ''
-  confirmation_message: ''
+  confirmation_type: modal
+  confirmation_title: Thankyou
+  confirmation_message: 'Thankyou for your feedback. We will try and attend to it as soon as possible.'
   confirmation_url: ''
   confirmation_attributes: {  }
   confirmation_back: true
@@ -146,7 +146,6 @@ settings:
 access:
   create:
     roles:
-      - anonymous
       - authenticated
     users: {  }
     permissions: {  }
