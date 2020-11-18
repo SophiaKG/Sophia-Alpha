@@ -15,6 +15,11 @@ a:hover {
     background-color: none !important;
     text-decoration: underline;
 }
+
+.modal-dialog {
+    margin: 18vw auto !important;
+}
+
 a.navbar-brand{
     margin: 10px 20px;
 }
@@ -28,6 +33,27 @@ nav.menu--main,
     width: auto;
     margin: auto;
     margin-top: 10px;
+}
+
+@media ( max-width: 770px ) {
+    .sf-accordion-toggle {
+        display: none;
+    }
+
+    #superfish-main {
+        display: block !important;
+    }
+    ul.sf-menu.menu {
+        width: 70%; /* addresses IE behaviour*/
+    }
+    #block-sophia-alpha-sitetitle h1 {
+        margin: 4rem 0rem;
+        font-size: 1.5rem;
+    }
+    .page-view-flipchart .view-display-id-block_3 table {
+        margin: auto !important;
+        width: 100% !important;
+    }
 }
 
 .menu-toggle {
@@ -64,6 +90,7 @@ ul.sf-menu.menu li {
 }
 .navbar-toggler:hover {
     background: #efefef;
+    border-color: #414042;
 }
 
 main#content table thead,
@@ -153,6 +180,10 @@ box-shadow: 1px 2px #1d84c3;
     background-color: #efefef;
     max-height: 615px;
    /* overflow-y: auto;*/
+}
+
+#block-views-block-summary-key-block-3 .table-responsive {
+    overflow-x: unset !important;
 }
 #sidebar_second {
     border-radius: 12px;
@@ -368,13 +399,19 @@ canvas {
 /* shapes-legend is used to provide legend that explains
    shapes above the coop relationships graph.
 */
-.shapes-legend {
+.shapes-legend,
+.color-keys {
     color: #1d84c3;
     padding: 10px 20px;
     text-align: center;
 
 }
-.shapes-legend p {
+.color-keys {
+    font-weight: 600;
+    font-size: smaller;
+}
+.shapes-legend p,
+.color-keys p {
     border-bottom: 1px solid #1d84c3;
     
 }
@@ -385,6 +422,11 @@ canvas {
     vertical-align: middle;
     padding-bottom: 4px;
     
+}
+.color-keys p i {
+    font-size: 20px;
+    vertical-align: middle;
+    padding-bottom: 4px;
 }
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
@@ -443,19 +485,20 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     padding-top: 20px;
 }
 
-.page-view-flipchart .view-display-id-block_1 div.view-content {
+.page-view-flipchart .view-display-id-block_3 div.view-content {
     max-height: 520px;
     overflow-y: auto;
 }
 
-.page-view-flipchart .view-display-id-block_1 table {
+.page-view-flipchart .view-display-id-block_3 table {
     background-color: aliceblue;
     max-height: 600px;
     overflow-y: auto;
-    margin: 2px 0 !important;
+    margin: 2px -15px;
+    width: 240px;
 }
 
-.page-view-flipchart .block-views-blocksummary-key-block-1 h2 {
+.page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
 
@@ -660,11 +703,17 @@ article.nonCorp {
     border-bottom: 1px solid rgb(204, 204, 255);
     background-color: transparent;
 }
+.ncce {
+    color: rgb(204, 204, 255) !important;
+}
 article.corp {
     border-left: 6px solid rgb(170, 225, 194) !important;
     border-bottom: 1px solid rgb(170, 225, 194);
     background-color: transparent;
     
+}
+.cce {
+    color: rgb(170, 225, 194) !important;
 }
 article.comCompany {
     border-left: 6px solid rgb(249, 238, 186) !important;
@@ -672,8 +721,18 @@ article.comCompany {
     background-color: transparent;
     
 }
+.ccmp {
+    color: rgb(249, 238, 186) !important;
+}
 #block-sophia-alpha-footer {
     margin: auto;
+}
+.view-id-entity_types {
+    display: none;
+}
+.view-id-entity_types .table .views-field-name {
+    width: 25%;
+    text-align: left;
 }
 
 @media only screen and (min-width: 992px) {
@@ -690,4 +749,20 @@ article.comCompany {
     #block-sophia-alpha-sitetitle h1 {
         margin: 2.2rem;
     }
+}
+
+.path-summary-print .view-display-id-block_1 div.view-content {
+    max-height: none;
+    height: auto;
+}
+
+.path-summary-print .view-display-id-block_1 div.view-content table.cols-2 {
+    width: 32% !important;
+    padding: 5px !important;
+}
+.path-summary-print .cols-2 thead .views-field-name {
+    width: 15%;
+}
+.path-summary-print .cols-2 caption {
+    height: 75px;
 }

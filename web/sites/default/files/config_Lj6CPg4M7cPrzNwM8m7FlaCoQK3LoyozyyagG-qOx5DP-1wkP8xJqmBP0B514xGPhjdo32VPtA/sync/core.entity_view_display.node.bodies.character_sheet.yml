@@ -158,4 +158,8 @@ content:
 hidden:
   feeds_item: true
   field_demo: true
+<<<<<<< HEAD
   field_neptune_uri: true
+=======
+  search_api_excerpt: true
+>>>>>>> atam-dev

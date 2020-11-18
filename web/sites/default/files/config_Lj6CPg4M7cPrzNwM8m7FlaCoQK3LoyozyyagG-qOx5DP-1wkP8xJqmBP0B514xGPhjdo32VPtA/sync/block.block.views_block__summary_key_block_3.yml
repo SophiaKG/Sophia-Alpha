@@ -1,0 +1,30 @@
+uuid: ad79debc-c031-491a-ac51-845568b135e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.summary_key
+  module:
+    - system
+    - views
+  theme:
+    - sophia_alpha
+id: views_block__summary_key_block_3
+theme: sophia_alpha
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_block:summary_key-block_3'
+settings:
+  id: 'views_block:summary_key-block_3'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /summary
+    negate: false
+    context_mapping: {  }

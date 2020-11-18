@@ -101,7 +101,7 @@
         {{ kint(val, 'rows v2') }}
       {% endfor %}
       {{ kint(rows['1']['#rows']|length) }#}
-    
+      
 
 {#rows: {{ rows|length }}
       total count: {{ count }}
@@ -114,17 +114,10 @@
           {{ rows[:3] }}
         </div>
         <div class="col">
-<<<<<<< HEAD
-          {{ rows|slice(3, 3) }}
-        </div>
-        <div class="col">
-          {{ rows[8:] }}
-=======
           {{ rows|slice(3, 4) }}
         </div>
         <div class="col">
           {{ rows[7:] }}
->>>>>>> atam-dev
         </div>
       </div>
 
@@ -132,7 +125,7 @@
     </div>
   {% elseif empty %}
     <div class="view-empty">
-      
+      {{ empty }}
     </div>
   {% endif %}
 
