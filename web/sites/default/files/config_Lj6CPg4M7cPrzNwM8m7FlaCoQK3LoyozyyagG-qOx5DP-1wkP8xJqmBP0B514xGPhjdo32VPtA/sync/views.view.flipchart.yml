@@ -9,10 +9,7 @@ dependencies:
     - system.menu.main
     - taxonomy.vocabulary.type_of_body
   content:
-<<<<<<< HEAD
     - 'taxonomy_term:type_of_body:6722eaf6-7f4b-46e4-bd80-12566fe24cae'
-=======
->>>>>>> atam-dev
     - 'taxonomy_term:type_of_body:6cd70b1a-f1be-4a78-a18b-f956d522435c'
     - 'taxonomy_term:type_of_body:7996b09b-dec3-4f78-8272-b9ec3e4d2fcd'
     - 'taxonomy_term:type_of_body:a377fdac-555c-47ad-8bfe-be0d9cb71058'
