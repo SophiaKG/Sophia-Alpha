@@ -108,8 +108,8 @@ display:
           label: Name
           exclude: false
           alter:
-            alter_text: true
-            text: ''
+            alter_text: false
+            text: '<abbr>{{ name }}</abbr>'
             make_link: false
             path: ''
             absolute: false
