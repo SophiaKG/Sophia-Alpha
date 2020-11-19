@@ -66,11 +66,11 @@ class CharacterSheetManager
             'TaxonomyId' => '134',
             'parentId' => '127'),
         'PS Act' => array(
-            'Neptune_obj' => 'C2004A00538APSemployment',
+            'Neptune_obj' => 'NA',
             'TaxonomyId' => '136',
             'parentId' => '135'),
         '^' => array(
-            'Neptune_obj' => 'NA',
+            'Neptune_obj' => 'C2004A00538APSemployment',
             'TaxonomyId' => '137',
             'parentId' => '135'),
         '#' => array(
@@ -222,20 +222,22 @@ class CharacterSheetManager
 
         //new stuff
         $vals = $this->getTaxonomyIDArray('291');
-        Helper::log("flipchart body type arr = ");
-        Helper::log($vals);
         $res = $this->check_term($vals, $node);
         if($res)
             $this->body->addFlipchartKey($res);
 
     }
 
-    private function getTaxonomyIDArray(string $parentId){
+    private function getTaxonomyIDArray(string $parentId, bool $incParent = false){
         $arr = [];
-        foreach (self::SummaryChartKey as $key){
-            if( $key['parentId'] == $parentId)
-                $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
-        }
+        if(!$incParent)
+            foreach (self::SummaryChartKey as $key)
+                if( $key['parentId'] == $parentId && $key['Neptune_obj'] != "NA")
+                    $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
+        else
+            foreach (self::SummaryChartKey as $key)
+                if($key['parentId'] == $parentId)
+                    $arr[] = $key;
         return $arr;
     }
 
@@ -280,6 +282,34 @@ class CharacterSheetManager
         if($res == null)
             $res = $vals['NA'];
         $this->body->setEmploymentType($res);
+
+        //new stuff centos 'TaxonomyId' => '137'
+        $res = "";
+        $vals = $this->getTaxonomyIDArray('135', true);
+        foreach ($vals as $key)
+            switch (key($key)) {
+                case 'PS Act': //its the default value if no assignment could be made
+                    break;
+                case '^':
+                    $query = QueryBuilder::buildAskQuery(
+                        QueryBuilder::getStaffingPart($node, $key['Neptune_obj']));
+                    if (!$this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
+                    break;
+                case '#':
+                    $query = QueryBuilder::buildAskQuery(
+                        QueryBuilder::getStaffingPart($node, $key['Neptune_obj']));
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
+                    break;
+                case '▲':
+
+                    break;
+            }
+
+        if ($res == "")
+            $res = $vals['PS Act']['TaxonomyId'];
+        $this->body->addFlipchartKey($res);
     }
 
     private function processLink(NodeInterface $node){
