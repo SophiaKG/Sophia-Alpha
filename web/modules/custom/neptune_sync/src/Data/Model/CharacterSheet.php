@@ -20,13 +20,16 @@ class CharacterSheet extends Node implements DrupalEntityExport
     //Financial classification0
     protected $fin_class = [];
     protected $link;
+    protected $legislations = [];
+    //Employment type
+    protected $employment_type;
+    //flip chart keys
+    protected $flipchart_keys = [];
 
     /** @deprecated */
     protected $abn;
     //Enabling legislation and other key governance-related details
-    protected $legislations = [];
-    //Employment type
-    protected $employment_type;
+
 
     /** @var String[] node id entity refs */
     protected $cooperativeRelationships = [];
@@ -302,6 +305,9 @@ class CharacterSheet extends Node implements DrupalEntityExport
         return $this->link;
     }
 
+    public function addFlipchartKey(string $key): void {
+        array_push($this->flipchart_keys, $key);
+    }
     /**
      * @param mixed $link
      */
@@ -360,6 +366,11 @@ class CharacterSheet extends Node implements DrupalEntityExport
         foreach ($this->fin_class as $class)
             $addArr[] = ['target_id' => $class];
         $retArr['field_financial_classification'] = $addArr;
+
+        $addArr = array();
+        foreach ($this->flipchart_keys as $class)
+            $addArr[] = ['target_id' => $class];
+        $retArr['field_flipchart_keys'] = $addArr;
 
         return $retArr;
     }

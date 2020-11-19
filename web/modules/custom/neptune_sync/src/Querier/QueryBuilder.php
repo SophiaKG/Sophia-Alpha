@@ -14,9 +14,76 @@ use Drupal\node\NodeInterface;
  * @author: Alexis Harper | DoF
  * This class is for building dynamic SPARQL queries
  */
-class QueryBuilder
-{
+class QueryBuilder {
+
     const GRAPH_WORKING_DIR = 'sites/default/files/graphs/';
+
+    /**Checks if the node has a given property, binded by an authority
+     * @param NodeInterface $node The node to check the property from.
+     * @param $term string The property to check if it exist.
+     * @return Query Returns a true or false in the form of if the node has the given propery in neptune.
+     */
+    public static function checkTerm(NodeInterface $node, $term){
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL() .
+            'ASK { ' .
+                self::getValidatedAuthorityPart(self::getUri($node, "ns2"), $term) .
+            ' }');
+
+        return $q;
+    }
+
+    /** Checks if an object has a property via authority that is validated (Witness)
+     * by some means, normally the flipchart
+     *
+     * @param $ent string entity to check
+     * @param $term string The property to check
+     * @return string a part of query to be inserted into a where clause
+     */
+    public static function getValidatedAuthorityPart($node, $term){
+        if($node instanceof NodeInterface)
+            $node = self::getUri($node, "ns2");
+        return
+            '?auth ns2:BindsTo ' . $node . '. ' .
+            '?auth ns2:Binds ' . $term . '. ' .
+            '?flipchart ns2:Witnesses ?auth. ' .
+            '?flipchart ns2:live true. ';
+    }
+
+    public static function checkEmploymentType(NodeInterface $node, $term){
+                self::getStaffingPart(self::getUri($node, "ns2"), $term);
+    }
+
+    public static function getStaffingPart($node, $term){
+        if($node instanceof NodeInterface)
+            $node = self::getUri($node, "ns2");
+        return
+            '?ent ns2:live true. ' .
+            '?auth0 ns2:Binds ?myStaffing. ' .
+            '?auth0 ns2:BindsTo ' . $node . '. ' .
+            '?auth1 ns2:Binds ' . $term . '. ' .
+            '?auth1 ns2:isRestrictionOf ?myStaffing. ';
+    }
+
+    /**
+     * @uses getValidatedAuthorityPart()
+     * @uses getStaffingPart()
+     * @param $askClauseFunc
+     * @return Query
+     */
+    public static function buildAskQuery($askClauseFunc){
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL() .
+            'ASK { ' .
+                $askClauseFunc .
+            ' }');
+        return $q;
+    }
+
 
     /**
      * Checks if a passed in node (Government Body) is part of a ns1 class

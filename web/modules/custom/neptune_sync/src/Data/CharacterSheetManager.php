@@ -17,6 +17,100 @@ use Drupal\node\NodeInterface;
 
 class CharacterSheetManager
 {
+
+    private const SummaryChartKey = array(
+        'Non-corporate Commonwealth entity' => array(
+            'Neptune_obj' => 'ns2:C2013A00123noncorporateCommonwealthentity',
+            'TaxonomyId' => '292',
+            'parentId' => '291'),
+        'Corporate Commonwealth entity' => array(
+            'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
+            'TaxonomyId' => '293',
+            'parentId' => '291'),
+        'Commonwealth company' => array(
+            'Neptune_obj' => 'ns2:C2013A00123Commonwealthcompany',
+            'TaxonomyId' => '294',
+            'parentId' => '291'),
+        'B' => array(
+            'Title' => 'Government Business Enterprises',
+            'Neptune_obj' => 'ns2:C2013A00123governmentbusinessenterprise',
+            'TaxonomyId' => '128',
+            'parentId' => '127'),
+        'E' => array(
+            'Title' => 'Executive Agency',
+            'Neptune_obj' => 'ns2:C2004A00538ExecutiveAgency',
+            'TaxonomyId' => '129',
+            'parentId' => '127'),
+        'HC' => array(
+            'Title' => 'High-Court',
+            'Neptune_obj' => 'NA',
+            'TaxonomyId' => '130',
+            'parentId' => '127'),
+        'i' => array(
+            'Title' => 'Inter-jurisdictional entities',
+            'Neptune_obj' => 'ns2:EntityListSeriesInterJurisdictional',
+            'TaxonomyId' => '131',
+            'parentId' => '127'),
+        'M' => array(
+            'Title' => 'Material',
+            'Neptune_obj' => 'ns2:EntityListSeriesMaterialEntity',
+            'TaxonomyId' => '132',
+            'parentId' => '127'),
+        'R' => array(
+            'Title' => 'Corporate Commonwealth entities',
+            'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
+            'TaxonomyId' => '133',
+            'parentId' => '127'),
+        '*' => array(
+            'Neptune_obj' => 'NA',
+            'TaxonomyId' => '134',
+            'parentId' => '127'),
+        'PS Act' => array(
+            'Neptune_obj' => 'C2004A00538APSemployment',
+            'TaxonomyId' => '136',
+            'parentId' => '135'),
+        '^' => array(
+            'Neptune_obj' => 'NA',
+            'TaxonomyId' => '137',
+            'parentId' => '135'),
+        '#' => array(
+            'Neptune_obj' => 'NA',
+            'TaxonomyId' => '138',
+            'parentId' => '135'),
+        '▲' => array(
+            'Neptune_obj' => 'NA',
+            'TaxonomyId' => '139',
+            'parentId' => '135'),
+        'GGS' => array(
+            'Neptune_obj' => '',
+            'TaxonomyId' => '141',
+            'parentId' => '140'),
+        'F' => array(
+            'Title' => 'Public Financial Corporation',
+            'Neptune_obj' => '',
+            'TaxonomyId' => '142',
+            'parentId' => '140'),
+        'T' => array(
+            'Title' => 'Public Non-financial Corporation',
+            'Neptune_obj' => '',
+            'TaxonomyId' => '143',
+            'parentId' => '140'),
+        '℗' => array(
+            'Title' => 'Commonwealth Procurement Rules',
+            'Neptune_obj' => '',
+            'TaxonomyId' => '144',
+            'parentId' => '148'),
+        'X' => array(
+            'Title' => 'Government policy orders',
+            'Neptune_obj' => '',
+            'TaxonomyId' => '145',
+            'parentId' => '148'),
+        'Listed Entities' => array(
+            'Neptune_obj' => 'ns2:C2013A00123listedentity',
+            'TaxonomyId' => '147',
+            'parentId' => '146'),
+    );
+
     protected $body;
     protected $query_mgr;
     protected $ent_mgr;
@@ -125,6 +219,24 @@ class CharacterSheetManager
         if(!$res)
             $res = $vals['NA'];
         $this->body->setTypeOfBody($res);
+
+        //new stuff
+        $vals = $this->getTaxonomyIDArray('291');
+        Helper::log("flipchart body type arr = ");
+        Helper::log($vals);
+        $res = $this->check_term($vals, $node);
+        if($res)
+            $this->body->addFlipchartKey($res);
+
+    }
+
+    private function getTaxonomyIDArray(string $parentId){
+        $arr = [];
+        foreach (self::SummaryChartKey as $key){
+            if( $key['parentId'] == $parentId)
+                $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
+        }
+        return $arr;
     }
 
     /**
@@ -249,6 +361,22 @@ class CharacterSheetManager
         foreach (array_keys($vals) as $val){
 
             $query = QueryBuilder::checkAskBody($node, $val);
+            $json = $this->query_mgr->runCustomQuery($query);
+            if ($this->evaluate($json))
+                return $vals[$val];
+        }
+        return false;
+    }
+
+    /**
+     * @param array $vals of form ['Neptune_obj'] => ['TaxonomyID']
+     * @param NodeInterface $node
+     * @return false|string The drupal Vid|Nid of the term if it exists in neptune
+     */
+    private function check_term(array $vals, NodeInterface $node){
+        foreach (array_keys($vals) as $val){
+
+            $query = QueryBuilder::buildAskQuery(QueryBuilder::getValidatedAuthorityPart($node, $val));
             $json = $this->query_mgr->runCustomQuery($query);
             if ($this->evaluate($json))
                 return $vals[$val];
