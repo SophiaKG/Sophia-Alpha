@@ -17,14 +17,14 @@ provider: null
 plugin: 'views_block:summary_key-block_3'
 settings:
   id: 'views_block:summary_key-block_3'
-  label: ''
+  label: 'keys Chart'
   provider: views
   label_display: visible
-  views_label: ''
+  views_label: 'keys Chart'
   items_per_page: none
 visibility:
   request_path:
     id: request_path
-    pages: /summary
+    pages: "/summary\r\n/summary/*"
     negate: false
     context_mapping: {  }

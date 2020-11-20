@@ -533,7 +533,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
+          order: DESC
           exposed: false
           expose:
             label: ''
@@ -566,7 +566,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
+            value: "<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/drupal8/web/Summary\">All Entities</a></div>\r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\"><em>this page | </em><i class=\"fas fa-file\"></i></a><br/>Select a Key to view entities with that key</div>\r\n\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
             format: full_html
           plugin_id: text
       defaults:
@@ -641,7 +641,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
+            value: "<form>\r\n    <input type=\"button\" class=\"graph_back_btn\" value=\"Back to Summary view\" onclick=\"history.back()\">\r\n</form>"
             format: full_html
           plugin_id: text
       defaults:

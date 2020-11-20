@@ -1,3 +1,8 @@
+:root {
+    --blue: #1d84c3;
+    --white: #ffffff;
+  }
+
 body {
     font-family: "Roboto",Helvetica,sans-serif,Arial;
     font-size: 16px;
@@ -8,6 +13,7 @@ body {
     letter-spacing: normal;
 
 }
+
 a {
     text-decoration: none !important;
 }
@@ -17,7 +23,26 @@ a:hover {
 }
 
 .modal-dialog {
-    margin: 18vw auto !important;
+    margin: 15vw auto !important;
+}
+.modal-content {
+    border-radius: 14px;
+    border: 1px solid var(--blue);
+}
+.modal-header {
+    color: #1d84ce;
+    border-bottom: 2px solid var(--blue);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.modal-header .close {
+    color: var(--blue);
+    margin: -.5rem -.5rem -1rem auto;
+}
+.modal-header .close:hover {
+    color: #fff;
+    background-color: #1d84c3;
+    border-radius: 12px;
 }
 
 a.navbar-brand{
@@ -35,7 +60,7 @@ nav.menu--main,
     margin-top: 10px;
 }
 
-@media ( max-width: 770px ) {
+@media ( max-width: 768px ) {
     .sf-accordion-toggle {
         display: none;
     }
@@ -166,7 +191,7 @@ box-shadow: 1px 2px #1d84c3;
     display: block ! important;
     max-width: unset;
 }
-.page-view-flipchart .view-display-id-block_1 div.view-content {
+.page-view-flipchart .view-display-id-block_3 div.view-content {
  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
@@ -178,12 +203,13 @@ box-shadow: 1px 2px #1d84c3;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
-    max-height: 615px;
+    max-height: 680px;
    /* overflow-y: auto;*/
 }
 
 #block-views-block-summary-key-block-3 .table-responsive {
     overflow-x: unset !important;
+    padding: 2px;
 }
 #sidebar_second {
     border-radius: 12px;
@@ -494,7 +520,6 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     background-color: aliceblue;
     max-height: 600px;
     overflow-y: auto;
-    margin: 2px -15px;
     width: 240px;
 }
 
@@ -724,6 +749,8 @@ article.comCompany {
 .ccmp {
     color: rgb(249, 238, 186) !important;
 }
+
+
 #block-sophia-alpha-footer {
     margin: auto;
 }
@@ -751,18 +778,146 @@ article.comCompany {
     }
 }
 
-.path-summary-print .view-display-id-block_1 div.view-content {
+.path-summary-print .view-display-id-block_2 div.view-content {
     max-height: none;
     height: auto;
 }
-
-.path-summary-print .view-display-id-block_1 div.view-content table.cols-2 {
-    width: 32% !important;
+.path-summary-print .view-display-id-block_2 div.view-content .table-responsive.col-md-12 {
+    flex: unset !important;
+    width: 32%;
+}
+.path-summary-print .view-display-id-block_2 div.view-content table.cols-2 {
+    
     padding: 5px !important;
 }
-.path-summary-print .cols-2 thead .views-field-name {
-    width: 15%;
+.path-summary-print .views-field-name {
+    width: 30%;
+    text-align: center;
 }
 .path-summary-print .cols-2 caption {
     height: 75px;
 }
+
+/* Flipchart key colors below */
+.view-id-summary_key span a,
+.summaryFlipKeys {
+    font-weight: 600;
+    font-size: larger;
+    border: 1px solid #1d84c3 !important;
+    padding: 5px;
+    border-radius: 6px;
+}
+.blue{
+    color: #ccccff !important;
+}
+
+
+#GBE,
+a[href$="/taxonomy/term/128"] {
+    color: rgb(0,96,171) !important;
+}
+
+/* E_key */
+#eagency,
+a[href$="/taxonomy/term/129"] {
+    color: rgb(112,48,160) !important;
+} 
+
+.HC_key,
+a[href$="/taxonomy/term/130"] {
+    color: rgba(188,143,0,1) !important;
+} 
+/* I_key */
+#inter,
+a[href$="/taxonomy/term/131"] {
+    color: rgb(0,109,49) !important;
+    padding-right: 0.6rem;
+    padding-left: 0.6rem;
+} 
+
+.M_key,
+a[href$="/taxonomy/term/132"] {
+    color: rgb(182,30,3) !important;
+} 
+/* R_key */
+#cce,
+a[href$="/taxonomy/term/133"] {
+    color: #000 !important;
+} 
+/*  star_key */
+#three,
+a[href$="/taxonomy/term/134"] {
+    color: #000 !important;
+    font-size: xx-large;
+} 
+
+/* PS Act */
+#employ_aps,
+a[href$="/taxonomy/term/136"] {
+    color: #000 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/136"] {
+    border: unset !important;
+}
+ 
+/* ^ */
+#employ_naps,
+a[href$="/taxonomy/term/137"] {
+    color: #000 !important;
+}
+/* # */
+#employ_both,
+a[href$="/taxonomy/term/138"] {
+    color: #000 !important;
+
+}
+/* Triangle [triangle]    Dec &#9650;    Hex &#x25B2; */
+#employ_par,
+a[href$="/taxonomy/term/139"] {
+    color: #000 !important;
+
+}
+
+#GGS,
+a[href$="/taxonomy/term/141"] {
+    color: #000 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/141"] {
+    border: unset !important;
+}
+/* F */
+#fin,
+a[href$="/taxonomy/term/142"] {
+    color: rgb(162,65,9) !important;
+}
+/* T */
+#nfin,
+a[href$="/taxonomy/term/143"] {
+    color: #000 !important;
+}
+
+
+/* phonorecord dec &#8471; hex &#x2117; */
+#cpr,
+a[href$="/taxonomy/term/144"] {
+    color: rgb(167,9,104) !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/144"] {
+    border: unset !important;
+    font-size: xx-large;
+}
+/* X_key */
+#exempt,
+a[href$="/taxonomy/term/145"] {
+    color: #000 !important;
+}
+/* listed_entities */
+#le,
+a[href$="/taxonomy/term/147"] {
+    color: #000 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/147"] {
+    border: unset !important;
+}
+
+/*-- End Flipchart Key colors --*/

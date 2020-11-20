@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.bodies.field_financial_classification
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_neptune_uri
     - field.field.node.bodies.field_portfolio
     - field.field.node.bodies.field_reporting_arrangements
     - field.field.node.bodies.field_reporting_variation
@@ -157,4 +158,5 @@ content:
 hidden:
   feeds_item: true
   field_demo: true
+  field_neptune_uri: true
   search_api_excerpt: true
