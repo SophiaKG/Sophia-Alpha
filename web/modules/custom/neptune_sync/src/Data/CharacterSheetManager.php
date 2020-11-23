@@ -19,96 +19,101 @@ class CharacterSheetManager
 {
 
     private const SummaryChartKey = array(
-        'Non-corporate Commonwealth entity' => array(
-            'Neptune_obj' => 'ns2:C2013A00123noncorporateCommonwealthentity',
-            'TaxonomyId' => '292',
-            'parentId' => '291'),
-        'Corporate Commonwealth entity' => array(
-            'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
-            'TaxonomyId' => '293',
-            'parentId' => '291'),
-        'Commonwealth company' => array(
-            'Neptune_obj' => 'ns2:C2013A00123Commonwealthcompany',
-            'TaxonomyId' => '294',
-            'parentId' => '291'),
-        'B' => array(
-            'Title' => 'Government Business Enterprises',
-            'Neptune_obj' => 'ns2:C2013A00123governmentbusinessenterprise',
-            'TaxonomyId' => '128',
-            'parentId' => '127'),
-        'E' => array(
-            'Title' => 'Executive Agency',
-            'Neptune_obj' => 'ns2:C2004A00538ExecutiveAgency',
-            'TaxonomyId' => '129',
-            'parentId' => '127'),
-        'HC' => array(
-            'Title' => 'High-Court',
-            'Neptune_obj' => 'NA',
-            'TaxonomyId' => '130',
-            'parentId' => '127'),
-        'i' => array(
-            'Title' => 'Inter-jurisdictional entities',
-            'Neptune_obj' => 'ns2:EntityListSeriesInterJurisdictional',
-            'TaxonomyId' => '131',
-            'parentId' => '127'),
-        'M' => array(
-            'Title' => 'Material',
-            'Neptune_obj' => 'ns2:EntityListSeriesMaterialEntity',
-            'TaxonomyId' => '132',
-            'parentId' => '127'),
-        'R' => array(
-            'Title' => 'Corporate Commonwealth entities',
-            'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
-            'TaxonomyId' => '133',
-            'parentId' => '127'),
-        '*' => array(
-            'Neptune_obj' => 'NA',
-            'TaxonomyId' => '134',
-            'parentId' => '127'),
-        'PS Act' => array(
-            'Neptune_obj' => 'NA',
-            'TaxonomyId' => '136',
-            'parentId' => '135'),
-        '^' => array(
-            'Neptune_obj' => 'ns2:C2004A00538APSemployment',
-            'TaxonomyId' => '137',
-            'parentId' => '135'),
-        '#' => array(
-            'Neptune_obj' => 'ns2:C2004A00538APSemployment',
-            'TaxonomyId' => '138',
-            'parentId' => '135'),
-        '▲' => array(
-            'Neptune_obj' => 'ns2:C2004A00536ParliamentaryServiceemployment',
-            'TaxonomyId' => '139',
-            'parentId' => '135'),
-        'GGS' => array(
-            'Neptune_obj' => '',
-            'TaxonomyId' => '141',
-            'parentId' => '140'),
-        'F' => array(
-            'Title' => 'Public Financial Corporation',
-            'Neptune_obj' => '',
-            'TaxonomyId' => '142',
-            'parentId' => '140'),
-        'T' => array(
-            'Title' => 'Public Non-financial Corporation',
-            'Neptune_obj' => '',
-            'TaxonomyId' => '143',
-            'parentId' => '140'),
-        '℗' => array(
-            'Title' => 'Commonwealth Procurement Rules',
-            'Neptune_obj' => '',
-            'TaxonomyId' => '144',
-            'parentId' => '148'),
-        'X' => array(
-            'Title' => 'Government policy orders',
-            'Neptune_obj' => '',
-            'TaxonomyId' => '145',
-            'parentId' => '148'),
-        'Listed Entities' => array(
-            'Neptune_obj' => 'ns2:C2013A00123listedentity',
-            'TaxonomyId' => '147',
-            'parentId' => '146'),
+        'Body type' => array(
+            'Non-corporate Commonwealth entity' => array(
+                'Neptune_obj' => 'ns2:C2013A00123noncorporateCommonwealthentity',
+                'TaxonomyId' => '292',
+                'parentId' => '291'),
+            'Corporate Commonwealth entity' => array(
+                'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
+                'TaxonomyId' => '293',
+                'parentId' => '291'),
+            'Commonwealth company' => array(
+                'Neptune_obj' => 'ns2:C2013A00123Commonwealthcompany',
+                'TaxonomyId' => '294',
+                'parentId' => '291')),
+        'Fin class' => array(
+            'B' => array(
+                'Title' => 'Government Business Enterprises',
+                'Neptune_obj' => 'ns2:C2013A00123governmentbusinessenterprise',
+                'TaxonomyId' => '128',
+                'parentId' => '127'),
+            'M' => array(
+                'Title' => 'Material',
+                'Neptune_obj' => 'ns2:EntityListSeriesMaterialEntity',
+                'TaxonomyId' => '132',
+                'parentId' => '127')),
+        'Eco Sector' => array(
+            'GGS' => array(
+                'Neptune_obj' => '',
+                'TaxonomyId' => '141',
+                'parentId' => '140'),
+            'F' => array(
+                'Title' => 'Public Financial Corporation',
+                'Neptune_obj' => '',
+                'TaxonomyId' => '142',
+                'parentId' => '140'),
+            'T' => array(
+                'Title' => 'Public Non-financial Corporation',
+                'Neptune_obj' => '',
+                'TaxonomyId' => '143',
+                'parentId' => '140')),
+        'Employment type' => array(
+            'PS Act' => array(
+                'Neptune_obj' => 'NA',
+                'TaxonomyId' => '136',
+                'parentId' => '135'),
+            '^' => array(
+                'Neptune_obj' => 'ns2:C2004A00538APSemployment',
+                'TaxonomyId' => '137',
+                'parentId' => '135'),
+            '#' => array(
+                'Neptune_obj' => 'ns2:C2004A00538APSemployment',
+                'TaxonomyId' => '138',
+                'parentId' => '135'),
+            '▲' => array(
+                'Neptune_obj' => 'ns2:C2004A00536ParliamentaryServiceemployment',
+                'TaxonomyId' => '139',
+                'parentId' => '135')),
+        'Default' => array(
+            'E' => array(
+                'Title' => 'Executive Agency',
+                'Neptune_obj' => 'ns2:C2004A00538ExecutiveAgency',
+                'TaxonomyId' => '129',
+                'parentId' => '127'),
+            'HC' => array(
+                'Title' => 'High-Court',
+                'Neptune_obj' => 'NA',
+                'TaxonomyId' => '130',
+                'parentId' => '127'),
+            'i' => array(
+                'Title' => 'Inter-jurisdictional entities',
+                'Neptune_obj' => 'ns2:EntityListSeriesInterJurisdictional',
+                'TaxonomyId' => '131',
+                'parentId' => '127'),
+            'R' => array(
+                'Title' => 'Corporate Commonwealth entities',
+                'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
+                'TaxonomyId' => '133',
+                'parentId' => '127'),
+            '*' => array(
+                'Neptune_obj' => 'NA',
+                'TaxonomyId' => '134',
+                'parentId' => '127'),
+            '℗' => array(
+                'Title' => 'Commonwealth Procurement Rules',
+                'Neptune_obj' => '',
+                'TaxonomyId' => '144',
+                'parentId' => '148'),
+            'X' => array(
+                'Title' => 'Government policy orders',
+                'Neptune_obj' => '',
+                'TaxonomyId' => '145',
+                'parentId' => '148'),
+            'Listed Entities' => array(
+                'Neptune_obj' => 'ns2:C2013A00123listedentity',
+                'TaxonomyId' => '147',
+                'parentId' => '146')),
     );
 
     protected $body;
@@ -141,6 +146,7 @@ class CharacterSheetManager
         $this->processEcoSector($node);
         $this->processLink($node);
         $this->processEmploymentType($node);
+        $this->processSummaryKeys($node);
         $this->processCooperativeRelationships($node, $bulkOperation);
 
 
@@ -221,25 +227,18 @@ class CharacterSheetManager
         $this->body->setTypeOfBody($res);
 
         //new stuff
-        $vals = $this->getTaxonomyIDArray('291');
+        $vals = $this->getTaxonomyIDArray(self::SummaryChartKey['Body type']);
         $res = $this->check_term($vals, $node);
         if($res)
             $this->body->addFlipchartKey($res);
 
     }
 
-    private function getTaxonomyIDArray(string $parentId, bool $incParent = false){
+    private function getTaxonomyIDArray($arrGroup){
         $arr = [];
-        if(!$incParent)
-            foreach (self::SummaryChartKey as $key){
-                if( $key['parentId'] == $parentId && $key['Neptune_obj'] != "NA")
-                    $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
-            }
-        else
-            foreach (self::SummaryChartKey as $arrKey => $key) {
-                if ($key['parentId'] == $parentId)
-                    $arr[$arrKey] = $key;
-            }
+        foreach ($arrGroup as $arrKey => $key) {
+                $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
+        }
         return $arr;
     }
 
@@ -263,13 +262,21 @@ class CharacterSheetManager
      *      Material 95, Government Business Enterprise 96, Non-Material 109
      *  @TODO Force to use graph 0
      */
-    private function processFinClass(NodeInterface $node){
+    private function processFinClass(NodeInterface $node)
+    {
 
-        $vals =['MaterialEntity' => 95,  'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
+        $vals = ['MaterialEntity' => 95, 'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
         $res = $this->check_property($vals, $node);
-        if($res == null)
+        if ($res == null)
             $res = $vals['NonMaterialEntity'];
         $this->body->addFinClass($res);
+
+        $vals = $this->getTaxonomyIDArray(self::SummaryChartKey['Fin class']);
+        foreach ($vals as $key => $val) { //as its a multi field
+            $res = $this->check_term([$key => $val], $node);
+            if ($res)
+                $this->body->addFlipchartKey($res);
+        }
     }
 
     /**
@@ -287,12 +294,12 @@ class CharacterSheetManager
 
         //new stuff centos 'TaxonomyId' => '137'
         $res = "";
-        $vals = $this->getTaxonomyIDArray('135', true);
-        Helper::log("post employment type val: " );
-        Helper::log($vals);
-        foreach ($vals as $arrkey => $key)
-            helper::log("key = " . $arrkey);
-            switch ($arrkey) {
+        //$vals = $this->getTaxonomyIDArray('135', true);
+        //Helper::log("post employment type val: " );
+        //Helper::log($vals);
+        foreach (self::SummaryChartKey['Employment type'] as $arrKey => $key) {
+            helper::log("key = " . $arrKey);
+            switch ($arrKey) {
                 case 'PS Act': //its the default value if no assignment could be made
                     break;
 
@@ -319,12 +326,45 @@ class CharacterSheetManager
                         $res = $key['TaxonomyId'];
                     break;
             }
+        }
 
         Helper::log("res = " . $res);
         if ($res == "")
             $res = $vals['PS Act']['TaxonomyId'];
 
         $this->body->addFlipchartKey($res);
+    }
+
+    private function processSummaryKeys(NodeInterface $node){
+
+        foreach (self::SummaryChartKey['Default'] as $arrKey => $key) {
+
+            $res = false;
+            switch ($arrKey) {
+                case 'E':
+                case 'i':
+                case 'R':
+                case 'Listed Entities':
+                    $res = $this->check_term([$key['Neptune_obj'] => $key['TaxonomyId']], $node);
+                    break;
+                case '*':
+                    $nonCorp = $this->check_term([self::SummaryChartKey['Body type']
+                        ['Non-corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
+                    $corp = $this->check_term([self::SummaryChartKey['Body type']
+                        ['Corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
+                    if($nonCorp && $corp)
+                        $res = $key['TaxonomyId'];
+                    break;
+                case 'HC':
+                    /** @TODO this is hardcoded and bad */
+                    Helper::log("HC = " . $node->get("field_portfolio")->getString());
+                    break;
+                case '℗':
+                case 'X':
+                    //data not available
+                    break;
+            }
+        }
     }
 
     private function processLink(NodeInterface $node){

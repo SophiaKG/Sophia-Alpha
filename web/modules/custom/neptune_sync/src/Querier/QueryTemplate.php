@@ -79,7 +79,7 @@ class QueryTemplate
                             'SELECT DISTINCT ?obj ?objLabel ' .
                             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
                             'WHERE { ' .
-                                '?obj ns2:live true. ' .
+                               // '?obj ns2:live true. ' .
                                 '?obj a ns2:Portfolio. ' .
                                 '?obj ns2:CanonicalName ?objLabel. ' .
                             '}');

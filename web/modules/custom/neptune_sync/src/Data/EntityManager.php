@@ -64,7 +64,7 @@ class EntityManager
                 Helper::log("Err500:  Something went wrong \n" .
                     "\t\t\tcase: Null Id return when attempting to get an id from a entity label match." .
                     "This might be expected from portfolios or legislations." .
-                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Id: " . $nepId, true);
+                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Id: " . $binding->{$nepId}->{'value'}, true);
             } else
                 $NidArr[] = $nid;
         }
