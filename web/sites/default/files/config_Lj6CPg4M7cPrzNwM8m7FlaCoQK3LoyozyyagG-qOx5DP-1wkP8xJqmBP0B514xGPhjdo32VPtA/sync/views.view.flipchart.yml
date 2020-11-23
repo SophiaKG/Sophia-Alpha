@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.character_sheet
+    - field.storage.node.field_financial_classification
+    - field.storage.node.field_flipchart_keys
     - field.storage.node.field_portfolio
     - node.type.bodies
     - system.menu.main
@@ -132,6 +134,132 @@ display:
           id: field_portfolio
           table: node__field_portfolio
           field: field_portfolio
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_financial_classification:
+          id: field_financial_classification
+          table: node__field_financial_classification
+          field: field_financial_classification
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_flipchart_keys:
+          id: field_flipchart_keys
+          table: node__field_flipchart_keys
+          field: field_flipchart_keys
           relationship: none
           group_type: group
           admin_label: ''
@@ -404,6 +532,41 @@ display:
           required: true
           plugin_id: standard
       arguments:
+        field_flipchart_keys_target_id:
+          id: field_flipchart_keys_target_id
+          table: node__field_flipchart_keys
+          field: field_flipchart_keys_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+          plugin_id: numeric
         field_financial_classification_target_id:
           id: field_financial_classification_target_id
           table: node__field_financial_classification
@@ -416,7 +579,7 @@ display:
             value: all
             title_enable: false
             title: All
-          title_enable: true
+          title_enable: false
           title: ''
           default_argument_type: fixed
           default_argument_options:
@@ -444,6 +607,7 @@ display:
         operator: AND
         groups:
           1: AND
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -454,6 +618,8 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_financial_classification'
+        - 'config:field.storage.node.field_flipchart_keys'
         - 'config:field.storage.node.field_portfolio'
   page_1:
     display_plugin: page
@@ -495,6 +661,7 @@ display:
         relationships: false
         sorts: false
         header: false
+        arguments: true
       sorts:
         field_portfolio_target_id:
           id: field_portfolio_target_id
@@ -572,6 +739,8 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_financial_classification'
+        - 'config:field.storage.node.field_flipchart_keys'
         - 'config:field.storage.node.field_portfolio'
   page_2:
     display_plugin: page
@@ -613,6 +782,7 @@ display:
         relationships: false
         sorts: false
         header: false
+        title: false
       sorts:
         field_portfolio_target_id:
           id: field_portfolio_target_id
@@ -678,9 +848,10 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div class=\"row\">\r\n    <!--<div class=\"col-md-2\">\r\n        <form>\r\n            <input type=\"button\" class=\"graph_back_btn\" value=\"Back to entity page\" onclick=\"history.back()\">\r\n        </form>\r\n</div>-->\r\n<div class=\"col-md-12 color-keys\">\r\n    <p>Colour Keys |  \r\n    <a href=\"#\" data-toggle=\"modal\" data-target=\"#nccemodal\" ><i class=\"fas fa-question-square ncce\"></i></a> Non-corporate Commonwealth entity | \r\n    <i class=\"fas fa-question-square cce\"></i> Corporate Commonwealth entity | \r\n    <a href=\"#\" data-tooltip title=\"A Commonwealth company - is a Corporations Act 2001 company that the Commonwealth controls.\"><i class=\"fas fa-question-square ccmp\"></i></a> Commonwealth Company\r\n</p>\r\n</div>\r\n</div>\r\n<div class=\"modal keys-display\" id=\"nccemodal\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\">\r\n<div class=\"modal-header\">\r\n<h3 class=\"modal-title\">Commonwealth entity types</h3>\r\n<button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button>\r\n</div>\r\n<div class=\"modal-body\">\r\n<p>A <em>Non-corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is not a body corporate.</p>\r\n<p>A <em>Corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is a body corporate.*.</p>\r\n<p>A <em>Commonwealth company -</em> is a <i>Corporations Act 2001</i>\r\ncompany that the Commonwealth controls.</p>\r\n</div>\r\n\r\n</div>\r\n</div>\r\n</div> <!--end modal ncce div-->\r\n\r\n"
+            value: "<div class=\"row\">\r\n    <!--<div class=\"col-md-2\">\r\n        <form>\r\n            <input type=\"button\" class=\"graph_back_btn\" value=\"Back to entity page\" onclick=\"history.back()\">\r\n        </form>\r\n</div>-->\r\n<div class=\"col-md-12 color-keys\">\r\n    <p><i class=\"fas fa-info-square\"></i> - Colour Keys | \r\n    <i class=\"fas fa-rectangle-landscape ncce\"></i> Non-corporate Commonwealth entity | \r\n    <i class=\"fas fa-rectangle-landscape cce\"></i> Corporate Commonwealth entity | \r\n    <a href=\"#\" data-tooltip title=\"A Commonwealth company - is a Corporations Act 2001 company that the Commonwealth controls.\"><i class=\"fas fa-rectangle-landscape ccmp\"></i></a> Commonwealth Company | <a href=\"#\" data-toggle=\"modal\" data-target=\"#nccemodal\" ><i class=\"fas fa-question-circle\"></i></a>\r\n</p>\r\n</div>\r\n</div>\r\n<div class=\"modal keys-display\" id=\"nccemodal\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\">\r\n<div class=\"modal-header\">\r\n<h3 class=\"modal-title\">Commonwealth entity types</h3>\r\n<button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button>\r\n</div>\r\n<div class=\"modal-body\" id=\"entitytypeinfo\">\r\n<p>A <em>Non-corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is not a body corporate.</p>\r\n<p>A <em>Corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is a body corporate.*.</p>\r\n<p>A <em>Commonwealth company -</em> is a <i>Corporations Act 2001</i>\r\ncompany that the Commonwealth controls.</p>\r\n</div>\r\n\r\n</div>\r\n</div>\r\n</div> <!--end modal ncce div-->\r\n\r\n"
             format: full_html
           plugin_id: text
+      title: ' List of PGPA Act Commonwealth entities and companies'
     cache_metadata:
       max-age: -1
       contexts:
@@ -691,4 +862,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_financial_classification'
+        - 'config:field.storage.node.field_flipchart_keys'
         - 'config:field.storage.node.field_portfolio'
