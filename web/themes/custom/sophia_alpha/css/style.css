@@ -429,7 +429,7 @@ canvas {
 .color-keys {
     color: #1d84c3;
     padding: 10px 20px;
-    text-align: center;
+    text-align: left;
 
 }
 .color-keys {
@@ -814,30 +814,30 @@ article.comCompany {
 
 #GBE,
 a[href$="/taxonomy/term/128"] {
-    color: rgb(0,96,171) !important;
+    color: #0060AB !important;
 }
 
 /* E_key */
 #eagency,
 a[href$="/taxonomy/term/129"] {
-    color: rgb(112,48,160) !important;
+    color: #7030A0 !important;
 } 
 
 .HC_key,
 a[href$="/taxonomy/term/130"] {
-    color: rgba(188,143,0,1) !important;
+    color: #BC8F00 !important;
 } 
 /* I_key */
 #inter,
 a[href$="/taxonomy/term/131"] {
-    color: rgb(0,109,49) !important;
+    color: #006D31 !important;
     padding-right: 0.6rem;
     padding-left: 0.6rem;
 } 
 
 .M_key,
 a[href$="/taxonomy/term/132"] {
-    color: rgb(182,30,3) !important;
+    color: #B61E03 !important;
 } 
 /* R_key */
 #cce,
@@ -888,7 +888,7 @@ a[href$="/taxonomy/term/141"] {
 /* F */
 #fin,
 a[href$="/taxonomy/term/142"] {
-    color: rgb(162,65,9) !important;
+    color: #A24109 !important;
 }
 /* T */
 #nfin,
@@ -900,7 +900,7 @@ a[href$="/taxonomy/term/143"] {
 /* phonorecord dec &#8471; hex &#x2117; */
 #cpr,
 a[href$="/taxonomy/term/144"] {
-    color: rgb(167,9,104) !important;
+    color: #A70968 !important;
 }
 .view-id-summary_key a[href$="/taxonomy/term/144"] {
     border: unset !important;
