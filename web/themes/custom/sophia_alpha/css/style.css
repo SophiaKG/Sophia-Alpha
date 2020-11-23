@@ -526,7 +526,9 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
-
+#block-views-block-summary-key-block-2 {
+    width: 100%;  /*addresses the IE width adjustments for this block (otherwise 1/3rd wide in IE) */
+}
 /* tables stuff */
 .page-view-flipchart .view-display-id-block_1 div.view-content table caption {
     padding-top: 0px;

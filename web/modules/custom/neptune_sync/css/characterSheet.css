@@ -11,9 +11,10 @@ div.field--name-field-flipchart-keys {
 div.character-sheet-keys a {
     color: #3b3b3b;
 }
-h1.js-quickedit-page-title {
+/* h1.js-quickedit-page-title {
     display: none;
 }
+*/
 article.nonCorp {
     background-color: rgb(204, 204, 255);
     border-left-style: solid;
