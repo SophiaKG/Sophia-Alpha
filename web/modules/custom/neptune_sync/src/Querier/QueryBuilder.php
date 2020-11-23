@@ -19,6 +19,7 @@ class QueryBuilder {
     const GRAPH_WORKING_DIR = 'sites/default/files/graphs/';
 
     /**Checks if the node has a given property, binded by an authority
+     * @deprecated never used?
      * @param NodeInterface $node The node to check the property from.
      * @param $term string The property to check if it exist.
      * @return Query Returns a true or false in the form of if the node has the given propery in neptune.
@@ -52,10 +53,6 @@ class QueryBuilder {
             '?flipchart ns2:live true. ';
     }
 
-    public static function checkEmploymentType(NodeInterface $node, $term){
-                self::getStaffingPart(self::getUri($node, "ns2"), $term);
-    }
-
     public static function getStaffingPart($node, $term){
         if($node instanceof NodeInterface)
             $node = self::getUri($node, "ns2");
@@ -67,10 +64,26 @@ class QueryBuilder {
             '?auth1 ns2:isRestrictionOf ?myStaffing. ';
     }
 
+    public static function getStaffingWithLegislationPart($node, $term){
+        if($node instanceof NodeInterface)
+            $node = self::getUri($node, "ns2");
+        return
+            self::getStaffingPart($node, $term) .
+            '?auth2 ns2:Binds ?otherTerm. ' .
+            '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
+            '?leg a ns2:Legislation. ' .
+            '?leg ns2:live true. ' .
+            '?leg ns2:Grants ?auth2. ' .
+            '?leg ns2:Grants ?auth3. ' .
+            '?auth3 ns2:Binds ?est. ' .
+            '?auth3 ns2:BindsTo ' . $node . '. ' .
+            '?est a ns2:Establishment. ';
+    }
+
     /**
      * @uses getValidatedAuthorityPart()
      * @uses getStaffingPart()
-     * @param $askClauseFunc
+     * @param $askClauseFunc string see uses
      * @return Query
      */
     public static function buildAskQuery($askClauseFunc){
@@ -342,4 +355,12 @@ class QueryBuilder {
         );
         return $q;
     }
+
+    /**
+     * @deprecated never used?
+     */
+    public static function checkEmploymentType(NodeInterface $node, $term){
+        self::getStaffingPart(self::getUri($node, "ns2"), $term);
+    }
+
 }

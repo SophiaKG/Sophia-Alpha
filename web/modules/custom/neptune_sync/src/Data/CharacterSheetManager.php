@@ -70,15 +70,15 @@ class CharacterSheetManager
             'TaxonomyId' => '136',
             'parentId' => '135'),
         '^' => array(
-            'Neptune_obj' => 'C2004A00538APSemployment',
+            'Neptune_obj' => 'ns2:C2004A00538APSemployment',
             'TaxonomyId' => '137',
             'parentId' => '135'),
         '#' => array(
-            'Neptune_obj' => 'NA',
+            'Neptune_obj' => 'ns2:C2004A00538APSemployment',
             'TaxonomyId' => '138',
             'parentId' => '135'),
         '▲' => array(
-            'Neptune_obj' => 'NA',
+            'Neptune_obj' => 'ns2:C2004A00536ParliamentaryServiceemployment',
             'TaxonomyId' => '139',
             'parentId' => '135'),
         'GGS' => array(
@@ -231,13 +231,15 @@ class CharacterSheetManager
     private function getTaxonomyIDArray(string $parentId, bool $incParent = false){
         $arr = [];
         if(!$incParent)
-            foreach (self::SummaryChartKey as $key)
+            foreach (self::SummaryChartKey as $key){
                 if( $key['parentId'] == $parentId && $key['Neptune_obj'] != "NA")
                     $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
+            }
         else
-            foreach (self::SummaryChartKey as $key)
-                if($key['parentId'] == $parentId)
-                    $arr[] = $key;
+            foreach (self::SummaryChartKey as $arrKey => $key) {
+                if ($key['parentId'] == $parentId)
+                    $arr[$arrKey] = $key;
+            }
         return $arr;
     }
 
@@ -286,29 +288,42 @@ class CharacterSheetManager
         //new stuff centos 'TaxonomyId' => '137'
         $res = "";
         $vals = $this->getTaxonomyIDArray('135', true);
-        foreach ($vals as $key)
-            switch (key($key)) {
+        Helper::log("post employment type val: " );
+        Helper::log($vals);
+        foreach ($vals as $arrkey => $key)
+            helper::log("key = " . $arrkey);
+            switch ($arrkey) {
                 case 'PS Act': //its the default value if no assignment could be made
                     break;
-                case '^':
+
+                case '^': //!ps act
                     $query = QueryBuilder::buildAskQuery(
                         QueryBuilder::getStaffingPart($node, $key['Neptune_obj']));
                     if (!$this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
-                case '#':
+
+                case '#': // PS act && enabling legislation
+                    $query = QueryBuilder::buildAskQuery(
+                        QueryBuilder::getStaffingWithLegislationPart(
+                            $node, $key['Neptune_obj']));
+
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
+                    break;
+
+                case '▲': //parliamentary act
                     $query = QueryBuilder::buildAskQuery(
                         QueryBuilder::getStaffingPart($node, $key['Neptune_obj']));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
-                case '▲':
-
-                    break;
             }
 
+        Helper::log("res = " . $res);
         if ($res == "")
             $res = $vals['PS Act']['TaxonomyId'];
+
         $this->body->addFlipchartKey($res);
     }
 
