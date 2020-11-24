@@ -141,11 +141,18 @@ class CharacterSheetManager
      * @TODO add other terms| Force to use graph 0 */
     private function processEcoSector(NodeInterface $node){
 
-        $vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'NA' => 149] ;
+        /*$vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'NA' => 149] ;
         $res = $this->check_property($vals, $node);
         if($res == null)
             $res = $vals['NA'];
-        $this->body->setEcoSector($res);
+        $this->body->setEcoSector($res);*/
+
+        $vals = SummaryChartKeys::getTaxonomyIDArray('Eco Sector');
+        foreach ($vals as $key => $val) { //as its a multi field
+            $res = $this->check_term([$key => $val], $node);
+            if ($res)
+                $this->body->addFlipchartKey($res);
+        }
     }
 
     /**
@@ -235,9 +242,15 @@ class CharacterSheetManager
             switch ($arrKey) {
                 case 'E':
                 case 'i':
-                case 'R':
                 case 'Listed Entities':
                     $res = $this->check_term([$key['Neptune_obj'] => $key['TaxonomyId']], $node);
+                    break;
+                case 'R':
+                    $query = QueryBuilder::buildAskQuery(
+                        QueryBuilder::getRegulatedCorpComEntity(
+                            $node));
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
                     break;
                 case '*':
                     $nonCorp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
