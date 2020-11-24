@@ -7,8 +7,10 @@ dependencies:
     - field.storage.node.field_portfolio
     - node.type.bodies
     - system.menu.main
+    - taxonomy.vocabulary.flip_chart_keys
     - taxonomy.vocabulary.type_of_body
   content:
+    - 'taxonomy_term:flip_chart_keys:c4883f19-dc50-4aad-8d6c-2f9e2e1e9357'
     - 'taxonomy_term:type_of_body:6722eaf6-7f4b-46e4-bd80-12566fe24cae'
     - 'taxonomy_term:type_of_body:6cd70b1a-f1be-4a78-a18b-f956d522435c'
     - 'taxonomy_term:type_of_body:7996b09b-dec3-4f78-8272-b9ec3e4d2fcd'
@@ -337,15 +339,16 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: numeric
-        field_summary_view_value:
-          id: field_summary_view_value
-          table: node__field_summary_view
-          field: field_summary_view_value
-          relationship: field_portfolio
+        field_flipchart_keys_target_id:
+          id: field_flipchart_keys_target_id
+          table: node__field_flipchart_keys
+          field: field_flipchart_keys_target_id
+          relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
-          value: '1'
+          operator: or
+          value:
+            - 147
           group: 1
           exposed: false
           expose:
@@ -362,6 +365,7 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -374,7 +378,13 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: boolean
+          reduce_duplicates: false
+          type: textfield
+          limit: true
+          vid: flip_chart_keys
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       sorts: {  }
       title: Summary
       header: {  }

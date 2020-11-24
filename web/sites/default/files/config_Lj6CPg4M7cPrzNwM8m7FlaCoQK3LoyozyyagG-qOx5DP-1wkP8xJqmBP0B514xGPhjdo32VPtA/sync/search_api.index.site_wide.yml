@@ -266,26 +266,6 @@ datasource_settings:
       default: true
       selected: {  }
 processor_settings:
-  add_url: {  }
-  aggregated_field: {  }
-  ignorecase:
-    all_fields: false
-    fields:
-      - body
-      - field_program
-      - field_reporting_arrangements
-      - link
-      - menu_name
-      - name
-      - title
-      - title_1
-      - type
-    weights:
-      preprocess_index: -48
-      preprocess_query: -20
-  language_with_fallback: {  }
-  rendered_item: {  }
-  reverse_entity_references: {  }
   type_boost:
     boosts:
       'entity:aggregator_feed':
@@ -330,6 +310,26 @@ processor_settings:
         datasource_boost: !!float 1
     weights:
       preprocess_index: -49
+  language_with_fallback: {  }
+  add_url: {  }
+  ignorecase:
+    all_fields: false
+    fields:
+      - body
+      - field_program
+      - field_reporting_arrangements
+      - link
+      - menu_name
+      - name
+      - title
+      - title_1
+      - type
+    weights:
+      preprocess_index: -48
+      preprocess_query: -20
+  rendered_item: {  }
+  aggregated_field: {  }
+  reverse_entity_references: {  }
 tracker_settings:
   default:
     indexing_order: lifo

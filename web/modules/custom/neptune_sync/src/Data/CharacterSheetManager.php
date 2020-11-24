@@ -5,116 +5,16 @@ use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\neptune_sync\Data\Model\CharacterSheet;
 use Drupal\neptune_sync\Data\Model\CooperativeRelationship;
-use Drupal\neptune_sync\Data\Model\TaxonomyTerm;
 use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
-use Drupal\node\Entity\Node;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
 
 
 class CharacterSheetManager
 {
-
-    private const SummaryChartKey = array(
-        'Body type' => array(
-            'Non-corporate Commonwealth entity' => array(
-                'Neptune_obj' => 'ns2:C2013A00123noncorporateCommonwealthentity',
-                'TaxonomyId' => '292',
-                'parentId' => '291'),
-            'Corporate Commonwealth entity' => array(
-                'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
-                'TaxonomyId' => '293',
-                'parentId' => '291'),
-            'Commonwealth company' => array(
-                'Neptune_obj' => 'ns2:C2013A00123Commonwealthcompany',
-                'TaxonomyId' => '294',
-                'parentId' => '291')),
-        'Fin class' => array(
-            'B' => array(
-                'Title' => 'Government Business Enterprises',
-                'Neptune_obj' => 'ns2:C2013A00123governmentbusinessenterprise',
-                'TaxonomyId' => '128',
-                'parentId' => '127'),
-            'M' => array(
-                'Title' => 'Material',
-                'Neptune_obj' => 'ns2:EntityListSeriesMaterialEntity',
-                'TaxonomyId' => '132',
-                'parentId' => '127')),
-        'Eco Sector' => array(
-            'GGS' => array(
-                'Neptune_obj' => '',
-                'TaxonomyId' => '141',
-                'parentId' => '140'),
-            'F' => array(
-                'Title' => 'Public Financial Corporation',
-                'Neptune_obj' => '',
-                'TaxonomyId' => '142',
-                'parentId' => '140'),
-            'T' => array(
-                'Title' => 'Public Non-financial Corporation',
-                'Neptune_obj' => '',
-                'TaxonomyId' => '143',
-                'parentId' => '140')),
-        'Employment type' => array(
-            'PS Act' => array(
-                'Neptune_obj' => 'NA',
-                'TaxonomyId' => '136',
-                'parentId' => '135'),
-            '^' => array(
-                'Neptune_obj' => 'ns2:C2004A00538APSemployment',
-                'TaxonomyId' => '137',
-                'parentId' => '135'),
-            '#' => array(
-                'Neptune_obj' => 'ns2:C2004A00538APSemployment',
-                'TaxonomyId' => '138',
-                'parentId' => '135'),
-            '▲' => array(
-                'Neptune_obj' => 'ns2:C2004A00536ParliamentaryServiceemployment',
-                'TaxonomyId' => '139',
-                'parentId' => '135')),
-        'Default' => array(
-            'E' => array(
-                'Title' => 'Executive Agency',
-                'Neptune_obj' => 'ns2:C2004A00538ExecutiveAgency',
-                'TaxonomyId' => '129',
-                'parentId' => '127'),
-            'HC' => array(
-                'Title' => 'High-Court',
-                'Neptune_obj' => 'NA',
-                'TaxonomyId' => '130',
-                'parentId' => '127'),
-            'i' => array(
-                'Title' => 'Inter-jurisdictional entities',
-                'Neptune_obj' => 'ns2:EntityListSeriesInterJurisdictional',
-                'TaxonomyId' => '131',
-                'parentId' => '127'),
-            'R' => array(
-                'Title' => 'Corporate Commonwealth entities',
-                'Neptune_obj' => 'ns2:C2013A00123corporateCommonwealthentity',
-                'TaxonomyId' => '133',
-                'parentId' => '127'),
-            '*' => array(
-                'Neptune_obj' => 'NA',
-                'TaxonomyId' => '134',
-                'parentId' => '127'),
-            '℗' => array(
-                'Title' => 'Commonwealth Procurement Rules',
-                'Neptune_obj' => '',
-                'TaxonomyId' => '144',
-                'parentId' => '148'),
-            'X' => array(
-                'Title' => 'Government policy orders',
-                'Neptune_obj' => '',
-                'TaxonomyId' => '145',
-                'parentId' => '148'),
-            'Listed Entities' => array(
-                'Neptune_obj' => 'ns2:C2013A00123listedentity',
-                'TaxonomyId' => '147',
-                'parentId' => '146')),
-    );
 
     protected $body;
     protected $query_mgr;
@@ -151,7 +51,7 @@ class CharacterSheetManager
 
 
         //TODO THIS NEEDS REPLACING! This forces lead bodies to appear on the summary view
-      /*  if(strtoupper($node->getTitle()) == $node->getTitle()){
+        /*  if(strtoupper($node->getTitle()) == $node->getTitle()){
             Helper::log($this->body->getLabelKey() . " detected as lead body, ensuring it appears
             on the summary view");
             $this->body->setTypeOfBody(87);
@@ -219,27 +119,19 @@ class CharacterSheetManager
      * @todo add comcompany, maybe as default?| Force to use graph 0 */
     private function processBodyType(NodeInterface $node){
 
-        $vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88,
-            "NEPTUNEFIELD" /* can this be defaulted? */=> 90, 'NA' => 153];
+        /*$vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88,
+            "NEPTUNEFIELD" /* can this be defaulted? *//*=> 90, 'NA' => 153];
         $res = $this->check_property($vals, $node);
         if(!$res)
             $res = $vals['NA'];
-        $this->body->setTypeOfBody($res);
+        $this->body->setTypeOfBody($res);*/
 
         //new stuff
-        $vals = $this->getTaxonomyIDArray(self::SummaryChartKey['Body type']);
+        $vals = SummaryChartKeys::getTaxonomyIDArray('Body type');
         $res = $this->check_term($vals, $node);
         if($res)
             $this->body->addFlipchartKey($res);
 
-    }
-
-    private function getTaxonomyIDArray($arrGroup){
-        $arr = [];
-        foreach ($arrGroup as $arrKey => $key) {
-                $arr[$key['Neptune_obj']] = $key['TaxonomyId'];
-        }
-        return $arr;
     }
 
     /**
@@ -262,16 +154,15 @@ class CharacterSheetManager
      *      Material 95, Government Business Enterprise 96, Non-Material 109
      *  @TODO Force to use graph 0
      */
-    private function processFinClass(NodeInterface $node)
-    {
+    private function processFinClass(NodeInterface $node){
 
-        $vals = ['MaterialEntity' => 95, 'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
+        /*$vals = ['MaterialEntity' => 95, 'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
         $res = $this->check_property($vals, $node);
         if ($res == null)
             $res = $vals['NonMaterialEntity'];
-        $this->body->addFinClass($res);
+        $this->body->addFinClass($res);*/
 
-        $vals = $this->getTaxonomyIDArray(self::SummaryChartKey['Fin class']);
+        $vals = SummaryChartKeys::getTaxonomyIDArray('Fin class');
         foreach ($vals as $key => $val) { //as its a multi field
             $res = $this->check_term([$key => $val], $node);
             if ($res)
@@ -286,18 +177,19 @@ class CharacterSheetManager
      * @TODO everything | Force to use graph 0*/
     private function processEmploymentType(NodeInterface $node){
 
-        $vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'NA' => 151];
+        /*$vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'NA' => 151];
         $res = null; //this is killing it
         if($res == null)
             $res = $vals['NA'];
-        $this->body->setEmploymentType($res);
+        $this->body->setEmploymentType($res);*/
 
         //new stuff centos 'TaxonomyId' => '137'
-        $res = "";
+
         //$vals = $this->getTaxonomyIDArray('135', true);
         //Helper::log("post employment type val: " );
         //Helper::log($vals);
-        foreach (self::SummaryChartKey['Employment type'] as $arrKey => $key) {
+        $res = "";
+        foreach (SummaryChartKeys::getKeys()['Employment type'] as $arrKey => $key){
             helper::log("key = " . $arrKey);
             switch ($arrKey) {
                 case 'PS Act': //its the default value if no assignment could be made
@@ -330,15 +222,15 @@ class CharacterSheetManager
 
         Helper::log("res = " . $res);
         if ($res == "")
-            $res = $vals['PS Act']['TaxonomyId'];
+            $res = SummaryChartKeys::getKeys()['Employment type']['PS Act']['TaxonomyId'];
 
         $this->body->addFlipchartKey($res);
     }
 
     private function processSummaryKeys(NodeInterface $node){
 
-        foreach (self::SummaryChartKey['Default'] as $arrKey => $key) {
-
+        foreach (SummaryChartKeys::getKeys()['Default'] as $arrKey => $key) {
+            Helper::log("Querying Key: " . $arrKey);
             $res = false;
             switch ($arrKey) {
                 case 'E':
@@ -348,22 +240,27 @@ class CharacterSheetManager
                     $res = $this->check_term([$key['Neptune_obj'] => $key['TaxonomyId']], $node);
                     break;
                 case '*':
-                    $nonCorp = $this->check_term([self::SummaryChartKey['Body type']
-                        ['Non-corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
-                    $corp = $this->check_term([self::SummaryChartKey['Body type']
+                    $nonCorp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
+                    ['Non-corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
+                    $corp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
                         ['Corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
                     if($nonCorp && $corp)
                         $res = $key['TaxonomyId'];
                     break;
                 case 'HC':
-                    /** @TODO this is hardcoded and bad */
+                    /** @TODO this is hardcoded and bad...VERY VERY BAD. port id changes per rebuild
+                     * 28391 tax id for Attorney-General’s*/
                     Helper::log("HC = " . $node->get("field_portfolio")->getString());
+                    if( $node->get("field_portfolio")->getString() == "28792") //
+                        $res = $key['TaxonomyId'];
                     break;
                 case '℗':
                 case 'X':
                     //data not available
                     break;
             }
+            if ($res)
+                $this->body->addFlipchartKey($res);
         }
     }
 
@@ -469,6 +366,8 @@ class CharacterSheetManager
         return false;
     }
 
+
+
     /**
      * @param NodeInterface $node
      * @todo this needs rewriting to use the new entity api
@@ -539,6 +438,7 @@ class CharacterSheetManager
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
         if($toUpdate) {
+            $this->body->syncSummaryKeysToFields(); //adds keys to old form fields
             $this->ent_mgr->updateEntity($this->body, $node->id());
             $this->countupdated++;
             Helper::log("updating body " . $node->id() . " | Updated: " .

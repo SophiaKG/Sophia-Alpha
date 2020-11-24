@@ -2,6 +2,7 @@
 namespace Drupal\neptune_sync\Data\Model;
 
 use Drupal\neptune_sync\Data\DrupalEntityExport;
+use Drupal\neptune_sync\Data\SummaryChartKeys;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 
 /**
@@ -236,9 +237,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
     /**
      * @param array $legislations
      */
-    public function addLegislations(String $legislations): void
-    {
-        array_push($this->legislations, $legislations);
+    public function addLegislations(String $legislations): void{
+        //check duplicates
+        if(!in_array($legislations, $this->legislations))
+            array_push($this->legislations, $legislations);
     }
 
     /**
@@ -318,6 +320,32 @@ class CharacterSheet extends Node implements DrupalEntityExport
             substr($link,0,3) == 'WWW')
             $link = 'http://' . $link;
         $this->link = $link;
+    }
+
+    public function syncSummaryKeysToFields(){
+        foreach(SummaryChartKeys::getKeys() as $typeKey => $type){
+            if($typeKey == 'Default')
+                continue;
+            else
+                foreach ($type as $field)
+                    if (in_array($field['TaxonomyId'], $this->flipchart_keys)) {
+                        switch ($typeKey){
+                            case 'Body type':
+                                $this->setTypeOfBody($field['FieldTaxID']);
+                                break;
+                            case 'Fin class':
+                                $this->addFinClass($field['FieldTaxID']);
+                                break;
+                            case 'Eco Sector':
+                                $this->setEcoSector($field['FieldTaxID']);
+                                break;
+                            case 'Employment type':
+                                $this->setEmploymentType($field['FieldTaxID']);
+                                break;
+
+                        }
+                    }
+        }
     }
 
     public function getEntityArray(){

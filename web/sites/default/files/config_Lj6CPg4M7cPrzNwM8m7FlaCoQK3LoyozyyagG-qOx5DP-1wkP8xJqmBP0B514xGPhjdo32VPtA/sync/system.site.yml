@@ -3,7 +3,7 @@ name: 'Sophia Alpha'
 mail: aharper488@outlook.com
 slogan: ''
 page:
-  403: ''
+  403: /user/login
   404: ''
   front: /summary
 admin_compact_mode: false

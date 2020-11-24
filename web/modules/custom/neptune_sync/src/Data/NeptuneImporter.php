@@ -63,12 +63,12 @@ class NeptuneImporter
 
     public function importNeptuneData(bool $wipeData){
 
-        //if($wipeData)
-          //  $this->wipeNodes();
+        if($wipeData)
+            $this->wipeNodes();
 
         $this->importFromQuery(QueryTemplate::getPortfolios(), SophiaGlobal::PORTFOLIO);
-       // $this->importFromQuery(QueryTemplate::getLegislations(), SophiaGlobal::LEGISLATION);
-       // $this->importFromQuery(QueryTemplate::getBodies(), SophiaGlobal::BODIES);
+        $this->importFromQuery(QueryTemplate::getLegislations(), SophiaGlobal::LEGISLATION);
+        $this->importFromQuery(QueryTemplate::getBodies(), SophiaGlobal::BODIES);
     }
 
     public function importFromQuery(Query $query, $subType){

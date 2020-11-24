@@ -350,7 +350,7 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      group_by: true
+      group_by: false
     cache_metadata:
       max-age: 0
       contexts:
