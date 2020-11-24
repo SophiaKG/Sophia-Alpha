@@ -51,3 +51,4 @@ content:
     region: content
 hidden:
   feeds_item: true
+  search_api_excerpt: true

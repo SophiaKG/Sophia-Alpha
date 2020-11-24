@@ -1,3 +1,8 @@
+:root {
+    --blue: #1d84c3;
+    --white: #ffffff;
+  }
+
 body {
     font-family: "Roboto",Helvetica,sans-serif,Arial;
     font-size: 16px;
@@ -8,6 +13,7 @@ body {
     letter-spacing: normal;
 
 }
+
 a {
     text-decoration: none !important;
 }
@@ -15,6 +21,30 @@ a:hover {
     background-color: none !important;
     text-decoration: underline;
 }
+
+.modal-dialog {
+    margin: 15vw auto !important;
+}
+.modal-content {
+    border-radius: 14px;
+    border: 1px solid var(--blue);
+}
+.modal-header {
+    color: #1d84ce;
+    border-bottom: 2px solid var(--blue);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.modal-header .close {
+    color: var(--blue);
+    margin: -.5rem -.5rem -1rem auto;
+}
+.modal-header .close:hover {
+    color: #fff;
+    background-color: #1d84c3;
+    border-radius: 12px;
+}
+
 a.navbar-brand{
     margin: 10px 20px;
 }
@@ -28,6 +58,27 @@ nav.menu--main,
     width: auto;
     margin: auto;
     margin-top: 10px;
+}
+
+@media ( max-width: 768px ) {
+    .sf-accordion-toggle {
+        display: none;
+    }
+
+    #superfish-main {
+        display: block !important;
+    }
+    ul.sf-menu.menu {
+        width: 70%; /* addresses IE behaviour*/
+    }
+    #block-sophia-alpha-sitetitle h1 {
+        margin: 4rem 0rem;
+        font-size: 1.5rem;
+    }
+    .page-view-flipchart .view-display-id-block_3 table {
+        margin: auto !important;
+        width: 100% !important;
+    }
 }
 
 .menu-toggle {
@@ -64,6 +115,7 @@ ul.sf-menu.menu li {
 }
 .navbar-toggler:hover {
     background: #efefef;
+    border-color: #414042;
 }
 
 main#content table thead,
@@ -139,7 +191,7 @@ box-shadow: 1px 2px #1d84c3;
     display: block ! important;
     max-width: unset;
 }
-.page-view-flipchart .view-display-id-block_1 div.view-content {
+.page-view-flipchart .view-display-id-block_3 div.view-content {
  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
@@ -151,8 +203,13 @@ box-shadow: 1px 2px #1d84c3;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
-    max-height: 615px;
+    max-height: 680px;
    /* overflow-y: auto;*/
+}
+
+#block-views-block-summary-key-block-3 .table-responsive {
+    overflow-x: unset !important;
+    padding: 2px;
 }
 #sidebar_second {
     border-radius: 12px;
@@ -368,13 +425,19 @@ canvas {
 /* shapes-legend is used to provide legend that explains
    shapes above the coop relationships graph.
 */
-.shapes-legend {
+.shapes-legend,
+.color-keys {
     color: #1d84c3;
     padding: 10px 20px;
-    text-align: center;
+    text-align: left;
 
 }
-.shapes-legend p {
+.color-keys {
+    font-weight: 600;
+    font-size: smaller;
+}
+.shapes-legend p,
+.color-keys p {
     border-bottom: 1px solid #1d84c3;
     
 }
@@ -385,6 +448,11 @@ canvas {
     vertical-align: middle;
     padding-bottom: 4px;
     
+}
+.color-keys p i {
+    font-size: 20px;
+    vertical-align: middle;
+    padding-bottom: 4px;
 }
 /* ----------------Cooperative relationships for character sheet*/
 article.node--type-cooperative-relationships.node--view-mode-character-sheet
@@ -443,22 +511,24 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     padding-top: 20px;
 }
 
-.page-view-flipchart .view-display-id-block_1 div.view-content {
+.page-view-flipchart .view-display-id-block_3 div.view-content {
     max-height: 520px;
     overflow-y: auto;
 }
 
-.page-view-flipchart .view-display-id-block_1 table {
+.page-view-flipchart .view-display-id-block_3 table {
     background-color: aliceblue;
     max-height: 600px;
     overflow-y: auto;
-    margin: 2px 0 !important;
+    width: 240px;
 }
 
-.page-view-flipchart .block-views-blocksummary-key-block-1 h2 {
+.page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
-
+#block-views-block-summary-key-block-2 {
+    width: 100%;  /*addresses the IE width adjustments for this block (otherwise 1/3rd wide in IE) */
+}
 /* tables stuff */
 .page-view-flipchart .view-display-id-block_1 div.view-content table caption {
     padding-top: 0px;
@@ -660,11 +730,17 @@ article.nonCorp {
     border-bottom: 1px solid rgb(204, 204, 255);
     background-color: transparent;
 }
+.ncce {
+    color: rgb(204, 204, 255) !important;
+}
 article.corp {
     border-left: 6px solid rgb(170, 225, 194) !important;
     border-bottom: 1px solid rgb(170, 225, 194);
     background-color: transparent;
     
+}
+.cce {
+    color: rgb(170, 225, 194) !important;
 }
 article.comCompany {
     border-left: 6px solid rgb(249, 238, 186) !important;
@@ -672,8 +748,20 @@ article.comCompany {
     background-color: transparent;
     
 }
+.ccmp {
+    color: rgb(249, 238, 186) !important;
+}
+
+
 #block-sophia-alpha-footer {
     margin: auto;
+}
+.view-id-entity_types {
+    display: none;
+}
+.view-id-entity_types .table .views-field-name {
+    width: 25%;
+    text-align: left;
 }
 
 @media only screen and (min-width: 992px) {
@@ -691,3 +779,147 @@ article.comCompany {
         margin: 2.2rem;
     }
 }
+
+.path-summary-print .view-display-id-block_2 div.view-content {
+    max-height: none;
+    height: auto;
+}
+.path-summary-print .view-display-id-block_2 div.view-content .table-responsive.col-md-12 {
+    flex: unset !important;
+    width: 32%;
+}
+.path-summary-print .view-display-id-block_2 div.view-content table.cols-2 {
+    
+    padding: 5px !important;
+}
+.path-summary-print .views-field-name {
+    width: 30%;
+    text-align: center;
+}
+.path-summary-print .cols-2 caption {
+    height: 75px;
+}
+
+/* Flipchart key colors below */
+.view-id-summary_key span a,
+.summaryFlipKeys {
+    font-weight: 600;
+    font-size: larger;
+    border: 1px solid #1d84c3 !important;
+    padding: 5px;
+    border-radius: 6px;
+}
+.blue{
+    color: #ccccff !important;
+}
+
+
+#GBE,
+a[href$="/taxonomy/term/128"] {
+    color: #0060AB !important;
+}
+
+/* E_key */
+#eagency,
+a[href$="/taxonomy/term/129"] {
+    color: #7030A0 !important;
+} 
+
+.HC_key,
+a[href$="/taxonomy/term/130"] {
+    color: #BC8F00 !important;
+} 
+/* I_key */
+#inter,
+a[href$="/taxonomy/term/131"] {
+    color: #006D31 !important;
+    padding-right: 0.6rem;
+    padding-left: 0.6rem;
+} 
+
+.M_key,
+a[href$="/taxonomy/term/132"] {
+    color: #B61E03 !important;
+} 
+/* R_key */
+#cce,
+a[href$="/taxonomy/term/133"] {
+    color: #000 !important;
+} 
+/*  star_key */
+#three,
+a[href$="/taxonomy/term/134"] {
+    color: #000 !important;
+    font-size: xx-large;
+} 
+
+/* PS Act */
+#employ_aps,
+a[href$="/taxonomy/term/136"] {
+    color: #000 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/136"] {
+    border: unset !important;
+}
+ 
+/* ^ */
+#employ_naps,
+a[href$="/taxonomy/term/137"] {
+    color: #000 !important;
+}
+/* # */
+#employ_both,
+a[href$="/taxonomy/term/138"] {
+    color: #000 !important;
+
+}
+/* Triangle [triangle]    Dec &#9650;    Hex &#x25B2; */
+#employ_par,
+a[href$="/taxonomy/term/139"] {
+    color: #000 !important;
+
+}
+
+#GGS,
+a[href$="/taxonomy/term/141"] {
+    color: #000 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/141"] {
+    border: unset !important;
+}
+/* F */
+#fin,
+a[href$="/taxonomy/term/142"] {
+    color: #A24109 !important;
+}
+/* T */
+#nfin,
+a[href$="/taxonomy/term/143"] {
+    color: #000 !important;
+}
+
+
+/* phonorecord dec &#8471; hex &#x2117; */
+#cpr,
+a[href$="/taxonomy/term/144"] {
+    color: #A70968 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/144"] {
+    border: unset !important;
+    font-size: xx-large;
+}
+/* X_key */
+#exempt,
+a[href$="/taxonomy/term/145"] {
+    color: #000 !important;
+}
+/* listed_entities */
+#le,
+a[href$="/taxonomy/term/147"] {
+    color: #000 !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/147"] {
+    border: unset !important;
+}
+
+/*-- End Flipchart Key colors --*/

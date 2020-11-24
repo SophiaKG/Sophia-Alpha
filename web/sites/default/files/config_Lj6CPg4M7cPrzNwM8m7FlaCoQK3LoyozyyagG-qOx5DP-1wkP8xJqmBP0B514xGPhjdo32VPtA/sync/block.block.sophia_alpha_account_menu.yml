@@ -13,7 +13,7 @@ _core:
 id: sophia_alpha_account_menu
 theme: sophia_alpha
 region: sidebar_second
-weight: -9
+weight: -10
 provider: null
 plugin: 'system_menu_block:account'
 settings:
@@ -24,4 +24,9 @@ settings:
   level: 1
   depth: 1
   expand_all_items: false
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /summary-print
+    negate: true
+    context_mapping: {  }

@@ -159,3 +159,4 @@ hidden:
   feeds_item: true
   field_demo: true
   field_neptune_uri: true
+  search_api_excerpt: true
