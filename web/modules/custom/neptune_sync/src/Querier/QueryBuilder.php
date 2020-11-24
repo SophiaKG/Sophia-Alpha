@@ -64,7 +64,10 @@ class QueryBuilder {
             '?auth1 ns2:isRestrictionOf ?myStaffing. ';
     }
 
-    /** specific for R key */
+    /** specific for R key
+     * @param $node
+     * @return string
+     */
     public static function getRegulatedCorpComEntity($node){
         if($node instanceof NodeInterface)
             $node = self::getUri($node, "ns2");
@@ -76,6 +79,22 @@ class QueryBuilder {
             '?leg ns2:live true. ' .
             '?leg ns2:hasSeries ?srs. ' .
             '?superSrs ns2:hasSubordinate ?srs.';
+    }
+
+    /** specific for X key
+     * @param $node
+     * @return string
+     */
+    public static function getExemptPart($node){
+        if($node instanceof NodeInterface)
+            $node = self::getUri($node, "ns2");
+        return
+            '?auth ns2:Binds ' . $node . '. ' .
+            '?auth ns2:isExemptFrom ?section. ' .
+            '?thing ns2:Grants ?auth. ' .
+            '?thing ns2:live true. ' .
+            '?section ns2:SubsectionOf ?leg. ' .
+            '?leg ns2:hasSeries ns2:C2013A00123.';
     }
 
     public static function getStaffingWithLegislationPart($node, $term){

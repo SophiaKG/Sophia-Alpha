@@ -267,9 +267,13 @@ class CharacterSheetManager
                     if( $node->get("field_portfolio")->getString() == "28792") //
                         $res = $key['TaxonomyId'];
                     break;
-                case '℗':
                 case 'X':
-                    //data not available
+                    $query = QueryBuilder::buildAskQuery(
+                        QueryBuilder::getExemptPart($node));
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
+                    break;
+                case '℗': //no query yet
                     break;
             }
             if ($res)

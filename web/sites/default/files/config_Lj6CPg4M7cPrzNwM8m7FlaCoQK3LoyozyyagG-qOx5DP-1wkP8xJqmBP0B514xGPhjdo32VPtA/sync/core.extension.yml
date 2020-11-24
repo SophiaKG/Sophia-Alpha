@@ -83,6 +83,7 @@ module:
   user: 0
   views_bulk_edit: 0
   views_bulk_operations: 0
+  views_taxonomy_term_name_depth: 0
   views_tree: 0
   views_ui: 0
   visitors: 0

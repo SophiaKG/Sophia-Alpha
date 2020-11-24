@@ -48,7 +48,9 @@ class NeptuneImporter
         try {
             $storage_handler = \Drupal::entityTypeManager()->getStorage(
                 SophiaGlobal::NODE);
+            Helper::log("Loading Ids...");
             $entities = $storage_handler->loadMultiple($nodeIds);
+            Helper::log("Deleting all Neptune data...");
             $storage_handler->delete($entities);
         } catch (InvalidPluginDefinitionException|PluginNotFoundException|
             EntityStorageException $e) {
@@ -69,6 +71,8 @@ class NeptuneImporter
         $this->importFromQuery(QueryTemplate::getPortfolios(), SophiaGlobal::PORTFOLIO);
         $this->importFromQuery(QueryTemplate::getLegislations(), SophiaGlobal::LEGISLATION);
         $this->importFromQuery(QueryTemplate::getBodies(), SophiaGlobal::BODIES);
+
+        Helper::log("Finished creating all records", true);
     }
 
     public function importFromQuery(Query $query, $subType){

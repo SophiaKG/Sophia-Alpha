@@ -13,7 +13,6 @@ dependencies:
     - taxonomy.vocabulary.type_of_body
   content:
     - 'taxonomy_term:flip_chart_keys:c4883f19-dc50-4aad-8d6c-2f9e2e1e9357'
-    - 'taxonomy_term:type_of_body:6722eaf6-7f4b-46e4-bd80-12566fe24cae'
     - 'taxonomy_term:type_of_body:6cd70b1a-f1be-4a78-a18b-f956d522435c'
     - 'taxonomy_term:type_of_body:7996b09b-dec3-4f78-8272-b9ec3e4d2fcd'
     - 'taxonomy_term:type_of_body:a377fdac-555c-47ad-8bfe-be0d9cb71058'
@@ -21,6 +20,7 @@ dependencies:
     - node
     - taxonomy
     - user
+    - views_taxonomy_term_name_depth
 id: flipchart
 label: Flipchart
 module: views
@@ -89,27 +89,38 @@ display:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          alter:
-            alter_text: false
-            make_link: false
-            absolute: false
-            trim: false
-            word_boundary: false
-            ellipsis: false
-            strip_tags: false
-            html: false
-          hide_empty: false
-          empty_zero: false
-          settings:
-            link_to_entity: true
-          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
           label: Title
           exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
           element_type: ''
           element_class: ''
           element_label_type: ''
@@ -119,9 +130,13 @@ display:
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
+          hide_empty: false
+          empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: string
+          settings:
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -132,6 +147,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: title
+          plugin_id: field
         field_portfolio:
           id: field_portfolio
           table: node__field_portfolio
@@ -514,7 +532,7 @@ display:
           error_message: true
           plugin_id: taxonomy_index_tid
       sorts: {  }
-      title: Summary
+      title: 'PGPA Act Commonwealth entities and companies'
       header:
         area:
           id: area
@@ -530,7 +548,20 @@ display:
             format: full_html
           plugin_id: text
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No Entities currently listed under this key. Please select another or <a href="/drupal8/web/Summary">view all entities</a>.'
+            format: basic_html
+          plugin_id: text
       relationships:
         field_portfolio:
           id: field_portfolio
@@ -542,6 +573,45 @@ display:
           required: true
           plugin_id: standard
       arguments:
+        term_node_taxonomy_name_depth:
+          id: term_node_taxonomy_name_depth
+          table: node_field_data
+          field: term_node_taxonomy_name_depth
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: true
+          title: 'PGPA Act Commonwealth entities and companies with key - {{ arguments.term_node_taxonomy_name_depth }}'
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          depth: '0'
+          vocabularies:
+            flip_chart_keys: flip_chart_keys
+          break_phrase: false
+          use_taxonomy_term_path: false
+          entity_type: node
+          plugin_id: taxonomy_index_name_depth
         field_flipchart_keys_target_id:
           id: field_flipchart_keys_target_id
           table: node__field_flipchart_keys
@@ -618,6 +688,7 @@ display:
         groups:
           1: AND
       use_ajax: true
+      group_by: true
     cache_metadata:
       max-age: -1
       contexts:
