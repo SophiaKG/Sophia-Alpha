@@ -428,7 +428,7 @@ canvas {
 .shapes-legend,
 .color-keys {
     color: #1d84c3;
-    padding: 10px 20px;
+    padding: 10px 20px 0px 20px;
     text-align: left;
 
 }
@@ -623,7 +623,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     margin: 2px 5px;
     border-radius: 4px;
     text-align: center;
-    padding: 2px 5px;
+    padding: 1px 2px;
 }
 
 #block-sophia-alpha-content div .character-sheet-keys {
@@ -801,6 +801,11 @@ article.comCompany {
 }
 
 /* Flipchart key colors below */
+.entity_count {
+    font-size: .8rem;
+    color: #778899;
+    font-weight: 600;
+}
 .view-id-summary_key span a,
 .summaryFlipKeys {
     font-weight: 600;
@@ -920,6 +925,12 @@ a[href$="/taxonomy/term/147"] {
 }
 .view-id-summary_key a[href$="/taxonomy/term/147"] {
     border: unset !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/292"],
+.view-id-summary_key a[href$="/taxonomy/term/293"],
+.view-id-summary_key a[href$="/taxonomy/term/294"] {
+    border: unset !important;
+    color: #000 !important;
 }
 
 /*-- End Flipchart Key colors --*/
