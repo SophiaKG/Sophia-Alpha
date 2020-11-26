@@ -20,7 +20,8 @@ class CharacterSheetController extends ControllerBase
                     <a href="/drupal8/web/node/' . $node->id() . '">
                         Back
                     </a>
-                </div>',
+                </div> Neptune details: <div/>' .
+                str_replace("\n", '<p/>', Helper::getMarkStream()),
         ];
     }
 

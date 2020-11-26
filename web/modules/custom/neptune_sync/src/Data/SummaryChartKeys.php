@@ -102,7 +102,7 @@ class SummaryChartKeys{
                 'parentId' => '127'),
             '℗' => array(
                 'Title' => 'Commonwealth Procurement Rules',
-                'Neptune_obj' => '',
+                'Neptune_obj' => 'ns2:F2014L00911CommonwealthProcurementRules.',
                 'TaxonomyId' => '144',
                 'parentId' => '148'),
             'X' => array(

@@ -13,6 +13,9 @@ use Drupal\neptune_sync\Data\DrupalEntityExport;
  */
 class Helper
 {
+    private static $printMark = false;
+    private static $markBuffer = "";
+
     /**
      *
      * TODO: add better argument display ie:   $this->messenger()->addStatus($this->t('Your phone number is @number', ['@number' => $form_state->getValue('phone_number')]));
@@ -30,6 +33,8 @@ class Helper
         file_put_contents('neptune_sync.log', $str, FILE_APPEND);
         if($event)
             file_put_contents('neptune_sync_event.log', $str, FILE_APPEND);
+        if(self::$printMark)
+            self::$markBuffer .= $str;
 
         foreach ($args as $k)
             self::log($k, $event);
@@ -96,5 +101,15 @@ class Helper
                 break;
         }
         return $str;
+    }
+
+    public static function setLogMark(){
+        self::$printMark = true;
+    }
+
+    public static function getMarkStream(){
+        self::$printMark = false;
+        return self::$markBuffer;
+
     }
 }

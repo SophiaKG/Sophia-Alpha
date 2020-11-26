@@ -43,6 +43,7 @@ class CharacterSheetManager
         $this->processLegislation($node, $bulkOperation);
         $this->processCooperativeRelationships($node, $bulkOperation);
         $this->processLink($node);
+        Helper::setLogMark();
         $this->processBodyType($node);
         $this->processFinClass($node);
         $this->processEcoSector($node);
@@ -247,7 +248,11 @@ class CharacterSheetManager
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
-                case '℗': //no query yet
+                case '℗':
+                    $query = QueryBuilder::buildAskQuery(
+                        SummaryViewQuerier::getEstablishedByRegulationPart($node));
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
                     break;
             }
             if ($res)

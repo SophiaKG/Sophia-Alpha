@@ -93,4 +93,16 @@ class SummaryViewQuerier {
             '?est a ns2:Establishment. ';
     }
 
+    public static function getEstablishedByRegulationPart($node){
+        if($node instanceof NodeInterface)
+            $node = QueryBuilder::getUri($node, "ns2");
+        return
+            '?procAuth ns2:Binds ?proc. ' .
+            '?procAuth ns2:BindsTo ' . $node . '. ' .
+            '?proc a ns2:Procurement. ' .
+            '?cprauth ns2:isRestrictionOf ?proc. ' .
+            '?cprauth ns2:Binds ns2:F2014L00911CommonwealthProcurementRules. ' .
+            '?leg ns2:Grants ?cprauth. ' .
+            '?leg ns2:live true. ';
+    }
 }
