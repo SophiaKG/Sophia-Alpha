@@ -24,7 +24,7 @@ class QueryBuilder {
      * @param $term string The property to check if it exist.
      * @return Query Returns a true or false in the form of if the node has the given propery in neptune.
      */
-    public static function checkTerm(NodeInterface $node, $term){
+   /*public static function checkTerm(NodeInterface $node, $term){
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
         $q->setQuery(
@@ -34,84 +34,7 @@ class QueryBuilder {
             ' }');
 
         return $q;
-    }
-
-    /** Checks if an object has a property via authority that is validated (Witness)
-     * by some means, normally the flipchart
-     *
-     * @param $ent string entity to check
-     * @param $term string The property to check
-     * @return string a part of query to be inserted into a where clause
-     */
-    public static function getValidatedAuthorityPart($node, $term){
-        if($node instanceof NodeInterface)
-            $node = self::getUri($node, "ns2");
-        return
-            '?auth ns2:BindsTo ' . $node . '. ' .
-            '?auth ns2:Binds ' . $term . '. ' .
-            '?flipchart ns2:Witnesses ?auth. ' .
-            '?flipchart ns2:live true. ';
-    }
-
-    public static function getStaffingPart($node, $term){
-        if($node instanceof NodeInterface)
-            $node = self::getUri($node, "ns2");
-        return
-            '?ent ns2:live true. ' .
-            '?auth0 ns2:Binds ?myStaffing. ' .
-            '?auth0 ns2:BindsTo ' . $node . '. ' .
-            '?auth1 ns2:Binds ' . $term . '. ' .
-            '?auth1 ns2:isRestrictionOf ?myStaffing. ';
-    }
-
-    /** specific for R key
-     * @param $node
-     * @return string
-     */
-    public static function getRegulatedCorpComEntity($node){
-        if($node instanceof NodeInterface)
-            $node = self::getUri($node, "ns2");
-        return
-            '?auth ns2:BindsTo ' . $node . '. ' .
-            '?auth ns2:Binds ?est. ' .
-            '?est a ns2:Establishment. ' .
-            '?leg ns2:Grants ?auth. ' .
-            '?leg ns2:live true. ' .
-            '?leg ns2:hasSeries ?srs. ' .
-            '?superSrs ns2:hasSubordinate ?srs.';
-    }
-
-    /** specific for X key
-     * @param $node
-     * @return string
-     */
-    public static function getExemptPart($node){
-        if($node instanceof NodeInterface)
-            $node = self::getUri($node, "ns2");
-        return
-            '?auth ns2:Binds ' . $node . '. ' .
-            '?auth ns2:isExemptFrom ?section. ' .
-            '?thing ns2:Grants ?auth. ' .
-            '?thing ns2:live true. ' .
-            '?section ns2:SubsectionOf ?leg. ' .
-            '?leg ns2:hasSeries ns2:C2013A00123.';
-    }
-
-    public static function getStaffingWithLegislationPart($node, $term){
-        if($node instanceof NodeInterface)
-            $node = self::getUri($node, "ns2");
-        return
-            self::getStaffingPart($node, $term) .
-            '?auth2 ns2:Binds ?otherTerm. ' .
-            '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
-            '?leg a ns2:Legislation. ' .
-            '?leg ns2:live true. ' .
-            '?leg ns2:Grants ?auth2. ' .
-            '?leg ns2:Grants ?auth3. ' .
-            '?auth3 ns2:Binds ?est. ' .
-            '?auth3 ns2:BindsTo ' . $node . '. ' .
-            '?est a ns2:Establishment. ';
-    }
+    }*/
 
     /**
      * @uses getValidatedAuthorityPart()
@@ -130,12 +53,12 @@ class QueryBuilder {
         return $q;
     }
 
-
     /**
      * Checks if a passed in node (Government Body) is part of a ns1 class
      *
+     * @deprecated is this still used?
      * @param NodeInterface $node the node to run the query for
-     * @param $is_a string the NS1 class we are testing against
+     * @param $is_a string the NS2 class we are testing against
      * @return Query
      *
      * @TODO pass in IrI for a more powerful check
@@ -149,24 +72,6 @@ class QueryBuilder {
             'ASK { ' .
                 self::getUri($node, "ns2") . ' a ns2:' . $is_a .
         ' }');
-
-        return $q;
-    }
-
-    /**
-     * @TODO WIP
-     * @param NodeInterface $node
-     * @return Query
-     */
-    public static function checkPsAct(NodeInterface $node) {
-
-        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
-        //Form the entire query
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL() .
-            'ASK { ?subject rdfs:label "' . $node->getTitle() . '" . ' .
-            ' ns1:PublicServiceAct1999 ns1:Enables ?subject . }');
-        //'select distinct ?b2l from <http://aws.amazon.com/neptune/vocab/v001> where { ?ct rdfs:label "Public Service Act 1999". ?auth ?e ?act. ?auth a ns2:Authority. ?auth ?e2 ?b2. ?b2 rdfs:label ?b2l}'
 
         return $q;
     }
@@ -298,7 +203,7 @@ class QueryBuilder {
      * @param String $prefix The prefix used to generate the uri (usually ns1|ns2)
      * @return string Neptune ready uri in the form of PREFIX:LocalName
      */
-    private static function getUri(NodeInterface $node, String $prefix){
+    public static function getUri(NodeInterface $node, String $prefix){
         return SophiaGlobal::IRI[$prefix]['prefix'] .
             substr(strrchr($node->get("field_neptune_uri")->getString(), "#"), 1);
     }

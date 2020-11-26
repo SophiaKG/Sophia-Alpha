@@ -1,17 +1,16 @@
 <?php
 namespace Drupal\neptune_sync\Data;
 
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\neptune_sync\Data\Model\CharacterSheet;
 use Drupal\neptune_sync\Data\Model\CooperativeRelationship;
 use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
+use Drupal\neptune_sync\Querier\Collections\SummaryViewQuerier;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\node\NodeInterface;
-
 
 class CharacterSheetManager
 {
@@ -36,19 +35,19 @@ class CharacterSheetManager
      */
     public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
 
+        Helper::log("updating node: " . $node->id() . " - " . $node->getTitle());
         $this->body = new CharacterSheet($node->getTitle(),
             $node->get("field_neptune_uri")->getString());
 
         $this->processPortfolio($node, $bulkOperation);
+        $this->processLegislation($node, $bulkOperation);
+        $this->processCooperativeRelationships($node, $bulkOperation);
+        $this->processLink($node);
         $this->processBodyType($node);
         $this->processFinClass($node);
-        $this->processLegislation($node, $bulkOperation);
         $this->processEcoSector($node);
-        $this->processLink($node);
         $this->processEmploymentType($node);
         $this->processSummaryKeys($node);
-        $this->processCooperativeRelationships($node, $bulkOperation);
-
 
         //TODO THIS NEEDS REPLACING! This forces lead bodies to appear on the summary view
         /*  if(strtoupper($node->getTitle()) == $node->getTitle()){
@@ -56,11 +55,8 @@ class CharacterSheetManager
             on the summary view");
             $this->body->setTypeOfBody(87);
         }*/
-        try {
-            $this->updateNode($node);
-        } catch (EntityStorageException|MissingDataException $e) {
-            Helper::log("Err505: Update did not occur", true);
-        }
+
+        $this->updateNode($node);
     }
 
     public function updateAllCharacterSheets(){
@@ -84,6 +80,7 @@ class CharacterSheetManager
      */
     private function processPortfolio(NodeInterface $node, Bool $bulkOperation = false){
 
+        Helper::log("Querying portfolio: ");
         $portNid = $this->ent_mgr->getEntityIdFromQuery(
             QueryBuilder::getBodyPortfolio($node),
             'port',
@@ -104,6 +101,7 @@ class CharacterSheetManager
     private function processLegislation(NodeInterface $node,
                                         Bool $bulkOperation = false){
 
+        Helper::log("Querying legislation: ");
         foreach ($this->ent_mgr->getEntityIdFromQuery(
                                     QueryBuilder::getBodyLegislation($node),
                                     'legislation',
@@ -115,62 +113,47 @@ class CharacterSheetManager
 
     /** Body Type
      * @param NodeInterface $node
-     *       Non-corporate Commonwealth entity 87 | Corporate Commonwealth entity 88 | Commonwealth company 90 |
-     * @todo add comcompany, maybe as default?| Force to use graph 0 */
+     * Adds the nodes body type to flipchartKeys field. This assignment is later synced up
+     *  to the bodyType field via body->syncSummaryKeysToFields().*/
     private function processBodyType(NodeInterface $node){
 
-        /*$vals =['NonCorporateCommonwealthEntity' => 87, 'CorporateCommonwealthEntity' => 88,
-            "NEPTUNEFIELD" /* can this be defaulted? *//*=> 90, 'NA' => 153];
-        $res = $this->check_property($vals, $node);
-        if(!$res)
-            $res = $vals['NA'];
-        $this->body->setTypeOfBody($res);*/
-
-        //new stuff
+        helper::log("Processing keys for body types: (next three queries) ");
         $vals = SummaryChartKeys::getTaxonomyIDArray('Body type');
         $res = $this->check_term($vals, $node);
         if($res)
             $this->body->addFlipchartKey($res);
-
     }
 
-    /**
+    /** Eco sector
      * @param NodeInterface $node
-     * Economic Sector
-     *      General Government Sector 91 | Public Financial Corporation 94 | Public Nonfinancial Corporation 92 | N/A 149
-     * @TODO add other terms| Force to use graph 0 */
+     * Adds the nodes eco type to flipchartKeys field. This assignment is later synced up
+     *  to the EcoSector field via body->syncSummaryKeysToFields().
+     * More then one value can be assigned. */
     private function processEcoSector(NodeInterface $node){
 
-        /*$vals =['GeneralGovernmentSectorEntity'=> 91, 'NEPTUNEFIELD' => 94, 'NEPTUNEFIELD' => 92, 'NA' => 149] ;
-        $res = $this->check_property($vals, $node);
-        if($res == null)
-            $res = $vals['NA'];
-        $this->body->setEcoSector($res);*/
-
+        Helper::log("Processing keys for eco sector: (next three)");
         $vals = SummaryChartKeys::getTaxonomyIDArray('Eco Sector');
         foreach ($vals as $key => $val) { //as its a multi field
+            helper::log("Processing key = " .
+                SummaryChartKeys::getKeyNameFromtaxId($val));
             $res = $this->check_term([$key => $val], $node);
             if ($res)
                 $this->body->addFlipchartKey($res);
         }
     }
 
-    /**
+    /** Financial classification
      * @param NodeInterface $node
-     * Financial classification
-     *      Material 95, Government Business Enterprise 96, Non-Material 109
-     *  @TODO Force to use graph 0
-     */
+     * Adds the nodes fin class to flipchartKeys field. This assignment is later synced up
+     *  to the finType field via body->syncSummaryKeysToFields().
+     * More then one value can be assigned. */
     private function processFinClass(NodeInterface $node){
 
-        /*$vals = ['MaterialEntity' => 95, 'CommonwealthCompany' => 96, 'NonMaterialEntity' => 109];
-        $res = $this->check_property($vals, $node);
-        if ($res == null)
-            $res = $vals['NonMaterialEntity'];
-        $this->body->addFinClass($res);*/
-
+        Helper::log("Processing keys for financial class: (next two)");
         $vals = SummaryChartKeys::getTaxonomyIDArray('Fin class');
         foreach ($vals as $key => $val) { //as its a multi field
+            helper::log("Processing key = " .
+                SummaryChartKeys::getKeyNameFromtaxId($val));
             $res = $this->check_term([$key => $val], $node);
             if ($res)
                 $this->body->addFlipchartKey($res);
@@ -180,38 +163,28 @@ class CharacterSheetManager
     /**
      * @param NodeInterface $node
      * Employment type
-     *      Public Service Act 1999 123 | Non-Public Service Act 1999 124 | Both 125 | Parliamentary Service Act 1999 126 | N/A 151
-     * @TODO everything | Force to use graph 0*/
+     * Adds the nodes employment type to flipchartKeys field. This assignment is later synced up
+     *  to the employmentType field via body->syncSummaryKeysToFields().*/
     private function processEmploymentType(NodeInterface $node){
 
-        /*$vals =['NEPTUNEFIELD' => 123, 'NEPTUNEFIELD' => 124, 'NEPTUNEFIELD' => 125, 'NEPTUNEFIELD' => 126, 'NA' => 151];
-        $res = null; //this is killing it
-        if($res == null)
-            $res = $vals['NA'];
-        $this->body->setEmploymentType($res);*/
-
-        //new stuff centos 'TaxonomyId' => '137'
-
-        //$vals = $this->getTaxonomyIDArray('135', true);
-        //Helper::log("post employment type val: " );
-        //Helper::log($vals);
+        Helper::log("Processing keys for employment type: (next three)");
         $res = "";
         foreach (SummaryChartKeys::getKeys()['Employment type'] as $arrKey => $key){
-            helper::log("key = " . $arrKey);
+            helper::log("Processing key = " . $arrKey);
             switch ($arrKey) {
                 case 'PS Act': //its the default value if no assignment could be made
                     break;
 
                 case '^': //!ps act
                     $query = QueryBuilder::buildAskQuery(
-                        QueryBuilder::getStaffingPart($node, $key['Neptune_obj']));
+                        SummaryViewQuerier::getStaffingPart($node, $key['Neptune_obj']));
                     if (!$this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
 
                 case '#': // PS act && enabling legislation
                     $query = QueryBuilder::buildAskQuery(
-                        QueryBuilder::getStaffingWithLegislationPart(
+                        SummaryViewQuerier::getStaffingWithLegislationPart(
                             $node, $key['Neptune_obj']));
 
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
@@ -220,7 +193,7 @@ class CharacterSheetManager
 
                 case '▲': //parliamentary act
                     $query = QueryBuilder::buildAskQuery(
-                        QueryBuilder::getStaffingPart($node, $key['Neptune_obj']));
+                        SummaryViewQuerier::getStaffingPart($node, $key['Neptune_obj']));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
@@ -236,8 +209,9 @@ class CharacterSheetManager
 
     private function processSummaryKeys(NodeInterface $node){
 
+        Helper::log("Processing keys for misc flipchart keys: (next 8)");
         foreach (SummaryChartKeys::getKeys()['Default'] as $arrKey => $key) {
-            Helper::log("Querying Key: " . $arrKey);
+            Helper::log("Processing Key: " . $arrKey);
             $res = false;
             switch ($arrKey) {
                 case 'E':
@@ -247,14 +221,14 @@ class CharacterSheetManager
                     break;
                 case 'R':
                     $query = QueryBuilder::buildAskQuery(
-                        QueryBuilder::getRegulatedCorpComEntity(
+                        SummaryViewQuerier::getRegulatedCorpComEntity(
                             $node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
                 case '*':
                     $nonCorp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
-                    ['Non-corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
+                        ['Non-corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
                     $corp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
                         ['Corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
                     if($nonCorp && $corp)
@@ -269,7 +243,7 @@ class CharacterSheetManager
                     break;
                 case 'X':
                     $query = QueryBuilder::buildAskQuery(
-                        QueryBuilder::getExemptPart($node));
+                        SummaryViewQuerier::getExemptPart($node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
@@ -350,24 +324,6 @@ class CharacterSheetManager
     }
 
     /**
-     * @param $vals array list of neptune label strings to attempt to match
-     * @param $node
-     * @return false|mixed
-     *
-     * Checks if a (Var) label can be found from a passed in nodes label
-     */
-    private function check_property($vals, $node){
-        foreach (array_keys($vals) as $val){
-
-            $query = QueryBuilder::checkAskBody($node, $val);
-            $json = $this->query_mgr->runCustomQuery($query);
-            if ($this->evaluate($json))
-                return $vals[$val];
-        }
-        return false;
-    }
-
-    /**
      * @param array $vals of form ['Neptune_obj'] => ['TaxonomyID']
      * @param NodeInterface $node
      * @return false|string The drupal Vid|Nid of the term if it exists in neptune
@@ -375,7 +331,8 @@ class CharacterSheetManager
     private function check_term(array $vals, NodeInterface $node){
         foreach (array_keys($vals) as $val){
 
-            $query = QueryBuilder::buildAskQuery(QueryBuilder::getValidatedAuthorityPart($node, $val));
+            $query = QueryBuilder::buildAskQuery(
+                SummaryViewQuerier::getValidatedAuthorityPart($node, $val));
             $json = $this->query_mgr->runCustomQuery($query);
             if ($this->evaluate($json))
                 return $vals[$val];
@@ -522,6 +479,25 @@ class CharacterSheetManager
                 Helper::log("UPDATE FIELD!2");
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * @deprecated is this used anymore now that graph0 is dead?
+     * @param $vals array list of neptune label strings to attempt to match
+     * @param $node
+     * @return false|mixed
+     *
+     * Checks if a (Var) label can be found from a passed in nodes label
+     */
+    private function check_property($vals, $node){
+        foreach (array_keys($vals) as $val){
+
+            $query = QueryBuilder::checkAskBody($node, $val);
+            $json = $this->query_mgr->runCustomQuery($query);
+            if ($this->evaluate($json))
+                return $vals[$val];
         }
         return false;
     }

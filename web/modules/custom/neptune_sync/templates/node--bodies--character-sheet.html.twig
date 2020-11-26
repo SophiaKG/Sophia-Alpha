@@ -152,8 +152,8 @@
             {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/144"><span id="cpr">℗ </span></a>' %}
         {% elseif key['#title']  == 'X' %}
             {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/145"><span id="exempt">X </span></a>' %}
-        {% elseif key['#title']  == 'Listed Entities' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/147"><span id="le">Listed Entities </span></a>' %}
+        {# elseif key['#title']  == 'Listed Entities' #}
+            {# set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/147"><span id="le">Listed Entities </span></a>' #}
         {% endif %}
     {% endfor %}
 {% endif %}

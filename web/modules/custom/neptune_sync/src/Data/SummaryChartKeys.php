@@ -116,6 +116,15 @@ class SummaryChartKeys{
                 'parentId' => '146')),
     );
 
+    public static function getKeyNameFromtaxId(string $taxId){
+
+        foreach (self::getFlattenSummaryKey() as $key => $val)
+            if($val['TaxonomyId'] == $taxId)
+                return $key;
+
+        return "Key not found via taxId";
+    }
+
     public static function getKeys(){
         return self::SummaryChartKey;
     }
