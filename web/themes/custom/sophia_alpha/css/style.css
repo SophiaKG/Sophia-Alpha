@@ -438,7 +438,7 @@ canvas {
 }
 .shapes-legend p,
 .color-keys p {
-    border-bottom: 1px solid #1d84c3;
+    border-bottom: 1px solid #1d84c3; 
     
 }
 
@@ -517,12 +517,26 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 }
 
 .page-view-flipchart .view-display-id-block_3 table {
-    background-color: aliceblue;
+    background-color: aliceblue !important;
+    font-size: 0.9em !important;
     max-height: 600px;
     overflow-y: auto;
-    width: 240px;
+    width: 255px;
 }
 
+.page-view-flipchart .view-display-id-block_3 table caption{
+    text-align: center;
+    border-top: 2px solid #2f4f4f;
+}
+
+.page-view-flipchart .view-display-id-block_3 table caption a {
+    font-weight: 700;
+    color: #2f4f4f !important;
+    font-size: .9rem;
+}
+.page-view-flipchart .view-display-id-block_3 table tr td {
+    border: 0px;
+}
 .page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
