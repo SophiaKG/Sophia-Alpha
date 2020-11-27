@@ -6,6 +6,7 @@ namespace Drupal\neptune_sync\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\neptune_sync\Graph\GraphGenerator;
+use Drupal\neptune_sync\Utility\Helper;
 
 class CoopGraphForm extends \Drupal\Core\Form\FormBase
 {
@@ -18,10 +19,10 @@ class CoopGraphForm extends \Drupal\Core\Form\FormBase
     public function buildForm(array $form, FormStateInterface $form_state){
 
         $form['bodies'] = [
-            '#type' => 'webform_entity_select',
+            '#type' => 'webform_entity_checkboxes',
             '#title' => $this->t('Select government bodies cooperative intersect'),
+            '#options_display' => 'three_columns',
             '#multiple' => TRUE,
-            '#select2' => TRUE,
             '#target_type' => 'node',
             '#selection_handler' => 'views',
             '#selection_settings' => [
@@ -62,6 +63,7 @@ class CoopGraphForm extends \Drupal\Core\Form\FormBase
     public function submitForm(array &$form, FormStateInterface $form_state){
 
         $filters = $form_state->getValues();
+        Helper::log("form values = ", false, $filters);
         $form_state->setRedirect('neptune_sync.displayCoopGraphIntersect', [], ['query' => [
             'bodies' => $filters['bodies'],
         ]]);

@@ -52,8 +52,8 @@ class CoopGraphQuerier{
             $queryForm = self::constructCoopGraphStatement($selectKey);
         } else { //select query
             $selectKey['default'] = array(
-                '?sendBodyLab',
-                '?recBodyLab',
+                '?sendBody',
+                '?recBody',
                 '?progLabel',
                 '?progDesc',
                 '?outcomeLabel',
@@ -77,7 +77,7 @@ class CoopGraphQuerier{
 
             //union needed
             $whereStr =
-                "WHERE { { " .
+                " WHERE { { " .
                     $valueStr .
                     self::whereCoopGraphStatement($selectKey['sendBody'],
                         $selectKey['recBody']) .
@@ -177,9 +177,11 @@ class CoopGraphQuerier{
 
         //if this key exists, we must be building a union graph
         if(array_key_exists('sendBodyUnion', $selectKey))
-
-            $selectKey['sendBody'] . '. ns2:Grants ?prog. ' .
-            '?outcome ns2:Empowers ' . $selectKey['recBody'] . '. ';
+            $retString .=
+                $selectKey['sendBody'] . ' ns2:Grants ?prog. ' .
+                $selectKey['sendBodyUnion'] . ' ns2:Grants ?prog. ' .
+                '?outcome ns2:Empowers ' . $selectKey['recBody'] . '. ' .
+                '?outcome ns2:Empowers ' . $selectKey['recBodyUnion'] . '. ';
             /*$retString .=
                 '?sendBody rdfs:label ' . $selectKey['sendLabUnion']    . ". " .
                 '?sendBody rdfs:label ' . $selectKey['sendLab']         . ". " .
