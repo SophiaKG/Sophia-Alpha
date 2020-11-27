@@ -1,4 +1,4 @@
-uuid: ae02dc3b-514f-4c32-b46e-6ba871178806
+uuid: 5d361ad4-d359-4f14-bfcd-c4704eaca32b
 langcode: en
 status: open
 dependencies: {  }
@@ -8,11 +8,11 @@ weight: 0
 uid: 1
 template: false
 archive: false
-id: local_grapgh_query
-title: local_graph_query
+id: sync_data
+title: 'Sync data'
 description: ''
 category: ''
-elements: "markup:\n  '#type': webform_markup\n  '#markup': 'just adding some text here'\nsize_of_local_graph:\n  '#type': select\n  '#title': 'Size of local graph'\n  '#help': 'The number of links that should be explored from the selected label'\n  '#options':\n    1: '1'\n    2: '2'\n    3: '3'\n    4: '4'\n    5: '5'\n  '#required': true\nignore_results_that_are:\n  '#type': webform_entity_select\n  '#title': 'Ignore results that are'\n  '#multiple': true\n  '#help': 'Do not explore nodes that are of the selected type/s'\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_class_type: rdf_class_type\n    sort:\n      field: name\n      direction: ASC\nignore_relationship_types_of:\n  '#type': webform_entity_select\n  '#title': 'Ignore relationship types of'\n  '#multiple': true\n  '#help': 'Do not explore down the provided relationship types'\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_relationships: rdf_relationships\n    sort:\n      field: name\n      direction: ASC\nrestrict_results_from_:\n  '#type': date\n  '#title': 'Restrict results from '\n  '#help': 'Provide the start of a range that results must fall under if they have a date attached. This field is optional&nbsp;'\n  '#default_value': 'Jan 1 1901'\n  '#date_date_min': 01-01-1901\n  '#datepicker': true\n  '#datepicker_button': true\nrestrict_results_to:\n  '#type': date\n  '#title': 'Restrict results to'\n  '#help': 'Provide the end of a range that results must fall under if they have a date attached. This field is optional&nbsp;'\n  '#default_value': today\n  '#date_date_max': Today\n  '#datepicker': true\n  '#datepicker_button': true\ntestkey:\n  '#type': webform_entity_checkboxes\n  '#title': testxx\n  '#options_display': three_columns\n  '#target_type': taxonomy_term\n  '#selection_handler': 'default:taxonomy_term'\n  '#selection_settings':\n    target_bundles:\n      rdf_relationships: rdf_relationships\n    sort:\n      field: name\n      direction: ASC\ntest:\n  '#type': webform_entity_select\n  '#title': test\n  '#multiple': true\n  '#select2': true\n  '#target_type': node\n  '#selection_handler': views\n  '#selection_settings':\n    view:\n      view_name: connected_bodies\n      display_name: entity_reference_1\n      arguments: {  }"
+elements: "wipe_data:\n  '#type': checkboxes\n  '#title': 'Wipe data'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n    cooperative_relationships: 'Cooperative Relationships'\n  '#options_all': true\n  '#options_none': true\nsync_node_creation:\n  '#type': checkboxes\n  '#title': 'Sync node creation'\n  '#description': 'This creates nodes only, in a blank state. Sync data is needed to fill out data.'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n  '#options_all': true\n  '#options_none': true\nsync_neptune_data:\n  '#type': checkbox\n  '#title': 'Sync Neptune data'\n  '#description': 'Sync Node fields for all existing bodies to Neptune.'"
 css: ''
 javascript: ''
 settings:
@@ -59,7 +59,7 @@ settings:
   share_theme_name: ''
   share_title: true
   share_page_body_attributes: {  }
-  submission_label: ''
+  submission_label: Sync
   submission_log: false
   submission_views: {  }
   submission_views_replace: {  }
