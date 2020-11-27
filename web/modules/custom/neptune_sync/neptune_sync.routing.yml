@@ -105,3 +105,10 @@ neptune_sync.runAdminFunc:
     _title: 'Runs a custom php function'
   requirements:
     _permission: 'administer modules'
+neptune_sync.dataSync:
+  path: '/admin/sync'
+  defaults:
+    _controller: '\Drupal\neptune_sync\Controller\AdminController::syncData'
+    _title: 'Provides a form for sync data between neptune and drupal'
+  requirements:
+    _permission: 'administer modules'

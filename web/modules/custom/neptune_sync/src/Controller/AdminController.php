@@ -18,7 +18,10 @@ class AdminController extends ControllerBase
         ];
     }
 
-
+    public function syncData(){
+        return [
+            'form' => \Drupal::formBuilder()->getForm('\Drupal\neptune_sync\Form\DataSyncForm')];
+    }
 
     private function modifyNode(){
 
@@ -45,4 +48,5 @@ class AdminController extends ControllerBase
         $importer = new NeptuneImporter();
         $importer->importNeptuneData(true);
     }
+
 }

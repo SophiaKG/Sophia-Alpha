@@ -98,7 +98,6 @@ class GraphController extends ControllerBase
         ];
     }
 
-
     public function coopGraphQuery(){
         return [
             'form' => \Drupal::formBuilder()->getForm('\Drupal\neptune_sync\Form\CoopGraphForm')];
