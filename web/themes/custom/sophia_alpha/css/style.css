@@ -105,6 +105,12 @@ ul.sf-menu .sf-sub-indicator {
 ul.sf-menu.menu li {
     margin-bottom: 0.5rem;
 }
+ul.sf-menu.menu li ul{
+    background-color: #fff;
+}
+ul.sf-menu.menu li ul li {
+    margin-bottom: 0.2rem;
+}
 .navbar-toggler {
     background-color: #414042;
     border: 1px solid #e8f2f9;
@@ -223,19 +229,25 @@ box-shadow: 1px 2px #1d84c3;
     background-color: transparent;
     border: unset;
 }
-#sidebar_second aside #block-webform--2 {
-    padding: unset;
+
+#sidebar_second aside > .block {
+    margin: 0px;
 }
-#print-icon {
-    display: contents;
+#sidebar_second nav .nav {
+    margin: 2rem 0.5rem 0rem !important;
 }
+
 #sidebar_second aside #block-webform > h2{
     border-bottom: 2px solid #1d84c3;
+}
+legend {
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 /* Below h2 border fixes the border display for IE.
 */
 .block-region-sidebar-second.block-webform-block h2 {
-    border-bottom: 2px solid #1d84c3;
+    border-bottom: 2px solid #1d84c3 !important;
 }
 nav.tabs {
     position: relative !important;
@@ -507,6 +519,16 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     padding-left: 0px;
 }
 */
+.portfolio_bodies_count {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    background: #efefef;
+    border-radius: 12px;
+    line-height: 2rem;
+    width: 30px;
+    text-align: center;
+}
 .page-view-flipchart main#content{
     padding-top: 20px;
 }
