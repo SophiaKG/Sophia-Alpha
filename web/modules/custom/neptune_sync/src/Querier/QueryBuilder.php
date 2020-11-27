@@ -93,18 +93,15 @@ class QueryBuilder {
             'SELECT DISTINCT ?port ?portlabel ' .
             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { ' .
-                '?body rdfs:label "' . $node->getTitle() . '" . ' .
-                '?body a/ rdfs:subClassOf* ns2:CommonwealthAgent. ' .
-                '?body ns2:FallsUnder ?port. ' .
-                '?port ns2:CanonicalName ?portlabel. ' .
-                '?authority ns2:Binds ?est. ' .
-                '?est a ns2:Establishment. ' .
-                '?authority ns2:BindsTo ?port. ' .
-                '?aao ns2:Grants ?authority. ' .
-                '?event ns2:Empowers ?aao. ' .
-                '?event ns2:startsAtOrAfter ?datetime. ' .
+                '?auth ns2:fallsUnder ?port. ' .
+                '?port rdfs:label ?portlabel. ' .
+                '?auth ns2:Binds ' . self::getUri($node, 'ns2') . '. ' .
+                '?flip ns2:Witnesses ?auth. ' .
+                '?flip a ns2:FinanceEntityList. ' .
+                '?flip ns2:live true. ' .
             '} ORDER BY DESC(?datetime) ' .
             'LIMIT 1');
+
         return $q;
     }
 

@@ -170,7 +170,6 @@ class CoopGraphQuerier{
             '?outcome ns2:Content ?outcomeDesc. ' .
             '?sendBody rdfs:label ?sendBodyLab. ' . //new
             '?recBody rdfs:label ?recBodyLab. ' .  //new
-            '?sendBody rdf:type ns2:CommonwealthBody. ' .
             '?recBody rdf:type ns2:CommonwealthBody. ' .
             '?prog rdf:type ns2:Program. ' .
             '?outcome rdf:type ns2:Outcome. ';
@@ -189,8 +188,9 @@ class CoopGraphQuerier{
                 '?recBody rdfs:label ' .  $selectKey['recLabelUnion']   . ". ";*/
         else //Non-union graph
             $retString .=
-                $selectKey['sendBody'] . ' ns2:Grants ?prog. ' .
-                '?outcome ns2:Empowers ' . $selectKey['recBody'] . '. ';
+                /*$selectKey['sendBody'] . ' ns2:Grants ?prog. ' .
+                $selectKey['sendBody'] . ' rdf:type ns2:CommonwealthBody. ' .
+                '?outcome ns2:Empowers ' . $selectKey['recBody'] . '. ';*/
 
                 /*'?sendBody rdfs:label ' . $selectKey['sendLab']         . ". " .
                 '?recBody rdfs:label ' .  $selectKey['recLabel']        . ". ";*/
@@ -212,6 +212,7 @@ class CoopGraphQuerier{
 
         return
             //Graph logic
+            'BIND(?entities AS ?sendBody). ' .
             '?auth ns2:Binds ?prog. ' .
             '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
             '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program

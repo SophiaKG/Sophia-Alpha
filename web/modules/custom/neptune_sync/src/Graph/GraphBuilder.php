@@ -139,8 +139,10 @@ class GraphBuilder
         /** If the node has no type, don't display it.
          *  XXX what the hell would trigger this?
          */
-        if($resource->type() == null)
+        if($resource->type() == null) {
+            Helper::log("returning null for soe reason");
             return false;
+        }
 
         $nodeRetArr = [];
 

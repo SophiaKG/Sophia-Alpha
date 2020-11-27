@@ -66,7 +66,7 @@ class QueryTemplate
                             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
                             'WHERE { ' .
                                 'VALUES ?type {ns2:CommonwealthBody ns2:LeadBody} ' .
-                                '?obj ns2:live true. ' .
+                                //'?obj ns2:live true. ' .
                                 '?obj a ?type. ' .
                                 '?obj ns2:CanonicalName ?objLabel. ' .
                             '}');
