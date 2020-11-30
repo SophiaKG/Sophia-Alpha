@@ -10,7 +10,7 @@ id: node.portfolios.field_bodies
 field_name: field_bodies
 entity_type: node
 bundle: portfolios
-label: Bodies
+label: 'List of Bodies in this portfolio'
 description: ''
 required: false
 translatable: false
@@ -22,7 +22,8 @@ settings:
     target_bundles:
       bodies: bodies
     sort:
-      field: _none
+      field: title
+      direction: ASC
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference
