@@ -2,9 +2,23 @@
     $(document).ready(function() {
    
      $('.cce').click(function() {  
-          
-          $(".view-id-entity_types").slideDown(1000);
-     });
+      $(".view-id-entity_types").slideDown(1500);
+        /*
+          $(".view-id-entity_types").dialog({
+            title: "Netity Types",
+            modal: true,
+            width: 480,
+            height: 320,
+            buttons: {
+              Close: 
+                function(){
+                  $(this).dialog('close');
+                }
+              
+            },
+          });
+          */
+      }); 
      
      $('.view-id-entity_types').mouseleave(function() {  
       
