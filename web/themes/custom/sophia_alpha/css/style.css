@@ -105,6 +105,12 @@ ul.sf-menu .sf-sub-indicator {
 ul.sf-menu.menu li {
     margin-bottom: 0.5rem;
 }
+ul.sf-menu.menu li ul{
+    background-color: #fff;
+}
+ul.sf-menu.menu li ul li {
+    margin-bottom: 0.2rem;
+}
 .navbar-toggler {
     background-color: #414042;
     border: 1px solid #e8f2f9;
@@ -203,7 +209,7 @@ box-shadow: 1px 2px #1d84c3;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
-    max-height: 680px;
+    max-height: 710px;
    /* overflow-y: auto;*/
 }
 
@@ -223,19 +229,25 @@ box-shadow: 1px 2px #1d84c3;
     background-color: transparent;
     border: unset;
 }
-#sidebar_second aside #block-webform--2 {
-    padding: unset;
+
+#sidebar_second aside > .block {
+    margin: 0px;
 }
-#print-icon {
-    display: contents;
+#sidebar_second nav .nav {
+    margin: 2rem 0.5rem 0rem !important;
 }
+
 #sidebar_second aside #block-webform > h2{
     border-bottom: 2px solid #1d84c3;
+}
+legend {
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 /* Below h2 border fixes the border display for IE.
 */
 .block-region-sidebar-second.block-webform-block h2 {
-    border-bottom: 2px solid #1d84c3;
+    border-bottom: 2px solid #1d84c3 !important;
 }
 nav.tabs {
     position: relative !important;
@@ -345,6 +357,12 @@ header#header {
     margin-bottom: 2rem;
 }
 /* scroll mesage is used for Summary key block message - Scroll Down or view page*/
+.guide_msg {
+    font-size: .85rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: .5rem;
+}
 #scroll_msg {
     text-align: center;
     font-size: 0.7rem;
@@ -355,6 +373,9 @@ header#header {
 #scroll_msg a {
     text-decoration: none !important;
     color: orange !important;
+}
+#scroll_msg i {
+    font-size: .8rem;
 }
 .ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
     width: 80%;
@@ -428,7 +449,7 @@ canvas {
 .shapes-legend,
 .color-keys {
     color: #1d84c3;
-    padding: 10px 20px;
+    padding: 10px 20px 0px 20px;
     text-align: left;
 
 }
@@ -438,7 +459,7 @@ canvas {
 }
 .shapes-legend p,
 .color-keys p {
-    border-bottom: 1px solid #1d84c3;
+    border-bottom: 1px solid #1d84c3; 
     
 }
 
@@ -507,6 +528,16 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     padding-left: 0px;
 }
 */
+.portfolio_bodies_count {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    background: #efefef;
+    border-radius: 12px;
+    line-height: 2rem;
+    width: 30px;
+    text-align: center;
+}
 .page-view-flipchart main#content{
     padding-top: 20px;
 }
@@ -517,12 +548,26 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 }
 
 .page-view-flipchart .view-display-id-block_3 table {
-    background-color: aliceblue;
+    background-color: aliceblue !important;
+    font-size: 0.9em !important;
     max-height: 600px;
     overflow-y: auto;
-    width: 240px;
+    width: 255px;
 }
 
+.page-view-flipchart .view-display-id-block_3 table caption{
+    text-align: center;
+    border-top: 2px solid #2f4f4f;
+}
+
+.page-view-flipchart .view-display-id-block_3 table caption a {
+    font-weight: 700;
+    color: #2f4f4f !important;
+    font-size: .9rem;
+}
+.page-view-flipchart .view-display-id-block_3 table tr td {
+    border: 0px;
+}
 .page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
@@ -623,7 +668,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     margin: 2px 5px;
     border-radius: 4px;
     text-align: center;
-    padding: 2px 5px;
+    padding: 1px 2px;
 }
 
 #block-sophia-alpha-content div .character-sheet-keys {
@@ -801,6 +846,11 @@ article.comCompany {
 }
 
 /* Flipchart key colors below */
+.entity_count {
+    font-size: .8rem;
+    color: #778899;
+    font-weight: 600;
+}
 .view-id-summary_key span a,
 .summaryFlipKeys {
     font-weight: 600;
@@ -920,6 +970,12 @@ a[href$="/taxonomy/term/147"] {
 }
 .view-id-summary_key a[href$="/taxonomy/term/147"] {
     border: unset !important;
+}
+.view-id-summary_key a[href$="/taxonomy/term/292"],
+.view-id-summary_key a[href$="/taxonomy/term/293"],
+.view-id-summary_key a[href$="/taxonomy/term/294"] {
+    border: unset !important;
+    color: #000 !important;
 }
 
 /*-- End Flipchart Key colors --*/
