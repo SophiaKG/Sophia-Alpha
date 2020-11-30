@@ -209,7 +209,7 @@ box-shadow: 1px 2px #1d84c3;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
-    max-height: 680px;
+    max-height: 710px;
    /* overflow-y: auto;*/
 }
 
@@ -357,6 +357,12 @@ header#header {
     margin-bottom: 2rem;
 }
 /* scroll mesage is used for Summary key block message - Scroll Down or view page*/
+.guide_msg {
+    font-size: .85rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: .5rem;
+}
 #scroll_msg {
     text-align: center;
     font-size: 0.7rem;
@@ -367,6 +373,9 @@ header#header {
 #scroll_msg a {
     text-decoration: none !important;
     color: orange !important;
+}
+#scroll_msg i {
+    font-size: .8rem;
 }
 .ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front {
     width: 80%;

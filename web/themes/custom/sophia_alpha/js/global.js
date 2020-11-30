@@ -3,12 +3,12 @@
    
      $('.cce').click(function() {  
           
-          $(".view-id-entity_types").show();
+          $(".view-id-entity_types").slideDown(1000);
      });
      
      $('.view-id-entity_types').mouseleave(function() {  
       
-          $(".view-id-entity_types").hide();
+          $(".view-id-entity_types").slideUp(1000);
       });
 /*
       $('.view-id-summary_key').hover(function() {  
