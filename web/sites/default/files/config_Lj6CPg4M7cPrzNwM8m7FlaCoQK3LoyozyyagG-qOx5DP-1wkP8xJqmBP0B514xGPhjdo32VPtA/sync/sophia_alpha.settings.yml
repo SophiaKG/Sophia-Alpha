@@ -37,7 +37,7 @@ bootstrap_barrio_region_clean_content: 1
 bootstrap_barrio_region_class_content: ''
 bootstrap_barrio_region_clean_content_bottom: 0
 bootstrap_barrio_region_class_content_bottom: row
-bootstrap_barrio_region_clean_sidebar_first: 1
+bootstrap_barrio_region_clean_sidebar_first: 0
 bootstrap_barrio_region_class_sidebar_first: ''
 bootstrap_barrio_region_clean_sidebar_second: 1
 bootstrap_barrio_region_class_sidebar_second: ''

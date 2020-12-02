@@ -1,11 +1,13 @@
 (function ($) {
     $(document).ready(function() {
-   
+      $('#sidebar_first').show();
+   /*
      $('.cce').click(function() {  
-      $(".view-id-entity_types").slideDown(1500);
-        /*
+       $(".view-id-entity_types").slideDown(1500);
+        
+        //Modal declaration start
           $(".view-id-entity_types").dialog({
-            title: "Netity Types",
+            title: "Entity Types",
             modal: true,
             width: 480,
             height: 320,
@@ -17,13 +19,16 @@
               
             },
           });
-          */
+          //modal declaration finish
       }); 
      
      $('.view-id-entity_types').mouseleave(function() {  
       
           $(".view-id-entity_types").slideUp(1000);
       });
+      */
+
+      
 /*
       $('.view-id-summary_key').hover(function() {  
       
@@ -36,8 +41,10 @@
       $(".view-id-entity_types").dialog();
   });
 */
-flipKeyColours();
-function flipKeyColours () {
+flipKeyInsert();
+function flipKeyInsert () {
+  $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
+      
 //var flipKey = $('.view-id-summary_key .table span a').val();
 
  // if ( flipKey == 'I') {

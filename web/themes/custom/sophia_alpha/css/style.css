@@ -193,8 +193,9 @@ box-shadow: 1px 2px #1d84c3;
 .webform-element-description {
     font-size: 1rem;
 }
-.page-view-flipchart #sidebar_first {
-    display: block ! important;
+#sidebar_first
+ {
+    /*display: block ! important; */
     max-width: unset;
 }
 .page-view-flipchart .view-display-id-block_3 div.view-content {
@@ -243,6 +244,16 @@ box-shadow: 1px 2px #1d84c3;
 legend {
     font-size: 1.2rem;
     font-weight: 500;
+}
+#block-feedback-bar{
+    position: fixed;
+    right: 10px;
+    top: 360px;
+    background-color: deepskyblue;
+    border-radius: 12px;
+    font-size: 2rem;
+    font-weight: 400;
+    writing-mode: vertical-lr;
 }
 /* Below h2 border fixes the border display for IE.
 */
@@ -356,13 +367,14 @@ header#header {
     border-radius: 8px;
     margin-bottom: 2rem;
 }
-/* scroll mesage is used for Summary key block message - Scroll Down or view page*/
+/* Guide/Scroll mesage is used for Summary key block message - Scroll Down or view page*/
 .guide_msg {
     font-size: .9rem;
     color: #1d84c3;
     font-weight: 600;
     text-align: center;
-    margin-bottom: .5rem;
+    margin-top: .3rem auto;
+    
 }
 #scroll_msg {
     text-align: center;
@@ -547,7 +559,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     max-height: 520px;
     overflow-y: auto;
 }
-
+.view-id-entity_types table,
 .page-view-flipchart .view-display-id-block_3 table {
     background-color: aliceblue !important;
     font-size: 0.9em !important;
@@ -555,17 +567,18 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     overflow-y: auto;
     width: 255px;
 }
-
+.view-id-entity_types table caption,
 .page-view-flipchart .view-display-id-block_3 table caption{
     text-align: center;
     border-top: 2px solid #2f4f4f;
 }
-
+.view-id-entity_types table caption,
 .page-view-flipchart .view-display-id-block_3 table caption a {
     font-weight: 700;
     color: #2f4f4f !important;
     font-size: .9rem;
 }
+.view-id-entity_types table tr td,
 .page-view-flipchart .view-display-id-block_3 table tr td {
     border: 0px;
 }
@@ -575,12 +588,12 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 #block-views-block-summary-key-block-2 {
     width: 100%;  /*addresses the IE width adjustments for this block (otherwise 1/3rd wide in IE) */
 }
-/* tables stuff */
-.page-view-flipchart .view-display-id-block_1 div.view-content table caption {
+/* tables stuff (AD - Eliminate with testing one by one) */
+/*.page-view-flipchart .view-display-id-block_1 div.view-content table caption {
     padding-top: 0px;
     padding-bottom: 0px;
 }
-
+*/
 .page-view-flipchart .view-display-id-block_1 div.view-content table caption a {
     font-weight: 700;
     color: #504848;
@@ -593,13 +606,13 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .view-display-id-block_1 tbody td.views-field-name {
     text-align: center;
 }
-
+/*
 .view-display-id-block_1 th.views-field-name {
     width: 44px;
     text-align: center;
     padding: 4px 4px;
 }
-
+*/
 .view-display-id-block_1 tbody td p {
     margin-bottom: 0;
 }
@@ -803,10 +816,10 @@ article.comCompany {
     margin: auto;
 }
 .view-id-entity_types {
-    display: none;
+    display: block;
 }
-.view-footer .view-id-entity_types {
-    display: block !important;
+.view-id-entity_types .view-content.row{
+    margin-left: 0px;
 }
 .view-id-entity_types .table .views-field-name {
     width: 25%;
@@ -938,9 +951,7 @@ a[href$="/taxonomy/term/139"] {
 a[href$="/taxonomy/term/141"] {
     color: #000 !important;
 }
-.view-id-summary_key a[href$="/taxonomy/term/141"] {
-    border: unset !important;
-}
+
 /* F */
 #fin,
 a[href$="/taxonomy/term/142"] {

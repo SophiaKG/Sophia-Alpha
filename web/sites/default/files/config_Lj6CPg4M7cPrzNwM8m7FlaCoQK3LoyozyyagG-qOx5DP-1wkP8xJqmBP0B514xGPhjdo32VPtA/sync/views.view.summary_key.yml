@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - taxonomy.vocabulary.flip_chart_keys
+    - views.view.entity_types
   module:
     - taxonomy
     - text
@@ -700,7 +701,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div class=\"guide_msg\">Select a Key in the chart below to view entities with that key</div>\r\n<div id=\"scroll_msg\"><i class=\"far fa-hand-point-down\"></i> Scroll down for more<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or view on <a href=\"/drupal8/web/Summary_Key_Details\"><em>this page | </em><i class=\"fas fa-file\"></i></a></div>\r\n<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/drupal8/web/Summary\">All Entities</a></div>\r\n\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll down for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
+            value: "<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/drupal8/web/Summary\">All Entities</a></div>\r\n<div id=\"scroll_msg\"><i class=\"far fa-hand-point-down\"></i> Scroll over table for more <br />or view all keys on <a href=\"/drupal8/web/Summary_Key_Details\"><em>this page | </em><i class=\"fas fa-file\"></i></a></div>\r\n<div class=\"guide_msg\">Select a Key in the chart below to view list of entities with that key</div>\r\n<!-- \r\n<div id=\"scroll_msg\">*** Scroll over table for more<br />or view on <a class=\"use-ajax\" data-toggle=\"modal\" data-dialog-type=\"modal\"  href=\"/drupal8/web/Summary_Key_Details\">page</a></div>\r\n-->"
             format: full_html
           plugin_id: text
       defaults:
@@ -708,6 +709,7 @@ display:
         style: false
         row: false
         fields: false
+        footer: false
       display_description: ''
       style:
         type: table
@@ -759,7 +761,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Name
+          label: Key
           exclude: false
           alter:
             alter_text: false
@@ -947,6 +949,18 @@ display:
           entity_type: taxonomy_term
           entity_field: parent
           plugin_id: field
+      footer:
+        view:
+          id: view
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          view_to_insert: 'entity_types:block_1'
+          inherit_arguments: false
+          plugin_id: view
     cache_metadata:
       max-age: -1
       contexts:

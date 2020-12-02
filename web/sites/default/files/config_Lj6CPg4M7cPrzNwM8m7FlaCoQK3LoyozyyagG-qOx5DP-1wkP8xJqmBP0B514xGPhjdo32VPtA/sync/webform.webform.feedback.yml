@@ -16,7 +16,7 @@ elements: "type:\n  '#type': radios\n  '#title': 'Feedback type'\n  '#options':\
 css: ''
 javascript: ''
 settings:
-  ajax: false
+  ajax: true
   ajax_scroll_top: form
   ajax_progress_type: ''
   ajax_effect: ''
@@ -36,7 +36,7 @@ settings:
   form_remote_addr: true
   form_convert_anonymous: false
   form_prepopulate: false
-  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity: true
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
   form_reset: false
