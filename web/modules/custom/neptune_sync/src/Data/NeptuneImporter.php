@@ -101,16 +101,4 @@ class NeptuneImporter
         return true;
     }
 
-    private function importPortfolios(){
-
-        $query = QueryTemplate::getPortfolios();
-        $json = $this->query_Mgr->runCustomQuery($query);
-        $jsonObj = json_decode($json);
-
-    }
-
-    private function importLegislation(){
-
-    }
-
 }

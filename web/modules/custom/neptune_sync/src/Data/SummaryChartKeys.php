@@ -4,8 +4,17 @@
 namespace Drupal\neptune_sync\Data;
 
 
+use Drupal\neptune_sync\Utility\SophiaGlobal;
+
 class SummaryChartKeys{
 
+    /** Neptune_obj: Object id in neptune
+     * TaxonomyId: The Vid of the key in flipchart keys taxonomy
+     * parentId: The Vid of the preceding parent in flipchart keys taxonomy
+     * FieldTaxID: If the key maps to another field in bodies (ie. body type or
+     *      fin class), this is the Vid for the key on that specific fields
+     *      taxonomy **OPTIONAL
+     */
     private const SummaryChartKey = array(
         'Body type' => array(
             'Non-corporate Commonwealth entity' => array(
@@ -116,7 +125,53 @@ class SummaryChartKeys{
                 'parentId' => '146')),
     );
 
-    public static function getKeyNameFromtaxId(string $taxId){
+    //portfolio Nids for assignment
+    private static $parliamentaryDepartmentId = null;
+    private static $attorneyGeneralsId = null;
+
+    /**As the PGPA flipchart has a non existent portfolio "Parliamentary Departments",
+     *  we must replicate this functionality. As neptune is the source of truth, we
+     *  want to create this pseudo portfolio on the drupal side only. This is a singleton
+     *  function that will return the NID of this pseudo portfolio, and if it doesnt yet
+     *  exist in drupal, it will create it.
+     * @param EntityManager $ent_mgr A prebuilt ent manager for carrying over the node hashes
+     * @return string The Nid of the Parliamentary Departments portfolio
+     */
+    public static function getParliamentaryDepartmentId(EntityManager $ent_mgr){
+        if(!self::$parliamentaryDepartmentId){
+            $parliamentaryDepartment= new namespace\Model\Node(
+                "Parliamentary Departments",
+                SophiaGlobal::IRI['ns2']['loc'] . "PARLIAMENTARYDEPARTMNETS",
+                SophiaGlobal::PORTFOLIO);
+
+            self::$parliamentaryDepartmentId =
+                $ent_mgr->getEntityId($parliamentaryDepartment,
+                true, true);
+        }
+        return self::$parliamentaryDepartmentId;
+    }
+
+    /**@XXX Warning, this will fail if the neptune id for the attorney general's changes
+     * @param EntityManager $ent_mgr A prebuilt ent manager for carrying over the node hashes
+     * @return string The Nid of the attorney general's portfolio
+     */
+    public static function getAttorneyGeneralsId(EntityManager $ent_mgr){
+        if(!self::$attorneyGeneralsId){
+            $attorneyGenerals = new namespace\Model\Node(
+                "ATTORNEY-GENERAL'S",
+                SophiaGlobal::IRI['ns2']['loc'] .
+                "C2020Q00003PORTFOLIOOFTHEATTORNEYGENERALSDEPARTMENT",
+                SophiaGlobal::PORTFOLIO);
+
+
+            self::$attorneyGeneralsId =
+                $ent_mgr->getEntityId($attorneyGenerals,
+                    false, true);
+        }
+        return self::$attorneyGeneralsId;
+    }
+
+    public static function getKeyNameFromTaxId(string $taxId){
 
         foreach (self::getFlattenSummaryKey() as $key => $val)
             if($val['TaxonomyId'] == $taxId)
