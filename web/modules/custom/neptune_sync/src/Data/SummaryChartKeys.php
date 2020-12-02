@@ -50,7 +50,7 @@ class SummaryChartKeys{
                 'FieldTaxID' => '94'),
             'T' => array(
                 'Title' => 'Public Non-financial Corporation',
-                'Neptune_obj' => 'ns2:EntityListSeriesPublicNon-financialCorporation',
+                'Neptune_obj' => 'ns2:EntityListSeriesPublicNonfinancialCorporation',
                 'TaxonomyId' => '143',
                 'parentId' => '140',
                 'FieldTaxID' => '92')),

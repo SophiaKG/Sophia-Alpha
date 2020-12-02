@@ -64,11 +64,13 @@ class SummaryViewQuerier {
             $node = QueryBuilder::getUri($node, "ns2");
         return
             '?auth ns2:Binds ' . $node . '. ' .
-            '?auth ns2:isExemptFrom ?section. ' .
+            '?auth ns2:hasExemptionFrom ?section. ' .
+            '?section rdfs:label "22". ' .
             '?thing ns2:Grants ?auth. ' .
-            '?thing ns2:live true. ' .
+            '?thing ns2:SubsectionOf ?leg2. ' .
+            '?leg2 ns2:live true. ' .
             '?section ns2:SubsectionOf ?leg. ' .
-            '?leg ns2:hasSeries ns2:C2013A00123.';
+            '?leg ns2:hasSeries ns2:C2013A00123. ';
     }
 
 

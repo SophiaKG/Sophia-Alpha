@@ -239,7 +239,7 @@ class CharacterSheetManager
                     /** @TODO this is hardcoded and bad...VERY VERY BAD. port id changes per rebuild
                      * 28391 tax id for Attorney-General’s*/
                     Helper::log("HC = " . $node->get("field_portfolio")->getString());
-                    if( $node->get("field_portfolio")->getString() == "28792") //
+                    if( $node->get("field_portfolio")->getString() == "35775") //
                         $res = $key['TaxonomyId'];
                     break;
                 case 'X':
