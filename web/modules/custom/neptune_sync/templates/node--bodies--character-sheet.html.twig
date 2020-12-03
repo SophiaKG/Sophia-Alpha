@@ -112,48 +112,48 @@
     {# financial class #}
     {% for finclass in content.field_financial_classification %}
         {% if finclass['#title'] == 'Government Business Enterprise' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/96"><span id="GBE">B </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="GBE">B </span>' %}
         {% elseif finclass['#title'] == 'Material - ( M )' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/summary/95"><span id="material">M </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="material">M </span>' %}
         {% endif %}
     {% endfor %}
 
     {# Employment Arrangements #}
     {% if content.field_employment_arrangements[0]['#title'] == 'Public Service Act 1999'%}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/123"><span id="employ_aps">PS Act </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="employ_aps">PS Act </span>' %}
     {% elseif content.field_employment_arrangements[0]['#title'] == 'Non-Public Service Act 1999'%}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/124"><span id="employ_naps">^ </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="employ_naps">^ </span>' %}
     {% elseif content.field_employment_arrangements[0]['#title'] == 'Both'%}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/125"><span id="employ_both"># </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="employ_both"># </span>' %}
     {% elseif content.field_employment_arrangements[0]['#title'] == 'Parliamentary Service Act 1999'%}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/126"><span id="employ_par">▲ </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="employ_par">▲ </span>' %}
     {%  endif %}
 
     {# Economic sector #}
     {% if content.field_economic_sector[0]['#title'] == 'Public Financial Corporation' %}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/94"><span id="fin">F </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="fin">F </span>' %}
     {% elseif content.field_economic_sector[0]['#title'] == 'Public Nonfinancial Corporation' %}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/92"><span id="nfin">T </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="nfin">T </span>' %}
     {% elseif content.field_economic_sector[0]['#title'] == 'General Government Sector - (GGS)' %}
-        {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/91"><span id="GGS">GGS </span></a>' %}
+        {% set flipkey = flipkey ~ '<span id="GGS">GGS </span>' %}
     {% endif %}
 
     {# flipchart keys #}
     {% for key in content.field_flipchart_keys %}
         {% if key['#title']  == 'E' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/129"><span id="eagency">E </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="eagency">E </span>' %}
         {% elseif key['#title']  == 'I' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/131"><span id="inter">I </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="inter">I </span>' %}
         {% elseif key['#title']  == 'R' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/133"><span id="cce">R </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="cce">R </span>' %}
         {% elseif key['#title']  == '*' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/134"><span id="three">* </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="three">* </span>' %}
         {% elseif key['#title']  == '℗' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/144"><span id="cpr">℗ </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="cpr">℗ </span>' %}
         {% elseif key['#title']  == 'X' %}
-            {% set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/145"><span id="exempt">X </span></a>' %}
+            {% set flipkey = flipkey ~ '<span id="exempt">X </span>' %}
         {# elseif key['#title']  == 'Listed Entities' #}
-            {# set flipkey = flipkey ~ '<a href="/drupal8/web/taxonomy/term/147"><span id="le">Listed Entities </span></a>' #}
+            {# set flipkey = flipkey ~ '<span id="le">Listed Entities </span>' #}
         {% endif %}
     {% endfor %}
 {% endif %}

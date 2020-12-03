@@ -17,11 +17,14 @@ body {
 a {
     text-decoration: none !important;
 }
-a:hover {
+a:hover, a:active, a:focus {
     background-color: none !important;
     text-decoration: underline;
 }
-
+button, .more-link a, a.btn.btn-primary,
+button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary:hover {
+    background-color: #1d84c3;
+}
 .modal-dialog {
     margin: 15vw auto !important;
 }
@@ -189,15 +192,12 @@ box-shadow: 1px 2px #1d84c3;
 .main-content a:hover,
 .sidebar a:hover {
  background-color: transparent !important;
+    border-color: #1d84c3;
 }
 .webform-element-description {
     font-size: 1rem;
 }
-#sidebar_first
- {
-    /*display: block ! important; */
-    max-width: unset;
-}
+
 .page-view-flipchart .view-display-id-block_3 div.view-content {
  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
@@ -207,11 +207,15 @@ box-shadow: 1px 2px #1d84c3;
     margin: 25px 0px;
 }
 #sidebar_first {
+    /*display: block ! important; */
+    max-width: unset;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
     max-height: 710px;
    /* overflow-y: auto;*/
+    position: sticky;
+    top: 2rem;
 }
 
 #block-views-block-summary-key-block-3 .table-responsive {
@@ -248,12 +252,13 @@ legend {
 #block-feedback-bar{
     position: fixed;
     right: 10px;
-    top: 360px;
+    top: 340px;
     background-color: deepskyblue;
     border-radius: 12px;
     font-size: 2rem;
     font-weight: 400;
     writing-mode: vertical-lr;
+    padding: 8px 0px;
 }
 /* Below h2 border fixes the border display for IE.
 */
@@ -670,19 +675,19 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     font-size: 0.9rem;
 }
 
-.flipchart .node--view-mode-character-sheet .character-sheet-keys a span {
+.flipchart .node--view-mode-character-sheet .character-sheet-keys span {
     /*font-weight: bolder;*/
     font-size: 0.7rem;
 }
 
 
 
-.flipchart .character-sheet-keys a span {
+.flipchart .character-sheet-keys span {
     border: 1px solid #1d84c3;
     margin: 2px 5px;
     border-radius: 4px;
     text-align: center;
-    padding: 1px 2px;
+    padding: 2px 3px;
 }
 
 #block-sophia-alpha-content div .character-sheet-keys {
@@ -841,7 +846,12 @@ article.comCompany {
         margin: 2.2rem;
     }
 }
-
+@media only screen and (max-width: 1024px){
+        #sidebar_first {
+            display: block;
+            position: relative;
+        }
+}
 .path-summary-print .view-display-id-block_2 div.view-content {
     max-height: none;
     height: auto;
