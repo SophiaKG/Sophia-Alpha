@@ -1,7 +1,29 @@
 (function ($) {
     $(document).ready(function() {
-      $('#sidebar_first').show();
+    
+      flipKeyInsert();
+      function flipKeyInsert () {
+        $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
+            
+          //var flipKey = $('.view-id-summary_key .table span a').val();
+
+          // if ( flipKey == 'I') {
+            //  $(".view-id-summary_key .table span a").addClass("I_Key");
+            //}
+            //else {
+            //  $(".view-id-summary_key .table span a").addClass("summaryFlipKeys");
+            //};
+      };
+
    /*
+    * Sidebar first is being hidden through Javascript from base theme even
+    * though set to display in current theme. However set to display here is
+    * causing delay in loading. reset to force display via css until investigated further.
+    *
+   $('#sidebar_first').show();
+   ********
+
+
      $('.cce').click(function() {  
        $(".view-id-entity_types").slideDown(1500);
         
@@ -41,21 +63,7 @@
       $(".view-id-entity_types").dialog();
   });
 */
-flipKeyInsert();
-function flipKeyInsert () {
-  $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
-      
-//var flipKey = $('.view-id-summary_key .table span a').val();
 
- // if ( flipKey == 'I') {
-  //  $(".view-id-summary_key .table span a").addClass("I_Key");
-  //}
-  //else {
-  //  $(".view-id-summary_key .table span a").addClass("summaryFlipKeys");
-  //};
-  
-
-};
     
 
     });

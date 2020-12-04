@@ -11,7 +11,7 @@ dependencies:
 id: exposedformsearchpage_1
 theme: sophia_alpha
 region: top_header_form
-weight: 0
+weight: -12
 provider: null
 plugin: 'views_exposed_filter_block:search-page_1'
 settings:

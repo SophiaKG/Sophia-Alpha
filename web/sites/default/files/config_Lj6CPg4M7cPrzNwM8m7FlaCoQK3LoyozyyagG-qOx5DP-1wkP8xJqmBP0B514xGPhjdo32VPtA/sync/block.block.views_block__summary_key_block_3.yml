@@ -12,7 +12,7 @@ dependencies:
 id: views_block__summary_key_block_3
 theme: sophia_alpha
 region: sidebar_first
-weight: 0
+weight: -10
 provider: null
 plugin: 'views_block:summary_key-block_3'
 settings:

@@ -27,21 +27,30 @@ button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary
 }
 .modal-dialog {
     margin: 15vw auto !important;
+    transition: all 0.8s ease-in-out;
+}
+.ui-dialog {
+    border-radius: 12px;
+    border: 2px solid #1d84c3;
+    transition: all 0.8s ease-in-out;
 }
 .modal-content {
     border-radius: 14px;
     border: 1px solid var(--blue);
 }
+.ui-widget-header,
 .modal-header {
     color: #1d84ce;
     border-bottom: 2px solid var(--blue);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
+.ui-dialog-titlebar-close,
 .modal-header .close {
     color: var(--blue);
     margin: -.5rem -.5rem -1rem auto;
 }
+.ui-dialog-titlebar-close:hover,
 .modal-header .close:hover {
     color: #fff;
     background-color: #1d84c3;
@@ -61,6 +70,20 @@ nav.menu--main,
     width: auto;
     margin: auto;
     margin-top: 10px;
+}
+
+#block-sophia-alpha-account-menu {
+    top: -50px;
+}
+#block-sophia-alpha-account-menu a.nav-link{
+    color: #efefef;
+    font-size: .8rem;
+    border-bottom: 1px solid transparent;
+    padding: .5rem;
+}
+#block-sophia-alpha-account-menu a.nav-link:hover {
+    
+    border-bottom: 1px solid #efefef;
 }
 
 @media ( max-width: 768px ) {
@@ -183,8 +206,8 @@ main#content table > thead > tr > th {
 .coop_graph__link:hover,
 .sync__link:hover,
 .graph_back_btn:hover {
-box-shadow: 1px 2px #1d84c3;
-}
+    box-shadow: 1px 2px #1d84c3;
+    }
 .main-content a,
 .sidebar a {
  color: #1d84c3 !important;
@@ -207,15 +230,15 @@ box-shadow: 1px 2px #1d84c3;
     margin: 25px 0px;
 }
 #sidebar_first {
-    /*display: block ! important; */
+    display: block ! important;
     max-width: unset;
     padding: 0px 5px;
     border-radius: 12px;
     background-color: #efefef;
     max-height: 710px;
-   /* overflow-y: auto;*/
+   /* overflow-y: auto;
     position: sticky;
-    top: 2rem;
+    top: 2rem;*/
 }
 
 #block-views-block-summary-key-block-3 .table-responsive {
@@ -259,6 +282,8 @@ legend {
     font-weight: 400;
     writing-mode: vertical-lr;
     padding: 8px 0px;
+    /*background: linear-gradient(150deg,#615e9b 70%,#9595d2 70%);
+    background: #615e9b; */
 }
 /* Below h2 border fixes the border display for IE.
 */
@@ -848,8 +873,12 @@ article.comCompany {
 }
 @media only screen and (max-width: 1024px){
         #sidebar_first {
-            display: block;
+            display: block !important;
             position: relative;
+        }
+        #block-sophia-alpha-account-menu {
+            top: -90px;
+            right: 90px;
         }
 }
 .path-summary-print .view-display-id-block_2 div.view-content {
