@@ -39,18 +39,118 @@ class NeptuneImporter
         $this->query_Mgr = new QueryManager();
     }
 
+    /**Processes the selected checkboxes to rebuild the site with the desired
+     *   sync data selected by a user.
+     *
+     * @param array $filters passed in from the neptune sync from found at admin/syn
+     * @uses \Drupal\neptune_sync\Form\DataSyncForm
+     */
+    public function formController(array $filters){
 
-    public function wipeNodes(){
+        Helper::log("preparing to sync data--");
 
-        Helper::log("Deleting all Neptune data...",true);
+        //Wipe data controller. Less code efficient but more readable.
+        $wipeNodeID = [];
+        /**
+         * @TODO doing 4 array merges and db queries isnt create, fix this by building a
+         *  dynamic ent query
+         */
+        foreach ($filters["wipe_data"] as $field) {
+            Helper::log("in node delete, field is: " , false, $field);
+            switch (strval($field)) { //strval as  form array 0 converts to true
+                case "bodies":
+                    Helper::log("adding all bodies from drupal to wipe", true);
+                    $wipeNodeID = array_merge($wipeNodeID,
+                        $this->entity_Mgr->getNodeTypeId(SophiaGlobal::BODIES));
+                    break;
+                case "legislation":
+                    Helper::log("adding all legislation from drupal to wipe", true);
+                    $wipeNodeID = array_merge($wipeNodeID,
+                        $this->entity_Mgr->getNodeTypeId(SophiaGlobal::LEGISLATION));
+                    break;
+                case "portfolios":
+                    Helper::log("adding all portfolios from drupal to wipe", true);
+                    $wipeNodeID = array_merge($wipeNodeID,
+                        $this->entity_Mgr->getNodeTypeId(SophiaGlobal::PORTFOLIO));
+                    break;
+                case "cooperative_relationships":
+                    Helper::log("adding all cooperative_relationships from drupal to wipe", true);
+                    $wipeNodeID = array_merge($wipeNodeID,
+                        $this->entity_Mgr->getNodeTypeId(SophiaGlobal::COOPERATIVE_RELATIONSHIP));
 
-        $nodeIds = $this->entity_Mgr->getAllNeptunetypesId();
+                    break;
+                case "all":
+                    Helper::log("adding all data from drupal to wipe", true);
+                    $wipeNodeID = $this->entity_Mgr->getAllNeptunetypesId();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Helper::log("wipe id = " , false, $wipeNodeID);
+        if($wipeNodeID) //if we have ids to delete.
+            $this->wipeNodes($wipeNodeID);
+
+        //Add empty records
+        foreach ($filters["sync_node_creation"] as $field) {
+            Helper::log("in node create, field is: " , false, $field);
+            switch (strval($field)) {
+                case "bodies":
+                    $this->importFromQuery(QueryTemplate::getBodies(),
+                        SophiaGlobal::BODIES);
+                    break;
+                case "legislation":
+                    $this->importFromQuery(QueryTemplate::getLegislations(),
+                        SophiaGlobal::LEGISLATION);
+                    break;
+                case "portfolios":
+                    $this->importFromQuery(QueryTemplate::getPortfolios(),
+                        SophiaGlobal::PORTFOLIO);
+                    break;
+                case "all":
+                    $this->importFromQuery(QueryTemplate::getPortfolios(),
+                        SophiaGlobal::PORTFOLIO);
+                    $this->importFromQuery(QueryTemplate::getLegislations(),
+                        SophiaGlobal::LEGISLATION);
+                    $this->importFromQuery(QueryTemplate::getBodies(),
+                        SophiaGlobal::BODIES);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //Sync fields in existing bodies?
+        if($filters["sync_neptune_data"]) {
+            $c_mgr = new CharacterSheetManager();
+            $c_mgr->updateAllCharacterSheets();
+            Helper::log("Completed data sync cycle of all bodies in drupal", true);
+        }
+
+        Helper::log("Sync complete", true);
+    }
+
+    /**
+     * Deletes bulk amount of nodes as efficently as possible.
+     * @param $nodeIds string[] nid of nodes to delete
+     * @return bool if an exception occurred
+     */
+    public function wipeNodes($nodeIds){
+
+        if(!sizeof($nodeIds) > 0 || !$nodeIds){
+            Helper::log("Attempting to wipe data failed as no 
+                id's were passed in");
+            return false;
+        }
+
+        Helper::log("Deleting selected Neptune data...",true);
         try {
             $storage_handler = \Drupal::entityTypeManager()->getStorage(
                 SophiaGlobal::NODE);
             Helper::log("Loading Ids...");
             $entities = $storage_handler->loadMultiple($nodeIds);
-            Helper::log("Deleting all Neptune data...");
+            Helper::log("Deleting the selected Neptune data...");
             $storage_handler->delete($entities);
         } catch (InvalidPluginDefinitionException|PluginNotFoundException|
             EntityStorageException $e) {
@@ -59,14 +159,17 @@ class NeptuneImporter
             return false;
         }
 
-        Helper::log("Finished deleting all neptune data", true);
+        Helper::log("Finished deleting the selected neptune data", true);
         return true;
     }
 
+    /**@deprecated replaced by $this->formController and new dataSyncForm
+     * @param bool $wipeData
+     */
     public function importNeptuneData(bool $wipeData){
 
         if($wipeData)
-            $this->wipeNodes();
+            $this->wipeNodes($this->entity_Mgr->getAllNeptunetypesId());
 
         $this->importFromQuery(QueryTemplate::getPortfolios(), SophiaGlobal::PORTFOLIO);
         $this->importFromQuery(QueryTemplate::getLegislations(), SophiaGlobal::LEGISLATION);
@@ -75,7 +178,7 @@ class NeptuneImporter
         Helper::log("Finished creating all records", true);
     }
 
-    public function importFromQuery(Query $query, $subType){
+    private function importFromQuery(Query $query, $subType){
 
         $json = $this->query_Mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
@@ -100,5 +203,4 @@ class NeptuneImporter
         Helper::log("Records imported!", true);
         return true;
     }
-
 }

@@ -6,6 +6,8 @@ namespace Drupal\neptune_sync\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\neptune_sync\Data\NeptuneImporter;
 use Drupal\neptune_sync\Utility\Helper;
 
 class DataSyncForm extends FormBase
@@ -75,9 +77,10 @@ class DataSyncForm extends FormBase
 
         $filters = $form_state->getValues();
         Helper::log("form values = ", false, $filters);
-        /*$form_state->setRedirect('neptune_sync.displayCoopGraphIntersect', [], ['query' => [
-            'bodies' => $filters['bodies'],
-        ]]);*/
+        $importer = new NeptuneImporter();
+        $importer->formController($filters);
+
+        $form_state->setRedirect('<front>');
 
     }
 }
