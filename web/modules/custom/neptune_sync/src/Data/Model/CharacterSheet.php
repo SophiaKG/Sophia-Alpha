@@ -2,6 +2,7 @@
 namespace Drupal\neptune_sync\Data\Model;
 
 use Drupal\neptune_sync\Data\DrupalEntityExport;
+use Drupal\neptune_sync\Data\EntityManager;
 use Drupal\neptune_sync\Data\SummaryChartKeys;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 
@@ -322,7 +323,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
         $this->link = $link;
     }
 
-    public function syncSummaryKeysToFields(){
+    /**
+     * @param EntityManager $ent_mgr A prebuilt ent manager for carrying over the node hashes
+     */
+    public function syncSummaryKeysToFields(EntityManager $ent_mgr){
         foreach(SummaryChartKeys::getKeys() as $typeKey => $type){
             if($typeKey == 'Default')
                 continue;
@@ -345,6 +349,12 @@ class CharacterSheet extends Node implements DrupalEntityExport
 
                         }
                     }
+        }
+
+        //Set the pseudo portfolio "Parliamentary Department" if relevant
+        if($this->getEmploymentType() == SummaryChartKeys::getKeys()
+            ['Employment type']['▲']['FieldTaxID']){
+            $this->setPortfolio(SummaryChartKeys::getParliamentaryDepartmentId($ent_mgr));
         }
     }
 

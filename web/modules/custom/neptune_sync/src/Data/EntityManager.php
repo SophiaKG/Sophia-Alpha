@@ -279,6 +279,12 @@ class EntityManager
         return Node::loadMultiple($nids);
     }
 
+    public function getNodeTypeId($type){
+        return \Drupal::entityQuery(SophiaGlobal::NODE, 'OR')
+            ->condition('type', $type)
+            ->execute();
+    }
+
     public function getAllNeptunetypesId(){
         return \Drupal::entityQuery(SophiaGlobal::NODE, 'OR')
             ->condition('type', SophiaGlobal::BODIES)
@@ -286,6 +292,14 @@ class EntityManager
             ->condition('type', SophiaGlobal::LEGISLATION)
             ->condition('type', SophiaGlobal::COOPERATIVE_RELATIONSHIP)
             ->execute();
+    }
+
+    public function getSelectedNeptunetypesId($selectArr){
+        $entQuery = \Drupal::entityQuery(SophiaGlobal::NODE, 'OR');
+        foreach($selectArr as $type)
+            $entQuery->condition('type', $selectArr);
+
+        return $entQuery->execute();
     }
 
     /**

@@ -12,9 +12,9 @@ use Drupal\node\Entity\Node;
 class AdminController extends ControllerBase
 {
     public function executeAdminFunc(){
-        $this->wipeNeptuneContent();
+
         return [
-            '#markup' => 'Your function was ran',
+            '#markup' => 'Admin function is currently not bound',
         ];
     }
 

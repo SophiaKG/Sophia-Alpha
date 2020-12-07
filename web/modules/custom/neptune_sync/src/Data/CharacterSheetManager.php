@@ -238,8 +238,9 @@ class CharacterSheetManager
                 case 'HC':
                     /** @TODO this is hardcoded and bad...VERY VERY BAD. port id changes per rebuild
                      * 28391 tax id for Attorney-General’s*/
-                    Helper::log("HC = " . $node->get("field_portfolio")->getString());
-                    if( $node->get("field_portfolio")->getString() == "35775") //
+                    Helper::log("HC = " . $node->get("field_portfolio")->getString() . "port id = " .  SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr));
+                    if( $node->get("field_portfolio")->getString() ==
+                        SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr))
                         $res = $key['TaxonomyId'];
                     break;
                 case 'X':
@@ -417,7 +418,7 @@ class CharacterSheetManager
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
         if($toUpdate) {
-            $this->body->syncSummaryKeysToFields(); //adds keys to old form fields
+            $this->body->syncSummaryKeysToFields($this->ent_mgr); //adds keys to old form fields
             $this->ent_mgr->updateEntity($this->body, $node->id());
             $this->countupdated++;
             Helper::log("updating body " . $node->id() . " | Updated: " .
