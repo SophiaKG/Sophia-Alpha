@@ -86,27 +86,6 @@ nav.menu--main,
     border-bottom: 1px solid #efefef;
 }
 
-@media ( max-width: 768px ) {
-    .sf-accordion-toggle {
-        display: none;
-    }
-
-    #superfish-main {
-        display: block !important;
-    }
-    ul.sf-menu.menu {
-        width: 70%; /* addresses IE behaviour*/
-    }
-    #block-sophia-alpha-sitetitle h1 {
-        margin: 4rem 0rem;
-        font-size: 1.5rem;
-    }
-    .page-view-flipchart .view-display-id-block_3 table {
-        margin: auto !important;
-        width: 100% !important;
-    }
-}
-
 .menu-toggle {
     background-color: aliceblue;
     border: 1px solid aliceblue;
@@ -191,15 +170,17 @@ main#content table > thead > tr > th {
     font-size: 1rem;
     font-weight: 700;
     text-align: center;
-    color: #1d79ed;
+    color: #1d84c3;
     background: transparent;
     display: inline-block;
     margin: 10px 12px 10px 0px;
     
 
 }
-.graph_back_btn {
-    color: #1d84c3;
+#block-views-block-summary-key-block-3 .view-header .graph_back_btn {
+    width: 180px;
+    margin: 10px auto !important;
+    display: block;
 }
 
 .graph__link:hover,
@@ -274,7 +255,7 @@ legend {
 }
 #block-feedback-bar{
     position: fixed;
-    right: 10px;
+    right: 5px;
     top: 340px;
     background-color: deepskyblue;
     border-radius: 12px;
@@ -284,6 +265,10 @@ legend {
     padding: 8px 0px;
     /*background: linear-gradient(150deg,#615e9b 70%,#9595d2 70%);
     background: #615e9b; */
+}
+#block-feedback-bar a.button:hover{
+    background-color: transparent;
+    border-left: 2px solid #fff;
 }
 /* Below h2 border fixes the border display for IE.
 */
@@ -856,7 +841,7 @@ article.comCompany {
     text-align: left;
 }
 
-@media only screen and (min-width: 992px) {
+@media (min-width: 992px) {
     #block-exposedformsearchpage-1 {
         display: inline-block;
         position: relative;
@@ -871,16 +856,46 @@ article.comCompany {
         margin: 2.2rem;
     }
 }
-@media only screen and (max-width: 1024px){
+@media (max-width: 1024px){
         #sidebar_first {
             display: block !important;
             position: relative;
         }
-        #block-sophia-alpha-account-menu {
-            top: -90px;
-            right: 90px;
-        }
+        
 }
+
+@media ( max-width: 768px ) {
+    .sf-accordion-toggle {
+        display: none;
+    }
+
+    #superfish-main {
+        display: block !important;
+    }
+    
+    ul.sf-menu.menu {
+        width: 100%;  /*addresses IE behaviour*/
+    }
+    
+    #block-sophia-alpha-sitetitle h1 {
+        margin: 4rem 0rem;
+        font-size: 1.5rem;
+    }
+    .page-view-flipchart .view-display-id-block_3 table {
+        margin: auto !important;
+        width: 100% !important;
+    }
+    #block-sophia-alpha-account-menu {
+        top: -90px;
+        right: 90px;
+    }
+    #block-feedback-bar{
+        position: fixed;
+        right: 5px;
+        top: 440px;
+    }
+}
+
 .path-summary-print .view-display-id-block_2 div.view-content {
     max-height: none;
     height: auto;
