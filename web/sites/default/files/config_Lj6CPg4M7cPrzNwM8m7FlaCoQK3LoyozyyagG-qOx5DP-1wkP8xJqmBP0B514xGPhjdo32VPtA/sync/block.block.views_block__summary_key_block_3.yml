@@ -12,15 +12,15 @@ dependencies:
 id: views_block__summary_key_block_3
 theme: sophia_alpha
 region: sidebar_first
-weight: 0
+weight: -10
 provider: null
 plugin: 'views_block:summary_key-block_3'
 settings:
   id: 'views_block:summary_key-block_3'
-  label: 'keys Chart'
+  label: 'Keys Chart'
   provider: views
   label_display: visible
-  views_label: 'keys Chart'
+  views_label: 'Keys Chart'
   items_per_page: none
 visibility:
   request_path:

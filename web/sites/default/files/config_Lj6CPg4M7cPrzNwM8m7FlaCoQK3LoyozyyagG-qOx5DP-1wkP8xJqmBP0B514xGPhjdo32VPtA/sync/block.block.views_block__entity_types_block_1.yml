@@ -1,6 +1,6 @@
 uuid: fa79b3a6-8037-40a9-9e28-2d2aec1818ae
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.entity_types

@@ -1,15 +1,56 @@
 (function ($) {
     $(document).ready(function() {
-   
+    
+      flipKeyInsert();
+      function flipKeyInsert () {
+        $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
+            
+          //var flipKey = $('.view-id-summary_key .table span a').val();
+
+          // if ( flipKey == 'I') {
+            //  $(".view-id-summary_key .table span a").addClass("I_Key");
+            //}
+            //else {
+            //  $(".view-id-summary_key .table span a").addClass("summaryFlipKeys");
+            //};
+      };
+
+   /*
+    * Sidebar first is being hidden through Javascript from base theme even
+    * though set to display in current theme. However set to display here is
+    * causing delay in loading. reset to force display via css until investigated further.
+    *
+   $('#sidebar_first').show();
+   ********
+
+
      $('.cce').click(function() {  
-          
-          $(".view-id-entity_types").slideDown(1000);
-     });
+       $(".view-id-entity_types").slideDown(1500);
+        
+        //Modal declaration start
+          $(".view-id-entity_types").dialog({
+            title: "Entity Types",
+            modal: true,
+            width: 480,
+            height: 320,
+            buttons: {
+              Close: 
+                function(){
+                  $(this).dialog('close');
+                }
+              
+            },
+          });
+          //modal declaration finish
+      }); 
      
      $('.view-id-entity_types').mouseleave(function() {  
       
           $(".view-id-entity_types").slideUp(1000);
       });
+      */
+
+      
 /*
       $('.view-id-summary_key').hover(function() {  
       
@@ -22,19 +63,7 @@
       $(".view-id-entity_types").dialog();
   });
 */
-flipKeyColours();
-function flipKeyColours () {
-//var flipKey = $('.view-id-summary_key .table span a').val();
 
- // if ( flipKey == 'I') {
-  //  $(".view-id-summary_key .table span a").addClass("I_Key");
-  //}
-  //else {
-  //  $(".view-id-summary_key .table span a").addClass("summaryFlipKeys");
-  //};
-  
-
-};
     
 
     });
