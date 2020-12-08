@@ -140,7 +140,7 @@ class SummaryChartKeys{
     public static function getParliamentaryDepartmentId(EntityManager $ent_mgr){
         if(!self::$parliamentaryDepartmentId){
             $parliamentaryDepartment= new namespace\Model\Node(
-                "Parliamentary Departments",
+                "| Parliamentary Departments",
                 SophiaGlobal::IRI['ns2']['loc'] . "PARLIAMENTARYDEPARTMNETS",
                 SophiaGlobal::PORTFOLIO);
 
