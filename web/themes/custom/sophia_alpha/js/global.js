@@ -1,7 +1,18 @@
 (function ($) {
     $(document).ready(function() {
-    
+      $("#entity_type_descrip").click(function(){
+        var description = $(".view-id-entity_types").html();
+        /*$("#nccemodal").addClass("modal-dialog");*/
+        $("#nccemodal").html(description);
+        $("#nccemodal").dialog({
+          modal: true,
+          title:"Description - Type of Body",
+          width: 600,
+        });
+      });
+      
       flipKeyInsert();
+      replacemodaldescrip ()
       function flipKeyInsert () {
         $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
             
@@ -14,7 +25,12 @@
             //  $(".view-id-summary_key .table span a").addClass("summaryFlipKeys");
             //};
       };
-
+    function replacemodaldescrip () {
+        $("#entitytypeinfo").html(function(){
+          alert("yes its working");
+          $(".view-id-entity_types").html();
+        });
+    };
    /*
     * Sidebar first is being hidden through Javascript from base theme even
     * though set to display in current theme. However set to display here is
@@ -63,6 +79,8 @@
       $(".view-id-entity_types").dialog();
   });
 */
+
+
 
     
 

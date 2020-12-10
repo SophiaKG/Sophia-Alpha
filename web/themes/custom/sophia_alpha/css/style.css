@@ -25,6 +25,7 @@ button, .more-link a, a.btn.btn-primary,
 button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary:hover {
     background-color: #1d84c3;
 }
+
 .modal-dialog {
     margin: 15vw auto !important;
     transition: all 0.8s ease-in-out;
@@ -41,6 +42,8 @@ button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary
 .ui-widget-header,
 .modal-header {
     color: #1d84ce;
+    border: unset;
+    background: none;
     border-bottom: 2px solid var(--blue);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -54,7 +57,7 @@ button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary
 .modal-header .close:hover {
     color: #fff;
     background-color: #1d84c3;
-    border-radius: 12px;
+    
 }
 
 a.navbar-brand{
@@ -178,7 +181,7 @@ main#content table > thead > tr > th {
 
 }
 #block-views-block-summary-key-block-3 .view-header .graph_back_btn {
-    width: 180px;
+    width: 180px !important;
     margin: 10px auto !important;
     display: block;
 }
@@ -587,6 +590,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     text-align: center;
     border-top: 2px solid #2f4f4f;
 }
+.ui-dialog table caption,
 .view-id-entity_types table caption,
 .page-view-flipchart .view-display-id-block_3 table caption a {
     font-weight: 700;
