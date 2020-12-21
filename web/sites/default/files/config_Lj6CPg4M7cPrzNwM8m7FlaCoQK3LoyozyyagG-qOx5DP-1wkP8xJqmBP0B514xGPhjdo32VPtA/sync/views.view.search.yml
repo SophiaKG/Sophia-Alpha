@@ -744,7 +744,20 @@ display:
           content: 'Displaying @start - @end of @total results <br/><hr>'
           plugin_id: result
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'Your search did not yield any results. Please try a variation.'
+            format: basic_html
+          plugin_id: text
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
@@ -979,6 +992,7 @@ display:
         filters: false
         filter_groups: false
         sorts: false
+        header: false
       filters:
         search_api_fulltext:
           id: search_api_fulltext
@@ -1204,6 +1218,17 @@ display:
           expose:
             label: ''
           plugin_id: search_api
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: "Displaying @start - @end of @total results <div class=\"search_info\"><a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" \r\ndata-dialog-options=\"{&quot;width&quot;:800, &quot;title&quot;:&quot;Keys Chart&quot;}\" href=\"/drupal8/web/Summary_Key_Details\" modal-title=\"Keys chart\">Keys chart <i class=\"fas fa-info-circle\"></i></a></div><br/><hr>"
+          plugin_id: result
     cache_metadata:
       max-age: -1
       contexts:

@@ -4,33 +4,20 @@
         var description = $(".view-id-entity_types").html();
         /*$("#nccemodal").addClass("modal-dialog");*/
         $("#nccemodal").html(description);
+        $("#nccemodal thead").css("display", "none");
+        $("#nccemodal .views-field-name").css("display", "none");
         $("#nccemodal").dialog({
           modal: true,
           title:"Description - Type of Body",
           width: 600,
         });
       });
-      
-      flipKeyInsert();
-      replacemodaldescrip ()
-      function flipKeyInsert () {
-        $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
-            
-          //var flipKey = $('.view-id-summary_key .table span a').val();
+     
+    /* Below adds a print button on /summary-print page*/ 
+    $(".path-summary-print .color-keys p").prepend('<a href="javascript:print()" id="print-icon" class="fa fa-print float-left" title="Print this page"> Print </a>');
 
-          // if ( flipKey == 'I') {
-            //  $(".view-id-summary_key .table span a").addClass("I_Key");
-            //}
-            //else {
-            //  $(".view-id-summary_key .table span a").addClass("summaryFlipKeys");
-            //};
-      };
-    function replacemodaldescrip () {
-        $("#entitytypeinfo").html(function(){
-          alert("yes its working");
-          $(".view-id-entity_types").html();
-        });
-    };
+    /* Below adds the entity type vocab to keychart on /summary page */ 
+    $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
    /*
     * Sidebar first is being hidden through Javascript from base theme even
     * though set to display in current theme. However set to display here is
@@ -38,51 +25,7 @@
     *
    $('#sidebar_first').show();
    ********
-
-
-     $('.cce').click(function() {  
-       $(".view-id-entity_types").slideDown(1500);
-        
-        //Modal declaration start
-          $(".view-id-entity_types").dialog({
-            title: "Entity Types",
-            modal: true,
-            width: 480,
-            height: 320,
-            buttons: {
-              Close: 
-                function(){
-                  $(this).dialog('close');
-                }
-              
-            },
-          });
-          //modal declaration finish
-      }); 
-     
-     $('.view-id-entity_types').mouseleave(function() {  
-      
-          $(".view-id-entity_types").slideUp(1000);
-      });
-      */
-
-      
-/*
-      $('.view-id-summary_key').hover(function() {  
-      
-        $(".view-id-summary_key .table span a").css(color, red);
-      });
-
-    $('.ncce').click(function() {  
-      var et = $('.view-id-entity_type');
-      $("#entitytypeinfo").html(et + "To come from view block. so the ids are displayed automatically as updated in database");
-      $(".view-id-entity_types").dialog();
-  });
-*/
-
-
-
-    
-
+    */
+  
     });
    })(jQuery);

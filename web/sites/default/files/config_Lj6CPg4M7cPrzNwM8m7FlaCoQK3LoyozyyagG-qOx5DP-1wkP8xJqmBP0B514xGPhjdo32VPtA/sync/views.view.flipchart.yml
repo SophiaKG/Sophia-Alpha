@@ -11,7 +11,6 @@ dependencies:
     - system.menu.main
     - taxonomy.vocabulary.flip_chart_keys
     - taxonomy.vocabulary.type_of_body
-    - views.view.summary_key
   content:
     - 'taxonomy_term:flip_chart_keys:c4883f19-dc50-4aad-8d6c-2f9e2e1e9357'
     - 'taxonomy_term:type_of_body:6cd70b1a-f1be-4a78-a18b-f956d522435c'
@@ -723,7 +722,7 @@ display:
         title: 'Summary View'
         description: ''
         expanded: false
-        parent: 'menu_link_content:3601104b-b602-4f45-8d7c-24b4d00c1312'
+        parent: 'menu_link_content:ec5c9a25-cc0d-4b6a-81c0-bb0daf7bb837'
         weight: -50
         context: '0'
         menu_name: main
@@ -815,7 +814,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div class=\"row\">\r\n    <!--<div class=\"col-md-2\">\r\n        <form>\r\n            <input type=\"button\" class=\"graph_back_btn\" value=\"Back to entity page\" onclick=\"history.back()\">\r\n        </form>\r\n</div>-->\r\n<div class=\"col-md-12 color-keys\">\r\n    <p>\r\n    <i class=\"fas fa-rectangle-landscape ncce\"></i> <a href=\"/drupal8/web/summary/87\">Non-corporate Commonwealth entity</a> | \r\n    <i class=\"fas fa-rectangle-landscape cce\"></i> <a href=\"/drupal8/web/summary/88\">Corporate Commonwealth entity</a> | \r\n    <a href=\"#\" data-tooltip title=\"A Commonwealth company - is a Corporations Act 2001 company that the Commonwealth controls.\"><i class=\"fas fa-rectangle-landscape ccmp\"></i></a> <a href=\"/drupal8/web/summary/90\">Commonwealth Company</a> | <a href=\"#\" data-toggle=\"modal\" data-target=\"#nccemodal\" ><i class=\"fas fa-question-circle\"></i></a>\r\n</p>\r\n</div>\r\n</div>\r\n<div class=\"modal keys-display\" id=\"nccemodal\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\">\r\n<div class=\"modal-header\">\r\n<h3 class=\"modal-title\">Commonwealth entity types</h3>\r\n<button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button>\r\n</div>\r\n<div class=\"modal-body\" id=\"entitytypeinfo\">\r\n<p>A <em>Non-corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is not a body corporate.</p>\r\n<p>A <em>Corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is a body corporate.*.</p>\r\n<p>A <em>Commonwealth company -</em> is a <i>Corporations Act 2001</i>\r\ncompany that the Commonwealth controls.</p>\r\n</div>\r\n\r\n</div>\r\n</div>\r\n</div> <!--end modal ncce div-->"
+            value: "<div class=\"row\">\r\n<div class=\"col-md-12 color-keys\">\r\n    <p>\r\n    <a href=\"#\" data-tooltip title=\"Entities marked with this colour represents a Non-corporate Commonwealth entity - Select text on the right to view these entities.\"><i class=\"fas fa-rectangle-landscape ncce\"></i></a> <a href=\"/drupal8/web/summary/87\">Non-corporate Commonwealth entity</a> | \r\n    <a href=\"#\" data-tooltip title=\"Entities marked with this colour represents a Corporate Commonwealth entity - Select text on the right to view these entities.\"><i class=\"fas fa-rectangle-landscape cce\"></i></a> <a href=\"/drupal8/web/summary/88\">Corporate Commonwealth entity</a> | \r\n    <a href=\"#\" data-tooltip title=\"Entities marked with this colour represents a Commonwealth company - Select text on the right to view these entities.\"><i class=\"fas fa-rectangle-landscape ccmp\"></i></a> <a href=\"/drupal8/web/summary/90\">Commonwealth Company</a> | <i class=\"fas fa-question-circle\" id=\"entity_type_descrip\"  title=\"info\"></i>\r\n<noscript><a href=\"#\" data-toggle=\"modal\" data-target=\"#nccemodal\" ><i class=\"fas fa-question-circle\" id=\"entity_type_descrip\" title=\"info\"></i></a></noscript>\r\n</p>\r\n</div>\r\n</div>\r\n<div class=\"modal keys-display\" id=\"nccemodal\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\">\r\n<div class=\"modal-header\">\r\n<h3 class=\"modal-title\">Commonwealth entity types</h3>\r\n<button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button>\r\n</div>\r\n<div class=\"modal-body\" id=\"entitytypeinfo\">\r\n<p>A <em>Non-corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is not a body corporate.</p>\r\n<p>A <em>Corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is a body corporate.*.</p>\r\n<p>A <em>Commonwealth company -</em> is a <i>Corporations Act 2001</i>\r\ncompany that the Commonwealth controls.</p>\r\n</div>\r\n\r\n</div>\r\n</div>\r\n</div> <!--end modal ncce div-->"
             format: full_html
           plugin_id: text
         result:
@@ -826,7 +825,7 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: '<div class="entity_count">Displaying Entities - @total</div>'
+          content: "<div class=\"entity_count\">Displaying Entities - @total\r\n<div class=\"search_info\"><a href=\"/drupal8/web/summary-print\" >Print view <i class=\"fas fa-print\"></i></a></div></div>"
           plugin_id: result
     cache_metadata:
       max-age: -1
@@ -854,10 +853,11 @@ display:
         title: 'Summary - Print'
         description: ''
         expanded: false
-        parent: 'menu_link_content:3601104b-b602-4f45-8d7c-24b4d00c1312'
-        weight: -49
+        parent: 'menu_link_content:ec5c9a25-cc0d-4b6a-81c0-bb0daf7bb837'
+        weight: -50
         context: '0'
         menu_name: main
+        enabled: false
       relationships:
         field_portfolio:
           id: field_portfolio
@@ -882,7 +882,7 @@ display:
         sorts: false
         header: false
         title: false
-        fields: true
+        fields: false
       sorts:
         field_portfolio_target_id:
           id: field_portfolio_target_id
@@ -948,7 +948,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div class=\"row\">\r\n    <!--<div class=\"col-md-2\">\r\n        <form>\r\n            <input type=\"button\" class=\"graph_back_btn\" value=\"Back to entity page\" onclick=\"history.back()\">\r\n        </form>\r\n</div>-->\r\n<div class=\"col-md-12 color-keys\">\r\n    <p>\r\n    <a href=\"#\" data-toggle=\"modal\" data-target=\"#nccemodal\" ><i class=\"fas fa-question-square ncce\"></i></a> Non-corporate Commonwealth entity | \r\n    <i class=\"fas fa-question-square cce\"></i> Corporate Commonwealth entity | \r\n    <a href=\"#\" data-tooltip title=\"A Commonwealth company - is a Corporations Act 2001 company that the Commonwealth controls.\"><i class=\"fas fa-question-square ccmp\"></i></a> Commonwealth Company\r\n</p>\r\n</div>\r\n</div>\r\n<div class=\"modal keys-display\" id=\"nccemodal\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\">\r\n<div class=\"modal-header\">\r\n<h3 class=\"modal-title\">Commonwealth entity types</h3>\r\n<button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button>\r\n</div>\r\n<div class=\"modal-body\">\r\n<p>A <em>Non-corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is not a body corporate.</p>\r\n<p>A <em>Corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is a body corporate.*.</p>\r\n<p>A <em>Commonwealth company -</em> is a <i>Corporations Act 2001</i>\r\ncompany that the Commonwealth controls.</p>\r\n</div>\r\n\r\n</div>\r\n</div>\r\n</div> <!--end modal ncce div-->\r\n"
+            value: "<div class=\"row\">\r\n<div class=\"col-md-12 color-keys\">\r\n    <p>\r\n    <a href=\"#\" data-tooltip title=\"Entities marked with this colour represents a Non-corporate Commonwealth entity - Select text on the right to view these entities.\"><i class=\"fas fa-rectangle-landscape ncce\"></i></a> <a href=\"/drupal8/web/summary/87\">Non-corporate Commonwealth entity</a> | \r\n    <a href=\"#\" data-tooltip title=\"Entities marked with this colour represents a Corporate Commonwealth entity - Select text on the right to view these entities.\"><i class=\"fas fa-rectangle-landscape cce\"></i></a> <a href=\"/drupal8/web/summary/88\">Corporate Commonwealth entity</a> | \r\n    <a href=\"#\" data-tooltip title=\"Entities marked with this colour represents a Commonwealth company - Select text on the right to view these entities.\"><i class=\"fas fa-rectangle-landscape ccmp\"></i></a> <a href=\"/drupal8/web/summary/90\">Commonwealth Company</a> | <a href=\"#\" data-toggle=\"modal\" data-target=\"#nccemodal\" ><i class=\"fas fa-question-circle\" title=\"info\"></i></a>\r\n</p>\r\n</div>\r\n</div>\r\n<div class=\"modal keys-display\" id=\"nccemodal\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\">\r\n<div class=\"modal-header\">\r\n<h3 class=\"modal-title\">Commonwealth entity types</h3>\r\n<button class=\"close\" type=\"button\" data-dismiss=\"modal\">x</button>\r\n</div>\r\n<div class=\"modal-body\" id=\"entitytypeinfo\">\r\n\r\n<p>A <em>Non-corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is not a body corporate.</p>\r\n<p>A <em>Corporate Commonwealth entity -</em> is a Commonwealth\r\nentity that is a body corporate.*.</p>\r\n<p>A <em>Commonwealth company -</em> is a <i>Corporations Act 2001</i>\r\ncompany that the Commonwealth controls.</p>\r\n</div>\r\n\r\n</div>\r\n</div>\r\n</div> <!--end modal ncce div-->"
             format: full_html
           plugin_id: text
         result:
@@ -959,20 +959,271 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: '<div class="entity_count">Displaying Entities - @total</div>'
+          content: '<div class="entity_count print_summary">Displaying Entities - @total</div>'
           plugin_id: result
-        view:
-          id: view
-          table: views
-          field: view
+      title: ' List of PGPA Act Commonwealth entities and companies'
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
-          empty: true
-          view_to_insert: 'summary_key:block_4'
-          inherit_arguments: false
-          plugin_id: view
-      title: ' List of PGPA Act Commonwealth entities and companies'
+          label: Title
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+        field_portfolio:
+          id: field_portfolio
+          table: node__field_portfolio
+          field: field_portfolio
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: '{{ field_portfolio }} <span class="port_entity_count">@total</span>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          set_precision: false
+          precision: 0
+          decimal: .
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+          plugin_id: field
+        field_financial_classification:
+          id: field_financial_classification
+          table: node__field_financial_classification
+          field: field_financial_classification
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: entity_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_flipchart_keys:
+          id: field_flipchart_keys
+          table: node__field_flipchart_keys
+          field: field_flipchart_keys
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
     cache_metadata:
       max-age: -1
       contexts:

@@ -386,6 +386,10 @@ header#header {
     margin-bottom: 2rem;
 }
 /* Guide/Scroll mesage is used for Summary key block message - Scroll Down or view page*/
+
+.search_info {
+    float: right;
+}
 .guide_msg {
     font-size: .9rem;
     color: #1d84c3;
@@ -480,8 +484,9 @@ canvas {
 .shapes-legend,
 .color-keys {
     color: #1d84c3;
-    padding: 10px 20px 0px 20px;
-    text-align: left;
+    padding: 10px 40px 0px 20px;
+    text-align: right;
+    margin-right: 4rem;
 
 }
 .color-keys {
@@ -753,6 +758,15 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     font-size: x-small;
 }
 
+@media print {
+    a[href]:after {
+        content: none !important;
+    }
+    .path-summary-print .item-list h3 {
+        page-break-before: auto;
+    }
+}
+
 a.nav-link{
     color: #242c33;
 }
@@ -802,7 +816,7 @@ article.node--type-bodies .field {
 article.node--type-bodies .field .field__label {
     font-weight: 800;
 }
-
+.flipchart .item-list ul li.printNonCorp,
 article.nonCorp {
     border-left: 6px solid rgb(204, 204, 255) !important;
     border-bottom: 1px solid rgb(204, 204, 255);
@@ -811,6 +825,7 @@ article.nonCorp {
 .ncce {
     color: rgb(204, 204, 255) !important;
 }
+.flipchart .item-list ul li.printCorp,
 article.corp {
     border-left: 6px solid rgb(170, 225, 194) !important;
     border-bottom: 1px solid rgb(170, 225, 194);
@@ -820,6 +835,7 @@ article.corp {
 .cce {
     color: rgb(170, 225, 194) !important;
 }
+.flipchart .item-list ul li.printComCompany,
 article.comCompany {
     border-left: 6px solid rgb(249, 238, 186) !important;
     border-bottom: 1px solid rgb(249, 238, 186);
@@ -1052,3 +1068,6 @@ a[href$="/taxonomy/term/147"] {
 }
 
 /*-- End Flipchart Key colors --*/
+.views-field.views-field-field-type-of-body span a[href$="/taxonomy/term/137"] {
+    color: #000 !important;
+}

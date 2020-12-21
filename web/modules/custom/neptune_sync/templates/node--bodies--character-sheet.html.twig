@@ -161,7 +161,7 @@
  {# content.field_accountable_authority_or_g.0 #}
 
 <article{{ attributes.addClass(classes, flipTheme) }}>
-  <header>
+  {# <header>#}
         {{ title_prefix }}
     {% if not page %}
       <div{{ title_attributes.addClass('node__title') }}>
@@ -183,7 +183,7 @@
         {{ metadata }}
       </div>
     {% endif %}
-  </header>
+  {# </header>#}
   <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
     {{ content }}
   </div>

@@ -5,6 +5,8 @@
 <form>
     <input type="button" class="graph_back_btn" value="Back to entity page" onclick="history.back()">
 </form>
+<p class="guide_msg" style="text-align: left;"><i class="fas fa-info-circle"></i> Tip: Scroll mouse over the shapes to interact</p>
+
 
 <div id="maingraph"></div>
 <script type="text/javascript">
@@ -37,12 +39,14 @@
                 }),
                 top: '40',
                 left: '10',
+                width: '300',
                 backgroundColor: '#efefef',
             }],
             series : [
                 {
                     type: 'graph',
                     layout: 'force',
+                    zoom: 4,
                     tooltip: {
                         textStyle: {
                             width: 10,
