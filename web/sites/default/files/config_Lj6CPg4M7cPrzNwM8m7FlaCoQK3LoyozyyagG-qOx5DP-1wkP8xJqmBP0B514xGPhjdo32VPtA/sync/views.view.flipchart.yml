@@ -11,7 +11,6 @@ dependencies:
     - system.menu.main
     - taxonomy.vocabulary.flip_chart_keys
     - taxonomy.vocabulary.type_of_body
-    - views.view.summary_key
   content:
     - 'taxonomy_term:flip_chart_keys:c4883f19-dc50-4aad-8d6c-2f9e2e1e9357'
     - 'taxonomy_term:type_of_body:6cd70b1a-f1be-4a78-a18b-f956d522435c'
@@ -961,17 +960,6 @@ display:
           empty: false
           content: '<div class="entity_count">Displaying Entities - @total</div>'
           plugin_id: result
-        view:
-          id: view
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          view_to_insert: 'summary_key:block_4'
-          inherit_arguments: false
-          plugin_id: view
       title: ' List of PGPA Act Commonwealth entities and companies'
     cache_metadata:
       max-age: -1
