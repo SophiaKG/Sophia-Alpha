@@ -7,6 +7,7 @@
         <form>
             <input type="button" class="graph_back_btn" value="Back to entity page" onclick="history.back()">
         </form>
+        
 </div>
 <div class="col-md-6 shapes-legend">
     <p>Shapes |  
@@ -16,6 +17,9 @@
 </p>
 </div>
 </div>
+
+    <p class="guide_msg"><i class="fas fa-info-circle"></i> Tip: Scroll mouse over the shapes to interact</p>
+
 <div id="maingraph"></div>
 <script type="text/javascript">
     // based on prepared DOM, initialize echarts instance
@@ -62,7 +66,7 @@
                 {
                     type: 'graph',
                     layout: 'force',
-                    zoom: 3,
+                    zoom: 4,
                     edgeSymbol: ['circle', 'arrow'],
                     edgeSymbolSize: [4, 10],
                     edgeLabel: {

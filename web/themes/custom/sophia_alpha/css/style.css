@@ -24,7 +24,12 @@ a:hover, a:active, a:focus {
 button, .more-link a, a.btn.btn-primary,
 button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary:hover {
     background-color: #1d84c3;
+    color: #fff;
 }
+.ui-dialog-titlebar-close::after {
+    content: "X";
+}
+
 .modal-dialog {
     margin: 15vw auto !important;
     transition: all 0.8s ease-in-out;
@@ -41,20 +46,22 @@ button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary
 .ui-widget-header,
 .modal-header {
     color: #1d84ce;
+    border: unset;
+    background: none;
     border-bottom: 2px solid var(--blue);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
 .ui-dialog-titlebar-close,
 .modal-header .close {
-    color: var(--blue);
+    color: #fff;
     margin: -.5rem -.5rem -1rem auto;
 }
 .ui-dialog-titlebar-close:hover,
 .modal-header .close:hover {
-    color: #fff;
-    background-color: #1d84c3;
-    border-radius: 12px;
+    color: #1d84c3;
+    background-color: #fff;
+    
 }
 
 a.navbar-brand{
@@ -178,7 +185,7 @@ main#content table > thead > tr > th {
 
 }
 #block-views-block-summary-key-block-3 .view-header .graph_back_btn {
-    width: 180px;
+    width: 180px !important;
     margin: 10px auto !important;
     display: block;
 }
@@ -363,9 +370,9 @@ header#header {
     margin-bottom: 1rem;
 }
 
-.lead-in-cards.purple > a {
+.lead-in-cards > a {
     border-bottom: 3px solid #1d84c3 !important;
-    box-shadow: 0 2px 4px 0 #1d84c3, 0 0px 10px 0 #1d84c3 !important;
+    transition: all .2s ease-in-out;
 }
 /* .path-taxonomy - fixing margins on taxonomy pages with current filtered views */
 .path-taxonomy .item-list{
@@ -383,6 +390,10 @@ header#header {
     margin-bottom: 2rem;
 }
 /* Guide/Scroll mesage is used for Summary key block message - Scroll Down or view page*/
+
+.search_info {
+    float: right;
+}
 .guide_msg {
     font-size: .9rem;
     color: #1d84c3;
@@ -477,8 +488,9 @@ canvas {
 .shapes-legend,
 .color-keys {
     color: #1d84c3;
-    padding: 10px 20px 0px 20px;
-    text-align: left;
+    padding: 10px 40px 0px 20px;
+    text-align: right;
+    margin-right: 4rem;
 
 }
 .color-keys {
@@ -587,6 +599,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     text-align: center;
     border-top: 2px solid #2f4f4f;
 }
+.ui-dialog table caption,
 .view-id-entity_types table caption,
 .page-view-flipchart .view-display-id-block_3 table caption a {
     font-weight: 700;
@@ -748,6 +761,25 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .view-flipchart .view-content .views-col .character-sheet-keys {
     font-size: x-small;
 }
+.view-flipchart .view-display-id-block_1 {
+    background-color: #efefef;
+    border-radius: 8px;
+    padding: 10px;
+}
+.view-flipchart .view-display-id-block_1 .row {
+    margin-left: 10px;
+}
+.view-flipchart .view-display-id-block_1 p {
+    display: inline;
+}
+@media print {
+    a[href]:after {
+        content: none !important;
+    }
+    .path-summary-print .item-list h3 {
+        page-break-before: auto;
+    }
+}
 
 a.nav-link{
     color: #242c33;
@@ -798,7 +830,7 @@ article.node--type-bodies .field {
 article.node--type-bodies .field .field__label {
     font-weight: 800;
 }
-
+.flipchart .item-list ul li.printNonCorp,
 article.nonCorp {
     border-left: 6px solid rgb(204, 204, 255) !important;
     border-bottom: 1px solid rgb(204, 204, 255);
@@ -807,6 +839,7 @@ article.nonCorp {
 .ncce {
     color: rgb(204, 204, 255) !important;
 }
+.flipchart .item-list ul li.printCorp,
 article.corp {
     border-left: 6px solid rgb(170, 225, 194) !important;
     border-bottom: 1px solid rgb(170, 225, 194);
@@ -816,6 +849,7 @@ article.corp {
 .cce {
     color: rgb(170, 225, 194) !important;
 }
+.flipchart .item-list ul li.printComCompany,
 article.comCompany {
     border-left: 6px solid rgb(249, 238, 186) !important;
     border-bottom: 1px solid rgb(249, 238, 186);
@@ -1048,3 +1082,6 @@ a[href$="/taxonomy/term/147"] {
 }
 
 /*-- End Flipchart Key colors --*/
+.views-field.views-field-field-type-of-body span a[href$="/taxonomy/term/137"] {
+    color: #000 !important;
+}

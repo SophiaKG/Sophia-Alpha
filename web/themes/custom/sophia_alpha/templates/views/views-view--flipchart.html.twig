@@ -101,7 +101,7 @@
         {{ kint(val, 'rows v2') }}
       {% endfor %}
       {{ kint(rows['1']['#rows']|length) }#}
-    
+      
 
 {#rows: {{ rows|length }}
       total count: {{ count }}
@@ -111,10 +111,10 @@
 
       <div class="row flipchart" >
         <div class="col">
-          {{ rows[:5] }}
+          {{ rows[:6] }}
         </div>
         <div class="col">
-          {{ rows|slice(5, 5) }}
+          {{ rows|slice(6, 4) }}
         </div>
         <div class="col">
           {{ rows[10:] }}
@@ -125,7 +125,7 @@
     </div>
   {% elseif empty %}
     <div class="view-empty">
-      
+      {{ empty }}
     </div>
   {% endif %}
 

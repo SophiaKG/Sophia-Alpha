@@ -11,7 +11,7 @@ _core:
 id: sophia_alpha_help
 theme: sophia_alpha
 region: content
-weight: -8
+weight: -9
 provider: null
 plugin: help_block
 settings:
