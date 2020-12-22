@@ -9,7 +9,7 @@ _core:
 id: sophia_alpha_local_tasks
 theme: sophia_alpha
 region: content
-weight: -9
+weight: -10
 provider: null
 plugin: local_tasks_block
 settings:

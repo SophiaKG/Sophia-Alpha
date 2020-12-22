@@ -18,6 +18,7 @@
 
     /* Below adds the entity type vocab to keychart on /summary page */ 
     $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
+
    /*
     * Sidebar first is being hidden through Javascript from base theme even
     * though set to display in current theme. However set to display here is

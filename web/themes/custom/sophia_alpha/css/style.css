@@ -24,6 +24,10 @@ a:hover, a:active, a:focus {
 button, .more-link a, a.btn.btn-primary,
 button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary:hover {
     background-color: #1d84c3;
+    color: #fff;
+}
+.ui-dialog-titlebar-close::after {
+    content: "X";
 }
 
 .modal-dialog {
@@ -50,13 +54,13 @@ button:hover, a.btn:hover, a.button:hover, .more-link a:hover, a.btn.btn-primary
 }
 .ui-dialog-titlebar-close,
 .modal-header .close {
-    color: var(--blue);
+    color: #fff;
     margin: -.5rem -.5rem -1rem auto;
 }
 .ui-dialog-titlebar-close:hover,
 .modal-header .close:hover {
-    color: #fff;
-    background-color: #1d84c3;
+    color: #1d84c3;
+    background-color: #fff;
     
 }
 
@@ -366,9 +370,9 @@ header#header {
     margin-bottom: 1rem;
 }
 
-.lead-in-cards.purple > a {
+.lead-in-cards > a {
     border-bottom: 3px solid #1d84c3 !important;
-    box-shadow: 0 2px 4px 0 #1d84c3, 0 0px 10px 0 #1d84c3 !important;
+    transition: all .2s ease-in-out;
 }
 /* .path-taxonomy - fixing margins on taxonomy pages with current filtered views */
 .path-taxonomy .item-list{
@@ -757,7 +761,17 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .view-flipchart .view-content .views-col .character-sheet-keys {
     font-size: x-small;
 }
-
+.view-flipchart .view-display-id-block_1 {
+    background-color: #efefef;
+    border-radius: 8px;
+    padding: 10px;
+}
+.view-flipchart .view-display-id-block_1 .row {
+    margin-left: 10px;
+}
+.view-flipchart .view-display-id-block_1 p {
+    display: inline;
+}
 @media print {
     a[href]:after {
         content: none !important;
