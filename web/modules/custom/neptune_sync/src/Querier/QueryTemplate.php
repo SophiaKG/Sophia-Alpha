@@ -68,7 +68,7 @@ class QueryTemplate
                                 'VALUES ?type {ns2:CommonwealthBody ns2:LeadBody} ' .
                                 //'?obj ns2:live true. ' .
                                 '?obj a ?type. ' .
-                                '?obj ns2:CanonicalName ?objLabel. ' .
+                                '?obj ns2:canonicalName ?objLabel. ' .
                             '}');
         return $q;
     }
@@ -81,7 +81,7 @@ class QueryTemplate
                             'WHERE { ' .
                                 '?obj ns2:live true. ' .
                                 '?obj a ns2:Portfolio. ' .
-                                '?obj ns2:CanonicalName ?objLabel. ' .
+                                '?obj ns2:canonicalName ?objLabel. ' .
                             '}');
         return $q;
     }

@@ -117,13 +117,13 @@ class CoopGraphQuerier{
 
         return
             'CONSTRUCT {' .
-                '?sendBody ns2:Grants ?prog. ' .
-                '?prog ns2:Enables ?outcome. ' .
-                '?outcome ns2:Empowers ?recBody. ' .
+                '?sendBody ns2:grants ?prog. ' .
+                '?prog ns2:enables ?outcome. ' .
+                '?outcome ns2:empowers ?recBody. ' .
                 '?prog rdfs:label ?progLabel. ' .
                 '?outcome rdfs:label ?outcomeLabel. ' .
-                '?prog ns2:Content ?progDesc. ' .
-                '?outcome ns2:Content ?outcomeDesc. ' .
+                '?prog ns2:content ?progDesc. ' .
+                '?outcome ns2:content ?outcomeDesc. ' .
                 '?sendBody rdfs:label ?sendBodyLab. ' .
                 '?recBody rdfs:label ?recBodyLab. ' .
                 '?recBody rdf:type ns2:CommonwealthBody. ' .
@@ -145,15 +145,15 @@ class CoopGraphQuerier{
         return
             //Graph logic
             'BIND(?entities AS  ' . $entityBinding . '). ' .
-            '?auth ns2:Binds ?prog. ' .
-            '?auth ns2:BindsTo ?outcome. ' .        //gets outcome
-            '?auth1 ns2:Binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
-            '?auth1 ns2:BindsTo ?sendBody. ' .        //go over BindsTo to get to lead body (ie: commonwealthbody)
-            '?auth2 ns2:Binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
-            '?auth2 ns2:BindsTo ?recBody. ' .        //get the rec. body from auth
+            '?auth ns2:binds ?prog. ' .
+            '?auth ns2:bindsTo ?outcome. ' .        //gets outcome
+            '?auth1 ns2:binds ?prog. ' .            //gets a1 (start of query) and a2:(leads to lead body) from program
+            '?auth1 ns2:bindsTo ?sendBody. ' .        //go over BindsTo to get to lead body (ie: commonwealthbody)
+            '?auth2 ns2:binds ?outcome. ' .         //get other auth that point to the outcome (ent2)
+            '?auth2 ns2:bindsTo ?recBody. ' .        //get the rec. body from auth
             //get labels
-            '?prog ns2:Content ?progDesc. ' .       //get the description of the program
-            '?outcome ns2:Content ?outcomeDesc. ' . //get the description of the outcome
+            '?prog ns2:content ?progDesc. ' .       //get the description of the program
+            '?outcome ns2:content ?outcomeDesc. ' . //get the description of the outcome
             '?sendBody rdfs:label ?sendBodyLab. '.  //ent label
             '?prog rdfs:label ?progLabel. ' .       //program label
             '?outcome rdfs:label ?outcomeLabel. ' . //outcome (purpose) lab

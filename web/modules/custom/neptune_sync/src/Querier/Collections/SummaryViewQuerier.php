@@ -23,9 +23,9 @@ class SummaryViewQuerier {
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
-            '?auth ns2:BindsTo ' . $node . '. ' .
-            '?auth ns2:Binds ' . $term . '. ' .
-            '?flipchart ns2:Witnesses ?auth. ' .
+            '?auth ns2:bindsTo ' . $node . '. ' .
+            '?auth ns2:binds ' . $term . '. ' .
+            '?flipchart ns2:witnesses ?auth. ' .
             '?flipchart ns2:live true. ';
     }
 
@@ -34,9 +34,9 @@ class SummaryViewQuerier {
             $node = QueryBuilder::getUri($node, "ns2");
         return
             '?ent ns2:live true. ' .
-            '?auth0 ns2:Binds ?myStaffing. ' .
-            '?auth0 ns2:BindsTo ' . $node . '. ' .
-            '?auth1 ns2:Binds ' . $term . '. ' .
+            '?auth0 ns2:binds ?myStaffing. ' .
+            '?auth0 ns2:bindsTo ' . $node . '. ' .
+            '?auth1 ns2:binds ' . $term . '. ' .
             '?auth1 ns2:isRestrictionOf ?myStaffing. ';
     }
 
@@ -47,10 +47,10 @@ class SummaryViewQuerier {
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
-            '?auth ns2:BindsTo ' . $node . '. ' .
-            '?auth ns2:Binds ?est. ' .
-            '?est a ns2:Establishment. ' .
-            '?leg ns2:Grants ?auth. ' .
+            '?auth ns2:bindsTo ' . $node . '. ' .
+            '?auth ns2:binds ?est. ' .
+            '?est a ns2:establishment. ' .
+            '?leg ns2:grants ?auth. ' .
             '?leg ns2:live true. ' .
             '?leg ns2:hasSeries ?srs. ' .
             '?superSrs ns2:hasSubordinate ?srs.';
@@ -63,13 +63,13 @@ class SummaryViewQuerier {
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
-            '?auth ns2:Binds ' . $node . '. ' .
+            '?auth ns2:binds ' . $node . '. ' .
             '?auth ns2:hasExemptionFrom ?section. ' .
             '?section rdfs:label "22". ' .
-            '?thing ns2:Grants ?auth. ' .
-            '?thing ns2:SubsectionOf ?leg2. ' .
+            '?thing ns2:grants ?auth. ' .
+            '?thing ns2:subsectionOf ?leg2. ' .
             '?leg2 ns2:live true. ' .
-            '?section ns2:SubsectionOf ?leg. ' .
+            '?section ns2:subsectionOf ?leg. ' .
             '?leg ns2:hasSeries ns2:C2013A00123. ';
     }
 
@@ -84,14 +84,14 @@ class SummaryViewQuerier {
             $node = QueryBuilder::getUri($node, "ns2");
         return
             self::getStaffingPart($node, $term) .
-            '?auth2 ns2:Binds ?otherTerm. ' .
+            '?auth2 ns2:binds ?otherTerm. ' .
             '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
-            '?leg a ns2:Legislation. ' .
+            '?leg a ns2:legislation. ' .
             '?leg ns2:live true. ' .
-            '?leg ns2:Grants ?auth2. ' .
-            '?leg ns2:Grants ?auth3. ' .
-            '?auth3 ns2:Binds ?est. ' .
-            '?auth3 ns2:BindsTo ' . $node . '. ' .
+            '?leg ns2:grants ?auth2. ' .
+            '?leg ns2:grants ?auth3. ' .
+            '?auth3 ns2:binds ?est. ' .
+            '?auth3 ns2:bindsTo ' . $node . '. ' .
             '?est a ns2:Establishment. ';
     }
 
@@ -99,12 +99,12 @@ class SummaryViewQuerier {
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
-            '?procAuth ns2:Binds ?proc. ' .
-            '?procAuth ns2:BindsTo ' . $node . '. ' .
-            '?proc a ns2:Procurement. ' .
+            '?procAuth ns2:binds ?proc. ' .
+            '?procAuth ns2:bindsTo ' . $node . '. ' .
+            '?proc a ns2:procurement. ' .
             '?cprauth ns2:isRestrictionOf ?proc. ' .
-            '?cprauth ns2:Binds ns2:F2014L00911CommonwealthProcurementRules. ' .
-            '?leg ns2:Grants ?cprauth. ' .
+            '?cprauth ns2:binds ns2:F2014L00911CommonwealthProcurementRules. ' .
+            '?leg ns2:grants ?cprauth. ' .
             '?leg ns2:live true. ';
     }
 }

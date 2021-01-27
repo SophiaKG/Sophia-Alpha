@@ -95,8 +95,8 @@ class QueryBuilder {
             'WHERE { ' .
                 '?auth ns2:fallsUnder ?port. ' .
                 '?port rdfs:label ?portlabel. ' .
-                '?auth ns2:Binds ' . self::getUri($node, 'ns2') . '. ' .
-                '?flip ns2:Witnesses ?auth. ' .
+                '?auth ns2:binds ' . self::getUri($node, 'ns2') . '. ' .
+                '?flip ns2:witnesses ?auth. ' .
                 '?flip a ns2:FinanceEntityList. ' .
                 '?flip ns2:live true. ' .
             '} ORDER BY DESC(?datetime) ' .
@@ -123,10 +123,10 @@ class QueryBuilder {
             'WHERE { '.
                 '?legislation rdfs:label ?legislationLabel. ' .
                 '?legislation a ns2:Series. ' .
-                '?legislation ns2:Grants ?authority. ' .
-                '?authority ns2:Binds ?est. ' .
-                '?est a ns2:Establishment. ' .
-                '?authority ns2:BindsTo ?body. ' .
+                '?legislation ns2:grants ?authority. ' .
+                '?authority ns2:binds ?est. ' .
+                '?est a ns2:establishment. ' .
+                '?authority ns2:bindsTo ?body. ' .
                 '?body a ns2:CommonwealthBody. ' .
                 '?body rdfs:label "' . $node->getTitle() . '". ' .
             '}');
@@ -162,7 +162,7 @@ class QueryBuilder {
             'WHERE { '.
                 '?object rdfs:label "' . $node->getTitle() . '". ' .
                 '?object a ' . SophiaGlobal::IRI['ns1']['prefix'] . $type . '. ' .
-                '?object ' .  SophiaGlobal::IRI['ns1']['prefix'] . 'WebDataSource ?link.' .
+                '?object ' .  SophiaGlobal::IRI['ns1']['prefix'] . 'webDataSource ?link.' .
             '}');
         return $q;
     }
