@@ -38,9 +38,9 @@ class SophiaGlobal
             'loc' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'),
         'ns2' => array(
             'prefix' => 'ns2:',
-            'IRI' => 'PREFIX ns2: <file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#>',
+            'IRI' => 'PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#>',
             'name' => 'ns2',
-            'loc' => 'file:///C:/SophiaBuild/data/OntologyFiles/GovernmentEntities.owl#'),
+            'loc' => 'http://linked.data.gov.au/def/sog/GovernmentEntities.owl#'),
     );
 
     public static function PREFIX_ALL(){
