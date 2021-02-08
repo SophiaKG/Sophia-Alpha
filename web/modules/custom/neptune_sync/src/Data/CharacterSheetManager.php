@@ -174,19 +174,19 @@ class CharacterSheetManager
             helper::log("Processing key = " . $arrKey);
             switch ($arrKey) {
                 case 'PS Act': //its the default value if no assignment could be made
+                    $query = QueryBuilder::buildAskQuery(
+                        SummaryViewQuerier::getPsActPart($node));
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                        $res = $key['TaxonomyId'];
                     break;
 
                 case '^': //!ps act
-                    $query = QueryBuilder::buildAskQuery(
-                        SummaryViewQuerier::getStaffingPart($node, $key['Neptune_obj']));
-                    if (!$this->evaluate($this->query_mgr->runCustomQuery($query)))
-                        $res = $key['TaxonomyId'];
                     break;
 
                 case '#': // PS act && enabling legislation
                     $query = QueryBuilder::buildAskQuery(
                         SummaryViewQuerier::getStaffingWithLegislationPart(
-                            $node, $key['Neptune_obj']));
+                            $node));
 
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
@@ -194,7 +194,7 @@ class CharacterSheetManager
 
                 case '▲': //parliamentary act
                     $query = QueryBuilder::buildAskQuery(
-                        SummaryViewQuerier::getStaffingPart($node, $key['Neptune_obj']));
+                        SummaryViewQuerier::getParliamentaryActPart($node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
@@ -202,8 +202,10 @@ class CharacterSheetManager
         }
 
         Helper::log("res = " . $res);
-        if ($res == "")
-            $res = SummaryChartKeys::getKeys()['Employment type']['PS Act']['TaxonomyId'];
+        /** XXX employment type needs to be made a multi field before the below can be enabled */
+        //if ($res != 'PS Act'|| $res != '#') //Not ps act or # than must be ^
+        if ($res == '')
+            $res = SummaryChartKeys::getKeys()['Employment type']['^']['TaxonomyId'];
 
         $this->body->addFlipchartKey($res);
     }

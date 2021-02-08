@@ -29,14 +29,64 @@ class SummaryViewQuerier {
             '?flipchart ns2:live true. ';
     }
 
-    public static function getStaffingPart($node, $term){
+    /** Determines PS act key
+     * @param $node
+     * @return string returns a part-of query that determines if a node is bound
+     * by the ps act
+     */
+    public static function getPsActPart($node){
+        if($node instanceof NodeInterface)
+            $node = QueryBuilder::getUri($node, "ns2");
+        return
+            '?workAuth ns2:binds ?staff. ' .
+            '?workAuth ns2:worksFor ' . $node . '. ' .
+            '?termAuth ns2:binds ?term. ' . 
+            '?termAuth ns2:bindsTo ?staff. ' .
+            'ns2:C2004A00538 ns2:defines ?term. ';
+    }
+
+    /** specific to # key
+     * @param $node
+     * @return string
+     */
+    public static function getStaffingWithLegislationPart($node){
+        if($node instanceof NodeInterface)
+            $node = QueryBuilder::getUri($node, "ns2");
+        return
+            self::getPsActPart($node) .
+            'FILTER EXISTS{ ' .
+                '?workAuth1 ns2:binds ?staff1. ' .
+                '?workAuth1 ns2:worksFor ' . $node . '. ' .
+                'MINUS{ '.
+                    '?termAuth1 ns2:binds ?term1. ' .
+                    '?termAuth1 ns2:bindsTo ?staff1. ' .
+                    'ns2:C2004A00538 ns2:defines ?term1. ' .
+                '} ' .
+            '} ';
+
+        /* '?auth2 ns2:binds ?otherTerm. ' .
+         '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
+         '?leg a ns2:legislation. ' .
+         '?leg ns2:live true. ' .
+         '?leg ns2:grants ?auth2. ' .
+         '?leg ns2:grants ?auth3. ' .
+         '?auth3 ns2:binds ?est. ' .
+         '?auth3 ns2:bindsTo ' . $node . '. ' .
+         '?est a ns2:Establishment. ';*/
+    }
+
+    /** Specific to ▲ key
+     * @param $node
+     * @return string
+     */
+    public static function getParliamentaryActPart($node){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
             '?ent ns2:live true. ' .
             '?auth0 ns2:binds ?myStaffing. ' .
             '?auth0 ns2:bindsTo ' . $node . '. ' .
-            '?auth1 ns2:binds ' . $term . '. ' .
+            '?auth1 ns2:binds ns2:C2004A00536ParliamentaryServiceemployment. ' .
             '?auth1 ns2:isRestrictionOf ?myStaffing. ';
     }
 
@@ -71,28 +121,6 @@ class SummaryViewQuerier {
             '?leg2 ns2:live true. ' .
             '?section ns2:subsectionOf ?leg. ' .
             '?leg ns2:hasSeries ns2:C2013A00123. ';
-    }
-
-
-    /** specific to # key
-     * @param $node
-     * @param $term
-     * @return string
-     */
-    public static function getStaffingWithLegislationPart($node, $term){
-        if($node instanceof NodeInterface)
-            $node = QueryBuilder::getUri($node, "ns2");
-        return
-            self::getStaffingPart($node, $term) .
-            '?auth2 ns2:binds ?otherTerm. ' .
-            '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
-            '?leg a ns2:legislation. ' .
-            '?leg ns2:live true. ' .
-            '?leg ns2:grants ?auth2. ' .
-            '?leg ns2:grants ?auth3. ' .
-            '?auth3 ns2:binds ?est. ' .
-            '?auth3 ns2:bindsTo ' . $node . '. ' .
-            '?est a ns2:Establishment. ';
     }
 
     public static function getEstablishedByRegulationPart($node){
