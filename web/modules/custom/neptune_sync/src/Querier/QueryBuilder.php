@@ -125,7 +125,7 @@ class QueryBuilder {
                 '?legislation a ns2:Series. ' .
                 '?legislation ns2:grants ?authority. ' .
                 '?authority ns2:binds ?est. ' .
-                '?est a ns2:establishment. ' .
+                '?est a ns2:Establishment. ' .
                 '?authority ns2:bindsTo ?body. ' .
                 '?body a ns2:CommonwealthBody. ' .
                 '?body rdfs:label "' . $node->getTitle() . '". ' .

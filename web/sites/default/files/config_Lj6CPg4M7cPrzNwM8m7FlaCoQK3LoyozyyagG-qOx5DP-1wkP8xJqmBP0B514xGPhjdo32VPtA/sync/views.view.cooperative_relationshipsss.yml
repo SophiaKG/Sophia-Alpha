@@ -32,7 +32,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'access content'
+          perm: 'Beta access content'
       cache:
         type: tag
         options: {  }

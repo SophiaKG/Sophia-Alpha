@@ -7,5 +7,6 @@ label: 'Non-tech Admin'
 weight: 4
 is_admin: null
 permissions:
+  - 'Beta access content'
   - 'access webform overview'
   - 'view any webform submission'
