@@ -99,7 +99,7 @@ class SummaryViewQuerier {
         return
             '?auth ns2:bindsTo ' . $node . '. ' .
             '?auth ns2:binds ?est. ' .
-            '?est a ns2:establishment. ' .
+            '?est a ns2:Establishment. ' .
             '?leg ns2:grants ?auth. ' .
             '?leg ns2:live true. ' .
             '?leg ns2:hasSeries ?srs. ' .
@@ -123,16 +123,34 @@ class SummaryViewQuerier {
             '?leg ns2:hasSeries ns2:C2013A00123. ';
     }
 
+    /** specific for ℗ key
+     * @param $node
+     * @return string
+     */
     public static function getEstablishedByRegulationPart($node){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
             '?procAuth ns2:binds ?proc. ' .
             '?procAuth ns2:bindsTo ' . $node . '. ' .
-            '?proc a ns2:procurement. ' .
+            '?proc a ns2:Procurement. ' .
             '?cprauth ns2:isRestrictionOf ?proc. ' .
             '?cprauth ns2:binds ns2:F2014L00911CommonwealthProcurementRules. ' .
             '?leg ns2:grants ?cprauth. ' .
             '?leg ns2:live true. ';
+    }
+
+    public static function getCorpNonCorpPart($node){
+        if($node instanceof NodeInterface)
+            $node = QueryBuilder::getUri($node, "ns2");
+        return
+            '?auth ns2:bindsTo '  . $node . '. ' .
+            '?auth ns2:binds ns2:C2004A00818bodycorporate. '.
+            '?leg ns2:grants ?auth. ' .
+            '?leg ns2:live true. '.
+            '?auth1 ns2:bindsTo ' . $node . '. ' .
+            '?auth1 ns2:binds ns2:C2013A00123noncorporateCommonwealthentity. ' .
+            '?flip ns2:witnesses ?auth1. ' .
+            '?flip ns2:live true. ';
     }
 }

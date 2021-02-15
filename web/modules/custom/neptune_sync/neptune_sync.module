@@ -48,13 +48,4 @@ function neptune_sync_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\Ent
             $view_mode = 'character_sheet';
         }
 }
-
-/**
- * Implements hook_ENTITY_TYPE_update()
- * @param $node
- */
-function  neptune_sync_Node_update($node){
-
-}
-    
     

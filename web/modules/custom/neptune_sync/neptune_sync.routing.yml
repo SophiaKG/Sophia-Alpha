@@ -4,7 +4,7 @@ neptune_sync.buildLocalGraph:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::buildLocalGraph'
     _title: 'Local Graph'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
   options:
     parameters:
       node:
@@ -15,7 +15,7 @@ neptune_sync.localGraphQuery:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::localGraphQuery'
     _title: 'Local Graph Query'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
   options:
     parameters:
       node:
@@ -26,7 +26,7 @@ neptune_sync.displayCharacterSheet:
     _controller: '\Drupal\neptune_sync\Controller\CharacterSheetController::buildCharacterSheet'
     _title: 'Character Sheet'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
   options:
     parameters:
       node:
@@ -44,21 +44,21 @@ neptune_sync.displayGraph:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::displayGraph'
     _title: 'Local Graph'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
 neptune_sync.sparqlQueryForm:
   path: '/sparql-query'
   defaults:
     _form: '\Drupal\neptune_sync\Form\SparqlQueryForm'
     _title: 'Sparql Query form'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
 neptune_sync.displayIntGraph:
   path: '/node/{node}/graph'
   defaults:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::displayIntGraph'
     _title: ''
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
   options:
     parameters:
       node:
@@ -69,7 +69,7 @@ neptune_sync.displayCoopGraph:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraph'
     _title: ''
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
   options:
     parameters:
       node:
@@ -80,7 +80,7 @@ neptune_sync.displayCoopGraphAll:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraphAll'
     _title: ''
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
   options:
     parameters:
       node:
@@ -91,13 +91,13 @@ neptune_sync.intersectCoopGraph:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::coopGraphQuery'
     _title: 'Relationship Graph Intersect'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
 neptune_sync.displayCoopGraphIntersect:
   path: '/relationship-graph-intersect'
   defaults:
     _controller: '\Drupal\neptune_sync\Controller\GraphController::displayCoopGraphIntersect'
   requirements:
-    _permission: 'access content'
+    _permission: 'Beta access content'
 neptune_sync.runAdminFunc:
   path: '/admin/foo'
   defaults:

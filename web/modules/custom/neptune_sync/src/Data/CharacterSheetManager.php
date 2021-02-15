@@ -230,11 +230,9 @@ class CharacterSheetManager
                         $res = $key['TaxonomyId'];
                     break;
                 case '*':
-                    $nonCorp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
-                        ['Non-corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
-                    $corp = $this->check_term([SummaryChartKeys::getKeys()['Body type']
-                        ['Corporate Commonwealth entity']['Neptune_obj'] => 'NA'], $node);
-                    if($nonCorp && $corp)
+                    $query = QueryBuilder::buildAskQuery(
+                        SummaryViewQuerier::getCorpNonCorpPart($node));
+                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
                 case 'HC':
