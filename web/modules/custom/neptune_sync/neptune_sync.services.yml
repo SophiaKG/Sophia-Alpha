@@ -1,0 +1,5 @@
+services:
+  neptune_sync.Login_event_subscriber:
+    class: Drupal\neptune_sync\Event\HomepageRedirectionSubscriber
+    tags:
+      - {name: event_subscriber}

@@ -361,6 +361,12 @@ header#header {
     width: auto;
 }
 */
+
+#front-page-public {
+    width: 50%;
+    margin: 0 25%;
+}
+
 .lead-in-cards {
     min-height: 180px;
     text-align: center;
