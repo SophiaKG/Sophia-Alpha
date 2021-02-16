@@ -25,7 +25,7 @@ class HomepageRedirectionSubscriber implements EventSubscriberInterface {
         if (\Drupal::service('path.matcher')->matchPath(
                     \Drupal::service('path.current')->getPath(),'/node/43151') &&
                 !\Drupal::currentUser()->isAnonymous()) {
-            
+
             $path =  \Drupal::service('path.alias_manager')->getAliasByPath('/drupal8/web/welcome-beta');
             $event->setResponse(new RedirectResponse($path));
         }

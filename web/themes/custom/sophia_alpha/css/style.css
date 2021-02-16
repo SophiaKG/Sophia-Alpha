@@ -829,11 +829,20 @@ article.node--type-portfolios .node__meta {
     color: #40807F;
 }
 
-article.node--type-bodies .field {
+/* Legislation, portfolio and body node view */
+/* Duplicate from neptune_sync css */
+body.path-node article.node--view-mode-character-sheet span.field--name-title {
+    font-size: xx-large;
+    font-weight: bold;
+    color: black;
+    padding-right: 5px;
+}
+
+article.node--view-mode-character-sheet .field {
     margin: 0 0 1.2em;
 }
 
-article.node--type-bodies .field .field__label {
+article.node--view-mode-character-sheet .field .field__label {
     font-weight: 800;
 }
 .flipchart .item-list ul li.printNonCorp,

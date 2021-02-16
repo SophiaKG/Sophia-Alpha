@@ -74,24 +74,26 @@
 %}
 
 {# node relative links #}
-{% if node.getType() == "bodies" or node.getType() == "legislation" or
-    node.getType() == "portfolios" %}
-    <div class="graph__link">
-        <a href="{{ node.id() }}/graph">
-            View local graph
-        </a>
-    </div>
-    <div class="coop_graph__link">
-        <a href="{{ node.id() }}/coop-graph">
-            View Cooperative Relationships graph
-        </a>
-    </div>
-    <div class="sync__link">
-        <a href="{{ node.id() }}/character-sheet">
-            Sync node to ontology
-        </a>
-    </div>
-    
+{% if logged_in == true %}
+    {% if node.getType() == "bodies" or node.getType() == "legislation" or
+        node.getType() == "portfolios" %}
+        <div class="graph__link">
+            <a href="{{ node.id() }}/graph">
+                View local graph
+            </a>
+        </div>
+        <div class="coop_graph__link">
+            <a href="{{ node.id() }}/coop-graph">
+                View Cooperative Relationships graph
+            </a>
+        </div>
+        <div class="sync__link">
+            <a href="{{ node.id() }}/character-sheet">
+                Sync node to ontology
+            </a>
+        </div>
+
+    {% endif %}
 {% endif %}
 
 

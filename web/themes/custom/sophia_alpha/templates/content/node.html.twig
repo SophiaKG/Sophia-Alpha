@@ -72,14 +72,17 @@
     'clearfix',
   ]
 %}
-{% if node.getType() == "bodies" or node.getType() == "legislation" or
-    node.getType() == "portfolios" %}
-    <div class="graph__link">
-        <a href="{{ node.id() }}/local-graph-form">
-            View local graph
-        </a>
-    </div>
+{% if logged_in == true %}
+    {% if node.getType() == "bodies" or node.getType() == "legislation" or
+        node.getType() == "portfolios" %}
+        <div class="graph__link">
+            <a href="{{ node.id() }}/local-graph-form">
+                View local graph
+            </a>
+        </div>
+    {% endif %}
 {% endif %}
+
 <article{{ attributes.addClass(classes) }}>
   <header>
     {{ title_prefix }}
