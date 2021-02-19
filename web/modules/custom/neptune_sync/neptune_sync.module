@@ -29,6 +29,10 @@ function neptune_sync_theme($existing, $type, $theme, $path) {
            'template' => 'node--bodies--character-sheet',
             'base hook' => 'node',
         ],
+        'node__bodies__character_sheet_public' => [
+            'template' => 'node--bodies--character-sheet-public',
+            'base hook' => 'node',
+        ],
         'graph_coop_relationships_template' => [
             'variables' => ['graph_name' => NULL, 'graph_json' => NULL],
         ],
@@ -45,7 +49,10 @@ function neptune_sync_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\Ent
     // Change the view mode to teaser on full page view for node ID 123.
     if ($entity->getEntityTypeId() == 'node' && $view_mode == 'full')
         if($entity->getType() == 'bodies' || $entity->getType() == 'legislation' || $entity->getType() == 'portfolios'){
-            $view_mode = 'character_sheet';
+            if(\Drupal::currentUser()->isAnonymous())
+                $view_mode = 'character_sheet_public';
+            else
+                $view_mode = 'character_sheet';
         }
 }
     
