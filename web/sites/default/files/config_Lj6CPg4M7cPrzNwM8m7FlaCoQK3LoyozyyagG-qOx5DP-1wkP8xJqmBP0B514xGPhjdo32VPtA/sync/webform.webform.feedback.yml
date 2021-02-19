@@ -12,7 +12,7 @@ id: feedback
 title: Feedback
 description: ''
 category: ''
-elements: "type:\n  '#type': radios\n  '#title': 'Feedback type'\n  '#options':\n    'Bug (issue)': 'Bug (issue) -- Detail something that goes wrong or information is wrong/missing'\n    'Feature request': 'Feature request -- Request new functionality or features'\n    Feedback: 'Feedback -- What you like, or didn''t like'\ndetails_of_feedback:\n  '#type': textarea\n  '#title': 'Details of feedback'\n  '#help': 'Describe what went wrong, what you would like to see or what you liked/didn&#39;t like.&nbsp;'\n  '#required': true\nhow_urgent_should_this_feedback_be_responded_tooo:\n  '#type': radios\n  '#title': 'How urgent should this feedback be responded to'\n  '#options':\n    'I don''t know': 'I don''t know'\n    'Very little': 'Very little'\n    'Moderately so': 'Moderately so'\n    Critical: Critical\nwhat_is_your_overall_impressions_of_this_beta:\n  '#type': webform_rating\n  '#title': 'What is your overall impression of this Beta'"
+elements: "type:\n  '#type': radios\n  '#title': 'Feedback type'\n  '#options':\n    'Bug (issue)': 'Bug (issue) -- Detail something that goes wrong or information is wrong/missing'\n    'Feature request': 'Feature request -- Request new functionality or features'\n    Feedback: 'Feedback -- What you like, or didn''t like'\ndetails_of_feedback:\n  '#type': textarea\n  '#title': 'Details of feedback'\n  '#help': 'Describe what went wrong, what you would like to see or what you liked/didn&#39;t like.&nbsp;'\n  '#required': true\nhow_urgent_should_this_feedback_be_responded_tooo:\n  '#type': radios\n  '#title': 'How urgent should this feedback be responded to'\n  '#options':\n    'I don''t know': 'I don''t know'\n    'Very little': 'Very little'\n    'Moderately so': 'Moderately so'\n    Critical: Critical\nwhat_is_your_overall_impressions_of_this_beta:\n  '#type': webform_rating\n  '#title': 'What is your overall impression of this Beta'\nwho_can_we_contact_about_this_:\n  '#type': textfield\n  '#title': 'Who can we contact about this?'\n  '#size': 32\n  '#autocomplete': 'off'"
 css: ''
 javascript: ''
 settings:
@@ -142,10 +142,12 @@ settings:
   results_customize: false
   token_view: false
   token_update: false
+  token_delete: false
   serial_disabled: false
 access:
   create:
     roles:
+      - anonymous
       - authenticated
     users: {  }
     permissions: {  }

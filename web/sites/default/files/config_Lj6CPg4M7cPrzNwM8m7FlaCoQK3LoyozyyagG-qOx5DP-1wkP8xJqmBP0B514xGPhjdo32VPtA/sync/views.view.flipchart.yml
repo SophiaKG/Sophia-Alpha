@@ -720,13 +720,14 @@ display:
       path: summary
       menu:
         type: normal
-        title: 'Summary View'
+        title: 'Primary Bodies Summary View'
         description: ''
         expanded: false
         parent: 'menu_link_content:ec5c9a25-cc0d-4b6a-81c0-bb0daf7bb837'
         weight: -50
         context: '0'
         menu_name: main
+        enabled: true
       relationships:
         field_portfolio:
           id: field_portfolio

@@ -17,7 +17,7 @@ bundle: legislation
 mode: default
 content:
   field_ink:
-    weight: 101
+    weight: 1
     label: above
     settings:
       trim_length: 80
@@ -28,16 +28,8 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_neptune_uri:
-    weight: 103
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_used_by:
-    weight: 102
+    weight: 2
     label: above
     settings:
       link: true
@@ -45,10 +37,11 @@ content:
     type: entity_reference_label
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   feeds_item: true
+  field_neptune_uri: true
   search_api_excerpt: true
