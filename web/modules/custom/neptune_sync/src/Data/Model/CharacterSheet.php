@@ -18,13 +18,15 @@ class CharacterSheet extends Node implements DrupalEntityExport
     //Accountable authority or governing board
     protected $accountable_authority;
     //Economic sector
-    protected $eco_sector;
+    protected $eco_sector = [];
     //Financial classification0
     protected $fin_class = [];
+    //Employment type
+    protected $employment_type = [];
     protected $link;
     protected $legislations = [];
-    //Employment type
-    protected $employment_type;
+
+
     //flip chart keys
     protected $flipchart_keys = [];
 
@@ -78,7 +80,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
     /**
      * @return mixed
      */
-    public function getEcoSector()
+    public function getEcoSectorxx(): array
     {
         return $this->eco_sector;
     }
@@ -110,17 +112,9 @@ class CharacterSheet extends Node implements DrupalEntityExport
     /**
      * @return mixed
      */
-    public function getEmploymentType()
+    public function getEmploymentTypexx() : array
     {
         return $this->employment_type;
-    }
-
-    /**
-     * @param mixed $employment_type
-     */
-    public function setEmploymentType($employment_type): void
-    {
-        $this->employment_type = $employment_type;
     }
 
     /**
@@ -214,9 +208,9 @@ class CharacterSheet extends Node implements DrupalEntityExport
     /**
      * @param mixed $eco_sector
      */
-    public function setEcoSector($eco_sector): void
+    public function addEcoSector($eco_sector): void
     {
-        $this->eco_sector = $eco_sector;
+        array_push($this->eco_sector, $eco_sector);
     }
 
     /**
@@ -225,6 +219,14 @@ class CharacterSheet extends Node implements DrupalEntityExport
     public function addFinClass(String $fin_class): void
     {
         array_push($this->fin_class, $fin_class);
+    }
+
+    /**
+     * @param mixed $employment_type
+     */
+    public function addEmploymentType($employment_type): void
+    {
+        array_push($this->employment_type, $employment_type);
     }
 
     /**
@@ -324,6 +326,8 @@ class CharacterSheet extends Node implements DrupalEntityExport
     }
 
     /**
+     * As the flipchart key field is the truth and what is used in the character sheet manager,
+     *   we need to sync these values over to the individualised sub fields
      * @param EntityManager $ent_mgr A prebuilt ent manager for carrying over the node hashes
      */
     public function syncSummaryKeysToFields(EntityManager $ent_mgr){
@@ -341,10 +345,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
                                 $this->addFinClass($field['FieldTaxID']);
                                 break;
                             case 'Eco Sector':
-                                $this->setEcoSector($field['FieldTaxID']);
+                                $this->addEcoSector($field['FieldTaxID']);
                                 break;
                             case 'Employment type':
-                                $this->setEmploymentType($field['FieldTaxID']);
+                                $this->addEmploymentType($field['FieldTaxID']);
                                 break;
 
                         }
@@ -352,8 +356,8 @@ class CharacterSheet extends Node implements DrupalEntityExport
         }
 
         //Set the pseudo portfolio "Parliamentary Department" if relevant
-        if($this->getEmploymentType() == SummaryChartKeys::getKeys()
-            ['Employment type']['▲']['FieldTaxID']){
+        if(in_array(SummaryChartKeys::getKeys()['Employment type']['▲']['FieldTaxID'],
+                $this->getEmploymentTypexx())){
             $this->setPortfolio(SummaryChartKeys::getParliamentaryDepartmentId($ent_mgr));
         }
     }
@@ -368,12 +372,6 @@ class CharacterSheet extends Node implements DrupalEntityExport
             ],
             'field_type_of_body' => [
                 'target_id' => $this->type_of_body,
-            ],
-            'field_economic_sector' => [
-                'target_id' => $this->eco_sector,
-            ],
-            'field_employment_arrangements' => [
-                'target_id' => $this->employment_type,
             ],
             'field_ink' => [  //sadly not a typo
                 'uri' => $this->link,
@@ -390,21 +388,39 @@ class CharacterSheet extends Node implements DrupalEntityExport
             'field_cp_tabled' => ['target_id' => 152],
         );
 
+        /* handle multiplicities */
+
+        //legislation
         $addArr = array();
         foreach($this->legislations as $leg)
             $addArr[] = ['target_id' => $leg];
         $retArr['field_enabling_legislation_and_o'] = $addArr;
 
+        //coop-relations
         $addArr = array();
         foreach ($this->cooperativeRelationships as $rel)
             $addArr[] = ['target_id' => $rel];
         $retArr['field_cooperative_relationships'] = $addArr;
 
+        //fin class
         $addArr = array();
-        foreach ($this->fin_class as $class)
+        foreach ($this->getFinClass() as $class)
             $addArr[] = ['target_id' => $class];
         $retArr['field_financial_classification'] = $addArr;
 
+        //eco sector
+        $addArr = array();
+        foreach ($this->getEcoSectorxx() as $sector)
+            $addArr[] = ['target_id' => $sector];
+        $retArr['field_economic_sector'] = $addArr;
+
+        //employment type
+        $addArr = array();
+        foreach ($this->getEmploymentTypexx() as $type)
+            $addArr[] = ['target_id' => $type];
+        $retArr['field_employment_arrangements'] = $addArr;
+
+        //flipchart keys
         $addArr = array();
         foreach ($this->flipchart_keys as $class)
             $addArr[] = ['target_id' => $class];
