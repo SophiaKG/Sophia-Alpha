@@ -72,11 +72,13 @@
     'clearfix',
   ]
 %}
+{# node--view-mode-character-sheet is added to class to remove the normal or public distinction in CSS# }
 
 {# node relative links #}
 {% if logged_in == true %}
     {% if node.getType() == "bodies" or node.getType() == "legislation" or
         node.getType() == "portfolios" %}
+
         <div class="graph__link">
             <a href="{{ node.id() }}/graph">
                 View local graph

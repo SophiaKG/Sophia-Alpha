@@ -72,14 +72,19 @@
     'clearfix',
   ]
 %}
-{% if logged_in == true %}
-    {% if node.getType() == "bodies" or node.getType() == "legislation" or
-        node.getType() == "portfolios" %}
+
+{% if node.getType() == "bodies" or node.getType() == "legislation" or
+    node.getType() == "portfolios" %}
+    {% if logged_in == true %}
         <div class="graph__link">
             <a href="{{ node.id() }}/local-graph-form">
                 View local graph
             </a>
         </div>
+    {% else%}
+        {# node--view-mode-character-sheet is added to class to remove the normal or
+            public distinction in CSS #}
+        {% set classes = classes|merge(['node--view-mode-character-sheet']) %}
     {% endif %}
 {% endif %}
 
