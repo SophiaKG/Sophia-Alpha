@@ -121,24 +121,28 @@
     {% endfor %}
 
     {# Employment Arrangements #}
-    {% if content.field_employment_arrangements[0]['#title'] == 'Public Service Act 1999'%}
-        {% set flipkey = flipkey ~ '<span id="employ_aps">PS Act </span>' %}
-    {% elseif content.field_employment_arrangements[0]['#title'] == 'Non-Public Service Act 1999'%}
-        {% set flipkey = flipkey ~ '<span id="employ_naps">^ </span>' %}
-    {% elseif content.field_employment_arrangements[0]['#title'] == 'Both'%}
-        {% set flipkey = flipkey ~ '<span id="employ_both"># </span>' %}
-    {% elseif content.field_employment_arrangements[0]['#title'] == 'Parliamentary Service Act 1999'%}
-        {% set flipkey = flipkey ~ '<span id="employ_par">▲ </span>' %}
-    {%  endif %}
+    {% for employType in content.field_employment_arrangements %}
+        {% if employType['#title'] == 'Public Service Act 1999'%}
+            {% set flipkey = flipkey ~ '<span id="employ_aps">PS Act </span>' %}
+        {% elseif employType['#title'] == 'Non-Public Service Act 1999'%}
+            {% set flipkey = flipkey ~ '<span id="employ_naps">^ </span>' %}
+        {% elseif employType['#title'] == 'Both'%}
+            {% set flipkey = flipkey ~ '<span id="employ_both"># </span>' %}
+        {% elseif employType['#title'] == 'Parliamentary Service Act 1999'%}
+            {% set flipkey = flipkey ~ '<span id="employ_par">▲ </span>' %}
+        {%  endif %}
+    {% endfor %}
 
     {# Economic sector #}
-    {% if content.field_economic_sector[0]['#title'] == 'Public Financial Corporation' %}
-        {% set flipkey = flipkey ~ '<span id="fin">F </span>' %}
-    {% elseif content.field_economic_sector[0]['#title'] == 'Public Nonfinancial Corporation' %}
-        {% set flipkey = flipkey ~ '<span id="nfin">T </span>' %}
-    {% elseif content.field_economic_sector[0]['#title'] == 'General Government Sector - (GGS)' %}
-        {% set flipkey = flipkey ~ '<span id="GGS">GGS </span>' %}
-    {% endif %}
+    {% for ecoSector in content.field_economic_sector %}
+        {% if ecoSector['#title'] == 'Public Financial Corporation' %}
+            {% set flipkey = flipkey ~ '<span id="fin">F </span>' %}
+        {% elseif ecoSector['#title'] == 'Public Nonfinancial Corporation' %}
+            {% set flipkey = flipkey ~ '<span id="nfin">T </span>' %}
+        {% elseif ecoSector['#title'] == 'General Government Sector - (GGS)' %}
+            {% set flipkey = flipkey ~ '<span id="GGS">GGS </span>' %}
+        {% endif %}
+    {% endfor %}
 
     {# flipchart keys #}
     {% for key in content.field_flipchart_keys %}
