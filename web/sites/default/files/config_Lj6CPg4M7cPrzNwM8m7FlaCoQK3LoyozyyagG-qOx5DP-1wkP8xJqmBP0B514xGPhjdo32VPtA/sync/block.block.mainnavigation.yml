@@ -23,7 +23,7 @@ settings:
   depth: '2'
   expand_all_items: false
   menu_type: horizontal
-  style: white
+  style: black
   arrow: 1
   shadow: 1
   speed: fast

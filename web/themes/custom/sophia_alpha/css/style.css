@@ -286,14 +286,43 @@ nav.tabs {
     position: relative !important;
     height: auto !important;
 }
+
+/*** main page header ***/
 .header,
 #header,
 header#header {
-    background-color: #1d84c3;
+    background-color: #414042;
 }
 #navbar-top {
-    background-color: #1d84c3;
+    background-color: #414042;
     padding-top: 1.25rem;
+}
+#block-sophia-alpha-sitetitle h1 {
+    color: white;
+}
+
+#navbar-main {
+    background: #414042;
+}
+
+/*** superfish navbar ***/
+#superfish-main li {
+    background: #414042;
+}
+
+#superfish-main li.sf-depth-1 ul{
+    background: #6a696b;
+}
+#superfish-main li.sf-depth-2 {
+    background: #6a696b;
+}
+
+#superfish-main li a:focus {
+    background: #6a696b;
+}
+
+#superfish-main li a {
+    color: white;
 }
 
 .form-row .form-actions {
