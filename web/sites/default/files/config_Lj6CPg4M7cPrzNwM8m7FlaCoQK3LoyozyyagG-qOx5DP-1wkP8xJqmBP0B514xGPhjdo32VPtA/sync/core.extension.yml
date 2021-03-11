@@ -27,12 +27,14 @@ module:
   disable_messages: 0
   dynamic_page_cache: 0
   editor: 0
+  encrypt: 0
   feeds: 0
   feeds_ex: 0
   field: 0
   field_ui: 0
   file: 0
   filter: 0
+  ga_login: 0
   hal: 0
   help: 0
   history: 0
@@ -41,6 +43,7 @@ module:
   jquery_ui_draggable: 0
   jquery_ui_droppable: 0
   jsonapi: 0
+  key: 0
   kint: 0
   layout_builder: 0
   layout_discovery: 0
@@ -61,6 +64,7 @@ module:
   path_alias: 0
   quickedit: 0
   rdf: 0
+  real_aes: 0
   redirect: 0
   rest: 0
   search_api: 0
@@ -68,6 +72,8 @@ module:
   search_api_db: 0
   search_api_db_defaults: 0
   serialization: 0
+  services: 0
+  services_tfa: 0
   shortcut: 0
   statistics: 0
   superfish: 0
@@ -75,6 +81,7 @@ module:
   system: 0
   taxonomy: 0
   text: 0
+  tfa: 0
   token: 0
   toolbar: 0
   tour: 0
@@ -87,6 +94,7 @@ module:
   views_tree: 0
   views_ui: 0
   visitors: 0
+  visitors_geoip: 0
   webform: 0
   webform_devel: 0
   webform_templates: 0

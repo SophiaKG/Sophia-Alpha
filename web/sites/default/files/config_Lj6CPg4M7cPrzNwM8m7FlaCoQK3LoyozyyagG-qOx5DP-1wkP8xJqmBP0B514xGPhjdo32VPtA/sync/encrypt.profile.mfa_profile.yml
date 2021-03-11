@@ -1,0 +1,13 @@
+uuid: 3952b733-83ff-46c0-8df4-dad7afd610d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - key.key.mfa_dev
+  module:
+    - real_aes
+id: mfa_profile
+label: 'MFA profile'
+encryption_method: real_aes
+encryption_key: mfa_dev
+encryption_method_configuration: {  }
