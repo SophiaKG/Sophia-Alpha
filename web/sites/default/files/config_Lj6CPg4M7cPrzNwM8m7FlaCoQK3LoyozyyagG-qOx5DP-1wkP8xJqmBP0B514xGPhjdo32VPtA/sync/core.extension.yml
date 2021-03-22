@@ -93,6 +93,7 @@ module:
   views_taxonomy_term_name_depth: 0
   views_tree: 0
   views_ui: 0
+  viewsreference: 0
   visitors: 0
   visitors_geoip: 0
   webform: 0

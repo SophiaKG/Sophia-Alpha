@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
+    - field.field.node.portfolios.field_summary_view_bodies
     - node.type.portfolios
   module:
     - user
@@ -26,4 +27,5 @@ hidden:
   field_bodies: true
   field_neptune_uri: true
   field_summary_view: true
+  field_summary_view_bodies: true
   search_api_excerpt: true

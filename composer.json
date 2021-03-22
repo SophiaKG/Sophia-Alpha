@@ -46,7 +46,8 @@
         "drupal/tfa": "^1.0@alpha",
         "drupal/ga_login": "^1.0@alpha",
         "drupal/services": "^4.0@beta",
-        "drupal/real_aes": "^2.3"
+        "drupal/real_aes": "^2.3",
+        "drupal/viewsreference": "^2.0@beta"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"

@@ -7,9 +7,11 @@ dependencies:
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
+    - field.field.node.portfolios.field_summary_view_bodies
     - node.type.portfolios
   module:
     - path
+    - viewsreference
 id: node.portfolios.default
 targetEntityType: node
 bundle: portfolios
@@ -45,6 +47,16 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
+  field_summary_view_bodies:
+    weight: 124
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: viewsreference_autocomplete
     region: content
   path:
     type: path
@@ -91,5 +103,10 @@ content:
       match_limit: 10
     region: content
     third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+    region: content
 hidden:
   feeds_item: true

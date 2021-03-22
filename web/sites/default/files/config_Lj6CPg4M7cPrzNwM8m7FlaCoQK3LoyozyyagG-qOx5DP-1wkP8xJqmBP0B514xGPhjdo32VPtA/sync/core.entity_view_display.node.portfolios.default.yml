@@ -7,9 +7,11 @@ dependencies:
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
+    - field.field.node.portfolios.field_summary_view_bodies
     - node.type.portfolios
   module:
     - user
+    - viewsreference
 id: node.portfolios.default
 targetEntityType: node
 bundle: portfolios
@@ -22,6 +24,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_summary_view_bodies:
+    weight: 2
+    label: above
+    settings:
+      plugin_types:
+        - block
+    third_party_settings: {  }
+    type: viewsreference_formatter
     region: content
   links:
     weight: 0
