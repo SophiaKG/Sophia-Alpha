@@ -153,4 +153,15 @@ class SummaryViewQuerier {
             '?flip ns2:witnesses ?auth1. ' .
             '?flip ns2:live true. ';
     }
+
+    public static function getIsSummaryViewPart($node){
+        if($node instanceof NodeInterface)
+            $node = QueryBuilder::getUri($node, "ns2");
+        return
+            '?auth ns2:bindsTo '  . $node . '. ' .
+            '?auth ns2:binds ns2:EntityListSeriesOnEntityList. ' .
+            '?flip ns2:witnesses ?auth. ' .
+            '?flip ns2:live true. ' .
+            '?flip a ns2:FinanceEntityList. ';
+    }
 }

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
@@ -22,7 +21,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
-  feeds_item: true
   field_bodies: true
   field_neptune_uri: true
   field_summary_view: true

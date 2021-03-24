@@ -39,6 +39,7 @@ class CharacterSheetManager
         $this->body = new CharacterSheet($node->getTitle(),
             $node->get("field_neptune_uri")->getString());
 
+        $this->processInSummaryView($node);
         $this->processPortfolio($node, $bulkOperation);
         $this->processLegislation($node, $bulkOperation);
         $this->processCooperativeRelationships($node, $bulkOperation);
@@ -68,6 +69,14 @@ class CharacterSheetManager
         foreach($bodies as $bodyItr){
             $this->updateCharacterSheet($bodyItr, true);
         }
+    }
+
+    private function processInSummaryView(NodeInterface $node){
+        Helper::log("Querying InSummaryView: ");
+        $query = QueryBuilder::buildAskQuery(
+            SummaryViewQuerier::getIsSummaryViewPart($node));
+        $this->body->setInSummaryView(
+            $this->evaluate($this->query_mgr->runCustomQuery($query)));
     }
 
     /**
@@ -219,8 +228,14 @@ class CharacterSheetManager
             switch ($arrKey) {
                 case 'E':
                 case 'i':
-                case 'Listed Entities':
                     $res = $this->check_term([$key['Neptune_obj'] => $key['TaxonomyId']], $node);
+                    break;
+                case 'Listed Entities':
+                    /** @depecated 22/3/21 AH due to KL feedback. Replaced with body->inSummaryView
+                     *  OLD:
+                     *   $res = $this->check_term([$key['Neptune_obj'] => $key['TaxonomyId']], $node);
+                     */
+                    Helper::log("deprecated");
                     break;
                 case 'R':
                     $query = QueryBuilder::buildAskQuery(
@@ -236,8 +251,7 @@ class CharacterSheetManager
                         $res = $key['TaxonomyId'];
                     break;
                 case 'HC':
-                    /** @TODO this is hardcoded and bad...VERY VERY BAD. port id changes per rebuild
-                     * 28391 tax id for Attorney-General’s*/
+                    //@TODO is this still needed?
                     Helper::log("HC = " . $node->get("field_portfolio")->getString() . "port id = " .  SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr));
                     if( $node->get("field_portfolio")->getString() ==
                         SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr))
@@ -249,12 +263,25 @@ class CharacterSheetManager
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
+                /**The key is defined as "All non-corporate Commonwealth entities are
+                 *  subject to the CPRs." Thus on top of the query below that finds
+                 *  explicit CPR's outside of NCCE, we need to assign this record to CPR
+                 *  iif it is a NCCE thus establishing precedence of this function.
+                 *
+                 * @uses $this->processBodyType() must be called first.
+                 */
                 case '℗':
-                    $query = QueryBuilder::buildAskQuery(
-                        SummaryViewQuerier::getEstablishedByRegulationPart($node));
-                    if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                    if($this->body->chkFlipchartKey(SummaryChartKeys::getKeys() //if NCCE
+                        ['Body type']['Non-corporate Commonwealth entity']['TaxonomyId'])) {
                         $res = $key['TaxonomyId'];
-                    break;
+                        Helper::log("no query executed as its a NCCE");
+                    } else {
+                        $query = QueryBuilder::buildAskQuery(
+                            SummaryViewQuerier::getEstablishedByRegulationPart($node));
+                        if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
+                            $res = $key['TaxonomyId'];
+                        break;
+                    }
             }
             if ($res)
                 $this->body->addFlipchartKey($res);
@@ -421,7 +448,8 @@ class CharacterSheetManager
             $this->body->syncSummaryKeysToFields($this->ent_mgr); //adds keys to old form fields
             $this->ent_mgr->updateEntity($this->body, $node->id());
             $this->countupdated++;
-            Helper::log("updating body " . $node->id() . " | Updated: " .
+            Helper::log("updating body " . $node->id() . " Summary View: " .
+                $this->body->getInSummaryView() . "\t| Updated: " .
                 $this->countupdated . "\tSkipped: " . $this->countSkip, true);
         } else {
             $this->countSkip++;

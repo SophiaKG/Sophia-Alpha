@@ -10,7 +10,7 @@ id: node.legislation.field_used_by
 field_name: field_used_by
 entity_type: node
 bundle: legislation
-label: 'Used by'
+label: Enables
 description: ''
 required: false
 translatable: false

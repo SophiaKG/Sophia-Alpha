@@ -838,7 +838,7 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: "<div class=\"entity_count\">Displaying Entities - @total\r\n<div class=\"search_info\"><a href=\"/drupal8/web/summary-print\" >Print view <i class=\"fas fa-print\"></i></a></div></div>"
+          content: "<div class=\"entity_count\">Displaying Results- @total\r\n<div class=\"search_info\"><a href=\"/drupal8/web/summary-print\" >Print view <i class=\"fas fa-print\"></i></a></div></div>"
           plugin_id: result
     cache_metadata:
       max-age: -1

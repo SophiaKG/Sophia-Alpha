@@ -25,6 +25,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
     protected $employment_type = [];
     protected $link;
     protected $legislations = [];
+    protected $inSummaryView;
 
 
     //flip chart keys
@@ -182,6 +183,22 @@ class CharacterSheet extends Node implements DrupalEntityExport
     protected $report_variation;
 
     /**
+     * @return mixed
+     */
+    public function getInSummaryView(){
+        return $this->inSummaryView;
+    }
+
+    /**
+     * @param mixed $inSummaryView
+     */
+    public function setInSummaryView($inSummaryView): void{
+        $this->inSummaryView = $inSummaryView;
+    }
+
+
+
+    /**
      * @param mixed $portfolio
      */
     public function setPortfolio($portfolio): void
@@ -313,6 +330,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
     public function addFlipchartKey(string $key): void {
         array_push($this->flipchart_keys, $key);
     }
+
+    public function chkFlipchartKey(string $key): bool {
+        return in_array($key, $this->flipchart_keys);
+    }
     /**
      * @param mixed $link
      */
@@ -382,6 +403,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
                     ],
                 ],
             ],
+            'field_in_summary_view' => $this->getInSummaryView(),
             'field_s35_3_pgpa_act_apply' => ['target_id' => 152], //152 is vid for n/a
             //'field_employed_under_the_ps_act' => ['target_id' => 152],
             'field_reporting_variation' => ['target_id' => 152],

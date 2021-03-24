@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
     - field.field.node.bodies.field_cooperative_relationships
     - field.field.node.bodies.field_cp_tabled
@@ -14,6 +13,7 @@ dependencies:
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
     - field.field.node.bodies.field_flipchart_keys
+    - field.field.node.bodies.field_in_summary_view
     - field.field.node.bodies.field_ink
     - field.field.node.bodies.field_neptune_uri
     - field.field.node.bodies.field_portfolio
@@ -35,7 +35,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
-  feeds_item: true
   field_accountable_authority_or_g: true
   field_cooperative_relationships: true
   field_cp_tabled: true
@@ -45,6 +44,7 @@ hidden:
   field_enabling_legislation_and_o: true
   field_financial_classification: true
   field_flipchart_keys: true
+  field_in_summary_view: true
   field_ink: true
   field_neptune_uri: true
   field_portfolio: true

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.legislation.feeds_item
     - field.field.node.legislation.field_ink
     - field.field.node.legislation.field_neptune_uri
     - field.field.node.legislation.field_used_by
@@ -93,5 +92,9 @@ content:
       match_limit: 10
     region: content
     third_party_settings: {  }
-hidden:
-  feeds_item: true
+  url_redirects:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }
