@@ -80,7 +80,8 @@ class DataSyncForm extends FormBase
         $importer = new NeptuneImporter();
         $importer->formController($filters);
 
-        $form_state->setRedirect('<front>');
+        //$form_state->setRedirect('<front>');
+        $form_state->setRedirect('view.node_stats.page_1');
 
     }
 }
