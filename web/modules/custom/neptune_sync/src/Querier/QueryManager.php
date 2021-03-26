@@ -22,6 +22,7 @@ class QueryManager
     }
 
     /**
+     * @deprecated for NeptuneImporter
      * Creates json files based on SPARQL queries ready to import into
      * drupal via feeds
      */

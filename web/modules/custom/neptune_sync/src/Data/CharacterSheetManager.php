@@ -42,7 +42,7 @@ class CharacterSheetManager
         $this->processInSummaryView($node);
         $this->processPortfolio($node, $bulkOperation);
         $this->processLegislation($node, $bulkOperation);
-        $this->processCooperativeRelationships($node, $bulkOperation);
+        //$this->processCooperativeRelationships($node, $bulkOperation);
         $this->processLink($node);
         Helper::setLogMark();
         $this->processBodyType($node);

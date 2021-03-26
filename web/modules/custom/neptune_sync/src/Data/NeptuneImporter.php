@@ -90,7 +90,7 @@ class NeptuneImporter
 
         Helper::log("wipe id = " , false, $wipeNodeID);
         if($wipeNodeID) //if we have ids to delete.
-            $this->wipeNodes($wipeNodeID);
+            $this->wipeNodes($wipeNodeID, false);
 
         //Add empty records
         foreach ($filters["sync_node_creation"] as $field) {
@@ -134,9 +134,14 @@ class NeptuneImporter
     /**
      * Deletes bulk amount of nodes as efficently as possible.
      * @param $nodeIds string[] nid of nodes to delete
+     * @param bool $doBulk Delete nodes in one operation or if deleting them one by one
+     *  is required (incase bulk fails)
      * @return bool if an exception occurred
+     * @throws EntityStorageException
+     * @throws InvalidPluginDefinitionException
+     * @throws PluginNotFoundException
      */
-    public function wipeNodes($nodeIds){
+    public function wipeNodes($nodeIds, bool $doBulk){
 
         if(!sizeof($nodeIds) > 0 || !$nodeIds){
             Helper::log("Attempting to wipe data failed as no 
@@ -151,7 +156,18 @@ class NeptuneImporter
             Helper::log("Loading Ids...");
             $entities = $storage_handler->loadMultiple($nodeIds);
             Helper::log("Deleting the selected Neptune data...");
-            $storage_handler->delete($entities);
+            if ($doBulk){
+                Helper::log("Run mode: Bulk");
+                $storage_handler->delete($entities);
+            } else {
+                Helper::log("Run mode: One-by-one");
+                $count = 0;
+                foreach($entities as $ent) {
+                    Helper::log("Deleting node: " . $ent->id() . "\t count: "
+                        . ++$count . "\t" . $ent->label());
+                    $storage_handler->delete(array($ent));
+                }
+            }
         } catch (InvalidPluginDefinitionException|PluginNotFoundException|
             EntityStorageException $e) {
 

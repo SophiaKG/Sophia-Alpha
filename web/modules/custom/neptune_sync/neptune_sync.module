@@ -9,12 +9,13 @@ use Drupal\neptune_sync\Querier;
 
 
 /**
+ * @deprecated for NeptuneImporter
 * Implements hook_cron().
 */
 function neptune_sync_cron()
 {
-    $query_manager = new Querier\QueryManager();
-    $query_manager->syncAllDatasets();
+    /*$query_manager = new Querier\QueryManager();
+    $query_manager->syncAllDatasets();*/
 }
 
 /**
