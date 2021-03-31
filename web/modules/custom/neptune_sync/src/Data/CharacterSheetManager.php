@@ -251,11 +251,12 @@ class CharacterSheetManager
                         $res = $key['TaxonomyId'];
                     break;
                 case 'HC':
-                    //@TODO is this still needed?
+                    /** @deprecated removed via kl feedback v1
                     Helper::log("HC = " . $node->get("field_portfolio")->getString() . "port id = " .  SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr));
                     if( $node->get("field_portfolio")->getString() ==
                         SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr))
                         $res = $key['TaxonomyId'];
+                     * */
                     break;
                 case 'X':
                     $query = QueryBuilder::buildAskQuery(

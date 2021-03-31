@@ -1019,8 +1019,8 @@ display:
           label: Key
           exclude: false
           alter:
-            alter_text: false
-            text: '<abbr>{{ name }}</abbr>'
+            alter_text: true
+            text: "{% if name__value != 'HC' %}\r\n    {{ name}}\r\n{% else %}\r\n    <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" data-dialog-options=\"{&quot;width&quot;:500, &quot;title&quot;:&quot;The High Court&quot;}\" href=\"/drupal8/web/taxonomy/term/130\" modal-title=\"The High Court\">HC</a>\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
