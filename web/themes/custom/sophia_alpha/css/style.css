@@ -184,7 +184,7 @@ main#content table > thead > tr > th {
     
 
 }
-#block-views-block-summary-key-block-3 .view-header .graph_back_btn {
+.block-views-blocksummary-key-block-3 .view-header .graph_back_btn {
     width: 180px !important;
     margin: 10px auto !important;
     display: block;
@@ -229,7 +229,7 @@ main#content table > thead > tr > th {
     top: 2rem;*/
 }
 
-#block-views-block-summary-key-block-3 .table-responsive {
+.block-views-blocksummary-key-block-3 .table-responsive {
     overflow-x: unset !important;
     padding: 2px;
 }
