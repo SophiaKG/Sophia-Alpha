@@ -1,0 +1,75 @@
+uuid: f4997d6b-a4a8-4e93-9d9a-353ac20b9c64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_list_of_on_pgpa_bodies_in_
+    - node.type.portfolios
+    - views.view.bodies_view
+  module:
+    - viewsreference
+id: node.portfolios.field_list_of_on_pgpa_bodies_in_
+field_name: field_list_of_on_pgpa_bodies_in_
+entity_type: node
+bundle: portfolios
+label: 'Other Bodies in Portfolio'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    options:
+      title: 0
+      argument: '[node:nid]/0'
+    display_id: embed_1
+    argument: '[node:nid]/0'
+    title: 0
+    data: null
+    target_uuid: 17984181-9de7-4b14-9b22-15d79a5e306a
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: 0
+  plugin_types:
+    block: block
+    embed: embed
+    default: 0
+    page: 0
+    feed: 0
+    entity_reference: 0
+    rest_export: 0
+  preselect_views:
+    aggregator_rss_feed: 0
+    aggregator_sources: 0
+    block_content: 0
+    bodies_view: 0
+    comment: 0
+    comments_recent: 0
+    connected_bodies: 0
+    content: 0
+    content_recent: 0
+    cooperative_relationshipsss: 0
+    entity_types: 0
+    feedback_view: 0
+    feeds_feed: 0
+    files: 0
+    flipchart: 0
+    media: 0
+    media_library: 0
+    node_stats: 0
+    portfolio_bodies: 0
+    rdf_label_browse: 0
+    redirect: 0
+    search: 0
+    summary_key: 0
+    taxonomy_term: 0
+    test_view: 0
+    used_portfolios: 0
+    user_admin_people: 0
+    watchdog: 0
+    webform_submissions: 0
+    who_s_new: 0
+    who_s_online: 0
+field_type: viewsreference
