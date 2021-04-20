@@ -216,7 +216,7 @@ class NeptuneImporter
                 $skipCount++;
 
         }
-        Helper::log("Records imported!", true);
+        Helper::log($subType . " Records imported!", true);
         return true;
     }
 }

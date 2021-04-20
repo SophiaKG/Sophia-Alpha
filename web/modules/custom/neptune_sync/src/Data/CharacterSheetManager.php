@@ -466,7 +466,9 @@ class CharacterSheetManager
 
         //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
         if($toUpdate) {
+            Helper::log("syncing keys to fields");
             $this->body->syncSummaryKeysToFields($this->ent_mgr); //adds keys to old form fields
+            Helper::log("attempting to update " . $node->id());
             $this->ent_mgr->updateEntity($this->body, $node->id());
             $this->countupdated++;
             Helper::log("updating body " . $node->id() . " Summary View: " .
