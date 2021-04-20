@@ -22,10 +22,11 @@
 {% endif %}
   {% if title %}
     {{ title }}
+    {# <i class="far fa-caret-square-down" id="portfolio-expand">xxxx</i>
+    /** work towards js portoflio expand and collpase function. WIP js global script exists too **/ #}
   {% endif %}
 
-  <{{ list.type }}{{ list.attributes }}>
-
+  <{{ list.type }}{{ list.attributes}} class="flipchart-portfolio-listing">
     {% for row in rows %}
       <li{{ row.attributes }}>{{ row.content }}</li>
     {% endfor %}

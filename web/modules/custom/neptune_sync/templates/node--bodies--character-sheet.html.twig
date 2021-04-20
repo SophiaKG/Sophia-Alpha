@@ -116,50 +116,50 @@
     {# financial class #}
     {% for finclass in content.field_financial_classification %}
         {% if finclass['#title'] == 'Government Business Enterprise' %}
-            {% set flipkey = flipkey ~ '<span id="GBE">B </span>' %}
+            {% set flipkey = flipkey ~ '<span id="GBE">B</span>' %}
         {% elseif finclass['#title'] == 'Material - ( M )' %}
-            {% set flipkey = flipkey ~ '<span id="material">M </span>' %}
+            {% set flipkey = flipkey ~ '<span id="material">M</span>' %}
         {% endif %}
     {% endfor %}
 
     {# Employment Arrangements #}
     {% for employType in content.field_employment_arrangements %}
         {% if employType['#title'] == 'Public Service Act 1999'%}
-            {% set flipkey = flipkey ~ '<span id="employ_aps">PS Act </span>' %}
+            {% set flipkey = flipkey ~ '<span id="employ_aps">PS Act</span>' %}
         {% elseif employType['#title'] == 'Non-Public Service Act 1999'%}
-            {% set flipkey = flipkey ~ '<span id="employ_naps">^ </span>' %}
+            {% set flipkey = flipkey ~ '<span id="employ_naps">^</span>' %}
         {% elseif employType['#title'] == 'Both'%}
-            {% set flipkey = flipkey ~ '<span id="employ_both"># </span>' %}
+            {% set flipkey = flipkey ~ '<span id="employ_both">#</span>' %}
         {% elseif employType['#title'] == 'Parliamentary Service Act 1999'%}
-            {% set flipkey = flipkey ~ '<span id="employ_par">▲ </span>' %}
+            {% set flipkey = flipkey ~ '<span id="employ_par">▲</span>' %}
         {%  endif %}
     {% endfor %}
 
     {# Economic sector #}
     {% for ecoSector in content.field_economic_sector %}
         {% if ecoSector['#title'] == 'Public Financial Corporation' %}
-            {% set flipkey = flipkey ~ '<span id="fin">F </span>' %}
+            {% set flipkey = flipkey ~ '<span id="fin">F</span>' %}
         {% elseif ecoSector['#title'] == 'Public Nonfinancial Corporation' %}
-            {% set flipkey = flipkey ~ '<span id="nfin">T </span>' %}
+            {% set flipkey = flipkey ~ '<span id="nfin">T</span>' %}
         {% elseif ecoSector['#title'] == 'General Government Sector - (GGS)' %}
-            {% set flipkey = flipkey ~ '<span id="GGS">GGS </span>' %}
+            {% set flipkey = flipkey ~ '<span id="GGS">GGS</span>' %}
         {% endif %}
     {% endfor %}
 
     {# flipchart keys #}
     {% for key in content.field_flipchart_keys %}
         {% if key['#title']  == 'E' %}
-            {% set flipkey = flipkey ~ '<span id="eagency">E </span>' %}
+            {% set flipkey = flipkey ~ '<span id="eagency">E</span>' %}
         {% elseif key['#title']  == 'I' %}
-            {% set flipkey = flipkey ~ '<span id="inter">I </span>' %}
+            {% set flipkey = flipkey ~ '<span id="inter">I</span>' %}
         {% elseif key['#title']  == 'R' %}
-            {% set flipkey = flipkey ~ '<span id="cce">R </span>' %}
+            {% set flipkey = flipkey ~ '<span id="cce">R</span>' %}
         {% elseif key['#title']  == '*' %}
-            {% set flipkey = flipkey ~ '<span id="three">* </span>' %}
+            {% set flipkey = flipkey ~ '<span id="three">*</span>' %}
         {% elseif key['#title']  == '℗' %}
-            {% set flipkey = flipkey ~ '<span id="cpr">℗ </span>' %}
+            {% set flipkey = flipkey ~ '<span id="cpr">℗</span>' %}
         {% elseif key['#title']  == 'X' %}
-            {% set flipkey = flipkey ~ '<span id="exempt">X </span>' %}
+            {% set flipkey = flipkey ~ '<span id="exempt">X</span>' %}
         {# elseif key['#title']  == 'Listed Entities' #}
             {# set flipkey = flipkey ~ '<span id="le">Listed Entities </span>' #}
         {% endif %}

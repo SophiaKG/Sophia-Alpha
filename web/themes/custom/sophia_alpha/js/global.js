@@ -19,10 +19,19 @@
     /* Below adds the entity type vocab to keychart on /summary page */ 
     $(".view-id-entity_types").prependTo(".view-display-id-block_3 .view-content.row");
 
+    $("#portfolio-expand").click(function() {
+        var element = document.getElementsByClassName("flipchart-portfolio-listing");
+        if (element.style.display === "block") {
+            element.style.display = "none";
+        } else {
+            element.style.display = "block";
+        }
+    });
+
    /*
     * Sidebar first is being hidden through Javascript from base theme even
     * though set to display in current theme. However set to display here is
-    * causing delay in loading. reset to force display via css until investigated further.
+    * causing delay in loading. reset to force display via css until investigated further..
     *
    $('#sidebar_first').show();
    ********
@@ -30,3 +39,4 @@
   
     });
    })(jQuery);
+

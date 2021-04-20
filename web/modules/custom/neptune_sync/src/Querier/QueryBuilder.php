@@ -56,12 +56,10 @@ class QueryBuilder {
     /**
      * Checks if a passed in node (Government Body) is part of a ns1 class
      *
-     * @deprecated is this still used?
      * @param NodeInterface $node the node to run the query for
      * @param $is_a string the NS2 class we are testing against
      * @return Query
      *
-     * @TODO pass in IrI for a more powerful check
      */
     public static function checkAskBody(NodeInterface $node, String $is_a) {
 
@@ -135,6 +133,25 @@ class QueryBuilder {
     }
 
     /**
+     * Gets the names a entity has been referred to but is not it's "correct" name
+     *
+     * @param NodeInterface $node either Body|Portfolio|legislation
+     * @return Query can return a result of 0..n
+     */
+    public static function getAliases(NodeInterface $node){
+
+        $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
+        $q->setQuery(
+            SophiaGlobal::PREFIX_ALL() .
+            'SELECT DISTINCT ?label ' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
+            'WHERE { ' .
+                self::getUri($node, 'ns2') . ' rdfs:label ?label. ' .
+            '}');
+        return $q;
+    }
+
+    /**
      * Gets the url resource of a Node (either legislation or commonwealth body)
      * @TODO need to re-examine links using graph1 and thus lead bodies at a different date
      *
@@ -143,27 +160,15 @@ class QueryBuilder {
      * @return Query
      */
     public static function getResourceLink(NodeInterface $node){
+
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
-
-        switch ($node->getType()){
-            case SophiaGlobal::LEGISLATION:
-                $type = "Portfolio";
-                break;
-            case SophiaGlobal::BODIES:
-            default:
-                $type = "CommonwealthBody";
-                break;
-        }
-
-        //Form the entire query
         $q->setQuery(
             SophiaGlobal::PREFIX_ALL() .
             'SELECT DISTINCT ?link ' .
-            'FROM ' . SophiaGlobal::GRAPH_0 . ' ' .
+            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { '.
-                '?object rdfs:label "' . $node->getTitle() . '". ' .
-                '?object a ' . SophiaGlobal::IRI['ns1']['prefix'] . $type . '. ' .
-                '?object ' .  SophiaGlobal::IRI['ns1']['prefix'] . 'webDataSource ?link.' .
+                self::getUri($node, 'ns2') . " " .
+                    SophiaGlobal::IRI['ns2']['prefix'] . 'webDataSource ?link.' .
             '}');
         return $q;
     }

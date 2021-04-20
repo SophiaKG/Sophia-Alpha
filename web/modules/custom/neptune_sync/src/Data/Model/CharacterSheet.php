@@ -11,6 +11,9 @@ use Drupal\neptune_sync\Utility\SophiaGlobal;
  */
 class CharacterSheet extends Node implements DrupalEntityExport
 {
+    //Alias
+    protected $aliases = [];
+
     //Portfolio
     protected $portfolio;
     //Type of Body
@@ -26,6 +29,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
     protected $link;
     protected $legislations = [];
     protected $inSummaryView;
+    protected $leadBody;
 
 
     //flip chart keys
@@ -51,6 +55,24 @@ class CharacterSheet extends Node implements DrupalEntityExport
 
     public function __construct($title, $neptune_uri){
         parent::__construct($title, $neptune_uri,SophiaGlobal::BODIES);
+    }
+
+    /**
+     * @return array
+     */
+    public function getAliases(): array {
+        return $this->aliases;
+    }
+
+    /**
+     * @param array $aliases
+     */
+    public function setAliases(array $aliases): void {
+        $this->aliases = $aliases;
+    }
+
+    public function addAlias($alias): void {
+        array_push($this->aliases, $alias);
     }
 
     //booleans
@@ -195,8 +217,6 @@ class CharacterSheet extends Node implements DrupalEntityExport
     public function setInSummaryView($inSummaryView): void{
         $this->inSummaryView = $inSummaryView;
     }
-
-
 
     /**
      * @param mixed $portfolio
@@ -347,6 +367,20 @@ class CharacterSheet extends Node implements DrupalEntityExport
     }
 
     /**
+     * @return bool
+     */
+    public function getLeadBody(){
+        return $this->leadBody;
+    }
+
+    /**
+     * @param bool $leadBody
+     */
+    public function setLeadBody(bool $leadBody): void{
+        $this->leadBody = $leadBody;
+    }
+
+    /**
      * As the flipchart key field is the truth and what is used in the character sheet manager,
      *   we need to sync these values over to the individualised sub fields
      * @param EntityManager $ent_mgr A prebuilt ent manager for carrying over the node hashes
@@ -403,6 +437,7 @@ class CharacterSheet extends Node implements DrupalEntityExport
                     ],
                 ],
             ],
+            'field_lead_body' => $this->getLeadBody(),
             'field_in_summary_view' => $this->getInSummaryView(),
             'field_s35_3_pgpa_act_apply' => ['target_id' => 152], //152 is vid for n/a
             //'field_employed_under_the_ps_act' => ['target_id' => 152],
@@ -411,6 +446,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
         );
 
         /* handle multiplicities */
+        $addArr = array();
+        foreach($this->getAliases() as $alias)
+            $addArr[] = ['value' => $alias];
+        $retArr['field_alias'] = $addArr;
 
         //legislation
         $addArr = array();

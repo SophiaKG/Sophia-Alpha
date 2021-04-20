@@ -617,7 +617,7 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     padding-top: 20px;
 }
 
-.page-view-flipchart .view-display-id-block_3 div.view-content {
+.view-display-id-block_3 div.view-content {
     max-height: 520px;
     overflow-y: auto;
 }
@@ -636,16 +636,16 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 }
 .ui-dialog table caption,
 .view-id-entity_types table caption,
-.page-view-flipchart .view-display-id-block_3 table caption a {
+.view-display-id-block_3 table caption a {
     font-weight: 700;
     color: #2f4f4f !important;
     font-size: .9rem;
 }
 .view-id-entity_types table tr td,
-.page-view-flipchart .view-display-id-block_3 table tr td {
+.view-display-id-block_3 table tr td {
     border: 0px;
 }
-.page-view-flipchart .block-views-blocksummary-key-block-3 h2 {
+.block-views-blocksummary-key-block-3 h2 {
     text-align: center;
 }
 #block-views-block-summary-key-block-2 {
@@ -752,6 +752,13 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
     display: inline-block;
     margin: 5px 0px;
 }
+
+.character-sheet-keys span{
+    padding: 0px 5px;
+    position:relative;
+    box-shadow: 6px 0px 6px -6px black;
+}
+
 /*
 
 .flipchart ul {
@@ -807,6 +814,11 @@ article.node--type-cooperative-relationships.node--view-mode-character-sheet
 .view-flipchart .view-display-id-block_1 p {
     display: inline;
 }
+
+.view-flipchart ul.flipchart-portfolio-listing{
+    display: block;
+}
+
 @media print {
     a[href]:after {
         content: none !important;
@@ -873,6 +885,15 @@ article.node--view-mode-character-sheet .field {
 
 article.node--view-mode-character-sheet .field .field__label {
     font-weight: 800;
+}
+
+/** Key chart block stuff **/
+.page-view-flipchart .view-display-id-block_1{
+    display: none;
+}
+.view-display-id-block_1 .fa-rectangle-landscape{
+    font-size: 20px;
+    padding: 0.60rem;
 }
 .flipchart .item-list ul li.printNonCorp,
 article.nonCorp {
@@ -1032,8 +1053,8 @@ a[href$="/taxonomy/term/130"] {
 #inter,
 a[href$="/taxonomy/term/131"] {
     color: #006D31 !important;
-    padding-right: 0.6rem;
-    padding-left: 0.6rem;
+    /*padding-right: 0.6rem;
+    padding-left: 0.6rem;*/
 } 
 
 .M_key,

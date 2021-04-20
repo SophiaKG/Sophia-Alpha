@@ -39,7 +39,9 @@ class CharacterSheetManager
         $this->body = new CharacterSheet($node->getTitle(),
             $node->get("field_neptune_uri")->getString());
 
+        $this->processLeadBody($node);
         $this->processInSummaryView($node);
+        $this->processAliases($node);
         $this->processPortfolio($node, $bulkOperation);
         $this->processLegislation($node, $bulkOperation);
         //$this->processCooperativeRelationships($node, $bulkOperation);
@@ -71,11 +73,29 @@ class CharacterSheetManager
         }
     }
 
+    private function processAliases(NodeInterface $node){
+        Helper::log("Querying aliases: ");
+        $query = QueryBuilder::getAliases($node);
+        $json = $this->query_mgr->runCustomQuery($query);
+        $jsonObj = json_decode($json);
+
+        foreach ($jsonObj->{'results'}->{'bindings'} as $obj){
+            $this->body->addAlias($obj->{'label'}->{'value'});
+        }
+    }
+
     private function processInSummaryView(NodeInterface $node){
         Helper::log("Querying InSummaryView: ");
         $query = QueryBuilder::buildAskQuery(
             SummaryViewQuerier::getIsSummaryViewPart($node));
         $this->body->setInSummaryView(
+            $this->evaluate($this->query_mgr->runCustomQuery($query)));
+    }
+
+    private function processLeadBody(NodeInterface $node){
+        Helper::log("Querying LeadBody: ");
+        $query = QueryBuilder::checkAskBody($node, 'LeadBody' );
+        $this->body->setLeadBody(
             $this->evaluate($this->query_mgr->runCustomQuery($query)));
     }
 
@@ -295,9 +315,9 @@ class CharacterSheetManager
         $json = $this->query_mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
 
-        foreach ($jsonObj->{'results'}->{'bindings'} as $obj){
+        foreach ($jsonObj->{'results'}->{'bindings'} as $obj)
             $this->body->setLink($obj->{'link'}->{'value'});
-        }
+
     }
 
     /**
