@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.bodies.field_accountable_authority_or_g
+    - field.field.node.bodies.field_alias
     - field.field.node.bodies.field_cooperative_relationships
     - field.field.node.bodies.field_cp_tabled
     - field.field.node.bodies.field_demo
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_in_summary_view
     - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_lead_body
     - field.field.node.bodies.field_neptune_uri
     - field.field.node.bodies.field_portfolio
     - field.field.node.bodies.field_reporting_arrangements
@@ -29,13 +31,23 @@ targetEntityType: node
 bundle: bodies
 mode: teaser
 content:
+  field_flipchart_keys:
+    type: entity_reference_entity_view
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
   links:
-    weight: 100
+    weight: 1
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   field_accountable_authority_or_g: true
+  field_alias: true
   field_cooperative_relationships: true
   field_cp_tabled: true
   field_demo: true
@@ -43,9 +55,9 @@ hidden:
   field_employment_arrangements: true
   field_enabling_legislation_and_o: true
   field_financial_classification: true
-  field_flipchart_keys: true
   field_in_summary_view: true
   field_ink: true
+  field_lead_body: true
   field_neptune_uri: true
   field_portfolio: true
   field_reporting_arrangements: true

@@ -3,12 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
+    - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
+    - field.field.node.portfolios.field_list_of_pgpa_bodies_in_por
     - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
     - node.type.portfolios
   module:
     - path
+    - viewsreference
 id: node.portfolios.default
 targetEntityType: node
 bundle: portfolios
@@ -20,6 +24,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_alias:
+    weight: 126
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_bodies:
     weight: 121
     settings:
@@ -29,6 +41,26 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_list_of_on_pgpa_bodies_in_:
+    weight: 125
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: viewsreference_autocomplete
+    region: content
+  field_list_of_pgpa_bodies_in_por:
+    weight: 124
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: viewsreference_autocomplete
     region: content
   field_neptune_uri:
     weight: 123

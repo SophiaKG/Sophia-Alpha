@@ -956,7 +956,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/drupal8/web/Summary\">All Entities</a></div>\r\n<div id=\"scroll_msg\"><i class=\"far fa-hand-point-down\"></i> Scroll over table for more <br />or view all keys on <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" \r\ndata-dialog-options=\"{&quot;width&quot;:800, &quot;title&quot;:&quot;Keys Chart&quot;}\" href=\"/drupal8/web/Summary_Key_Details\" modal-title=\"Keys chart\"><em>this page | </em><i class=\"fas fa-file\"></i></a></div>\r\n<div class=\"guide_msg\">Select a Key in the chart below to view list of entities with that key</div>\r\n"
+            value: "<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/drupal8/web/Summary\">View all Entities</a></div>\r\n<div id=\"scroll_msg\"><i class=\"far fa-hand-point-down\"></i> Scroll on the sidebar to view keys <br />or view all keys <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" \r\ndata-dialog-options=\"{&quot;width&quot;:800, &quot;title&quot;:&quot;Keys Chart&quot;}\" href=\"/drupal8/web/Summary_Key_Details\" modal-title=\"Keys chart\"><em> here | </em><i class=\"fas fa-file\"></i></a></div>\r\n<div class=\"guide_msg\">Select a Key in the chart below to view list of entities with that key</div>\r\n"
             format: full_html
           plugin_id: text
       defaults:

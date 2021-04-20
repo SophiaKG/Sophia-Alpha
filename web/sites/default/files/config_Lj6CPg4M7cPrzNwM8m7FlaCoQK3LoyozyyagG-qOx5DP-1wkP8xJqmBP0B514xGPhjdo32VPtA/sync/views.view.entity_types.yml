@@ -263,8 +263,8 @@ display:
           label: Key
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if name__value == \"Non-corporate Commonwealth entity\" %}\r\n<i class=\"fas fa-rectangle-landscape ncce\"></i>\r\n{% elseif name__value == \"Corporate Commonwealth entity\" %}\r\n<i class=\"fas fa-rectangle-landscape cce\"></i>\r\n{% elseif name__value == \"Commonwealth company\" %}\r\n<i class=\"fas fa-rectangle-landscape ccmp\"></i>\r\n{% endif %}\r\n"
             make_link: false
             path: ''
             absolute: false

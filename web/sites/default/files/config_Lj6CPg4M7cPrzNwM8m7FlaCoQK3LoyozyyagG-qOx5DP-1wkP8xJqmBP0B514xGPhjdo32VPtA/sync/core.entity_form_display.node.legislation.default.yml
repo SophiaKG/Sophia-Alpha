@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.legislation.field_alias
     - field.field.node.legislation.field_ink
     - field.field.node.legislation.field_neptune_uri
     - field.field.node.legislation.field_used_by
@@ -21,6 +22,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_alias:
+    weight: 124
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_ink:
     weight: 121
     settings:

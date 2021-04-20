@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
+    - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
+    - field.field.node.portfolios.field_list_of_pgpa_bodies_in_por
     - field.field.node.portfolios.field_neptune_uri
     - field.field.node.portfolios.field_summary_view
     - node.type.portfolios
@@ -21,7 +24,10 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_alias: true
   field_bodies: true
+  field_list_of_on_pgpa_bodies_in_: true
+  field_list_of_pgpa_bodies_in_por: true
   field_neptune_uri: true
   field_summary_view: true
   search_api_excerpt: true

@@ -29,6 +29,7 @@ module:
   dynamic_page_cache: 0
   editor: 0
   encrypt: 0
+  entity_reference_revisions: 0
   feeds: 0
   feeds_ex: 0
   field: 0
@@ -94,6 +95,7 @@ module:
   views_taxonomy_term_name_depth: 0
   views_tree: 0
   views_ui: 0
+  viewsreference: 0
   visitors: 0
   webform: 0
   webform_devel: 0
@@ -103,6 +105,7 @@ module:
   menu_link_content: 1
   pathauto: 1
   views: 10
+  paragraphs: 11
   standard: 1000
 theme:
   stable: 0

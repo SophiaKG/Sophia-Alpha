@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.legislation.field_alias
     - field.field.node.legislation.field_ink
     - field.field.node.legislation.field_neptune_uri
     - field.field.node.legislation.field_used_by
@@ -21,6 +22,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_alias: true
   field_ink: true
   field_neptune_uri: true
   field_used_by: true
