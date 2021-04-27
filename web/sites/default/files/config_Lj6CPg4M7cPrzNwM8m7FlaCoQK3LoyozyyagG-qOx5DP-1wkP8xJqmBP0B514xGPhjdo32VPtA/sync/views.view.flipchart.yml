@@ -558,7 +558,7 @@ display:
       path: summary
       menu:
         type: normal
-        title: 'Primary Bodies Summary View'
+        title: 'Summary View'
         description: ''
         expanded: false
         parent: 'menu_link_content:ec5c9a25-cc0d-4b6a-81c0-bb0daf7bb837'

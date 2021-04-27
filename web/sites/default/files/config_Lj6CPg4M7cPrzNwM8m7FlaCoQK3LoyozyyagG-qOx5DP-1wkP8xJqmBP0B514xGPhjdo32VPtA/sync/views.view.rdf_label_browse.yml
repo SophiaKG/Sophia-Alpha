@@ -587,7 +587,7 @@ display:
           entity_field: type
           plugin_id: bundle
       sorts: {  }
-      title: 'RDF Label Browse'
+      title: 'Browse Entities '
       header: {  }
       footer: {  }
       empty: {  }
@@ -611,7 +611,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: rdf-label-browse
+      path: browse
       sorts:
         type:
           id: type

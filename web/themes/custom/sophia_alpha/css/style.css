@@ -888,7 +888,7 @@ article.node--view-mode-character-sheet .field .field__label {
 }
 
 /** Key chart block stuff **/
-.page-view-flipchart .view-display-id-block_1{
+.page-view-flipchart .view-id-summary_key .view-display-id-block_1{
     display: none;
 }
 .view-display-id-block_1 .fa-rectangle-landscape{

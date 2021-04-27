@@ -956,7 +956,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: "<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/drupal8/web/Summary\">View all Entities</a></div>\r\n<div id=\"scroll_msg\"><i class=\"far fa-hand-point-down\"></i> Scroll on the sidebar to view keys <br />or view all keys <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" \r\ndata-dialog-options=\"{&quot;width&quot;:800, &quot;title&quot;:&quot;Keys Chart&quot;}\" href=\"/drupal8/web/Summary_Key_Details\" modal-title=\"Keys chart\"><em> here | </em><i class=\"fas fa-file\"></i></a></div>\r\n<div class=\"guide_msg\">Select a Key in the chart below to view list of entities with that key</div>\r\n"
+            value: "<div class=\"graph_back_btn\" style=\"width: auto;\"><a href=\"/Summary\">View all Entities</a></div>\r\n<div id=\"scroll_msg\"><i class=\"far fa-hand-point-down\"></i> Scroll on the sidebar to view keys <br />or view all keys <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" \r\ndata-dialog-options=\"{&quot;width&quot;:800, &quot;title&quot;:&quot;Keys Chart&quot;}\" href=\"/Summary_Key_Details\" modal-title=\"Keys chart\"><em> here | </em><i class=\"fas fa-file\"></i></a></div>\r\n<div class=\"guide_msg\">Select a Key in the chart below to view list of entities with that key</div>\r\n"
             format: full_html
           plugin_id: text
       defaults:
@@ -1020,7 +1020,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if name__value != 'HC' %}\r\n    {{ name}}\r\n{% else %}\r\n    <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" data-dialog-options=\"{&quot;width&quot;:500, &quot;title&quot;:&quot;The High Court&quot;}\" href=\"/drupal8/web/taxonomy/term/130\" modal-title=\"The High Court\">HC</a>\r\n{% endif %}"
+            text: "{% if name__value != 'HC' %}\r\n    {{ name}}\r\n{% else %}\r\n    <a class=\"use-ajax page_dialog\" data-dialog-type=\"modal\" data-dialog-options=\"{&quot;width&quot;:500, &quot;title&quot;:&quot;The High Court&quot;}\" href=\"/taxonomy/term/130\" modal-title=\"The High Court\">HC</a>\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
