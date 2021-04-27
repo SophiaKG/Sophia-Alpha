@@ -47,26 +47,28 @@ class EntityManager
      * @param bool $bulkOperation
      * @return String[] an array of valid ids
      */
-    public function getEntityIdFromQuery($query, $nepId, $nodeType,  Bool $bulkOperation = false){
+    public function getEntityIdFromQuery($query, string $nepId, $nodeType, Bool $bulkOperation = false){
 
         $jsonResult = $this->query_mgr->runCustomQuery($query);
         $jsonObject = json_decode($jsonResult);
 
         $NidArr = array();
-        foreach ( $jsonObject->{'results'}->{'bindings'} as $binding) {
-            $nid = $this->getEntityId(
-                new namespace\Model\ Node("N/A",
-                    $binding->{$nepId}->{'value'},
-                    $nodeType),
-                false, $bulkOperation);
+        if (is_array($jsonObject) || is_object($jsonObject)) {
+            foreach ($jsonObject->{'results'}->{'bindings'} as $binding) {
+                $nid = $this->getEntityId(
+                    new namespace\Model\ Node("N/A",
+                        $binding->{$nepId}->{'value'},
+                        $nodeType),
+                    false, $bulkOperation);
 
-            if ($nid == null) {
-                Helper::log("Err500:  Something went wrong \n" .
-                    "\t\t\tcase: Null Id return when attempting to get an id from a entity label match." .
-                    "This might be expected from portfolios or legislations." .
-                    "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Id: " . $binding->{$nepId}->{'value'}, true);
-            } else
-                $NidArr[] = $nid;
+                if ($nid == null) {
+                    Helper::log("Err500:  Something went wrong \n" .
+                        "\t\t\tcase: Null Id return when attempting to get an id from a entity label match." .
+                        "This might be expected from portfolios or legislations." .
+                        "\n\t\t\tDetails: Subtype: " . $nodeType . "\tNeptune Id: " . $binding->{$nepId}->{'value'}, true);
+                } else
+                    $NidArr[] = $nid;
+            }
         }
 
 
@@ -248,7 +250,7 @@ class EntityManager
      * @param bool $isNew
      * @return bool
      */
-    private function updateFields(DrupalEntityExport $classModel, EntityInterface $my_ent, $isNew = false){
+    public function updateFields(DrupalEntityExport $classModel, EntityInterface $my_ent, $isNew = false){
 
         foreach($classModel->getEntityArray() as $fieldKey => $fieldVal)    //save fields
             $my_ent->set($fieldKey, $fieldVal);                             //polymorphic
@@ -258,7 +260,8 @@ class EntityManager
             $my_ent->setNewRevision();
             $my_ent->setRevisionUserId(SophiaGlobal::MAINTENANCE_BOT);
         try {
-            $my_ent->save();
+            $ret = $my_ent->save();
+            Helper::log("update ret = " . $ret);
         } catch (EntityStorageException $e) { //save
             Helper::log("Err502-2: Something went seriously wrong\n\t\t\t" .
                 'Attempting to save ' . $classModel->getTitle() .

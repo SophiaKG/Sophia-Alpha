@@ -59,6 +59,7 @@ class SophiaGlobal
     public const GRAPH_1 = '<http://aws.amazon.com/neptune/vocab/v001>';
     public const GRAPH_2 = '<http://aws.amazon.com/neptune/vocab/v002>';
 
+
     /**
      * ENTITIES
      */

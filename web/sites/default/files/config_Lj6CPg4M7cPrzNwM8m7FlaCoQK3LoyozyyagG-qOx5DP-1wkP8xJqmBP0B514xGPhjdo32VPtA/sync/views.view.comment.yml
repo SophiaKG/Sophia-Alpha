@@ -1,6 +1,6 @@
 uuid: fda92665-e6e9-4e94-a5b5-d48e4ca9102d
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - comment

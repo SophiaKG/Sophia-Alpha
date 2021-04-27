@@ -86,10 +86,10 @@ class QueryManager
      */
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
-                . $query->getDestination() . " 2>> neptune_sync.log";
+                . $query->getDestination() . " 2>> neptune_sync_exec.log";
         Helper::log('Attempting to execute query: ' . $cmd);
 
-        //rune query
+        //run query
         $res = shell_exec($cmd);
         Helper::log('Query executed.');
         Helper::log('Result: ' . $res);

@@ -44,7 +44,7 @@ class CharacterSheetManager
         $this->processAliases($node);
         $this->processPortfolio($node, $bulkOperation);
         $this->processLegislation($node, $bulkOperation);
-        //$this->processCooperativeRelationships($node, $bulkOperation);
+        $this->processCooperativeRelationships($node, $bulkOperation);
         $this->processLink($node);
         Helper::setLogMark();
         $this->processBodyType($node);
@@ -52,13 +52,6 @@ class CharacterSheetManager
         $this->processEcoSector($node);
         $this->processEmploymentType($node);
         $this->processSummaryKeys($node);
-
-        //TODO THIS NEEDS REPLACING! This forces lead bodies to appear on the summary view
-        /*  if(strtoupper($node->getTitle()) == $node->getTitle()){
-            Helper::log($this->body->getLabelKey() . " detected as lead body, ensuring it appears
-            on the summary view");
-            $this->body->setTypeOfBody(87);
-        }*/
 
         $this->updateNode($node);
     }
@@ -354,7 +347,8 @@ class CharacterSheetManager
             //if bulk as we create a hash
             $receiver = $this->ent_mgr->getEntityId(
                 new namespace\Model\ Node(
-                    $obj->{'ent2Label'}->{'value'}, $obj->{'recBody'}->{'value'},
+                /* node title is empty as we don't have it from neptune and it's not needed*/
+                    "", $obj->{'recBody'}->{'value'},
                     'bodies'),
                 false, $bulkOperation);
 
@@ -404,72 +398,11 @@ class CharacterSheetManager
 
         $toUpdate = true;
 
-        /*if($this->shouldUpdate($editNode, "field_portfolio",
-            $this->body->getPortfolio())) {
-
-            $toUpdate = true;
-            $editNode->field_portfolio =
-                array(['target_id' => $this->body->getPortfolio()]);
-        }
-        if($this->shouldUpdate($editNode, "field_type_of_body",
-            $this->body->getTypeOfBody())) {
-
-            $toUpdate = true;
-            $editNode->field_type_of_body =
-                array(['target_id' => $this->body->getTypeOfBody()]);
-        }
-        if($this->shouldUpdate($editNode, "field_economic_sector",
-            $this->body->getEcoSector())) {
-
-            $toUpdate = true;
-            $editNode->field_economic_sector =
-                array(['target_id' => $this->body->getEcoSector()]);
-        }
-        if($this->shouldUpdate($editNode, "field_financial_classification",
-            $this->body->getFinClass())) { //@todo multiplicity
-
-            $toUpdate = true;
-            $editNode->field_financial_classification =
-                array(['target_id' => $this->body->getFinClass()]);
-        }
-        if($this->shouldUpdate($editNode, "field_employment_arrangements",
-            $this->body->getEmploymentType())) {
-
-            $toUpdate = true;
-            $editNode->field_employment_arrangements =
-                array(['target_id' => $this->body->getEmploymentType()]);
-        }
-        if($this->shouldUpdate($editNode, "field_enabling_legislation_and_o",
-            $this->body->getLegislations())){
-
-            $toUpdate = true;
-            $editNode->field_enabling_legislation_and_o = array(); //clear current vals
-            foreach($this->body->getLegislations() as $nid)
-                $editNode->field_enabling_legislation_and_o[] = ['target_id' => $nid];
-        }
-
-        if($this->shouldUpdate($editNode, "field_cooperative_relationships",
-            $this->body->getCooperativeRelationships())){
-
-            $toUpdate = true;
-            $editNode->field_cooperative_relationships = array(); //clear current vals
-            foreach($this->body->getCooperativeRelationships() as $nid)
-                $editNode->field_cooperative_relationships[] = ['target_id' => $nid];
-        }*/
-
-
-        /** todo
-         * field_accountable_authority_or_g
-         * field_ink
-         * field_reporting_arrangements
-         */
-
-        //$editNode->field_employed_under_the_ps_act = array(['target_id' => $this->body->getPsAct()]);
         if($toUpdate) {
             Helper::log("syncing keys to fields");
             $this->body->syncSummaryKeysToFields($this->ent_mgr); //adds keys to old form fields
             Helper::log("attempting to update " . $node->id());
-            $this->ent_mgr->updateEntity($this->body, $node->id());
+            $this->ent_mgr->updateFields($this->body, $node);
             $this->countupdated++;
             Helper::log("updating body " . $node->id() . " Summary View: " .
                 $this->body->getInSummaryView() . "\t| Updated: " .

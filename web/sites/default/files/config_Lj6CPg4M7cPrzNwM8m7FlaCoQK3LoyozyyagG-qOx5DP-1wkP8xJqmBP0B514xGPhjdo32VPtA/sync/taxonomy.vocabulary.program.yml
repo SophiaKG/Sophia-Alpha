@@ -1,8 +1,0 @@
-uuid: 3a6938b6-fbcd-4f7a-9038-5486ff9d2aba
-langcode: en
-status: true
-dependencies: {  }
-name: Program
-vid: program
-description: CooperativeRelationships
-weight: 0

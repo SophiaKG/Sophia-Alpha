@@ -194,6 +194,15 @@ class NeptuneImporter
         Helper::log("Finished creating all records", true);
     }
 
+    /**
+     *
+     *
+     * @TODO addcount triggers on and update to node not just a create due to getEntityIdBulk()
+     *  returning a non 0 id if the entity already exist.
+     * @param Query $query
+     * @param $subType
+     * @return bool
+     */
     private function importFromQuery(Query $query, $subType){
 
         $json = $this->query_Mgr->runCustomQuery($query);
