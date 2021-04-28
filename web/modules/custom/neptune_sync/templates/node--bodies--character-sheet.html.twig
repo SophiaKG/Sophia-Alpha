@@ -126,7 +126,7 @@
     {% for employType in content.field_employment_arrangements %}
         {% if employType['#title'] == 'Public Service Act 1999'%}
             {% set flipkey = flipkey ~ '<span id="employ_aps">PS Act</span>' %}
-        {% elseif employType['#title'] == 'Non-Public Service Act 1999'%}
+        {% elseif employType['#title'] == 'Does not employ under Public Service Act 1999'%}
             {% set flipkey = flipkey ~ '<span id="employ_naps">^</span>' %}
         {% elseif employType['#title'] == 'Both'%}
             {% set flipkey = flipkey ~ '<span id="employ_both">#</span>' %}
