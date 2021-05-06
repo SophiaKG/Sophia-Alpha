@@ -874,6 +874,42 @@ display:
           expose:
             label: ''
           plugin_id: search_api
+        field_in_summary_view:
+          id: field_in_summary_view
+          table: search_api_index_all_content
+          field: field_in_summary_view
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: search_api
+        field_lead_body:
+          id: field_lead_body
+          table: search_api_index_all_content
+          field: field_lead_body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: search_api
+        field_type_of_body:
+          id: field_type_of_body
+          table: search_api_index_all_content
+          field: field_type_of_body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: search_api
         title:
           id: title
           table: search_api_index_all_content
@@ -1012,21 +1048,30 @@ display:
               beta_user: '0'
               non_tech_: '0'
             placeholder: Search...
+            expose_fields: false
+            searched_fields_id: ''
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: 'Fulltext search'
+            description: null
+            identifier: search_api_fulltext
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
           parse_mode: terms
           min_length: 2
-          fields: {  }
+          fields:
+            - field_alias
+            - field_enabling_legislation_and_o
+            - field_portfolio
+            - title
           plugin_id: search_api_fulltext
       filter_groups:
         operator: AND

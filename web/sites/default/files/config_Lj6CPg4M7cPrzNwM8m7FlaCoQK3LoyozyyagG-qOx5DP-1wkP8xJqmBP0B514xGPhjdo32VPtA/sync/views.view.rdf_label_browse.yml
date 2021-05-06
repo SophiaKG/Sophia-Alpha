@@ -441,7 +441,7 @@ display:
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: true
             text: "<div class=\"view-rdf-label=browse-btn\">\r\n    <a href=\"/drupal8/web/node/{{ nid }}/graph\">\r\n        View local graph\r\n    </a>\r\n</div>"

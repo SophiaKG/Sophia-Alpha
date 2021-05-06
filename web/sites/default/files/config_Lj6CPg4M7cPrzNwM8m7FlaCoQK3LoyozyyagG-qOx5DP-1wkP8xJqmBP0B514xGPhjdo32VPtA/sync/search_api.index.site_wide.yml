@@ -1,168 +1,22 @@
 uuid: 7bf35313-9d05-4105-9bec-2ac30c74a4b2
 langcode: en
-status: true
+status: false
 dependencies:
-  config:
-    - field.storage.node.body
-    - field.storage.node.field_bodies
-    - field.storage.node.field_cooperative_relationships
-    - field.storage.node.field_cp_tabled
-    - field.storage.node.field_economic_sector
-    - field.storage.node.field_employment_arrangements
-    - field.storage.node.field_enabling_legislation_and_o
-    - field.storage.node.field_financial_classification
-    - field.storage.node.field_flipchart_keys
-    - field.storage.node.field_owner
-    - field.storage.node.field_portfolio
-    - field.storage.node.field_program
-    - field.storage.node.field_reporting_arrangements
-    - field.storage.node.field_reporting_variation
-    - field.storage.node.field_type_of_body
-    - field.storage.node.field_used_by
-    - search_api.server.default_server
   module:
     - menu_link_content
     - taxonomy
-    - node
     - search_api
     - block_content
     - file
     - media
     - path_alias
+  config:
+    - search_api.server.default_server
 id: site_wide
 name: 'Site wide'
 description: ''
 read_only: false
 field_settings:
-  body:
-    label: Body
-    datasource_id: 'entity:node'
-    property_path: body
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.body
-  field_bodies:
-    label: Bodies
-    datasource_id: 'entity:node'
-    property_path: field_bodies
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_bodies
-  field_cooperative_relationships:
-    label: 'Cooperative Relationships'
-    datasource_id: 'entity:node'
-    property_path: field_cooperative_relationships
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_cooperative_relationships
-  field_cp_tabled:
-    label: 'CP tabled'
-    datasource_id: 'entity:node'
-    property_path: field_cp_tabled
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_cp_tabled
-  field_economic_sector:
-    label: 'Economic sector'
-    datasource_id: 'entity:node'
-    property_path: field_economic_sector
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_economic_sector
-  field_employment_arrangements:
-    label: 'Employment Arrangements'
-    datasource_id: 'entity:node'
-    property_path: field_employment_arrangements
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_employment_arrangements
-  field_enabling_legislation_and_o:
-    label: 'Enabling legislation'
-    datasource_id: 'entity:node'
-    property_path: field_enabling_legislation_and_o
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_enabling_legislation_and_o
-  field_financial_classification:
-    label: 'Financial classification'
-    datasource_id: 'entity:node'
-    property_path: field_financial_classification
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_financial_classification
-  field_flipchart_keys:
-    label: 'Flipchart keys'
-    datasource_id: 'entity:node'
-    property_path: field_flipchart_keys
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_flipchart_keys
-  field_owner:
-    label: Owner
-    datasource_id: 'entity:node'
-    property_path: field_owner
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_owner
-  field_portfolio:
-    label: Portfolio
-    datasource_id: 'entity:node'
-    property_path: field_portfolio
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_portfolio
-  field_program:
-    label: Program
-    datasource_id: 'entity:node'
-    property_path: field_program
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_program
-  field_reporting_arrangements:
-    label: 'Reporting Arrangements'
-    datasource_id: 'entity:node'
-    property_path: field_reporting_arrangements
-    type: text
-    boost: 0.5
-    dependencies:
-      config:
-        - field.storage.node.field_reporting_arrangements
-  field_reporting_variation:
-    label: 'Reporting variation'
-    datasource_id: 'entity:node'
-    property_path: field_reporting_variation
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_reporting_variation
-  field_type_of_body:
-    label: 'Type of Body'
-    datasource_id: 'entity:node'
-    property_path: field_type_of_body
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_type_of_body
-  field_used_by:
-    label: 'Used by'
-    datasource_id: 'entity:node'
-    property_path: field_used_by
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_used_by
   link:
     label: Link
     datasource_id: 'entity:menu_link_content'
@@ -211,22 +65,6 @@ field_settings:
     dependencies:
       module:
         - menu_link_content
-  title_1:
-    label: Title
-    datasource_id: 'entity:node'
-    property_path: title
-    type: string
-    dependencies:
-      module:
-        - node
-  type:
-    label: 'Content type'
-    datasource_id: 'entity:node'
-    property_path: type
-    type: string
-    dependencies:
-      module:
-        - node
 datasource_settings:
   'entity:block_content':
     bundles:
@@ -250,13 +88,6 @@ datasource_settings:
     languages:
       default: true
       selected: {  }
-  'entity:node':
-    bundles:
-      default: true
-      selected: {  }
-    languages:
-      default: true
-      selected: {  }
   'entity:path_alias': {  }
   'entity:taxonomy_term':
     bundles:
@@ -271,15 +102,10 @@ processor_settings:
   ignorecase:
     all_fields: false
     fields:
-      - body
-      - field_program
-      - field_reporting_arrangements
       - link
       - menu_name
       - name
       - title
-      - title_1
-      - type
     weights:
       preprocess_index: -48
       preprocess_query: -20
@@ -334,6 +160,6 @@ tracker_settings:
   default:
     indexing_order: lifo
 options:
-  index_directly: true
-  cron_limit: 50
+  index_directly: false
+  cron_limit: -1
 server: default_server

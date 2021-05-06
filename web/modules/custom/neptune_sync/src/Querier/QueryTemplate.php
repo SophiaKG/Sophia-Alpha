@@ -79,9 +79,16 @@ class QueryTemplate
                             'SELECT DISTINCT ?obj ?objLabel ' .
                             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
                             'WHERE { ' .
-                                '?obj ns2:live true. ' .
+                            /*    '?obj ns2:live true. ' .
+                                '?obj a ns2:Portfolio. ' .
+                                '?obj ns2:canonicalName ?objLabel. ' .*/
+                            /* @TODO temp disabled as on a freash scrape an AAO can be out of sync with the flipchart authority */
                                 '?obj a ns2:Portfolio. ' .
                                 '?obj ns2:canonicalName ?objLabel. ' .
+                                '?auth ns2:fallsUnder ?obj. ' .
+                                '?flip ns2:witnesses ?auth. ' .
+                                '?flip a ns2:FinanceEntityList. ' .
+                                '?flip ns2:live true. ' .
                             '}');
         return $q;
     }

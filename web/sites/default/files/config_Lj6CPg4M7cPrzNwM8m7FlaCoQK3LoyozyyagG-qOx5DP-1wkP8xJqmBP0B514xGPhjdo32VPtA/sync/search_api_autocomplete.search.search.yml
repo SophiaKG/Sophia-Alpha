@@ -13,7 +13,8 @@ label: Search
 index_id: all_content
 suggester_settings:
   live_results:
-    fields: {  }
+    fields:
+      - title
     view_modes:
       'entity:node':
         bodies: ''
@@ -22,7 +23,8 @@ suggester_settings:
         page: ''
         portfolios: ''
   server:
-    fields: {  }
+    fields:
+      - title
 suggester_weights:
   live_results: 0
   server: 0

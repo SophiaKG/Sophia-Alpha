@@ -94,10 +94,10 @@ class QueryBuilder {
                 '?auth ns2:fallsUnder ?port. ' .
                 '?port rdfs:label ?portlabel. ' .
                 '?auth ns2:binds ' . self::getUri($node, 'ns2') . '. ' .
-                '?port ns2:live true. ' .
-                //'?flip ns2:witnesses ?auth. ' .
-                //'?flip a ns2:FinanceEntityList. ' .
-                //'?flip ns2:live true. ' .
+                //'?port ns2:live true. ' .  /* @TODO temp disabled as on a freash scrape an AAO can be out of sync with the flipchart authority */
+                '?flip ns2:witnesses ?auth. ' .
+                '?flip a ns2:FinanceEntityList. ' .
+                '?flip ns2:live true. ' .
             '} ORDER BY DESC(?datetime) ' .
             'LIMIT 1');
 

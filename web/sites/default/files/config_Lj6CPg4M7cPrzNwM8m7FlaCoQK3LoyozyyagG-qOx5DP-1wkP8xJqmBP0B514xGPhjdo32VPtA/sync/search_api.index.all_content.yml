@@ -3,12 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
+    - field.storage.node.field_alias
     - field.storage.node.field_bodies
+    - field.storage.node.body
+    - field.storage.node.field_enabling_legislation_and_o
     - field.storage.node.field_flipchart_keys
+    - field.storage.node.field_in_summary_view
+    - field.storage.node.field_lead_body
     - field.storage.node.field_outcome_description
-    - field.storage.node.field_program
-    - field.storage.node.field_program_description_
+    - field.storage.node.field_portfolio
+    - field.storage.node.field_type_of_body
     - search_api.server.default_server
     - core.entity_view_mode.node.search_index
   module:
@@ -28,6 +32,15 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.body
+  field_alias:
+    label: Aliases
+    datasource_id: 'entity:node'
+    property_path: field_alias
+    type: text
+    boost: !!float 21
+    dependencies:
+      config:
+        - field.storage.node.field_alias
   field_bodies:
     label: Bodies
     datasource_id: 'entity:node'
@@ -37,6 +50,15 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_bodies
+  field_enabling_legislation_and_o:
+    label: 'Enabling legislation'
+    datasource_id: 'entity:node'
+    property_path: field_enabling_legislation_and_o
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_enabling_legislation_and_o
   field_flipchart_keys:
     label: 'Flipchart keys'
     datasource_id: 'entity:node'
@@ -46,6 +68,22 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_flipchart_keys
+  field_in_summary_view:
+    label: 'In summary view'
+    datasource_id: 'entity:node'
+    property_path: field_in_summary_view
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_in_summary_view
+  field_lead_body:
+    label: 'Lead Body'
+    datasource_id: 'entity:node'
+    property_path: field_lead_body
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_lead_body
   field_outcome_description:
     label: 'Outcome Description'
     datasource_id: 'entity:node'
@@ -55,23 +93,23 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_outcome_description
-  field_program:
-    label: Program
+  field_portfolio:
+    label: Portfolio
     datasource_id: 'entity:node'
-    property_path: field_program
+    property_path: field_portfolio
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_portfolio
+  field_type_of_body:
+    label: 'Type of Body'
+    datasource_id: 'entity:node'
+    property_path: field_type_of_body
     type: string
     dependencies:
       config:
-        - field.storage.node.field_program
-  field_program_description_:
-    label: 'Program Description '
-    datasource_id: 'entity:node'
-    property_path: field_program_description_
-    type: text
-    boost: !!float 5
-    dependencies:
-      config:
-        - field.storage.node.field_program_description_
+        - field.storage.node.field_type_of_body
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -146,12 +184,6 @@ processor_settings:
   content_access:
     weights:
       preprocess_query: -30
-  hierarchy:
-    fields:
-      field_bodies: node-field_portfolio
-      field_flipchart_keys: taxonomy_term-parent
-    weights:
-      preprocess_index: -48
   highlight:
     highlight: always
     highlight_partial: false
@@ -170,12 +202,10 @@ processor_settings:
     alt: true
     tags:
       b: 2
-      em: 1
       h1: 5
       h2: 3
       h3: 2
       strong: 2
-      u: 1
     weights:
       preprocess_index: -15
       preprocess_query: -15
@@ -183,7 +213,13 @@ processor_settings:
     all_fields: false
     fields:
       - body
+      - field_alias
       - field_bodies
+      - field_enabling_legislation_and_o
+      - field_flipchart_keys
+      - field_outcome_description
+      - field_portfolio
+      - rendered_item
       - title
       - type
     weights:
@@ -196,8 +232,12 @@ processor_settings:
     all_fields: false
     fields:
       - body
+      - field_alias
       - field_bodies
+      - field_enabling_legislation_and_o
       - field_flipchart_keys
+      - field_outcome_description
+      - field_portfolio
       - rendered_item
       - title
       - type
@@ -211,8 +251,12 @@ processor_settings:
     all_fields: false
     fields:
       - body
+      - field_alias
       - field_bodies
+      - field_enabling_legislation_and_o
       - field_flipchart_keys
+      - field_outcome_description
+      - field_portfolio
       - rendered_item
       - title
       - type
@@ -228,16 +272,17 @@ processor_settings:
       'entity:node':
         datasource_boost: !!float 8
         bundle_boosts:
-          bodies: !!float 13
-          cooperative_relationships: !!float 8
-          legislation: !!float 5
-          portfolios: !!float 21
+          bodies: !!float 21
+          cooperative_relationships: !!float 5
+          legislation: !!float 13
+          page: !!float 5
+          portfolios: !!float 13
     weights:
       preprocess_index: -49
 tracker_settings:
   default:
     indexing_order: fifo
 options:
-  index_directly: true
-  cron_limit: 50
+  index_directly: false
+  cron_limit: -1
 server: default_server
