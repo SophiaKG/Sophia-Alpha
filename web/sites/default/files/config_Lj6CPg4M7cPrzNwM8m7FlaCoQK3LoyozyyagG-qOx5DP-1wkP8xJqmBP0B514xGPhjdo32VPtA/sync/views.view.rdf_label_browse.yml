@@ -5,6 +5,10 @@ dependencies:
   config:
     - node.type.legislation
     - node.type.portfolios
+    - user.role.administrator
+    - user.role.authenticated
+    - user.role.beta_user
+    - user.role.non_tech_
   module:
     - history
     - node
@@ -26,9 +30,13 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            authenticated: authenticated
+            administrator: administrator
+            beta_user: beta_user
+            non_tech_: non_tech_
       cache:
         type: tag
         options: {  }
@@ -602,7 +610,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     display_plugin: page
@@ -651,7 +659,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }
   rest_export_1:
     display_plugin: rest_export
@@ -682,5 +690,5 @@ display:
         - request_format
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags: {  }

@@ -50,7 +50,8 @@
         "drupal/paragraphs": "^1.12",
         "drupal/viewsreference": "^1.7",
         "drupal/features": "^3.12",
-        "drupal/noreqnewpass": "^1.2"
+        "drupal/noreqnewpass": "^1.2",
+        "drupal/pdf": "^1.1"
     },
     "require-dev": {
         "drupal/core-dev": "^8.8.0"

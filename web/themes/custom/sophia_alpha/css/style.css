@@ -1149,3 +1149,30 @@ a[href$="/taxonomy/term/147"] {
 .views-field.views-field-field-type-of-body span a[href$="/taxonomy/term/137"] {
     color: #000 !important;
 }
+
+/*-- Static data visulization page --*/
+.node--type-static-co-op-references .col-red {
+    color: #de1616;
+    font-weight: bold;
+}
+
+.node--type-static-co-op-references .col-green {
+    color: #0aab42;
+    font-weight: bold;
+}
+
+.node--type-static-co-op-references iframe {
+    height: 600px !important;
+}
+
+.node--type-static-co-op-references .field--name-field-title {
+    font-weight: bold;
+    font-size: 30px;
+    padding: 20px 0px;
+}
+
+.node--type-static-co-op-references header .node__meta {
+    display: none;
+}
+
+
