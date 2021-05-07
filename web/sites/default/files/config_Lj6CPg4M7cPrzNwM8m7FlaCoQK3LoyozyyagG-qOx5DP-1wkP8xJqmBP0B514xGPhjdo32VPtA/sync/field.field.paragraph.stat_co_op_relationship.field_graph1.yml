@@ -1,0 +1,27 @@
+uuid: 35bdec6f-cb9b-4493-bc51-27e446a94632
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_graph1
+    - paragraphs.paragraphs_type.stat_co_op_relationship
+  module:
+    - file
+id: paragraph.stat_co_op_relationship.field_graph1
+field_name: field_graph1
+entity_type: paragraph
+bundle: stat_co_op_relationship
+label: Graph
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

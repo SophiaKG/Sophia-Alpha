@@ -1,0 +1,21 @@
+uuid: e558fe49-d6c8-4a1f-a000-4264e069d223
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.stat_co_op_relationship
+  module:
+    - text
+id: paragraph.stat_co_op_relationship.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: stat_co_op_relationship
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text
