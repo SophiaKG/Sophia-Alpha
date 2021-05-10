@@ -124,12 +124,21 @@ class QueryBuilder {
             'SELECT DISTINCT ?legislation ?legislationLabel ' .
             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { '.
-                '?authority  ns2:bindsTo ' . self::getUri($node, 'ns2') . '. ' .
-                '?authority  ns2:binds ?est. ' .
-                '?est a ns2:Establishment. ' .
-                '?legislation0 ns2:grants ?authority . ' .
-                '?legislation0 ns2:hasSeries ?legislation. ' .
-                '?legislation ns2:canonicalName ?legislationLabel. ' .
+                '{ ' .
+                    '?authority  ns2:bindsTo ' . self::getUri($node, 'ns2') . '. ' .
+                    '?authority  ns2:binds ?est. ' .
+                    '?est a ns2:Establishment. ' .
+                    '?legislation0 ns2:grants ?authority . ' .
+                    '?legislation0 ns2:hasSeries ?legislation. ' .
+                    '?legislation ns2:canonicalName ?legislationLabel. ' .
+                ' } UNION { ' .
+                    '?legislation rdfs:label ?legislationLabel. ' .
+                    '?legislation a ns2:Series. ' .
+                    '?legislation ns2:grants ?authority. ' .
+                    '?authority ns2:binds ?est. ' .
+                    '?est a ns2:Establishment. ' .
+                    '?authority ns2:bindsTo ' . self::getUri($node, 'ns2') . '. ' .
+                ' } ' .
             '}');
         return $q;
     }

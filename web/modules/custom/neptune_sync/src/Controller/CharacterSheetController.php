@@ -17,7 +17,7 @@ class CharacterSheetController extends ControllerBase
         return [
             '#markup' => 'Updating... ' . $node->getTitle() .
                 '<div class="back__link">
-                    <a href="/drupal8/web/node/' . $node->id() . '">
+                    <a href="/node/' . $node->id() . '">
                         Back
                     </a>
                 </div> Neptune details: <div/>' .
