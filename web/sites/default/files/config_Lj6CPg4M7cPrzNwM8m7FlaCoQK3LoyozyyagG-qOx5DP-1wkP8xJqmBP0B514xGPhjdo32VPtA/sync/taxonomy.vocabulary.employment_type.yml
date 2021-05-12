@@ -1,8 +1,0 @@
-uuid: 993b0ea8-182c-4d94-b51c-929f06892080
-langcode: en
-status: true
-dependencies: {  }
-name: 'Employment type'
-vid: employment_type
-description: ''
-weight: -9

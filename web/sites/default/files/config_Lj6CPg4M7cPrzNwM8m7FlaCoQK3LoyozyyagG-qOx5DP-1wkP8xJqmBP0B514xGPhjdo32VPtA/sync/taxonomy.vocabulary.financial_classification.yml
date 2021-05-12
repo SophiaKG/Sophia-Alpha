@@ -1,8 +1,0 @@
-uuid: 79a14062-1e96-4bb9-a006-979213c7f7a9
-langcode: en
-status: true
-dependencies: {  }
-name: 'Financial classification'
-vid: financial_classification
-description: ''
-weight: -8

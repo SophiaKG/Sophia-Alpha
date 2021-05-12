@@ -1,8 +1,0 @@
-uuid: 812d1892-2d77-49d6-ac4a-19c393b9ae5c
-langcode: en
-status: true
-dependencies: {  }
-name: 'Flipchart keys'
-vid: flip_chart_keys
-description: 'https://www.finance.gov.au/sites/default/files/2020-07/Flipchart%20July%202020%20-%20Update%201%20July%202020%20FINAL.pdf'
-weight: -7

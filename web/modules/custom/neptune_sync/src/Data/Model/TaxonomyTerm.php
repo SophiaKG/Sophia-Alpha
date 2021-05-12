@@ -75,4 +75,8 @@ class TaxonomyTerm implements DrupalEntityExport
             'vid'   => $this->vid,
         );
     }
+
+    public function getPublishStatus(){
+        return 1;
+    }
 }

@@ -415,6 +415,10 @@ class CharacterSheet extends Node implements DrupalEntityExport
                 $this->getEmploymentTypexx())){
             $this->setPortfolio(SummaryChartKeys::getParliamentaryDepartmentId($ent_mgr));
         }
+
+        //if not in summary view set to unpublished
+        if(!$this->getInSummaryView())
+            $this->setPublishStatus(0);
     }
 
     public function getEntityArray(){

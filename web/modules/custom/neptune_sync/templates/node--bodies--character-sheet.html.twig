@@ -139,7 +139,7 @@
     {% for ecoSector in content.field_economic_sector %}
         {% if ecoSector['#title'] == 'Public Financial Corporation' %}
             {% set flipkey = flipkey ~ '<span id="fin">F</span>' %}
-        {% elseif ecoSector['#title'] == 'Public Nonfinancial Corporation' %}
+        {% elseif ecoSector['#title'] == 'Public Non-financial Corporation' %}
             {% set flipkey = flipkey ~ '<span id="nfin">T</span>' %}
         {% elseif ecoSector['#title'] == 'General Government Sector - (GGS)' %}
             {% set flipkey = flipkey ~ '<span id="GGS">GGS</span>' %}

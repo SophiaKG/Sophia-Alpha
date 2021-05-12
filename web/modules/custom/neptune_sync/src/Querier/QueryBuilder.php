@@ -108,8 +108,6 @@ class QueryBuilder {
      * Gets the legislation for a Government Body
      * Graph0
      *
-     * legislation0 = the actual legislation type
-     * legislation = the legislation series
      *
      * @uses \Drupal\neptune_sync\Utility\SophiaGlobal::GRAPH_0
      * @param NodeInterface $node
@@ -124,21 +122,23 @@ class QueryBuilder {
             'SELECT DISTINCT ?legislation ?legislationLabel ' .
             'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
             'WHERE { '.
-                '{ ' .
                     '?authority  ns2:bindsTo ' . self::getUri($node, 'ns2') . '. ' .
                     '?authority  ns2:binds ?est. ' .
                     '?est a ns2:Establishment. ' .
-                    '?legislation0 ns2:grants ?authority . ' .
-                    '?legislation0 ns2:hasSeries ?legislation. ' .
-                    '?legislation ns2:canonicalName ?legislationLabel. ' .
-                ' } UNION { ' .
-                    '?legislation rdfs:label ?legislationLabel. ' .
-                    '?legislation a ns2:Series. ' .
-                    '?legislation ns2:grants ?authority. ' .
-                    '?authority ns2:binds ?est. ' .
-                    '?est a ns2:Establishment. ' .
-                    '?authority ns2:bindsTo ' . self::getUri($node, 'ns2') . '. ' .
-                ' } ' .
+                    '?leg ns2:grants ?authority. ' .
+                    '{ ' .
+                        '?leg ns2:hasSeries ?legislation. ' .
+                    '} UNION { ' .
+                        '?leg ns2:hasSeries ?leg2. ' .
+                        '?legislation ns2:hasSubordinate ?leg2. ' .
+                    '} UNION { ' .
+                        '?leg a ns2:Series. ' .
+                        'BIND (?leg as ?legislation)' .
+                    '} UNION { ' .
+                        '?leg a ns2:Series. ' .
+                        '?legislation ns2:hasSubordinate ?leg. ' .
+                    '} ' .
+                    '?legislation ns2:canonicalName  ?legislationLabel. ' .
             '}');
         return $q;
     }

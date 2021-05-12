@@ -1,8 +1,0 @@
-uuid: 85e61cd4-f64c-46d8-8d89-30a5b49a59be
-langcode: en
-status: true
-dependencies: {  }
-name: 'Economic sector'
-vid: economic_sector
-description: ''
-weight: -10

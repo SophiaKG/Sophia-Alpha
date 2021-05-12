@@ -39,12 +39,12 @@ class CharacterSheetManager
         $this->body = new CharacterSheet($node->getTitle(),
             $node->get("field_neptune_uri")->getString());
 
-        /*$this->processLeadBody($node);
+        $this->processLeadBody($node);
         $this->processInSummaryView($node);
         $this->processAliases($node);
         $this->processPortfolio($node, $bulkOperation);
-        */$this->processLegislation($node, $bulkOperation);
-        /*$this->processCooperativeRelationships($node, $bulkOperation);
+        $this->processLegislation($node, $bulkOperation);
+        //$this->processCooperativeRelationships($node, $bulkOperation);
         $this->processLink($node);
         Helper::setLogMark();
         $this->processBodyType($node);
@@ -52,7 +52,7 @@ class CharacterSheetManager
         $this->processEcoSector($node);
         $this->processEmploymentType($node);
         $this->processSummaryKeys($node);
-*/
+
         $this->updateNode($node);
     }
 

@@ -16,4 +16,5 @@ interface DrupalEntityExport
     public function getEntityType();
     public function getSubType();
     public function getEntityArray();
+    public function getPublishStatus();
 }

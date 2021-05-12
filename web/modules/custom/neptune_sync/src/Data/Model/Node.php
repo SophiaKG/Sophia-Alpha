@@ -11,6 +11,8 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
     protected $title; //human readable identifier
     protected $idKey; //key that binds the node to neptune
     protected $nodeType;
+    /** @var int $publishStatus 0 = unpublished | 1 = published */
+    protected $publishStatus;
 
     /**
      * Node constructor.
@@ -22,6 +24,7 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
         $this->title = $title;
         $this->idKey = $idKey;
         $this->nodeType = $nodeType;
+        $this->publishStatus = 1;
     }
 
     public function getTitle(){
@@ -46,4 +49,20 @@ class Node implements \Drupal\neptune_sync\Data\DrupalEntityExport
             'field_neptune_uri' => $this->getIdKey(),
         );
     }
+
+    /**
+     * @return int
+     */
+    public function getPublishStatus(): int{
+        return $this->publishStatus;
+    }
+
+    /**
+     * @param int $publishStatus
+     */
+    public function setPublishStatus(int $publishStatus): void{
+        $this->publishStatus = $publishStatus;
+    }
+
+
 }

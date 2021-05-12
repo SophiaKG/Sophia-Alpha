@@ -1,8 +1,0 @@
-uuid: c2ca3dbb-1a69-4e34-b866-6927164be294
-langcode: en
-status: true
-dependencies: {  }
-name: 'Type of body'
-vid: type_of_body
-description: ''
-weight: -6

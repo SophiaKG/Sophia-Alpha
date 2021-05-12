@@ -259,6 +259,8 @@ class EntityManager
         if ($my_ent->getEntityType() == SophiaGlobal::NODE)
             $my_ent->setNewRevision();
             $my_ent->setRevisionUserId(SophiaGlobal::MAINTENANCE_BOT);
+            if($classModel->getPublishStatus() == 0)
+                $my_ent->setUnpublished();
         try {
             $ret = $my_ent->save();
             Helper::log("update ret = " . $ret);
