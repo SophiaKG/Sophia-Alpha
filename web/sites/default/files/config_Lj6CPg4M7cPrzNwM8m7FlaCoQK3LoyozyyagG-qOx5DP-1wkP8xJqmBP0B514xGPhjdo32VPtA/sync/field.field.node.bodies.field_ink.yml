@@ -1,0 +1,23 @@
+uuid: 32292367-4b62-475e-991e-28dc5e5b52cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ink
+    - node.type.bodies
+  module:
+    - link
+id: node.bodies.field_ink
+field_name: field_ink
+entity_type: node
+bundle: bodies
+label: Link
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

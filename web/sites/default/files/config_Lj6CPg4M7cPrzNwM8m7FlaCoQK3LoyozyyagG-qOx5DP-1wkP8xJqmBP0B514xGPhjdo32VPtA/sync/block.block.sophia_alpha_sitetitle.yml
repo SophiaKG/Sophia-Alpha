@@ -1,0 +1,25 @@
+uuid: 09f2aedd-dc79-4d1f-a1f6-09f09b004a64
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
+  module:
+    - block_content
+  theme:
+    - sophia_alpha
+id: sophia_alpha_sitetitle
+theme: sophia_alpha
+region: top_header
+weight: -9
+provider: null
+plugin: 'block_content:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
+settings:
+  id: 'block_content:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
+  label: 'Site Title'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

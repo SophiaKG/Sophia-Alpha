@@ -1,0 +1,27 @@
+uuid: d5fdf0b3-2f1b-4387-832b-caae990471b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.taxonomy_term_detailed
+    - taxonomy.vocabulary.financial_classification
+  module:
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: taxonomy_term.financial_classification.taxonomy_term_detailed
+targetEntityType: taxonomy_term
+bundle: financial_classification
+mode: taxonomy_term_detailed
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

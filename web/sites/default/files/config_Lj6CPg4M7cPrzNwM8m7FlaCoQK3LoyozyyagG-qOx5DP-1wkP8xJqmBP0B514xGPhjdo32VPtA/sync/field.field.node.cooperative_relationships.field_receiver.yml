@@ -1,0 +1,28 @@
+uuid: de828a52-4b1f-4bc9-805b-ddb4ea37c52c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_receiver
+    - node.type.bodies
+    - node.type.cooperative_relationships
+id: node.cooperative_relationships.field_receiver
+field_name: field_receiver
+entity_type: node
+bundle: cooperative_relationships
+label: Receiver
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      bodies: bodies
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

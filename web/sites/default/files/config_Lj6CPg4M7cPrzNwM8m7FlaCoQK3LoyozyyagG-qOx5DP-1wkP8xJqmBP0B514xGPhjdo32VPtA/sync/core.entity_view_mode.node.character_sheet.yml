@@ -1,0 +1,10 @@
+uuid: 3c7b6805-6bc2-4124-94b9-302f515331b0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.character_sheet
+label: 'Character Sheet'
+targetEntityType: node
+cache: true

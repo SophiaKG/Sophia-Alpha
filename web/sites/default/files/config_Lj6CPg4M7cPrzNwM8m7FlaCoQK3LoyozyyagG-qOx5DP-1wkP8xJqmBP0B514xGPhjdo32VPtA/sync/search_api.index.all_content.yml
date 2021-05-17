@@ -1,0 +1,288 @@
+uuid: 580c4452-d869-453d-beef-73122ebcfca0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alias
+    - field.storage.node.field_bodies
+    - field.storage.node.body
+    - field.storage.node.field_enabling_legislation_and_o
+    - field.storage.node.field_flipchart_keys
+    - field.storage.node.field_in_summary_view
+    - field.storage.node.field_lead_body
+    - field.storage.node.field_outcome_description
+    - field.storage.node.field_portfolio
+    - field.storage.node.field_type_of_body
+    - search_api.server.default_server
+    - core.entity_view_mode.node.search_index
+  module:
+    - node
+    - search_api
+id: all_content
+name: 'All Content'
+description: ''
+read_only: false
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    boost: !!float 8
+    dependencies:
+      config:
+        - field.storage.node.body
+  field_alias:
+    label: Aliases
+    datasource_id: 'entity:node'
+    property_path: field_alias
+    type: text
+    boost: !!float 21
+    dependencies:
+      config:
+        - field.storage.node.field_alias
+  field_bodies:
+    label: Bodies
+    datasource_id: 'entity:node'
+    property_path: field_bodies
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_bodies
+  field_enabling_legislation_and_o:
+    label: 'Enabling legislation'
+    datasource_id: 'entity:node'
+    property_path: field_enabling_legislation_and_o
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_enabling_legislation_and_o
+  field_flipchart_keys:
+    label: 'Flipchart keys'
+    datasource_id: 'entity:node'
+    property_path: field_flipchart_keys
+    type: text
+    boost: !!float 8
+    dependencies:
+      config:
+        - field.storage.node.field_flipchart_keys
+  field_in_summary_view:
+    label: 'In summary view'
+    datasource_id: 'entity:node'
+    property_path: field_in_summary_view
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_in_summary_view
+  field_lead_body:
+    label: 'Lead Body'
+    datasource_id: 'entity:node'
+    property_path: field_lead_body
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_lead_body
+  field_outcome_description:
+    label: 'Outcome Description'
+    datasource_id: 'entity:node'
+    property_path: field_outcome_description
+    type: text
+    boost: !!float 8
+    dependencies:
+      config:
+        - field.storage.node.field_outcome_description
+  field_portfolio:
+    label: Portfolio
+    datasource_id: 'entity:node'
+    property_path: field_portfolio
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_portfolio
+  field_type_of_body:
+    label: 'Type of Body'
+    datasource_id: 'entity:node'
+    property_path: field_type_of_body
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_type_of_body
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    boost: !!float 13
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          bodies: search_index
+          cooperative_relationships: search_index
+          legislation: search_index
+          page: search_index
+          portfolios: search_index
+  status:
+    label: Published
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 21
+    dependencies:
+      module:
+        - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: text
+    boost: !!float 5
+    dependencies:
+      module:
+        - node
+  uid:
+    label: uid
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -30
+  highlight:
+    highlight: always
+    highlight_partial: false
+    excerpt: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    prefix: '<strong>'
+    suffix: '</strong>'
+    weights:
+      postprocess_query: 0
+  html_filter:
+    all_fields: false
+    fields:
+      - rendered_item
+    title: true
+    alt: true
+    tags:
+      b: 2
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+  ignorecase:
+    all_fields: false
+    fields:
+      - body
+      - field_alias
+      - field_bodies
+      - field_enabling_legislation_and_o
+      - field_flipchart_keys
+      - field_outcome_description
+      - field_portfolio
+      - rendered_item
+      - title
+      - type
+    weights:
+      preprocess_index: -50
+      preprocess_query: -20
+  language_with_fallback: {  }
+  rendered_item: {  }
+  reverse_entity_references: {  }
+  stemmer:
+    all_fields: false
+    fields:
+      - body
+      - field_alias
+      - field_bodies
+      - field_enabling_legislation_and_o
+      - field_flipchart_keys
+      - field_outcome_description
+      - field_portfolio
+      - rendered_item
+      - title
+      - type
+    exceptions:
+      mexican: mexic
+      texan: texa
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+  tokenizer:
+    all_fields: false
+    fields:
+      - body
+      - field_alias
+      - field_bodies
+      - field_enabling_legislation_and_o
+      - field_flipchart_keys
+      - field_outcome_description
+      - field_portfolio
+      - rendered_item
+      - title
+      - type
+    ignored: ._-
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
+  type_boost:
+    boosts:
+      'entity:node':
+        datasource_boost: !!float 8
+        bundle_boosts:
+          bodies: !!float 21
+          cooperative_relationships: !!float 5
+          legislation: !!float 13
+          page: !!float 5
+          portfolios: !!float 13
+    weights:
+      preprocess_index: -49
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: false
+  cron_limit: -1
+server: default_server

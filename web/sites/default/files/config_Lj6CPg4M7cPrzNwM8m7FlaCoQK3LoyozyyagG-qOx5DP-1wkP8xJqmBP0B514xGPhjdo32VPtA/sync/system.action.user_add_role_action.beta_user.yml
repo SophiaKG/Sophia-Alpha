@@ -1,0 +1,14 @@
+uuid: ed9cff57-682e-4b81-b1f6-f0adca7754f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.beta_user
+  module:
+    - user
+id: user_add_role_action.beta_user
+label: 'Add the Beta user role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: beta_user

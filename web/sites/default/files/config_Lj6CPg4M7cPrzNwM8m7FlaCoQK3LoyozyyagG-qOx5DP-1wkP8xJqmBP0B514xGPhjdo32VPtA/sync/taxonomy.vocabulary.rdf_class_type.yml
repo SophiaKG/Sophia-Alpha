@@ -1,0 +1,8 @@
+uuid: d7f9e7fb-8f0a-46d2-aa68-4f1aa3047660
+langcode: en
+status: true
+dependencies: {  }
+name: 'RDF Class type'
+vid: rdf_class_type
+description: 'The owl:Class(''s) found in Neptune'
+weight: -4

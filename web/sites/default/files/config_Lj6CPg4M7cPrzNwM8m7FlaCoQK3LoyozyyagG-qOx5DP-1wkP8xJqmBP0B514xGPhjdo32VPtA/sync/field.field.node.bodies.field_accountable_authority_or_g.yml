@@ -1,0 +1,19 @@
+uuid: bd40b80f-de19-4daa-bdf1-01027550ce65
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_accountable_authority_or_g
+    - node.type.bodies
+id: node.bodies.field_accountable_authority_or_g
+field_name: field_accountable_authority_or_g
+entity_type: node
+bundle: bodies
+label: 'Accountable authority or governing board'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

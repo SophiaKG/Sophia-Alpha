@@ -1,0 +1,25 @@
+uuid: 0a61395a-cb77-4b06-9788-4264ef9968e9
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
+  module:
+    - block_content
+  theme:
+    - finance
+id: sitetitle
+theme: finance
+region: top_header
+weight: -6
+provider: null
+plugin: 'block_content:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
+settings:
+  id: 'block_content:5a9a8b67-2dfd-4e42-8c93-d1d69e0c20cb'
+  label: 'Site Title'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

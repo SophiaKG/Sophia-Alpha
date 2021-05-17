@@ -1,0 +1,153 @@
+uuid: 27fb9dea-ddc1-4729-83d3-f38f3637ec72
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.character_sheet_public
+    - field.field.node.bodies.field_accountable_authority_or_g
+    - field.field.node.bodies.field_alias
+    - field.field.node.bodies.field_cooperative_relationships
+    - field.field.node.bodies.field_cp_tabled
+    - field.field.node.bodies.field_demo
+    - field.field.node.bodies.field_economic_sector
+    - field.field.node.bodies.field_employment_arrangements
+    - field.field.node.bodies.field_enabling_legislation_and_o
+    - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_flipchart_keys
+    - field.field.node.bodies.field_in_summary_view
+    - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_lead_body
+    - field.field.node.bodies.field_neptune_uri
+    - field.field.node.bodies.field_portfolio
+    - field.field.node.bodies.field_reporting_arrangements
+    - field.field.node.bodies.field_reporting_variation
+    - field.field.node.bodies.field_s35_3_pgpa_act_apply
+    - field.field.node.bodies.field_type_of_body
+    - node.type.bodies
+  module:
+    - layout_builder
+    - link
+    - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.bodies.character_sheet_public
+targetEntityType: node
+bundle: bodies
+mode: character_sheet_public
+content:
+  field_accountable_authority_or_g:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_alias:
+    type: string
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_economic_sector:
+    weight: 11
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_employment_arrangements:
+    weight: 10
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_enabling_legislation_and_o:
+    weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_financial_classification:
+    weight: 8
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_flipchart_keys:
+    weight: 12
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ink:
+    weight: 1
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_lead_body:
+    type: boolean
+    weight: 5
+    region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  field_portfolio:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_reporting_arrangements:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_type_of_body:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_cooperative_relationships: true
+  field_cp_tabled: true
+  field_demo: true
+  field_in_summary_view: true
+  field_neptune_uri: true
+  field_reporting_variation: true
+  field_s35_3_pgpa_act_apply: true
+  search_api_excerpt: true

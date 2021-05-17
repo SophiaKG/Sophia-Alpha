@@ -1,0 +1,22 @@
+uuid: a2bd89e2-6056-4170-a753-ddbe54674e37
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - sophia_alpha
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: sophia_alpha_content
+theme: sophia_alpha
+region: content
+weight: -6
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }
