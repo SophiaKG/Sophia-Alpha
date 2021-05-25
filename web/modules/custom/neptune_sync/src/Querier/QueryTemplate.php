@@ -15,37 +15,9 @@ use Drupal\neptune_sync\Utility\SophiaGlobal;
  */
 class QueryTemplate
 {
-    /* Post init
-     * @return
-     *    ['getLabels']
-     *    ['getLegislations']
-     *    ['getBodies']
-     */
     public static $queries = array();
     const NEPTUNE_ENDPOINT = 'https://sophia-neptune.cbkhatvpiwzj' .
                         '.ap-southeast-2.neptune.amazonaws.com:8182/sparql';
-    const FEEDS_IMPORT_DIR = 'sites/default/files/feeds/';
-
-
-    public static function init(){
-        self::$queries['getLabels'] = self::getLabels();
-        self::$queries['getLegislations'] = self::getLegislations();
-        self::$queries['getBodies'] = self::getBodies();
-        self::$queries['getPortfolios'] = self::getPortfolios();
-        self::$queries['getClasses'] = self::getClasses();
-        self::$queries['getProperties'] = self::getProperties();
-    }
-
-    /**
-     * @deprecated
-     * @return Query
-     */
-    private static function getLabels(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'labels/labels.json');
-        $q->setQuery('SELECT DISTINCT ?subject ?predicate ?object ' .
-                            'WHERE { ?subject ?predicate ?object . }');
-        return $q;
-    }
 
     public static function getLegislations(){
         $q = new Query(self::NEPTUNE_ENDPOINT);
@@ -82,7 +54,7 @@ class QueryTemplate
                             /*    '?obj ns2:live true. ' .
                                 '?obj a ns2:Portfolio. ' .
                                 '?obj ns2:canonicalName ?objLabel. ' .*/
-                            /* @TODO temp disabled as on a freash scrape an AAO can be out of sync with the flipchart authority */
+                            /* @TODO temp disabled as on a fresh scrape an AAO can be out of sync with the flipchart authority */
                                 '?obj a ns2:Portfolio. ' .
                                 '?obj ns2:canonicalName ?objLabel. ' .
                                 '?auth ns2:fallsUnder ?obj. ' .
@@ -92,24 +64,4 @@ class QueryTemplate
                             '}');
         return $q;
     }
-
-    private static function getClasses(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'classes/classes.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
-                            'SELECT DISTINCT ?object ' .
-                            'WHERE {?Entity a owl:Class . ' .
-                            '?Entity rdfs:label ?object .}');
-        return $q;
-    }
-
-    private static function getProperties(){
-        $q = new Query(self::NEPTUNE_ENDPOINT, self::FEEDS_IMPORT_DIR . 'properties/properties.json');
-        $q->setQuery(SophiaGlobal::PREFIX_ALL() .
-                            'SELECT DISTINCT ?object ' .
-                            'WHERE {?Entity a owl:ObjectProperty . ' .
-                            '?Entity rdfs:label ?object .}');
-        return $q;
-    }
-
-
 }

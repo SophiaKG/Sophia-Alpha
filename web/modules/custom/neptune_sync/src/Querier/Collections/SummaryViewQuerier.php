@@ -8,7 +8,7 @@ use Drupal\node\NodeInterface;
  * Class SummaryViewQuerier
  * Author: AlexHarp|DoF
  *
- * A class for building queries that allocate summary view keys.
+ * A class for building queries via 'parts' that allocate summary view keys.
  * Functions are made as generic as possible
  */
 class SummaryViewQuerier {
@@ -63,16 +63,6 @@ class SummaryViewQuerier {
                     'ns2:C2004A00538 ns2:defines ?term1. ' .
                 '} ' .
             '} ';
-
-        /* '?auth2 ns2:binds ?otherTerm. ' .
-         '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
-         '?leg a ns2:legislation. ' .
-         '?leg ns2:live true. ' .
-         '?leg ns2:grants ?auth2. ' .
-         '?leg ns2:grants ?auth3. ' .
-         '?auth3 ns2:binds ?est. ' .
-         '?auth3 ns2:bindsTo ' . $node . '. ' .
-         '?est a ns2:Establishment. ';*/
     }
 
     /** Specific to ▲ key
