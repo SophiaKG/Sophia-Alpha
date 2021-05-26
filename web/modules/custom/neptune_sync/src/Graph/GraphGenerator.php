@@ -20,28 +20,21 @@ use EasyRdf_Resource;
  * Class GraphGenerator
  * @package Drupal\neptune_sync\Graph
  * @author Alexis Harper | DoF
- * A manager class for constructing a graph from passed in information
+ * A manager class for constructing a graph from passed in data
  */
 class GraphGenerator
 {
-    const GRAPH_FILETYPE = 'svg';
-    const MODULE_RESOURCE_DIR = 'modules/custom/neptune_sync/resources/';
-    /** @deprecated */
-    const GRAPH_VISUALIZER_PATH = 'ontology-visualization/' .
-                                    'ontology_viz.py';
-
-    //protected $name;
     protected $query; //The query we are using to generate the graph from
 
     public function __construct(){
-
         //Add our custom name spaces to EasyRDF
         \EasyRdf_Namespace::set(SophiaGlobal::IRI['ns1']['name'], SophiaGlobal::IRI['ns1']['loc']);
         \EasyRdf_Namespace::set(SophiaGlobal::IRI['ns2']['name'], SophiaGlobal::IRI['ns2']['loc']);
     }
 
     /**
-     * Builds a graph around a node with k =  2 expansion
+     * Builds a graph around a node showing its attributes within k =  2
+     *  expansion along the graph
      *  -build query
      *  -run query
      *  -load returned RDF into easy_RDF
@@ -54,25 +47,42 @@ class GraphGenerator
      *      the json constructed from rdfToGraph
      */
     public function buildGraphFromNode(NodeInterface $node){
-
-        $this->query = QueryBuilder::buildCustomLocalGraph($node);
-
-        return $this->rdfToGraph($this->parseGraph($this->query, true));
-    }
-
-    public function buildCoopGraphFromNode(NodeInterface $node){
-
-        $this->query =  CoopGraphQuerier::getCooperativeRelationships(array($node),
-            (CoopGraphQuerier::BUILD_GRAPH | CoopGraphQuerier::OUTGOING_PROGRAMS ));
-
+        $this->query = LocalGraphQuerier::buildCustomLocalGraph($node);
         return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
     /**
-     * @deprecated temp function for ssc, shows incoming and outgoing
+     * Builds a graph around a node showing its outgoing cooperative relationships
+     *  -build query
+     *  -run query
+     *  -load returned RDF into easy_RDF
+     *  -build nodes and edges through easy_RDF
+     *  -convert node and edge set into json with themed values
+     *  -return
      * @param NodeInterface $node
+     *      The node that is the origin of the graph to be built
      * @return string
-     * @throws \EasyRdf_Exception
+     *      the json constructed from rdfToGraph
+     */
+    public function buildCoopGraphFromNode(NodeInterface $node){
+        $this->query =  CoopGraphQuerier::getCooperativeRelationships(array($node),
+            (CoopGraphQuerier::BUILD_GRAPH | CoopGraphQuerier::OUTGOING_PROGRAMS ));
+        return $this->rdfToGraph($this->parseGraph($this->query, true));
+    }
+
+    /**
+     * Builds a graph around a node showing its outgoing and incoming cooperative
+     *  relationships
+     *  -build query
+     *  -run query
+     *  -load returned RDF into easy_RDF
+     *  -build nodes and edges through easy_RDF
+     *  -convert node and edge set into json with themed values
+     *  -return
+     * @param NodeInterface $node
+     *      The node that is the origin of the graph to be built
+     * @return string
+     *      the json constructed from rdfToGraph
      */
     public function buildCoopGraphAllFromNode(NodeInterface $node){
         $this->query = CoopGraphQuerier::getCooperativeRelationships(array($node),
@@ -83,9 +93,19 @@ class GraphGenerator
         return $this->rdfToGraph($this->parseGraph($this->query, true));
     }
 
-    /** builds a unionised graph based on the id's passed in.
+    /**
+     * Builds a unionised cooperative graph (outgoing) graph based on the id's passed in.
+     *  cooperative relationships
+     *  -build query
+     *  -run query
+     *  -load returned RDF into easy_RDF
+     *  -build nodes and edges through easy_RDF
+     *  -convert node and edge set into json with themed values
+     *  -return
      * @param array $ids
+     *      The Nid's of bodies to union in a coop graph.
      * @return string
+     *       the json constructed from rdfToGraph.
      */
     public function buildCoopGraphIntersect(array $ids){
 
@@ -105,9 +125,11 @@ class GraphGenerator
 
     /**
      * Loads the results of a SparQL construct query into an EasyRDF Graph structure
-     * @param Query $query
-     * @param bool $easyRead
-     * @return GraphBuilder
+     * @param Query $query The query (construct) to execute and build into an EasyRDF graph
+     * @param bool $easyRead if adjustments should be made to the structure of
+     *  the graph to make it more readable (ie, remove RDF and ontology terminology)
+     * @return GraphBuilder query converted to EasyRDF and wrapped in a class
+     *  for easy manipulation
      */
     private function parseGraph(Query $query, bool $easyRead){
 
@@ -176,70 +198,5 @@ class GraphGenerator
         }
 
         return $graph->getJsonGraph();
-    }
-
-    /**
-     * Builds a graph from RDF/ttl syntax
-     * Input is pulled from the queries output parameter XXX(can we pass this value through?)
-     * arg: ontology_viz.py -o [OUTPUT] [INPUT] -O [ONTOLOGY|OPTIONAL]
-     * arg: ontology_viz.py -o [NAME].dot [name].ttl
-     * @deprecated Replaced by eCharts
-     */
-    private function buildGraph(){
-
-        $cmd = 'python3 ' . self::GRAPH_VISUALIZER_PATH . ' -o ' . self::MODULE_RESOURCE_DIR
-            . 'dot/' . $this->name . '.dot ' . QueryBuilder::GRAPH_WORKING_DIR .
-            $this->name . '.rdf 2>&1';
-        $res = shell_exec($cmd);
-
-        //log
-        \drupal::logger('neptune_sync')->notice('Graph ' . $this->name .
-            ' created. Cmd: ' . $cmd . "\n\nExec result:\n" . $res);
-    }
-
-    /**
-     * Formats the graph into a spatial setting for human visualization
-     * //arg: dot -Tsvg -o [OUTPUT] [INPUT]
-     * //arg: dot -T[FILETYPE] -o [NAME].svg [NAME].dot
-     * @deprecated Replaced by eCharts
-     */
-    private function formatGraph(){
-
-        $cmd = 'dot -T' . self::GRAPH_FILETYPE . ' -o sites/default/files/graphs/'
-            . $this->name . '.' . self::GRAPH_FILETYPE . ' ' . self::MODULE_RESOURCE_DIR
-            . 'dot/' . $this->name . '.dot 2>&1';
-        $res = shell_exec($cmd);
-
-        //log
-        \drupal::logger('neptune_sync')->notice('Graph ' . $this->name .
-            ' converted to svg. Cmd: ' . $cmd . "\n\nExec result:\n" . $res);
-
-        return '/sites/default/files/graphs/' . $this->name . '.' . self::GRAPH_FILETYPE;
-    }
-
-    /**
-     * @deprecated by eCharts
-     * Builds a local graph with the ability to modify certain aspects of the build via
-     * passed in filters
-     * @param array $filters
-     *      filters to add details to how the graph is built, mapped to struct in
-     *      GraphFilters constructor
-     * @return string
-     *      returns the server filepath of the graph generated
-     */
-    public function buildGraphFromFilters(array $filters){
-        try {
-            $this->name = bin2hex(random_bytes(5));
-        } catch (\Exception $e) { }
-
-        $filters = new GraphFilters($filters);
-        $this->query = QueryBuilder::buildCustomLocalGraph($this->name, $filters);
-
-        $query_mgr = new QueryManager();
-        $graph_rdf = $query_mgr->runCustomQuery($this->query);
-
-        $this->rdfToGraph($graph_rdf);
-        /*$this->buildGraph();
-        return $this->formatGraph();*/
     }
 }

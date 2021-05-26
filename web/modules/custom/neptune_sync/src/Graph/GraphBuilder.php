@@ -12,7 +12,6 @@ use EasyRdf_Resource;
  * Class GraphBuilder
  * A wrapper class for using EasyRdf to build an eCharts array
  * @package Drupal\neptune_sync\Graph
- *
  * @author AlexHarp|DoF
  */
 class GraphBuilder
@@ -136,11 +135,9 @@ class GraphBuilder
      */
     private function ProcessEasyReadNode($resource){
 
-        /** If the node has no type, don't display it.
-         *  XXX what the hell would trigger this?
-         */
+        /** If the node has no type, don't display it.*/
         if($resource->type() == null) {
-            Helper::log("returning null for soe reason");
+            Helper::log("returning null for some reason");
             return false;
         }
 

@@ -5,6 +5,7 @@ use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\neptune_sync\Data\Model\CharacterSheet;
 use Drupal\neptune_sync\Data\Model\CooperativeRelationship;
 use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
+use Drupal\neptune_sync\Querier\Collections\NodeQuerier;
 use Drupal\neptune_sync\Querier\Collections\SummaryViewQuerier;
 use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
@@ -21,7 +22,8 @@ class CharacterSheetManager
     protected $countSkip;
     protected $countupdated;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->query_mgr = new QueryManager();
         $this->ent_mgr = new EntityManager();
         $this->countSkip = 0;
@@ -33,7 +35,8 @@ class CharacterSheetManager
      * @param bool $bulkOperation
      * @TODO remove N/A once all neptune queries are complete and tested
      */
-    public function updateCharacterSheet(NodeInterface $node, Bool $bulkOperation = false){
+    public function updateCharacterSheet(NodeInterface $node, bool $bulkOperation = false)
+    {
 
         Helper::log("updating node: " . $node->id() . " - " . $node->getTitle());
         $this->body = new CharacterSheet($node->getTitle(),
@@ -56,38 +59,42 @@ class CharacterSheetManager
         $this->updateNode($node);
     }
 
-    public function updateAllCharacterSheets(){
+    public function updateAllCharacterSheets()
+    {
 
         Helper::log("starting new bulk run", true);
 
         $bodies = $this->ent_mgr->getAllNodeType("bodies");
-        foreach($bodies as $bodyItr){
+        foreach ($bodies as $bodyItr) {
             $this->updateCharacterSheet($bodyItr, true);
         }
     }
 
-    private function processAliases(NodeInterface $node){
+    private function processAliases(NodeInterface $node)
+    {
         Helper::log("Querying aliases: ");
-        $query = QueryBuilder::getAliases($node);
+        $query = NodeQuerier::getAliases($node);
         $json = $this->query_mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
 
-        foreach ($jsonObj->{'results'}->{'bindings'} as $obj){
+        foreach ($jsonObj->{'results'}->{'bindings'} as $obj) {
             $this->body->addAlias($obj->{'label'}->{'value'});
         }
     }
 
-    private function processInSummaryView(NodeInterface $node){
+    private function processInSummaryView(NodeInterface $node)
+    {
         Helper::log("Querying InSummaryView: ");
-        $query = QueryBuilder::buildAskQuery(
+        $query = NodeQuerier::buildAskQuery(
             SummaryViewQuerier::getIsSummaryViewPart($node));
         $this->body->setInSummaryView(
             $this->evaluate($this->query_mgr->runCustomQuery($query)));
     }
 
-    private function processLeadBody(NodeInterface $node){
+    private function processLeadBody(NodeInterface $node)
+    {
         Helper::log("Querying LeadBody: ");
-        $query = QueryBuilder::checkAskBody($node, 'LeadBody' );
+        $query = NodeQuerier::checkAskBody($node, 'LeadBody');
         $this->body->setLeadBody(
             $this->evaluate($this->query_mgr->runCustomQuery($query)));
     }
@@ -101,19 +108,20 @@ class CharacterSheetManager
      *      -Get nid of portfolio from the portfolios label
      *      -add nid as entity reference to body
      */
-    private function processPortfolio(NodeInterface $node, Bool $bulkOperation = false){
+    private function processPortfolio(NodeInterface $node, bool $bulkOperation = false)
+    {
 
         Helper::log("Querying portfolio: ");
         $portNid = $this->ent_mgr->getEntityIdFromQuery(
-            QueryBuilder::getBodyPortfolio($node),
+            NodeQuerier::getBodyPortfolio($node),
             'port',
             SophiaGlobal::PORTFOLIO,
             $bulkOperation
         );
 
-        if(count($portNid) > 1)
+        if (count($portNid) > 1)
             Helper::log("fill this later", true); //TODO
-        else if(count($portNid) == 1)
+        else if (count($portNid) == 1)
             $this->body->setPortfolio(reset($portNid));
     }
 
@@ -122,14 +130,15 @@ class CharacterSheetManager
      * @param bool $bulkOperation
      */
     private function processLegislation(NodeInterface $node,
-                                        Bool $bulkOperation = false){
+                                        bool $bulkOperation = false)
+    {
 
         Helper::log("Querying legislation: ");
         foreach ($this->ent_mgr->getEntityIdFromQuery(
-                                    QueryBuilder::getBodyLegislation($node),
-                                    'legislation',
-                                    SophiaGlobal::LEGISLATION,
-                                    $bulkOperation
+            NodeQuerier::getBodyLegislation($node),
+            'legislation',
+            SophiaGlobal::LEGISLATION,
+            $bulkOperation
         ) as $legislationNid)
             $this->body->addLegislations($legislationNid);
     }
@@ -138,12 +147,13 @@ class CharacterSheetManager
      * @param NodeInterface $node
      * Adds the nodes body type to flipchartKeys field. This assignment is later synced up
      *  to the bodyType field via body->syncSummaryKeysToFields().*/
-    private function processBodyType(NodeInterface $node){
+    private function processBodyType(NodeInterface $node)
+    {
 
         helper::log("Processing keys for body types: (next three queries) ");
         $vals = SummaryChartKeys::getTaxonomyIDArray('Body type');
         $res = $this->check_term($vals, $node);
-        if($res)
+        if ($res)
             $this->body->addFlipchartKey($res);
     }
 
@@ -152,7 +162,8 @@ class CharacterSheetManager
      * Adds the nodes eco type to flipchartKeys field. This assignment is later synced up
      *  to the EcoSector field via body->syncSummaryKeysToFields().
      * More then one value can be assigned. */
-    private function processEcoSector(NodeInterface $node){
+    private function processEcoSector(NodeInterface $node)
+    {
 
         Helper::log("Processing keys for eco sector: (next three)");
         $vals = SummaryChartKeys::getTaxonomyIDArray('Eco Sector');
@@ -170,7 +181,8 @@ class CharacterSheetManager
      * Adds the nodes fin class to flipchartKeys field. This assignment is later synced up
      *  to the finType field via body->syncSummaryKeysToFields().
      * More then one value can be assigned. */
-    private function processFinClass(NodeInterface $node){
+    private function processFinClass(NodeInterface $node)
+    {
 
         Helper::log("Processing keys for financial class: (next two)");
         $vals = SummaryChartKeys::getTaxonomyIDArray('Fin class');
@@ -188,15 +200,16 @@ class CharacterSheetManager
      * Employment type
      * Adds the nodes employment type to flipchartKeys field. This assignment is later synced up
      *  to the employmentType field via body->syncSummaryKeysToFields().*/
-    private function processEmploymentType(NodeInterface $node){
+    private function processEmploymentType(NodeInterface $node)
+    {
 
         Helper::log("Processing keys for employment type: (next three)");
         $res = "";
-        foreach (SummaryChartKeys::getKeys()['Employment type'] as $arrKey => $key){
+        foreach (SummaryChartKeys::getKeys()['Employment type'] as $arrKey => $key) {
             helper::log("Processing key = " . $arrKey);
             switch ($arrKey) {
                 case 'PS Act': //its the default value if no assignment could be made
-                    $query = QueryBuilder::buildAskQuery(
+                    $query = NodeQuerier::buildAskQuery(
                         SummaryViewQuerier::getPsActPart($node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
@@ -206,7 +219,7 @@ class CharacterSheetManager
                     break;
 
                 case '#': // PS act && enabling legislation
-                    $query = QueryBuilder::buildAskQuery(
+                    $query = NodeQuerier::buildAskQuery(
                         SummaryViewQuerier::getStaffingWithLegislationPart(
                             $node));
 
@@ -215,7 +228,7 @@ class CharacterSheetManager
                     break;
 
                 case '▲': //parliamentary act
-                    $query = QueryBuilder::buildAskQuery(
+                    $query = NodeQuerier::buildAskQuery(
                         SummaryViewQuerier::getParliamentaryActPart($node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
@@ -232,7 +245,8 @@ class CharacterSheetManager
         $this->body->addFlipchartKey($res);
     }
 
-    private function processSummaryKeys(NodeInterface $node){
+    private function processSummaryKeys(NodeInterface $node)
+    {
 
         Helper::log("Processing keys for misc flipchart keys: (next 8)");
         foreach (SummaryChartKeys::getKeys()['Default'] as $arrKey => $key) {
@@ -251,28 +265,28 @@ class CharacterSheetManager
                     Helper::log("deprecated");
                     break;
                 case 'R':
-                    $query = QueryBuilder::buildAskQuery(
+                    $query = NodeQuerier::buildAskQuery(
                         SummaryViewQuerier::getRegulatedCorpComEntity(
                             $node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
                 case '*':
-                    $query = QueryBuilder::buildAskQuery(
+                    $query = NodeQuerier::buildAskQuery(
                         SummaryViewQuerier::getCorpNonCorpPart($node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
                     break;
                 case 'HC':
                     /** @deprecated removed via kl feedback v1
-                    Helper::log("HC = " . $node->get("field_portfolio")->getString() . "port id = " .  SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr));
-                    if( $node->get("field_portfolio")->getString() ==
-                        SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr))
-                        $res = $key['TaxonomyId'];
+                     * Helper::log("HC = " . $node->get("field_portfolio")->getString() . "port id = " .  SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr));
+                     * if( $node->get("field_portfolio")->getString() ==
+                     * SummaryChartKeys::getAttorneyGeneralsId($this->ent_mgr))
+                     * $res = $key['TaxonomyId'];
                      * */
                     break;
                 case 'X':
-                    $query = QueryBuilder::buildAskQuery(
+                    $query = NodeQuerier::buildAskQuery(
                         SummaryViewQuerier::getExemptPart($node));
                     if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                         $res = $key['TaxonomyId'];
@@ -285,12 +299,12 @@ class CharacterSheetManager
                  * @uses $this->processBodyType() must be called first.
                  */
                 case '℗':
-                    if($this->body->chkFlipchartKey(SummaryChartKeys::getKeys() //if NCCE
-                        ['Body type']['Non-corporate Commonwealth entity']['TaxonomyId'])) {
+                    if ($this->body->chkFlipchartKey(SummaryChartKeys::getKeys() //if NCCE
+                    ['Body type']['Non-corporate Commonwealth entity']['TaxonomyId'])) {
                         $res = $key['TaxonomyId'];
                         Helper::log("no query executed as its a NCCE");
                     } else {
-                        $query = QueryBuilder::buildAskQuery(
+                        $query = NodeQuerier::buildAskQuery(
                             SummaryViewQuerier::getEstablishedByRegulationPart($node));
                         if ($this->evaluate($this->query_mgr->runCustomQuery($query)))
                             $res = $key['TaxonomyId'];
@@ -302,9 +316,10 @@ class CharacterSheetManager
         }
     }
 
-    private function processLink(NodeInterface $node){
+    private function processLink(NodeInterface $node)
+    {
 
-        $query = QueryBuilder::getResourceLink($node);
+        $query = NodeQuerier::getResourceLink($node);
         $json = $this->query_mgr->runCustomQuery($query);
         $jsonObj = json_decode($json);
 
@@ -318,7 +333,8 @@ class CharacterSheetManager
      * @param bool $bulkOperation
      */
     private function processCooperativeRelationships(
-        NodeInterface $node,  Bool $bulkOperation = false){
+        NodeInterface $node, bool $bulkOperation = false)
+    {
 
         /**TODO: CHANGE THIS /W SINGLE EXE **/
         $bulkOperation = true;
@@ -339,9 +355,9 @@ class CharacterSheetManager
 
             $relationship = new CooperativeRelationship();
             $relationship->setOwner($node->id());
-            $relationship->setProgram( $obj->{'progLabel'}->{'value'});
+            $relationship->setProgram($obj->{'progLabel'}->{'value'});
             $relationship->setProgramDesc($obj->{'progDesc'}->{'value'});
-            $relationship->setOutcome( $obj->{'outcomeLabel'}->{'value'});
+            $relationship->setOutcome($obj->{'outcomeLabel'}->{'value'});
             $relationship->setOutcomeDesc($obj->{'outcomeDesc'}->{'value'});
 
             //if bulk as we create a hash
@@ -352,7 +368,7 @@ class CharacterSheetManager
                     'bodies'),
                 false, $bulkOperation);
 
-            if($receiver) {
+            if ($receiver) {
                 Helper::log("Coop rel found");
                 $relationship->setReceiver($receiver);
                 //add relationship to body, if relationship doesnt exist, add it
@@ -366,7 +382,8 @@ class CharacterSheetManager
      * @param $res string result of an ASK query in json
      * @return mixed returns the a php boolean on the results of a ASK query
      */
-    private function evaluate($res){
+    private function evaluate($res)
+    {
         $obj = json_decode($res);
         return $obj->{'boolean'};
     }
@@ -376,10 +393,11 @@ class CharacterSheetManager
      * @param NodeInterface $node
      * @return false|string The drupal Vid|Nid of the term if it exists in neptune
      */
-    private function check_term(array $vals, NodeInterface $node){
-        foreach (array_keys($vals) as $val){
+    private function check_term(array $vals, NodeInterface $node)
+    {
+        foreach (array_keys($vals) as $val) {
 
-            $query = QueryBuilder::buildAskQuery(
+            $query = NodeQuerier::buildAskQuery(
                 SummaryViewQuerier::getValidatedAuthorityPart($node, $val));
             $json = $this->query_mgr->runCustomQuery($query);
             if ($this->evaluate($json))
@@ -389,16 +407,16 @@ class CharacterSheetManager
     }
 
 
-
     /**
      * @param NodeInterface $node
      * @todo this needs rewriting to use the new entity api
      */
-    private function updateNode(NodeInterface $node){
+    private function updateNode(NodeInterface $node)
+    {
 
         $toUpdate = true;
 
-        if($toUpdate) {
+        if ($toUpdate) {
             Helper::log("syncing keys to fields");
             $this->body->syncSummaryKeysToFields($this->ent_mgr); //adds keys to old form fields
             Helper::log("attempting to update " . $node->id());
@@ -411,84 +429,5 @@ class CharacterSheetManager
             $this->countSkip++;
             Helper::log("skipping " . $node->id(), true);
         }
-    }
-
-    //how do we handle a removal
-
-    /**
-     * @param NodeInterface $editNode
-     * @param String $nodeField values currently on drupal
-     * @param String|String[] $compVal values in model sourced from neptune
-     * @return bool if update should take place
-     * @throws MissingDataException
-     * TODO rename $compVal to neptune val
-     */
-    private function shouldUpdate (NodeInterface $editNode, String $nodeField, $compVal){
-
-        Helper::log("shouldUpdate () attempting " . $nodeField);
-
-        //multi field | if either field is a multi val
-        Helper::log("comp val count:" . count($compVal), false, $compVal);
-        Helper::log("node vals count:" . count($editNode->get($nodeField)->getValue()),
-            false, array_merge(...$editNode->get($nodeField)->getValue()));
-
-        $nodeFieldArr = array();
-        foreach ($editNode->get($nodeField)->getValue() as $val)
-           $nodeFieldArr[] = $val['target_id'];
-
-        Helper::log("modded node val", false, $nodeFieldArr);
-
-        //multi
-        if (is_array($compVal) || count($editNode->get($nodeField)->getValue()) > 1) {
-            Helper::log("shouldUpdate () multi match " . $nodeField);
-            if ($nodeFieldArr != $compVal ||
-                count($compVal) != count($editNode->get($nodeField)->getValue())){
-                Helper::log("UPDATE FIELD!0");
-                return true;
-            }
-        } else { //single field
-            Helper::log("shouldUpdate () single match " . $nodeField);
-
-            //if node has no value and neptune does
-            if ($editNode->get($nodeField)->first() == null)
-                if ($compVal) {
-                    Helper::log("UPDATE FIELD!1");
-                    return true;
-                } else
-                    return false;
-            //if node has value and neptune doesnt
-            else if(!$compVal && $editNode->get($nodeField)->first() != null) {
-                Helper::log("UPDATE FIELD!3");
-                return true;
-            }
-
-            $array = $editNode->get($nodeField)->first()->getValue();
-
-            //if neptune has a value and neptune does not equal node
-            if ($compVal && reset($array) != $compVal) {
-                Helper::log("UPDATE FIELD!2");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @deprecated is this used anymore now that graph0 is dead?
-     * @param $vals array list of neptune label strings to attempt to match
-     * @param $node
-     * @return false|mixed
-     *
-     * Checks if a (Var) label can be found from a passed in nodes label
-     */
-    private function check_property($vals, $node){
-        foreach (array_keys($vals) as $val){
-
-            $query = QueryBuilder::checkAskBody($node, $val);
-            $json = $this->query_mgr->runCustomQuery($query);
-            if ($this->evaluate($json))
-                return $vals[$val];
-        }
-        return false;
     }
 }
