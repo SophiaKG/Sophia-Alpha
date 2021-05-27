@@ -54,7 +54,7 @@ class QueryManager
      */
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
-                . $query->getDestination() . " 2>> neptune_sync_exec.log";
+                . $query->getDestination() . " 2>> logs/neptune_sync_exec.log";
         Helper::log('Attempting to execute query: ' . $cmd);
 
         //run query

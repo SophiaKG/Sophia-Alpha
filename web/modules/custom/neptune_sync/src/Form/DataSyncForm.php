@@ -10,6 +10,13 @@ use Drupal\Core\Url;
 use Drupal\neptune_sync\Data\NeptuneImporter;
 use Drupal\neptune_sync\Utility\Helper;
 
+/**
+ * Class DataSyncForm
+ * @package Drupal\neptune_sync\Form
+ * @author Alexis Harper | DoF
+ *
+ * A form for selecting how data in drupal should sync up with Neptune
+ */
 class DataSyncForm extends FormBase
 {
     public function getFormId(){
@@ -79,8 +86,6 @@ class DataSyncForm extends FormBase
         Helper::log("form values = ", false, $filters);
         $importer = new NeptuneImporter();
         $importer->formController($filters);
-
-        //$form_state->setRedirect('<front>');
         $form_state->setRedirect('view.node_stats.page_1');
 
     }

@@ -47,7 +47,7 @@ class CharacterSheetManager
         $this->processAliases($node);
         $this->processPortfolio($node, $bulkOperation);
         $this->processLegislation($node, $bulkOperation);
-        //$this->processCooperativeRelationships($node, $bulkOperation);
+        $this->processCooperativeRelationships($node, $bulkOperation);
         $this->processLink($node);
         Helper::setLogMark();
         $this->processBodyType($node);
@@ -243,6 +243,7 @@ class CharacterSheetManager
             $res = SummaryChartKeys::getKeys()['Employment type']['^']['TaxonomyId'];
 
         $this->body->addFlipchartKey($res);
+
     }
 
     private function processSummaryKeys(NodeInterface $node)

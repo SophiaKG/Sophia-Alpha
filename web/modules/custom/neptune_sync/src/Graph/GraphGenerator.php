@@ -6,15 +6,14 @@ namespace Drupal\neptune_sync\Graph;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\neptune_sync\Querier\Collections\CoopGraphQuerier;
+use Drupal\neptune_sync\Querier\Collections\LocalGraphQuerier;
 use Drupal\neptune_sync\Querier\Query;
-use Drupal\neptune_sync\Querier\QueryBuilder;
 use Drupal\neptune_sync\Querier\QueryManager;
 use Drupal\neptune_sync\Utility\Helper;
 use Drupal\neptune_sync\Utility\SophiaGlobal;
 use Drupal\node\NodeInterface;
 use EasyRdf\RdfNamespace;
-use EasyRdf_Literal;
-use EasyRdf_Resource;
+
 
 /**
  * Class GraphGenerator
