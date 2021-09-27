@@ -34,7 +34,7 @@
         "drupal/superfish": "^1.4",
         "drupal/visitors": "^2.7",
         "drupal/login_history": "^1.0",
-        "drupal/admin_toolbar": "^2.4",
+        "drupal/admin_toolbar": "2.5",
         "drupal/pathauto": "^1.8",
         "drupal/disable_messages": "^2.0",
         "drupal/views_taxonomy_term_name_depth": "^7.0",
