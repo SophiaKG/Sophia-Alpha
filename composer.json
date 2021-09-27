@@ -24,7 +24,7 @@
         "flow/jsonpath": "~0.3",
         "drupal/token": "^1.7",
         "drupal/views_bulk_operations": "^3.8",
-        "drupal/webform": "^5.12",
+        "drupal/webform": "^5.28",
         "easyrdf/easyrdf": "^0.9.1",
         "drupal/cer": "^4.0",
         "drupal/panels": "^4.6",
