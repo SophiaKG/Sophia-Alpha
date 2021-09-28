@@ -42,7 +42,7 @@
         "drupal/search_api_autocomplete": "^1.4",
         "drupal/devel_entity_updates": "^3.0",
         "drupal/redirect": "^1.6",
-        "drupal/backup_migrate": "^4.1",
+        "drupal/backup_migrate": "4.2",
         "drupal/tfa": "^1.0@alpha",
         "drupal/ga_login": "^1.0@alpha",
         "drupal/services": "^4.0@beta",
