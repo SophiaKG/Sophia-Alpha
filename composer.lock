@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2775d0953271f1ac4a9e7b5ad920bc7",
+    "content-hash": "61937694696531dc92ee253060e458ff",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2465,17 +2465,17 @@
         },
         {
             "name": "drupal/backup_migrate",
-            "version": "4.1.0",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/backup_migrate.git",
-                "reference": "8.x-4.1"
+                "reference": "8.x-4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/backup_migrate-8.x-4.1.zip",
-                "reference": "8.x-4.1",
-                "shasum": "5ee3b9a1131e6dd1ad4bc65cdef8248c7784dc51"
+                "url": "https://ftp.drupal.org/files/projects/backup_migrate-8.x-4.2.zip",
+                "reference": "8.x-4.2",
+                "shasum": "137c9e30ad6311f9fb121dca165b8fb35a097353"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2483,8 +2483,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-4.1",
-                    "datestamp": "1576877587",
+                    "version": "8.x-4.2",
+                    "datestamp": "1625854034",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2522,7 +2522,7 @@
             "description": "Backup and Migrate Drupal Module",
             "homepage": "https://www.drupal.org/project/backup_migrate",
             "support": {
-                "source": "http://cgit.drupalcode.org/backup_migrate",
+                "source": "https://git.drupalcode.org/project/backup_migrate",
                 "issues": "https://www.drupal.org/project/issues/backup_migrate",
                 "slack": "https://drupal.slack.com/messages/C7C4M4QJV/details/"
             }
@@ -4912,17 +4912,17 @@
         },
         {
             "name": "drupal/search_api",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api.git",
-                "reference": "8.x-1.19"
+                "reference": "8.x-1.20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.19.zip",
-                "reference": "8.x-1.19",
-                "shasum": "5654e9d02117e28c585d89a25ea3cc40d20c5019"
+                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.20.zip",
+                "reference": "8.x-1.20",
+                "shasum": "4bed60ac7b502ccc1d4a01411aa35d2cb7f496c7"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -4943,8 +4943,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.19",
-                    "datestamp": "1612192040",
+                    "version": "8.x-1.20",
+                    "datestamp": "1626684847",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4952,7 +4952,7 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9"
+                        "drush.services.yml": "^9 || ^10"
                     }
                 }
             },
@@ -4984,17 +4984,17 @@
         },
         {
             "name": "drupal/search_api_autocomplete",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_autocomplete.git",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_autocomplete-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "68d8d620534221c35c885373450aa18e077f60b6"
+                "url": "https://ftp.drupal.org/files/projects/search_api_autocomplete-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "b9ae7e69e95da0910a65b23f2810da4be579ecdd"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -5006,8 +5006,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1599485732",
+                    "version": "8.x-1.5",
+                    "datestamp": "1626685059",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5038,27 +5038,27 @@
         },
         {
             "name": "drupal/services",
-            "version": "4.0.0-beta5",
+            "version": "4.0.0-beta6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/services.git",
-                "reference": "8.x-4.0-beta5"
+                "reference": "8.x-4.0-beta6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/services-8.x-4.0-beta5.zip",
-                "reference": "8.x-4.0-beta5",
-                "shasum": "115739bc6e33963e322c13a5f404eba6a6947027"
+                "url": "https://ftp.drupal.org/files/projects/services-8.x-4.0-beta6.zip",
+                "reference": "8.x-4.0-beta6",
+                "shasum": "eb7c0809d50c87819a23d80f3c66e9318a98effc"
             },
             "require": {
-                "drupal/core": "^8",
+                "drupal/core": "^8 || ^9",
                 "drupal/ctools": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-4.0-beta5",
-                    "datestamp": "1554130084",
+                    "version": "8.x-4.0-beta6",
+                    "datestamp": "1622397636",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -5074,6 +5074,10 @@
                     "name": "See contributors",
                     "homepage": "https://www.drupal.org/node/109640/committers",
                     "role": "Developer"
+                },
+                {
+                    "name": "jcnventura",
+                    "homepage": "https://www.drupal.org/user/122464"
                 },
                 {
                     "name": "kylebrowning",
@@ -5144,17 +5148,17 @@
         },
         {
             "name": "drupal/tfa",
-            "version": "1.0.0-alpha7",
+            "version": "1.0.0-alpha8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tfa.git",
-                "reference": "8.x-1.0-alpha7"
+                "reference": "8.x-1.0-alpha8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tfa-8.x-1.0-alpha7.zip",
-                "reference": "8.x-1.0-alpha7",
-                "shasum": "176d4a0bc8979fb0a82e899dd4be2cbbff76f6b1"
+                "url": "https://ftp.drupal.org/files/projects/tfa-8.x-1.0-alpha8.zip",
+                "reference": "8.x-1.0-alpha8",
+                "shasum": "22cde00430097884db324d9528e5468b85d554ca"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -5169,8 +5173,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-alpha7",
-                    "datestamp": "1607880109",
+                    "version": "8.x-1.0-alpha8",
+                    "datestamp": "1631825069",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -5466,26 +5470,27 @@
         },
         {
             "name": "drupal/views_taxonomy_term_name_depth",
-            "version": "7.0.1",
+            "version": "7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_taxonomy_term_name_depth.git",
-                "reference": "7.0.1"
+                "reference": "7.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_taxonomy_term_name_depth-7.0.1.zip",
-                "reference": "7.0.1",
-                "shasum": "a9be67b7b5b4cff25f1e29ff71f1346d686ce507"
+                "url": "https://ftp.drupal.org/files/projects/views_taxonomy_term_name_depth-7.0.2.zip",
+                "reference": "7.0.2",
+                "shasum": "f6f728a8b09e0a6727589ababc1cb2c91c92fe9a"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9",
+                "drupal/pathauto": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "7.0.1",
-                    "datestamp": "1594339068",
+                    "version": "7.0.2",
+                    "datestamp": "1625642602",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -13401,9 +13406,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/tfa": 15,
-        "drupal/ga_login": 15,
-        "drupal/services": 10
+        "drupal/ga_login": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,
