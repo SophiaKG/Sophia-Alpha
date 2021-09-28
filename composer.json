@@ -38,7 +38,7 @@
         "drupal/pathauto": "^1.8",
         "drupal/disable_messages": "^2.0",
         "drupal/views_taxonomy_term_name_depth": "^7.0",
-        "drupal/search_api": "^1.18",
+        "drupal/search_api": "1.20",
         "drupal/search_api_autocomplete": "^1.4",
         "drupal/devel_entity_updates": "^3.0",
         "drupal/redirect": "^1.6",
