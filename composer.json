@@ -43,7 +43,7 @@
         "drupal/devel_entity_updates": "^3.0",
         "drupal/redirect": "^1.6",
         "drupal/backup_migrate": "4.2",
-        "drupal/tfa": "^1.0@alpha",
+        "drupal/tfa": "^1.0",
         "drupal/ga_login": "^1.0@alpha",
         "drupal/services": "^4.0",
         "drupal/real_aes": "^2.3",
