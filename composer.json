@@ -27,7 +27,7 @@
         "drupal/core-project-message": "^8.8",
         "drupal/core-recommended": "^8.8",
         "drupal/ctools": "3.7",
-        "drupal/devel": "^2.1",
+        "drupal/devel": "^4",
         "drupal/devel_entity_updates": "^3.0",
         "drupal/disable_messages": "^2.0",
         "drupal/features": "^3.12",
