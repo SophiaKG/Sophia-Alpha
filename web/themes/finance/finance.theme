@@ -596,7 +596,7 @@ function finance_page_attachments_alter(array &$attachments) {
 function finance_preprocess_block(&$variables) {
     if (!empty($variables['elements']['#id'])) {
         $block_id = $variables['elements']['#id'];
-        $block = entity_load('block', $variables['elements']['#id']);
+        $block = \Drupal\block_content\Entity\BlockContent::load($block_id);
         if (!empty($block)) {
             $region = $block->getRegion();
 
