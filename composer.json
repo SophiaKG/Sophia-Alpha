@@ -21,11 +21,10 @@
         "drupal/bootstrap_barrio": "^4.25",
         "drupal/cer": "^4.0",
         "drupal/console": "^1.0.2",
-        "drupal/core": "8.9.19",
-        "drupal/core-composer-scaffold": "^8.8",
-        "drupal/core-dev": "^8.9.0",
-        "drupal/core-project-message": "^8.8",
-        "drupal/core-recommended": "^8.8",
+        "drupal/core": "^9",
+        "drupal/core-composer-scaffold": "^9",
+        "drupal/core-project-message": "^9",
+        "drupal/core-recommended": "^9",
         "drupal/ctools": "3.7",
         "drupal/devel": "^4",
         "drupal/devel_entity_updates": "^3.0",
@@ -127,5 +126,8 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "require-dev": {
+        "drupal/core-dev": "^9"
     }
 }
