@@ -3,4 +3,4 @@ description: Hook, triggers and and pages for facilitating data flowing from nep
 package: Department of Finance Australia
 type: module
 version: 1.0.0
-core: 8.x
+core_version_requirement: ^8.9 || ^9
