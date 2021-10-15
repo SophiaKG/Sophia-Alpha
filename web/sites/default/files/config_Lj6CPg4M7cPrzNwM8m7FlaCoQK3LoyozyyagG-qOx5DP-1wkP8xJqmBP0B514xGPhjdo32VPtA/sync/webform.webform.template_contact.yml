@@ -1,18 +1,21 @@
-uuid: 4b8cf4df-fe8f-416e-b7cf-b4d0c50d663f
+uuid: 61bb836b-a40f-4e43-b498-2dc502104147
 langcode: en
-status: open
-dependencies: {  }
+status: closed
+dependencies:
+  enforced:
+    module:
+      - webform_templates
 open: null
 close: null
 weight: 0
-uid: 1
-template: false
+uid: null
+template: true
 archive: false
-id: sync_data
-title: 'Sync data'
-description: ''
+id: template_contact
+title: 'Contact Us'
+description: 'A basic contact webform template.'
 category: ''
-elements: "wipe_data:\n  '#type': checkboxes\n  '#title': 'Wipe data'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n    cooperative_relationships: 'Cooperative Relationships'\n  '#options_all': true\n  '#options_none': true\nsync_node_creation:\n  '#type': checkboxes\n  '#title': 'Sync node creation'\n  '#description': 'This creates nodes only, in a blank state. Sync data is needed to fill out data.'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n  '#options_all': true\n  '#options_none': true\nsync_neptune_data:\n  '#type': checkbox\n  '#title': 'Sync Neptune data'\n  '#description': 'Sync Node fields for all existing bodies to Neptune.'"
+elements: "name:\n  '#title': 'Your Name'\n  '#type': textfield\n  '#required': true\nemail:\n  '#title': 'Your Email'\n  '#type': email\n  '#required': true\nsubject:\n  '#title': Subject\n  '#type': textfield\n  '#required': true\nmessage:\n  '#title': Message\n  '#type': textarea\n  '#required': true\nactions:\n  '#type': webform_actions\n  '#title': 'Submit button(s)'\n  '#submit__label': 'Send message'\n"
 css: ''
 javascript: ''
 settings:
@@ -25,7 +28,7 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_exception_message: ''
   form_open_message: ''
@@ -59,7 +62,7 @@ settings:
   share_theme_name: ''
   share_title: true
   share_page_body_attributes: {  }
-  submission_label: Sync
+  submission_label: ''
   submission_log: false
   submission_views: {  }
   submission_views_replace: {  }
@@ -112,10 +115,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
+  confirmation_type: url_message
   confirmation_title: ''
-  confirmation_message: ''
-  confirmation_url: ''
+  confirmation_message: 'Your message has been sent.'
+  confirmation_url: '<front>'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -142,7 +145,6 @@ settings:
   results_customize: false
   token_view: false
   token_update: false
-  token_delete: false
   serial_disabled: false
 access:
   create:
@@ -192,14 +194,51 @@ access:
     users: {  }
     permissions: {  }
 handlers:
+  email_confirmation:
+    id: email
+    label: 'Email confirmation'
+    notes: ''
+    handler_id: email_confirmation
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:email:raw]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: '[webform_submission:values:subject:raw]'
+      body: '[webform_submission:values:message:value]'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      theme_name: ''
+      parameters: {  }
   email_notification:
     id: email
-    label: 'Email Notification'
+    label: 'Email notification'
     notes: ''
     handler_id: email_notification
     status: true
     conditions: {  }
-    weight: 1
+    weight: 2
     settings:
       states:
         - completed
@@ -211,9 +250,9 @@ handlers:
       bcc_options: {  }
       from_mail: '[webform_submission:values:email:raw]'
       from_options: {  }
-      from_name: '[webform_submission:values:first_name] [webform_submission:values:last_name]'
-      subject: _default
-      body: _default
+      from_name: '[webform_submission:values:name:raw]'
+      subject: '[webform_submission:values:subject:raw]'
+      body: '[webform_submission:values:message:value]'
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
@@ -231,4 +270,4 @@ handlers:
       parameters: {  }
 variants: {  }
 _core:
-  default_config_hash: U_59ceMAx8zOXo9Zzd5L38VP3e23SmmByVLzgwhaF3U
+  default_config_hash: zDbPLcb0jDOVTG9pA8Cb8qCh6W162iht5tixbO8pkD8

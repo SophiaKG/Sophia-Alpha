@@ -35,7 +35,7 @@ regions:
   off_page: 'Off Page / Hidden Content'
 
 # Information added by Drupal.org packaging script on 2018-08-09
-version: '8.x-4.17'
-core: '8.x'
+version: '4.17'
+core_version_requirement: ^8.9 || ^9
 project: 'bootstrap_barrio'
 datestamp: 1533828192

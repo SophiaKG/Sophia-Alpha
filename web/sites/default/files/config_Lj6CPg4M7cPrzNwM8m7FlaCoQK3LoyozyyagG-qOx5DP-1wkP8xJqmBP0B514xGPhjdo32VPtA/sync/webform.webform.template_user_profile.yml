@@ -1,18 +1,21 @@
-uuid: 4b8cf4df-fe8f-416e-b7cf-b4d0c50d663f
+uuid: 50db95f4-aaad-4af8-bdc6-2bd6a5c7d473
 langcode: en
-status: open
-dependencies: {  }
+status: closed
+dependencies:
+  enforced:
+    module:
+      - webform_templates
 open: null
 close: null
 weight: 0
-uid: 1
-template: false
+uid: null
+template: true
 archive: false
-id: sync_data
-title: 'Sync data'
-description: ''
+id: template_user_profile
+title: 'User Profile'
+description: 'A user profile webform template.'
 category: ''
-elements: "wipe_data:\n  '#type': checkboxes\n  '#title': 'Wipe data'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n    cooperative_relationships: 'Cooperative Relationships'\n  '#options_all': true\n  '#options_none': true\nsync_node_creation:\n  '#type': checkboxes\n  '#title': 'Sync node creation'\n  '#description': 'This creates nodes only, in a blank state. Sync data is needed to fill out data.'\n  '#options':\n    bodies: Bodies\n    legislation: Legislations\n    portfolios: Portfolios\n  '#options_all': true\n  '#options_none': true\nsync_neptune_data:\n  '#type': checkbox\n  '#title': 'Sync Neptune data'\n  '#description': 'Sync Node fields for all existing bodies to Neptune.'"
+elements: "account_information:\n  '#title': 'Your Account Information'\n  '#type': webform_section\n  user_name:\n    '#type': textfield\n    '#title': 'User Name'\n  picture:\n    '#type': managed_file\n    '#title': Picture\n    '#description': 'Your virtual face or picture. Pictures larger than 1024x1024 pixels will be scaled down.'\n    '#max_filesize': '2'\n    '#file_extensions': 'gif jpg png svg'\npersonal_information:\n  '#title': 'Your Personal Information'\n  '#type': webform_section\n  first_name:\n    '#title': 'First Name'\n    '#type': textfield\n    '#required': true\n  last_name:\n    '#type': textfield\n    '#title': 'Last Name'\n    '#required': true\n  country:\n    '#type': select\n    '#title': Country\n    '#options': country_names\n  location:\n    '#type': webform_location_places\n    '#title': Location\n    '#title_display': invisible\n    '#description': 'Your location will be saved and may be shared.'\n    '#geolocation': true\n    '#address__title': Locations\n  languages:\n    '#type': select\n    '#title': 'Languages Spoken'\n    '#description': 'Select one or more languages you speak.'\n    '#multiple': true\n    '#select2': true\n    '#options': languages\n  gender:\n    '#type': webform_radios_other\n    '#title': Gender\n    '#options': gender\n  biography:\n    '#type': text_format\n    '#title': Biography\n    '#description': 'Please include a short blurb about yourself to let us know who you are outside of Drupal.'\n  website:\n    '#type': url\n    '#title': Website\n  irc:\n    '#type': textfield\n    '#title': IRC\n    '#description': 'The nickname you use on various channels of irc.freenode.net'\n  twitter:\n    '#type': textfield\n    '#title': Twitter\n    '#description': 'Your Twitter handle.'\n  github:\n    '#type': textfield\n    '#title': GitHub\n    '#description': 'Your GitHub user name.'\nwork_information:\n  '#title': 'Your Work Information'\n  '#type': webform_section\n  current_organization:\n    '#type': textfield\n    '#title': 'Current Organization'\n  current_title:\n    '#type': textfield\n    '#title': 'Current Job Title'\n  organizations:\n    '#type': textarea\n    '#title': 'Past Organizations'\n    '#description': 'List companies or institutions you have worked for.'\n  industries:\n    '#type': webform_select_other\n    '#title': 'Industries Worked In'\n    '#options': industry\n    '#multiple': true\n    '#select2': true\nemail_settings:\n  '#title': 'Email addresses'\n  '#type': webform_section\n  email:\n    '#type': email\n    '#title': 'Primary E-mail Address'\n    '#description': 'Enter your primary email addresses, which will be used for all email communications.'\n  emails:\n    '#type': webform_email_multiple\n    '#title': 'Secondary E-mail Addresses'\n    '#description': 'Enter multiple email addresses separated by commas.'\nregional_settings:\n  '#title': 'Regional Settings'\n  '#type': webform_section\n  time_zone:\n    '#type': select\n    '#title': Timezone\n    '#options': time_zones\n  language:\n    '#type': select\n    '#title': 'Preferred Language'\n    '#description': 'This account''s default language for emails, and preferred language for site presentation.'\n    '#options': languages\nactions:\n  '#type': webform_actions\n  '#title': 'Submit button(s)'\n  '#submit__label': Register\n"
 css: ''
 javascript: ''
 settings:
@@ -25,7 +28,7 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_exception_message: ''
   form_open_message: ''
@@ -59,7 +62,7 @@ settings:
   share_theme_name: ''
   share_title: true
   share_page_body_attributes: {  }
-  submission_label: Sync
+  submission_label: ''
   submission_log: false
   submission_views: {  }
   submission_views_replace: {  }
@@ -142,7 +145,6 @@ settings:
   results_customize: false
   token_view: false
   token_update: false
-  token_delete: false
   serial_disabled: false
 access:
   create:
@@ -231,4 +233,4 @@ handlers:
       parameters: {  }
 variants: {  }
 _core:
-  default_config_hash: U_59ceMAx8zOXo9Zzd5L38VP3e23SmmByVLzgwhaF3U
+  default_config_hash: tioGAxRSmZKnMzvHZXxPpr65CrN0edh64Km1uIaRQRI
