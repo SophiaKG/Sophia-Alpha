@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_prog_contrib_desc
+    - node.type.fkg_program
+  module:
+    - text
+id: node.fkg_program.field_fkg_prog_contrib_desc
+field_name: field_fkg_prog_contrib_desc
+entity_type: node
+bundle: fkg_program
+label: 'Contribution description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
