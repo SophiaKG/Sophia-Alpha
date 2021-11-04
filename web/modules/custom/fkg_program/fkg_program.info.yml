@@ -1,4 +1,4 @@
-name: fkg_program
+name: 'FKG Program'
 type: module
 description: 'Content type program'
 package: 'Finance Knowledge Graph'
