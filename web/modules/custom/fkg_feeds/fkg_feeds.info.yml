@@ -1,0 +1,9 @@
+name: "FKG Feeds importers"
+type: module
+description: 'Feeds importers for FKG contents'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9
+dependencies:
+  - drupal:feeds
+  - drupal:feeds_ex
