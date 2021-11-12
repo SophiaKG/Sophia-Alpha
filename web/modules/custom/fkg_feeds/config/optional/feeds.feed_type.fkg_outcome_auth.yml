@@ -1,0 +1,79 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_outcomeauth.field_fkg_entity
+    - field.field.node.fkg_ct_outcomeauth.field_fkg_outcome_uri
+    - node.type.fkg_ct_outcomeauth
+  module:
+    - feeds_ex
+    - node
+id: fkg_outcome_auth
+label: 'FKG Outcome auth'
+description: 'Ouctome authorisations'
+help: ''
+import_period: -1
+fetcher: upload
+fetcher_configuration:
+  allowed_extensions: json
+  directory: 'public://feeds/fkg_outcome_auth'
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Authorisations.*'
+  sources:
+    neptune_auths_entity:
+      label: Entity
+      value: Entity
+    neptune_auths_outcomes:
+      label: Outcomes
+      value: Outcomes
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: en
+  update_existing: 2
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+  authorize: true
+  skip_hash_check: false
+  values:
+    type: fkg_ct_outcomeauth
+custom_sources:
+  neptune_auths_entity:
+    label: Entity
+    value: Entity
+    machine_name: neptune_auths_entity
+  neptune_auths_outcomes:
+    label: Outcomes
+    value: Outcomes
+    machine_name: neptune_auths_outcomes
+mappings:
+  -
+    target: title
+    map:
+      value: neptune_auths_entity
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_fkg_entity
+    map:
+      value: neptune_auths_entity
+    unique:
+      value: '1'
+    settings:
+      language: null
+  -
+    target: field_fkg_outcome_uri
+    map:
+      value: neptune_auths_outcomes
+    unique: {  }
+    settings:
+      language: null
