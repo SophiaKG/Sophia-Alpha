@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_program_label
+    - node.type.fkg_ct_program
+id: node.fkg_ct_program.field_fkg_program_label
+field_name: field_fkg_program_label
+entity_type: node
+bundle: fkg_ct_program
+label: 'Program Label'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
