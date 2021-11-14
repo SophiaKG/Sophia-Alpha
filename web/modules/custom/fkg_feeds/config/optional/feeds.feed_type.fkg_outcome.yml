@@ -8,8 +8,8 @@ dependencies:
   module:
     - feeds_ex
     - node
-id: fkg_feeds_outcome
-label: 'Feeds outcome'
+id: fkg_outcome
+label: 'FKG Outcome'
 description: 'Feeds for FKG outcome'
 help: ''
 import_period: -1
