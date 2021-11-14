@@ -10,7 +10,7 @@ dependencies:
     - feeds_ex
     - node
 id: fkg_programs
-label: 'FKG programs'
+label: 'FKG Programs'
 description: 'Feeds importer for FKG programs'
 help: ''
 import_period: -1
