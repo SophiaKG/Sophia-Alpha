@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_outcome
+    - node.type.fkg_ct_outcome
+    - node.type.fkg_ct_program_contrib
+id: node.fkg_ct_program_contrib.field_fkg_outcome
+field_name: field_fkg_outcome
+entity_type: node
+bundle: fkg_ct_program_contrib
+label: 'Contribute to Outcome'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      fkg_ct_outcome: fkg_ct_outcome
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_program_uri
+    - node.type.fkg_ct_program_contrib
+id: node.fkg_ct_program_contrib.field_fkg_program_uri
+field_name: field_fkg_program_uri
+entity_type: node
+bundle: fkg_ct_program_contrib
+label: 'Program URI'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
