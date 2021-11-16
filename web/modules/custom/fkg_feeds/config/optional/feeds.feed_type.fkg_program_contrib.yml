@@ -1,0 +1,106 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_program_contrib.field_fkg_outcome
+    - field.field.node.fkg_ct_program_contrib.field_fkg_outcome_uri
+    - field.field.node.fkg_ct_program_contrib.field_fkg_program
+    - field.field.node.fkg_ct_program_contrib.field_fkg_program_uri
+    - node.type.fkg_ct_program_contrib
+  module:
+    - feeds_ex
+    - node
+id: fkg_program_contrib
+label: 'FKG Program contrib'
+description: 'Program contributions'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Contributions.*'
+  sources:
+    neptune_contrib_program:
+      label: Program
+      value: Program
+    outcomes_outcome_a:
+      label: 'Outcomes.*.Outcome'
+      value: 'Outcomes.*.Outcome'
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: en
+  update_existing: 2
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+  authorize: true
+  skip_hash_check: false
+  values:
+    type: fkg_ct_program_contrib
+custom_sources:
+  neptune_contrib_program:
+    label: Program
+    value: Program
+    machine_name: neptune_contrib_program
+  outcomes_outcome:
+    label: 'Outcomes[].Outcome'
+    value: 'Outcomes[].Outcome'
+    machine_name: outcomes_outcome
+  outcomes_outcome_a:
+    label: 'Outcomes.*.Outcome'
+    value: 'Outcomes.*.Outcome'
+    machine_name: outcomes_outcome_a
+mappings:
+  -
+    target: title
+    map:
+      value: 'parent:title'
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_fkg_program_uri
+    map:
+      value: neptune_contrib_program
+    unique:
+      value: '1'
+    settings:
+      language: null
+  -
+    target: field_fkg_outcome_uri
+    map:
+      value: outcomes_outcome_a
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_fkg_program
+    map:
+      target_id: neptune_contrib_program
+    settings:
+      language: ''
+      reference_by: field_fkg_program_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_outcome
+    map:
+      target_id: outcomes_outcome_a
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
