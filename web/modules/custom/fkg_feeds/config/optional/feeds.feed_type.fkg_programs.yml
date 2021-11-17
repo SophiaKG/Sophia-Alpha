@@ -10,14 +10,17 @@ dependencies:
     - feeds_ex
     - node
 id: fkg_programs
-label: 'FKG Programs'
+label: 'FKG Program'
 description: 'Feeds importer for FKG programs'
 help: ''
 import_period: -1
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: json
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:
@@ -44,7 +47,7 @@ processor: 'entity:node'
 processor_configuration:
   langcode: en
   update_existing: 2
-  update_non_existent: 'entity:unpublish_action:node'
+  update_non_existent: _keep
   expire: -1
   owner_feed_author: true
   owner_id: 0
