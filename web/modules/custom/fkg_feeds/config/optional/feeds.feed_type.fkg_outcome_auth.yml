@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_outcomeauth.field_fkg_entity
+    - field.field.node.fkg_ct_outcomeauth.field_fkg_outcome
     - field.field.node.fkg_ct_outcomeauth.field_fkg_outcome_uri
     - node.type.fkg_ct_outcomeauth
   module:
@@ -13,10 +14,13 @@ label: 'FKG Outcome auth'
 description: 'Ouctome authorisations'
 help: ''
 import_period: -1
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: json
-  directory: 'public://feeds/fkg_outcome_auth'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:
@@ -77,3 +81,12 @@ mappings:
     unique: {  }
     settings:
       language: null
+  -
+    target: field_fkg_outcome
+    map:
+      target_id: neptune_auths_outcomes
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
