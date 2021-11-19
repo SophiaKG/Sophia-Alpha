@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_contrib_linked
+    - node.type.fkg_ct_program_contrib
+id: node.fkg_ct_program_contrib.field_fkg_contrib_linked
+field_name: field_fkg_contrib_linked
+entity_type: node
+bundle: fkg_ct_program_contrib
+label: 'Contrib linked'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
