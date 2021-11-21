@@ -1,61 +1,70 @@
 {
-    "name": "drupal/drupal",
-    "description": "Drupal is an open source content management platform powering millions of websites and applications.",
+    "name": "drupal/recommended-project",
+    "description": "Project template for Drupal 8 projects with a relocated document root",
     "type": "project",
     "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/drupal",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
     "require": {
-        "php": ">=7.0.8",
         "composer/installers": "^1.2",
-	"wikimedia/composer-merge-plugin": "^2.0",
-        "cweagans/composer-patches": "^1.6.5",
+        "drupal/admin_toolbar": "^3",
+        "drupal/backup_migrate": "^5",
+        "drupal/bootstrap_barrio": "^4.25",
+        "drupal/cer": "^4.0",
         "drupal/console": "^1.0.2",
-        "drupal/core": "8.9.19",
-        "drupal/core-composer-scaffold": "^8.8.0",
-        "drush/drush": "^9.7.1 | ^10.0.0",
+        "drupal/core": "^9",
+        "drupal/core-composer-scaffold": "^9",
+        "drupal/core-project-message": "^9",
+        "drupal/core-recommended": "^9",
+        "drupal/ctools": "3.7",
+        "drupal/devel": "^4",
+        "drupal/devel_entity_updates": "^3.0",
+        "drupal/disable_messages": "^2.0",
+        "drupal/features": "^3.12",
+        "drupal/feeds_ex": "^1.0",
+        "drupal/ga_login": "^1.0@alpha",
+        "drupal/job_scheduler": "^3.0",
+        "drupal/key": "^1.15",
+        "drupal/login_history": "^1.1",
+        "drupal/noreqnewpass": "^1.2",
+        "drupal/page_manager": "^4.0",
+        "drupal/panels": "^4.6",
+        "drupal/paragraphs": "^1.12",
+        "drupal/pathauto": "^1.8",
+        "drupal/pdf": "^1.1",
+        "drupal/real_aes": "^2.3",
+        "drupal/redirect": "^1.6",
+        "drupal/search_api": "^1.21",
+        "drupal/search_api_autocomplete": "1.5",
+        "drupal/services": "^4.0",
+        "drupal/superfish": "^1.4",
+        "drupal/tfa": "^1.0",
+        "drupal/token": "^1.7",
+        "drupal/twig_tweak": "^2.5",
+        "drupal/views_bulk_edit": "^2.4",
+        "drupal/views_bulk_operations": "^3.8",
+        "drupal/views_taxonomy_term_name_depth": "^7.0",
+        "drupal/views_tree": "^2.0",
+        "drupal/viewsreference": "^1.7",
+        "drupal/visitors": "^2.7",
+        "drupal/webform": "^6.0",
+        "drush/drush": "^10.5",
+        "easyrdf/easyrdf": "^0.9.1",
+        "flow/jsonpath": "~0.3",
+        "pear/archive_tar": "1.4.14",
         "vlucas/phpdotenv": "^4.0",
         "webflo/drupal-finder": "^1.0.0",
-        "zaporylie/composer-drupal-optimizations": "^1.0",
-        "drupal/twig_tweak": "^2.5",
-        "drupal/devel": "^2.1",
-        "drupal/bootstrap_barrio": "^4.25",
-        "drupal/feeds_ex": "^1.0",
-        "drupal/ctools": "3.7",
-        "drupal/job_scheduler": "^3.0",
-        "flow/jsonpath": "~0.3",
-        "drupal/token": "^1.7",
-        "drupal/views_bulk_operations": "^3.8",
-        "drupal/webform": "^5.28",
-        "easyrdf/easyrdf": "^0.9.1",
-        "drupal/cer": "^4.0",
-        "drupal/panels": "^4.6",
-        "drupal/page_manager": "^4.0",
-        "drupal/views_bulk_edit": "^2.4",
-        "drupal/views_tree": "^2.0",
-        "drupal/superfish": "^1.4",
-        "drupal/visitors": "^2.7",
-        "drupal/login_history": "^1.0",
-        "drupal/admin_toolbar": "2.5",
-        "drupal/pathauto": "^1.8",
-        "drupal/disable_messages": "^2.0",
-        "drupal/views_taxonomy_term_name_depth": "^7.0",
-        "drupal/search_api": "1.20",
-        "drupal/search_api_autocomplete": "1.5",
-        "drupal/devel_entity_updates": "^3.0",
-        "drupal/redirect": "^1.6",
-        "drupal/backup_migrate": "4.2",
-        "drupal/tfa": "^1.0",
-        "drupal/ga_login": "^1.0@alpha",
-        "drupal/services": "^4.0",
-        "drupal/real_aes": "^2.3",
-        "drupal/paragraphs": "^1.12",
-        "drupal/viewsreference": "^1.7",
-        "drupal/features": "^3.12",
-        "drupal/noreqnewpass": "^1.2",
-        "drupal/pdf": "^1.1",
-        "pear/archive_tar": "1.4.14"
-    },
-    "require-dev": {
-        "drupal/core-dev": "^8.8.0"
+        "wikimedia/composer-merge-plugin": "^2.0",
+        "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -63,52 +72,63 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "preferred-install": "dist",
-        "autoloader-suffix": "Drupal8"
-    },
-    "autoload": {
-        "classmap": [
-            "scripts/composer/ScriptHandler.php"
-        ],
-        "files": ["load.environment.php"]
-    },
-    "scripts": {
-        "pre-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-        ],
-        "pre-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-        ],
-        "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-        ],
-        "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-        ]
+        "sort-packages": true
     },
     "extra": {
-        "composer-exit-on-patch-failure": true,
-        "patchLevel": {
-            "drupal/core": "-p2"
-        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
             }
         },
         "installer-paths": {
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ]
+        },
+        "drupal-core-project-message": {
+            "include-keys": [
+                "homepage",
+                "support"
+            ],
+            "post-create-project-cmd-message": [
+                "<bg=blue;fg=white>                                                         </>",
+                "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
+                "<bg=blue;fg=white>  from the drupal/recommended-project template!          </>",
+                "<bg=blue;fg=white>                                                         </>",
+                "",
+                "<bg=yellow;fg=black>Next steps</>:",
+                "  * Install the site: https://www.drupal.org/docs/8/install",
+                "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
+                "  * Get support: https://www.drupal.org/support",
+                "  * Get involved with the Drupal community:",
+                "      https://www.drupal.org/getting-involved",
+                "  * Remove the plugin that prints this message:",
+                "      composer remove drupal/core-project-message"
+            ]
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        }
-    ]
+    "require-dev": {
+        "drupal/core-dev": "^9"
+    }
 }
