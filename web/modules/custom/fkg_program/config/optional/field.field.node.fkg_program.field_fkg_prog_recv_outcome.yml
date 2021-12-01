@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_prog_recv_outcome
+    - node.type.fkg_program
+  module:
+    - link
+id: node.fkg_program.field_fkg_prog_recv_outcome
+field_name: field_fkg_prog_recv_outcome
+entity_type: node
+bundle: fkg_program
+label: 'Receiving outcome'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

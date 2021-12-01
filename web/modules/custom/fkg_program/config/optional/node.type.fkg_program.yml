@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - fkg_program
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Program
+type: fkg_program
+description: 'Finance knowledge graph program contents'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

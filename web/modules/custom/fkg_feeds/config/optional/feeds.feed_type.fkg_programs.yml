@@ -1,0 +1,104 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_owner
+    - field.field.node.fkg_ct_program.field_fkg_program_uri
+    - node.type.fkg_ct_program
+  module:
+    - feeds_ex
+    - node
+id: fkg_programs
+label: 'FKG Program'
+description: 'Feeds importer for FKG programs'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Programs.*'
+  sources:
+    neptune_programtitle:
+      label: ProgramTitle
+      value: ProgramTitle
+    neptune_programs_programowner:
+      label: ProgramOwner
+      value: ProgramOwner
+    neptune_programs_programlabel:
+      label: ProgramLabel
+      value: ProgramLabel
+    neptune_program_programuri:
+      label: ProgramUri
+      value: ProgramUri
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: en
+  update_existing: 2
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+  authorize: true
+  skip_hash_check: false
+  values:
+    type: fkg_ct_program
+custom_sources:
+  neptune_programtitle:
+    label: ProgramTitle
+    value: ProgramTitle
+    machine_name: neptune_programtitle
+  neptune_program_programuri:
+    label: ProgramUri
+    value: ProgramUri
+    machine_name: neptune_program_programuri
+  neptune_programs_programowner:
+    label: ProgramOwner
+    value: ProgramOwner
+    machine_name: neptune_programs_programowner
+  neptune_programs_programlabel:
+    label: ProgramLabel
+    value: ProgramLabel
+    machine_name: neptune_programs_programlabel
+mappings:
+  -
+    target: title
+    map:
+      value: neptune_programtitle
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_fkg_program_owner
+    map:
+      value: neptune_programs_programowner
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_fkg_program_label
+    map:
+      value: neptune_programs_programlabel
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_fkg_program_uri
+    map:
+      value: neptune_program_programuri
+    unique:
+      value: '1'
+    settings:
+      language: null
