@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_program.body
+    - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_owner
+    - field.field.node.fkg_ct_program.field_fkg_program_uri
+    - node.type.fkg_ct_program
+  module:
+    - user
+id: node.fkg_ct_program.default
+targetEntityType: node
+bundle: fkg_ct_program
+mode: default
+content:
+  field_fkg_program_label:
+    type: string
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_fkg_program_owner:
+    type: string
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_fkg_program_uri:
+    type: string
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  search_api_excerpt: true

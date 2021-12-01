@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Class SparqlQueryForm
  * @package Drupal\neptune_sync\Form
  * @author Alexis Harper | DoF
+ *
+ * Quick and dirty form to allow full txt based sparql queries to be launched from the site
  */
 class SparqlQueryForm extends FormBase
 {

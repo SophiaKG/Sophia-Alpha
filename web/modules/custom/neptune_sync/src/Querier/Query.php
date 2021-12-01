@@ -7,6 +7,7 @@ namespace Drupal\neptune_sync\Querier;
  * @package Drupal\neptune_sync\Querier
  * @author Alexis harper| DoF
  * A model class for storing query information
+ *
  */
 class Query {
 

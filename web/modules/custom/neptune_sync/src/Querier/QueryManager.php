@@ -18,45 +18,12 @@ class QueryManager
     protected $query;
 
     public function __construct(){
-        QueryTemplate::init();
-    }
-
-    /**
-     * @deprecated for NeptuneImporter
-     * Creates json files based on SPARQL queries ready to import into
-     * drupal via feeds
-     */
-    public function syncAllDatasets(){
-
-        Helper::log('Sync all, syncing legsislations');
-        $q = QueryTemplate::$queries['getLegislations'];
-        $this->runQuery($q);
-
-        Helper::log('legislation complete, syncing bodies');
-        $q = QueryTemplate::$queries['getBodies'];
-        $this->runQuery($q);
-
-        Helper::log('bodies complete, syncing portfolios');
-        $q = QueryTemplate::$queries['getPortfolios'];
-        $this->runQuery($q);
-
-        Helper::log('portfolios complete, syncing classes');
-        $q = QueryTemplate::$queries['getClasses'];
-        $this->runQuery($q);
-
-        Helper::log('classes complete, syncing properties');
-        $q = QueryTemplate::$queries['getProperties'];
-        $this->runQuery($q);
-
-        Helper::log('properties synced, sync complete');
     }
 
     /**
      * encodes c++/java string encodings out to be utf-8 compliant
      * @todo
      *      This is terribly done but i have nor the time and patients to fix right now. It works but will redo in the near future for a cleaner solution
-     *
-     *
      * @param $res
      * @return mixed
      */
@@ -70,6 +37,7 @@ class QueryManager
      * functionality
      * @param Query $query
      *      The query to execute
+     * @return string|null  (rdf|Json)|null
      */
     public function runCustomQuery($query){
         return $this->runQuery($query);
@@ -86,7 +54,7 @@ class QueryManager
      */
     protected function runQuery($query){
         $cmd = 'curl -s -X POST --data-binary \'query=' . $query->getQuery() . '\' '
-                . $query->getDestination() . " 2>> neptune_sync_exec.log";
+                . $query->getDestination() . " 2>> logs/neptune_sync_exec.log";
         Helper::log('Attempting to execute query: ' . $cmd);
 
         //run query

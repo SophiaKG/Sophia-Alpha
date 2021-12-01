@@ -8,7 +8,7 @@ use Drupal\node\NodeInterface;
  * Class SummaryViewQuerier
  * Author: AlexHarp|DoF
  *
- * A class for building queries that allocate summary view keys.
+ * A class for building queries via 'parts' that allocate summary view keys.
  * Functions are made as generic as possible
  */
 class SummaryViewQuerier {
@@ -16,10 +16,11 @@ class SummaryViewQuerier {
     /** Checks if an object has a property via authority that is validated (Witness)
      * by some means, normally the flipchart
      *
-     * @param $node
+     * @param $node NodeInterface|String nodes to run the query against in Neptune
      * @param $term string The property to check
-     * @return string a part of query to be inserted into a where clause */
-    public static function getValidatedAuthorityPart($node, $term){
+     * @return string a part of query to be inserted into a where clause
+     */
+    public static function getValidatedAuthorityPart($node, string $term){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
         return
@@ -30,9 +31,9 @@ class SummaryViewQuerier {
     }
 
     /** Determines PS act key
-     * @param $node
-     * @return string returns a part-of query that determines if a node is bound
-     * by the ps act
+     * @param $node NodeInterface|String the nodes to run the query against/the UUID
+     *  of the node in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
      */
     public static function getPsActPart($node){
         if($node instanceof NodeInterface)
@@ -46,8 +47,8 @@ class SummaryViewQuerier {
     }
 
     /** specific to # key
-     * @param $node
-     * @return string
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
      */
     public static function getStaffingWithLegislationPart($node){
         if($node instanceof NodeInterface)
@@ -63,21 +64,11 @@ class SummaryViewQuerier {
                     'ns2:C2004A00538 ns2:defines ?term1. ' .
                 '} ' .
             '} ';
-
-        /* '?auth2 ns2:binds ?otherTerm. ' .
-         '?auth2 ns2:isRestrictionOf ?myStaffing. ' .
-         '?leg a ns2:legislation. ' .
-         '?leg ns2:live true. ' .
-         '?leg ns2:grants ?auth2. ' .
-         '?leg ns2:grants ?auth3. ' .
-         '?auth3 ns2:binds ?est. ' .
-         '?auth3 ns2:bindsTo ' . $node . '. ' .
-         '?est a ns2:Establishment. ';*/
     }
 
     /** Specific to ▲ key
-     * @param $node
-     * @return string
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
      */
     public static function getParliamentaryActPart($node){
         if($node instanceof NodeInterface)
@@ -91,8 +82,9 @@ class SummaryViewQuerier {
     }
 
     /** specific for R key
-     * @param $node
-     * @return string */
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
+     */
     public static function getRegulatedCorpComEntity($node){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
@@ -107,8 +99,9 @@ class SummaryViewQuerier {
     }
 
     /** specific for X key
-     * @param $node
-     * @return string */
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
+     */
     public static function getExemptPart($node){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
@@ -124,8 +117,8 @@ class SummaryViewQuerier {
     }
 
     /** specific for ℗ key
-     * @param $node
-     * @return string
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
      */
     public static function getEstablishedByRegulationPart($node){
         if($node instanceof NodeInterface)
@@ -140,6 +133,10 @@ class SummaryViewQuerier {
             '?leg ns2:live true. ';
     }
 
+    /** specific for * key
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
+     */
     public static function getCorpNonCorpPart($node){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");
@@ -154,6 +151,10 @@ class SummaryViewQuerier {
             '?flip ns2:live true. ';
     }
 
+    /** determines if node belongs in summary view
+     * @param $node NodeInterface|String the nodes to run the query against in Neptune
+     * @return string the "part" of a query that can be appended to a larger query
+     */
     public static function getIsSummaryViewPart($node){
         if($node instanceof NodeInterface)
             $node = QueryBuilder::getUri($node, "ns2");

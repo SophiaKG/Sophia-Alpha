@@ -1,1 +1,0 @@
-{"requestId":"d0b8d2e8-24aa-a72d-928b-283f150c9689","detailedMessage":"Malformed query: Encountered \"<EOF>\" at line 1, column 8.\nWas expecting one of:\n    \"{\" ...\n    \"from\" ...\n    \"where\" ...\n    \"with\" ...\n    ","code":"MalformedQueryException"}
