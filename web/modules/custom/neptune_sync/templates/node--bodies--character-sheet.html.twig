@@ -192,10 +192,12 @@
       </div>
     {% endif %}
   {# </header>#}
-  <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
-    {{ content }}
-    {% if logged_in == true %}
-      <div>{{ drupal_token("fkg_ct_program:body_programs:#{node.id}") |raw }}</div>
-    {% endif %}
-  </div>
+  {% if _context.view == null %}
+    <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
+        {{ content }}
+        {% if logged_in == true %}
+            <div>{{ drupal_token("fkg_ct_program:body_programs:#{node.id}") |raw }}</div>
+        {% endif %}
+    </div>
+  {% endif %}
 </article>
