@@ -3,7 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_program.body
+    - field.field.node.fkg_ct_program.feeds_item
     - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_fkg_program_uri
     - node.type.fkg_ct_program
@@ -22,6 +24,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_fkg_program_number:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_fkg_program_owner:
     type: string
     weight: 2
@@ -45,4 +55,5 @@ content:
     third_party_settings: {  }
 hidden:
   body: true
+  feeds_item: true
   search_api_excerpt: true
