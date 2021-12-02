@@ -3,7 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_outcome.body
+    - field.field.node.fkg_ct_outcome.feeds_item
     - field.field.node.fkg_ct_outcome.field_description
+    - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
     - node.type.fkg_ct_outcome
   module:
@@ -37,6 +39,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
+  field_fkg_outcome_number:
+    weight: 124
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_neptune_uri:
     weight: 122
@@ -96,4 +106,5 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  feeds_item: true
