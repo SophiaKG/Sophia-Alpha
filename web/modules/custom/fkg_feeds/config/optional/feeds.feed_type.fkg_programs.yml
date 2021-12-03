@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_fkg_program_uri
     - node.type.fkg_ct_program
@@ -38,6 +39,9 @@ parser_configuration:
     neptune_program_programuri:
       label: ProgramUri
       value: ProgramUri
+    neptune_programnumber:
+      label: ProgramNumber
+      value: ProgramNumber
   display_errors: false
   source_encoding:
     - auto
@@ -72,6 +76,10 @@ custom_sources:
     label: ProgramLabel
     value: ProgramLabel
     machine_name: neptune_programs_programlabel
+  neptune_programnumber:
+    label: ProgramNumber
+    value: ProgramNumber
+    machine_name: neptune_programnumber
 mappings:
   -
     target: title
@@ -100,5 +108,12 @@ mappings:
       value: neptune_program_programuri
     unique:
       value: '1'
+    settings:
+      language: null
+  -
+    target: field_fkg_program_number
+    map:
+      value: neptune_programnumber
+    unique: {  }
     settings:
       language: null
