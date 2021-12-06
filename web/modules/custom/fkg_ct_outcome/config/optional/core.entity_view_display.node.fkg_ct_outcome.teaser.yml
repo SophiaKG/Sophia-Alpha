@@ -4,7 +4,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.fkg_ct_outcome.body
+    - field.field.node.fkg_ct_outcome.feeds_item
     - field.field.node.fkg_ct_outcome.field_description
+    - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
     - node.type.fkg_ct_outcome
   module:
@@ -29,6 +31,8 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  feeds_item: true
   field_description: true
+  field_fkg_outcome_number: true
   field_neptune_uri: true
   search_api_excerpt: true

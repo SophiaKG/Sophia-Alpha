@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_outcome.field_description
+    - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
     - node.type.fkg_ct_outcome
   module:
@@ -31,6 +32,9 @@ parser_configuration:
     outcome_description:
       label: Description
       value: Description
+    neptune_outcomenumber:
+      label: OutcomeNumber
+      value: OutcomeNumber
   display_errors: false
   source_encoding:
     - auto
@@ -57,6 +61,10 @@ custom_sources:
     label: Description
     value: Description
     machine_name: outcome_description
+  neptune_outcomenumber:
+    label: OutcomeNumber
+    value: OutcomeNumber
+    machine_name: neptune_outcomenumber
 mappings:
   -
     target: title
@@ -77,5 +85,12 @@ mappings:
     target: field_description
     map:
       value: outcome_description
+    settings:
+      language: null
+  -
+    target: field_fkg_outcome_number
+    map:
+      value: neptune_outcomenumber
+    unique: {  }
     settings:
       language: null
