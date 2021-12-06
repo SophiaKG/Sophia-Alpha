@@ -192,11 +192,19 @@
       </div>
     {% endif %}
   {# </header>#}
-  {% if _context.view == null %}
+  {% if _context.view == null and node.getType() == 'bodies' %}
     <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
-        {{ content }}
+        {{ content.field_ink }}
+        {{ content.field_alias }}
+        <h3><a data-toggle="collapse" href="#character-sheet-govern">Government Character Sheet</a></h3>
+        <div id="character-sheet-govern" class="collapse">
+            {% for field in content|without('field_ink', 'field_alias') %}
+                {{ field }}
+            {% endfor %}
+        </div>
         {% if logged_in == true %}
-            <div>{{ drupal_token("fkg_ct_program:body_programs:#{node.id}") |raw }}</div>
+            <h3><a data-toggle="collapse" href="#character-sheet-budget">Current Budget Character Sheet</a></h3>
+            <div id="character-sheet-budget" class="collapse">{{ drupal_token("fkg_ct_program:body_programs:#{node.id}") |raw }}</div>
         {% endif %}
     </div>
   {% endif %}
