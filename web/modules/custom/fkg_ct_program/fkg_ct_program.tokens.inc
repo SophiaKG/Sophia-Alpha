@@ -101,7 +101,6 @@ function fkg_ct_program_get_body_programs($nid) {
       $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
       $program['contribution'] = $node->get('field_fkg_contrib_description')->getString();
 
-      $is_linked = $node->get('field_fkg_contrib_linked')->getString();
       $programs[] = $program;
     }
 
