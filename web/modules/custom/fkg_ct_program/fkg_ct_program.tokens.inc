@@ -6,6 +6,7 @@
 
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_token_info().
@@ -102,6 +103,16 @@ function fkg_ct_program_get_body_programs($nid) {
       $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
       $program['contribution'] = $node->get('field_fkg_contrib_description')->getString();
 
+      $query_result = \Drupal::entityQuery('node')
+        ->condition('type', 'bodies')
+        ->condition('status', NodeInterface::PUBLISHED)
+        ->condition('title', $program['owner'])
+        ->execute();
+      $owner_body_id = array_pop($query_result);
+      if ($owner_body_id) {
+        $program['owner_link'] = Node::load($owner_body_id)->toLink()->getUrl()->toString();
+      }
+
       $programs[] = $program;
     }
 
@@ -153,7 +164,14 @@ function fkg_ct_program_get_body_programs($nid) {
                     {% for program in contributed_programs %}
                       <tr>
                         <td>{{ program.sequence }}</td>
-                        <td>{{ program.owner }}</td>
+                        <td>
+                          {% if program.owner_link %}
+                            <a href="{{ program.owner_link }}">
+                          {{ program.owner }}</a>
+                          {% else %}
+                            {{ program.owner }}
+                          {% endif %}
+                        </td>
                         <td>{{ program.title }}</td>
                         <td>{{ program.contribution }}</td>
                       </tr>
