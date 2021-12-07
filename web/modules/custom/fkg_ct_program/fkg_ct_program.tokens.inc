@@ -5,6 +5,7 @@
  */
 
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_token_info().
@@ -59,7 +60,7 @@ function fkg_ct_program_tokens($type, $tokens, array $data, array $options, Bubb
  *   Markup instance with formatted string.
  */
 function fkg_ct_program_get_body_programs($nid) {
-  $node_title = \Drupal\node\Entity\Node::load($nid)->getTitle();
+  $node_title = Node::load($nid)->getTitle();
 
   $query_result = \Drupal::entityQuery('node')
     ->condition('type', 'fkg_ct_outcomeauth')
@@ -68,7 +69,7 @@ function fkg_ct_program_get_body_programs($nid) {
   $outcome_auth_nid = array_pop($query_result);
 
   if ($outcome_auth_nid) {
-    $outcomes_authorized_nids = array_column( \Drupal\node\Entity\Node::load($outcome_auth_nid)->get('field_fkg_outcome')->getValue(), 'target_id');
+    $outcomes_authorized_nids = array_column( Node::load($outcome_auth_nid)->get('field_fkg_outcome')->getValue(), 'target_id');
   }
   else {
     return '';
@@ -76,7 +77,7 @@ function fkg_ct_program_get_body_programs($nid) {
 
   $outcomes = [];
   foreach($outcomes_authorized_nids as $node_id) {
-    $outcome_node = \Drupal\node\Entity\Node::load($node_id);
+    $outcome_node = Node::load($node_id);
 
     $outcomes[$node_id]['description'] = $outcome_node->get('field_description')->getString();
     $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_outcome_number')->getString();
@@ -90,12 +91,12 @@ function fkg_ct_program_get_body_programs($nid) {
     // Retrieve and group the data of programs.
     $programs = [];
     foreach ($contrib_program_nids as $nid) {
-      $node = \Drupal\node\Entity\Node::load($nid);
+      $node = Node::load($nid);
 
       $program_nid = $node->get('field_fkg_contrib_program')->getString();
 
       // Get program data
-      $program_node = \Drupal\node\Entity\Node::load($program_nid);
+      $program_node = Node::load($program_nid);
       $program['title'] = $program_node->getTitle();
       $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
       $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
