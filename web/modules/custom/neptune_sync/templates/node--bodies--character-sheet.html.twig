@@ -194,11 +194,12 @@
   {# </header>#}
   {% if _context.view == null and node.getType() == 'bodies' %}
     <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
-        {{ content.field_ink }}
         {{ content.field_alias }}
-        <h3><a data-toggle="collapse" href="#character-sheet-govern">Government Characteristics</a></h3>
+        {{ content.field_ink }}
+        {{ content.field_portfolio }}
+        <h3><a data-toggle="collapse" href="#character-sheet-govern">Governance Characteristics</a></h3>
         <div id="character-sheet-govern" class="collapse">
-            {% for field in content|without('field_ink', 'field_alias') %}
+            {% for field in content|without('field_ink', 'field_alias', 'field_portfolio', 'field_cp_tabled', 'field_s35_3_pgpa_act_apply', 'field_reporting_variation') %}
                 {{ field }}
             {% endfor %}
         </div>
