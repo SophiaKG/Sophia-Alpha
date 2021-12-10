@@ -5,6 +5,8 @@
  */
 
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_token_info().
@@ -59,7 +61,7 @@ function fkg_ct_program_tokens($type, $tokens, array $data, array $options, Bubb
  *   Markup instance with formatted string.
  */
 function fkg_ct_program_get_body_programs($nid) {
-  $node_title = \Drupal\node\Entity\Node::load($nid)->getTitle();
+  $node_title = Node::load($nid)->getTitle();
 
   $query_result = \Drupal::entityQuery('node')
     ->condition('type', 'fkg_ct_outcomeauth')
@@ -68,7 +70,7 @@ function fkg_ct_program_get_body_programs($nid) {
   $outcome_auth_nid = array_pop($query_result);
 
   if ($outcome_auth_nid) {
-    $outcomes_authorized_nids = array_column( \Drupal\node\Entity\Node::load($outcome_auth_nid)->get('field_fkg_outcome')->getValue(), 'target_id');
+    $outcomes_authorized_nids = array_column( Node::load($outcome_auth_nid)->get('field_fkg_outcome')->getValue(), 'target_id');
   }
   else {
     return '';
@@ -76,7 +78,10 @@ function fkg_ct_program_get_body_programs($nid) {
 
   $outcomes = [];
   foreach($outcomes_authorized_nids as $node_id) {
-    $outcomes[$node_id]['description'] = array_column(\Drupal\node\Entity\Node::load($node_id)->get('field_description')->getValue(), 'value')[0];
+    $outcome_node = Node::load($node_id);
+
+    $outcomes[$node_id]['description'] = $outcome_node->get('field_description')->getString();
+    $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_outcome_number')->getString();
 
     $query_result = \Drupal::entityQuery('node')
       ->condition('type', 'fkg_ct_program_contrib')
@@ -85,52 +90,109 @@ function fkg_ct_program_get_body_programs($nid) {
     $contrib_program_nids = array_values($query_result);
 
     // Retrieve and group the data of programs.
+    $programs = [];
     foreach ($contrib_program_nids as $nid) {
-      $node = \Drupal\node\Entity\Node::load($nid);
-      $is_linked = array_column($node->get('field_fkg_contrib_linked')->getValue(), 'value')[0];
+      $node = Node::load($nid);
 
       $program_nid = $node->get('field_fkg_contrib_program')->getString();
 
       // Get program data
-      $program_node = \Drupal\node\Entity\Node::load($program_nid);
+      $program_node = Node::load($program_nid);
       $program['title'] = $program_node->getTitle();
       $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
+      $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
       $program['contribution'] = $node->get('field_fkg_contrib_description')->getString();
 
-      $is_linked = $node->get('field_fkg_contrib_linked')->getString();
-      $group_by_linked = $is_linked ? 'linked' : 'owned';
-      $outcomes[$node_id]['programs'][$group_by_linked][] = $program;
+      $query_result = \Drupal::entityQuery('node')
+        ->condition('type', 'bodies')
+        ->condition('status', NodeInterface::PUBLISHED)
+        ->condition('title', $program['owner'])
+        ->execute();
+      $owner_body_id = array_pop($query_result);
+      if ($owner_body_id) {
+        $program['owner_link'] = Node::load($owner_body_id)->toLink()->getUrl()->toString();
+      }
+
+      $programs[] = $program;
     }
 
-    // Render the program data.
-    // @todo Switch to template-based rendering.
-    $program_rendered = '<h2>Outcomes</h2>' . PHP_EOL;
-    foreach ($outcomes as $outcome) {
-      $program_rendered .= '<h3>' . $outcome['description'] . '</h3>';
-      if ( !empty($outcome['programs']['owned']) ) {
-        $program_rendered .= '<h4>Program(s)</h4>';
-        $program_rendered .= '<table class="table">';
-        $program_rendered .= '<tr><th>Program</th><th>Contribution</th></tr>';
-        foreach ($outcome['programs']['owned'] as $owned_prog) {
-          $program_rendered .= '<tr><td>' . $owned_prog['title'] . '</td>';
-          $program_rendered .= '<td>' . $owned_prog['contribution'] . '</td></tr>';
-        }
-        $program_rendered .= '</table>';
-      }
-      if (!empty($outcome['programs']['linked'])) {
-        $program_rendered .= '<h4>Linked Program(s)</h4>';
-        $program_rendered .= '<table class="table">';
-        $program_rendered .= '<tr><th>Program</th><th>Owner</th><th>Contribution</th></tr>';
-        foreach ($outcome['programs']['linked'] as $linked_prog) {
-          $program_rendered .= '<tr><td>' . $linked_prog['title'] . '</td>';
-          $program_rendered .= '<td>' . $linked_prog['owner'] . '</td>';
-          $program_rendered .= '<td>' . $linked_prog['contribution'] . '</td></tr>';
-        }
-        $program_rendered .= '</table>';
-      }
-    }
+    // Sort the programs according to 1) the owner and 2) the sequence number.
+    usort($programs, function(array $a, array $b) {
+      $owner_order = $a['owner'] <=> $b['owner'];
+
+      return $owner_order != 0 ? $owner_order : strnatcmp($a['sequence'], $b['sequence']);
+    });
+
+    $outcomes[$node_id]['programs'] = $programs;
   }
 
-  // Return as markup to prevent html tags being escaped.
-  return \Drupal\Core\Render\Markup::create($program_rendered);
+  // Construct the rendering data.
+  $character_sheet = [
+    '#type' => 'inline_template',
+    '#template' => '
+      <div class="body-programs">
+        {% for outcome in outcomes|sort((a, b) => a.sequence <=> b.sequence) %}
+          <div>
+            <h5><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</h5>
+            <div>
+              {% if outcome.programs %}
+                {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
+                {% if owned_programs is not empty %}
+                  <h6>Programs</h6>
+                  <table class="table table-stripped">
+                    <tr>
+                      <th>#</th>
+                      <th>Program</th>
+                      <th>Contribution</th>
+                    </tr>
+                    {% for program in owned_programs %}
+                      <tr>
+                        <td>{{ program.sequence }}</td>
+                        <td>{{ program.title }}</td>
+                        <td>{{ program.contribution }}</td>
+                      </tr>
+                    {% endfor %}
+                  </table>
+                {% endif %}
+
+                {% set contributed_programs = outcome.programs|filter(v => v.owner != body) %}
+                {% if contributed_programs is not empty %}
+                  <h6>Linked programs</h6>
+                  <table class="table table-stripped">
+                    <tr>
+                      <th>#</th>
+                      <th>Owner</th>
+                      <th>Program</th>
+                      <th>Contribution</th>
+                    </tr>
+                    {% for program in contributed_programs %}
+                      <tr>
+                        <td>{{ program.sequence }}</td>
+                        <td>
+                          {% if program.owner_link %}
+                            <a href="{{ program.owner_link }}">
+                          {{ program.owner }}</a>
+                          {% else %}
+                            {{ program.owner }}
+                          {% endif %}
+                        </td>
+                        <td>{{ program.title }}</td>
+                        <td>{{ program.contribution }}</td>
+                      </tr>
+                    {% endfor %}
+                  </table>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>',
+    '#context' => [
+      'header' => $node_title,
+      'outcomes' => $outcomes,
+      'body' => $node_title,
+    ],
+  ];
+
+  return \Drupal\Core\Render\Markup::create(\Drupal::service('renderer')->render($character_sheet));
 }
