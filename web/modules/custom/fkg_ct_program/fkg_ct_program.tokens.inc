@@ -116,8 +116,12 @@ function fkg_ct_program_get_body_programs($nid) {
       $programs[] = $program;
     }
 
-    usort($programs, function(array $a, array $b){return $a['sequence'] <=> $b['sequence'];});
-    usort($programs, function(array $a, array $b){return strnatcmp($a['owner'], $b['owner']);});
+    // Sort the programs according to 1) the owner and 2) the sequence number.
+    usort($programs, function(array $a, array $b) {
+      $owner_order = $a['owner'] <=> $b['owner'];
+
+      return $owner_order != 0 ? $owner_order : strnatcmp($a['sequence'], $b['sequence']);
+    });
 
     $outcomes[$node_id]['programs'] = $programs;
   }
@@ -132,7 +136,7 @@ function fkg_ct_program_get_body_programs($nid) {
             <h5><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</h5>
             <div>
               {% if outcome.programs %}
-                {% set owned_programs = outcome.programs|sort((a,b) => a.sequence <=> b.sequence)|filter(v => v.owner == body) %}
+                {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
                 {% if owned_programs is not empty %}
                   <h6>Programs</h6>
                   <table class="table table-stripped">
