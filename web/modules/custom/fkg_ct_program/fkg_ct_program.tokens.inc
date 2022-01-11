@@ -131,11 +131,21 @@ function fkg_ct_program_get_body_programs($nid) {
     '#type' => 'inline_template',
     '#template' => '
       <div class="body-programs">
+        {% set outcome_collapse_id = 0 %}
         {% for outcome in outcomes|sort((a, b) => a.sequence <=> b.sequence) %}
+          {% set collapse_outcome = "collapse-outcome-" ~ outcome_collapse_id %}
+          {% set outcome_collapse_id = outcome_collapse_id + 1 %}
           <div>
+            {% if outcome.programs %}
+              <a data-toggle="collapse" href="#{{ collapse_outcome }}" aria-expanded="false" aria-controls="{{ collapse_outcome }}">
+            {% endif %}
             <h5><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</h5>
+            {% if outcome.programs %}
+              </a>
+            {% endif %}
             <div>
               {% if outcome.programs %}
+                <div id="{{ collapse_outcome }}" class="collapse">
                 {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
                 {% if owned_programs is not empty %}
                   <h6>Programs</h6>
@@ -182,6 +192,7 @@ function fkg_ct_program_get_body_programs($nid) {
                     {% endfor %}
                   </table>
                 {% endif %}
+                </div>
               {% endif %}
             </div>
           </div>
