@@ -135,64 +135,63 @@ function fkg_ct_program_get_body_programs($nid) {
         {% for outcome in outcomes|sort((a, b) => a.sequence <=> b.sequence) %}
           {% set collapse_outcome = "collapse-outcome-" ~ outcome_collapse_id %}
           {% set outcome_collapse_id = outcome_collapse_id + 1 %}
-          <div>
-            {% if outcome.programs %}
-              <a data-toggle="collapse" href="#{{ collapse_outcome }}" aria-expanded="false" aria-controls="{{ collapse_outcome }}">
-            {% endif %}
+          <div class="fkg-character-sheet-outcome-collapsible">
             <h5><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</h5>
-            {% if outcome.programs %}
-              </a>
-            {% endif %}
-            <div>
+            <div class="fkg-outcome-programs">
               {% if outcome.programs %}
-                <div id="{{ collapse_outcome }}" class="collapse">
                 {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
                 {% if owned_programs is not empty %}
-                  <h6>Programs</h6>
-                  <table class="table table-stripped">
-                    <tr>
-                      <th>#</th>
-                      <th>Program</th>
-                      <th>Contribution</th>
-                    </tr>
-                    {% for program in owned_programs %}
+                  {% set id_collapse_owned_program = collapse_outcome ~ "-owned-program" %}
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ id_collapse_owned_program }}" aria-expanded="false" aria-controls="{{ id_collapse_owned_program }}"><spam style="width: 25px; height: 25px; background-image:url(\'/themes/finance/images/icon-link-arrow-background.svg\'); background-size: contain; display:inline-block;margin-bottom: -5px; margin-right:10px;"></spam><spam>View programs</spam></button>
+                  <div id="{{ id_collapse_owned_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-owned collapse">
+                    <table id="" class="table table-stripped">
                       <tr>
-                        <td>{{ program.sequence }}</td>
-                        <td>{{ program.title }}</td>
-                        <td>{{ program.contribution }}</td>
+                        <th>#</th>
+                        <th>Program</th>
+                        <th>Contribution</th>
                       </tr>
-                    {% endfor %}
-                  </table>
+                      {% for program in owned_programs %}
+                        <tr>
+                          <td>{{ program.sequence }}</td>
+                          <td>{{ program.title }}</td>
+                          <td>{{ program.contribution }}</td>
+                        </tr>
+                      {% endfor %}
+                    </table>
+                  </div>
                 {% endif %}
 
                 {% set contributed_programs = outcome.programs|filter(v => v.owner != body) %}
                 {% if contributed_programs is not empty %}
-                  <h6>Linked programs</h6>
-                  <table class="table table-stripped">
-                    <tr>
-                      <th>#</th>
-                      <th>Owner</th>
-                      <th>Program</th>
-                      <th>Contribution</th>
-                    </tr>
-                    {% for program in contributed_programs %}
+                  {% set id_collapse_contributed_program = collapse_outcome ~ "-contributed-program" %}
+                  <br /><br />
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ id_collapse_contributed_program }}" aria-expanded="false" aria-controls="{{ id_collapse_contributed_program }}"><spam style="width: 25px; height: 25px; background-image:url(\'/themes/finance/images/icon-link-arrow-background.svg\'); background-size: contain; display:inline-block;margin-bottom: -5px; margin-right:10px;"></spam><spam>View linked programs</spam></button>
+                  <div id="{{ id_collapse_contributed_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-contributed collapse" style="padding-left: 0px;">
+                    <table class="table table-stripped">
                       <tr>
-                        <td>{{ program.sequence }}</td>
-                        <td>
-                          {% if program.owner_link %}
-                            <a href="{{ program.owner_link }}">
-                          {{ program.owner }}</a>
-                          {% else %}
-                            {{ program.owner }}
-                          {% endif %}
-                        </td>
-                        <td>{{ program.title }}</td>
-                        <td>{{ program.contribution }}</td>
+                        <th>#</th>
+                        <th>Owner</th>
+                        <th>Program</th>
+                        <th>Contribution</th>
                       </tr>
-                    {% endfor %}
-                  </table>
+                      {% for program in contributed_programs %}
+                        <tr>
+                          <td>{{ program.sequence }}</td>
+                          <td>
+                            {% if program.owner_link %}
+                              <a href="{{ program.owner_link }}">
+                            {{ program.owner }}</a>
+                            {% else %}
+                              {{ program.owner }}
+                            {% endif %}
+                          </td>
+                          <td>{{ program.title }}</td>
+                          <td>{{ program.contribution }}</td>
+                        </tr>
+                      {% endfor %}
+                    </table>
+                  </div>
                 {% endif %}
-                </div>
               {% endif %}
             </div>
           </div>
