@@ -1,0 +1,8 @@
+[aria-expanded=false] > .fkg-charactersheet-collapse-control:before {
+  content: "\f0fe";
+  margin-right: 5px;
+}
+[aria-expanded=true] > .fkg-charactersheet-collapse-control:before {
+  content: "\f146";
+  margin-right: 5px;
+}

@@ -197,14 +197,14 @@
         {{ content.field_alias }}
         {{ content.field_ink }}
         {{ content.field_portfolio }}
-        <h3><a data-toggle="collapse" href="#character-sheet-govern">Governance Characteristics</a></h3>
+        <h3><a data-toggle="collapse" href="#character-sheet-govern" aria-expanded="false"><spam class="fas fkg-charactersheet-collapse-control">Governance Characteristics</spam></a></h3>
         <div id="character-sheet-govern" class="collapse">
             {% for field in content|without('field_ink', 'field_alias', 'field_portfolio', 'field_cp_tabled', 'field_s35_3_pgpa_act_apply', 'field_reporting_variation') %}
                 {{ field }}
             {% endfor %}
         </div>
         {% if logged_in == true %}
-            <h3><a data-toggle="collapse" href="#character-sheet-budget">Current Budget Characteristics</a></h3>
+            <h3><a data-toggle="collapse" href="#character-sheet-budget" aria-expanded="false"><spam class="fas fkg-charactersheet-collapse-control">Current Budget Characteristics</spam></a></h3>
             <div id="character-sheet-budget" class="collapse">{{ drupal_token("fkg_ct_program:body_programs:#{node.id}") |raw }}</div>
         {% endif %}
     </div>

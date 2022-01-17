@@ -1,0 +1,5 @@
+fkg_charactersheet_outcome_program:
+  version: 1.x
+  css:
+    theme:
+      css/fkg_outcome_program.css: {}

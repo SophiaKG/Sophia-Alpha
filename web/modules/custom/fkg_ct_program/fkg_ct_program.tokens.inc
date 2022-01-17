@@ -129,6 +129,11 @@ function fkg_ct_program_get_body_programs($nid) {
   // Construct the rendering data.
   $character_sheet = [
     '#type' => 'inline_template',
+    '#attached' => [
+      'library' => [
+        'fkg_ct_program/fkg_charactersheet_outcome_program',
+      ],
+    ],
     '#template' => '
       <div class="body-programs">
         {% set outcome_collapse_id = 0 %}
