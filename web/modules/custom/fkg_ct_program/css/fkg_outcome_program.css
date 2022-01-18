@@ -6,3 +6,12 @@
   content: "\f146";
   margin-right: 5px;
 }
+
+.fkg-character-sheet-outcome-programs > button[aria-expanded=true] > spam.collapse-prefix-symbol {
+  transform: rotate(90deg);
+  transition: transform 0.5s ease-in-out;
+}
+
+.fkg-character-sheet-outcome-programs > button[aria-expanded=false] > spam.collapse-prefix-symbol {
+  transition: transform 0.5s ease-in-out;
+}

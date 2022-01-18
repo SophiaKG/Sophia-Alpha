@@ -142,12 +142,15 @@ function fkg_ct_program_get_body_programs($nid) {
           {% set outcome_collapse_id = outcome_collapse_id + 1 %}
           <div class="fkg-character-sheet-outcome-collapsible">
             <h5><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</h5>
-            <div class="fkg-outcome-programs">
+            <div class="fkg-character-sheet-outcome-programs">
               {% if outcome.programs %}
                 {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
                 {% if owned_programs is not empty %}
                   {% set id_collapse_owned_program = collapse_outcome ~ "-owned-program" %}
-                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ id_collapse_owned_program }}" aria-expanded="false" aria-controls="{{ id_collapse_owned_program }}"><spam style="width: 25px; height: 25px; background-image:url(\'/themes/finance/images/icon-link-arrow-background.svg\'); background-size: contain; display:inline-block;margin-bottom: -5px; margin-right:10px;"></spam><spam>View programs</spam></button>
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ id_collapse_owned_program }}" aria-expanded="false" aria-controls="{{ id_collapse_owned_program }}">
+                    <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+                    <spam>Programs</spam>
+                  </button>
                   <div id="{{ id_collapse_owned_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-owned collapse">
                     <table id="" class="table table-stripped">
                       <tr>
@@ -169,8 +172,10 @@ function fkg_ct_program_get_body_programs($nid) {
                 {% set contributed_programs = outcome.programs|filter(v => v.owner != body) %}
                 {% if contributed_programs is not empty %}
                   {% set id_collapse_contributed_program = collapse_outcome ~ "-contributed-program" %}
-                  <br /><br />
-                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ id_collapse_contributed_program }}" aria-expanded="false" aria-controls="{{ id_collapse_contributed_program }}"><spam style="width: 25px; height: 25px; background-image:url(\'/themes/finance/images/icon-link-arrow-background.svg\'); background-size: contain; display:inline-block;margin-bottom: -5px; margin-right:10px;"></spam><spam>View linked programs</spam></button>
+                  <br />
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ id_collapse_contributed_program }}" aria-expanded="false" aria-controls="{{ id_collapse_contributed_program }}">
+                    <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+                    <spam>Linked programs</spam></button>
                   <div id="{{ id_collapse_contributed_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-contributed collapse" style="padding-left: 0px;">
                     <table class="table table-stripped">
                       <tr>
