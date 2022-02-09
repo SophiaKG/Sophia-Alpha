@@ -4350,17 +4350,17 @@
         },
         {
             "name": "drupal/login_history",
-            "version": "1.1.0-rc2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/login_history.git",
-                "reference": "8.x-1.1-rc2"
+                "reference": "8.x-1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/login_history-8.x-1.1-rc2.zip",
-                "reference": "8.x-1.1-rc2",
-                "shasum": "440d57b3de236dd07e99a1b35fa9daf5e3ec8ff0"
+                "url": "https://ftp.drupal.org/files/projects/login_history-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "540fa39120b6984a8b5f33b9ce850e2655218684"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -4368,11 +4368,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.1-rc2",
-                    "datestamp": "1608233513",
+                    "version": "8.x-1.1",
+                    "datestamp": "1638219447",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
