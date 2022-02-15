@@ -263,6 +263,11 @@ class GraphBuilder
             'emphasis' => $emphasis,
             'targetID' => $this->getID($b));
 
+        // Workaround to avoid the PHP error "DateTime object could not be converted to string".
+        if (get_class($b) === 'EasyRdf_Literal_DateTime') {
+            return;
+        }
+
         //add to edge set via id union hash
         $this->edges[$this->getID($a) . $this->getID($b)] = $edge;
         return $edge;
