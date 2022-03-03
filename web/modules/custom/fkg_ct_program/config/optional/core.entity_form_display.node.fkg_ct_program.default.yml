@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.fkg_ct_program.body
     - field.field.node.fkg_ct_program.feeds_item
+    - field.field.node.fkg_ct_program.field_bodies
     - field.field.node.fkg_ct_program.field_fkg_program_label
     - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
@@ -22,6 +23,16 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_bodies:
+    type: entity_reference_autocomplete
+    weight: 27
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_fkg_program_label:
     type: string_textfield
     weight: 8
@@ -31,13 +42,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_fkg_program_number:
+    type: string_textfield
     weight: 26
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_fkg_program_owner:
     type: string_textfield
     weight: 9
@@ -62,24 +73,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 3
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 7
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 4
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -92,12 +103,12 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 1
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
   url_redirects:
     weight: 6

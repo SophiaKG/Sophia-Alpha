@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.fkg_ct_program.body
     - field.field.node.fkg_ct_program.feeds_item
+    - field.field.node.fkg_ct_program.field_bodies
     - field.field.node.fkg_ct_program.field_fkg_program_label
     - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
@@ -16,43 +17,51 @@ targetEntityType: node
 bundle: fkg_ct_program
 mode: default
 content:
+  field_bodies:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_fkg_program_label:
     type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 1
     region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_fkg_program_number:
-    weight: 4
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 4
     region: content
   field_fkg_program_owner:
     type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 2
     region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_fkg_program_uri:
     type: string
-    weight: 3
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  links:
-    weight: 0
+    weight: 3
     region: content
+  links:
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   body: true
   feeds_item: true
