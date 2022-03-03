@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.fkg_ct_outcome.field_bodies
     - field.field.node.fkg_ct_outcome.field_description
     - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
@@ -9,8 +10,8 @@ dependencies:
   module:
     - feeds_ex
     - node
-id: fkg_outcome
 label: 'FKG Outcome'
+id: fkg_outcome
 description: 'Feeds for FKG outcome'
 help: ''
 import_period: -1
@@ -23,64 +24,83 @@ fetcher_configuration:
   request_timeout: 30
 parser: jsonpath
 parser_configuration:
+  sources:
+    outcometitle:
+      value: OutcomeTitle
+      label: OutcomeTitle
+    outcomeuri:
+      value: OutcomeUri
+      label: OutcomeUri
+    outcome_description:
+      value: Description
+      label: Description
+    neptune_outcomenumber:
+      value: OutcomeNumber
+      label: OutcomeNumber
+    owneruri:
+      label: OwnerUri
+      value: OwnerUri
   context:
     value: '.results.Outcomes.*'
-  sources:
-    outcome_title:
-      label: Outcome
-      value: Outcome
-    outcome_description:
-      label: Description
-      value: Description
-    neptune_outcomenumber:
-      label: OutcomeNumber
-      value: OutcomeNumber
-  display_errors: false
   source_encoding:
     - auto
+  display_errors: false
   debug_mode: false
   line_limit: 100
 processor: 'entity:node'
 processor_configuration:
+  values:
+    type: fkg_ct_outcome
   langcode: en
+  insert_new: 1
   update_existing: 2
   update_non_existent: _delete
+  skip_hash_check: true
+  authorize: true
   expire: -1
   owner_feed_author: true
   owner_id: 0
-  authorize: true
-  skip_hash_check: false
-  values:
-    type: fkg_ct_outcome
 custom_sources:
   outcome_title:
-    label: Outcome
     value: Outcome
+    label: Outcome
     machine_name: outcome_title
   outcome_description:
-    label: Description
     value: Description
+    label: Description
     machine_name: outcome_description
   neptune_outcomenumber:
-    label: OutcomeNumber
     value: OutcomeNumber
+    label: OutcomeNumber
     machine_name: neptune_outcomenumber
+  outcometitle:
+    value: OutcomeTitle
+    label: OutcomeTitle
+    machine_name: outcometitle
+  outcomeuri:
+    value: OutcomeUri
+    label: OutcomeUri
+    machine_name: outcomeuri
+  owneruri:
+    value: OwnerUri
+    label: OwnerUri
+    machine_name: owneruri
 mappings:
   -
     target: title
     map:
-      value: outcome_title
-    unique: {  }
+      value: outcometitle
     settings:
       language: null
+    unique: {  }
   -
     target: field_neptune_uri
     map:
-      value: outcome_title
-    unique:
-      value: '1'
+      value: outcomeuri
     settings:
       language: null
+    unique:
+      value: '1'
   -
     target: field_description
     map:
@@ -91,6 +111,15 @@ mappings:
     target: field_fkg_outcome_number
     map:
       value: neptune_outcomenumber
-    unique: {  }
     settings:
       language: null
+    unique: {  }
+  -
+    target: field_bodies
+    map:
+      target_id: owneruri
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
