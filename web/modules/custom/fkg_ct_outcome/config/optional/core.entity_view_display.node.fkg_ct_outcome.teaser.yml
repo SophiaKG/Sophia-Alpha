@@ -5,6 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.fkg_ct_outcome.body
     - field.field.node.fkg_ct_outcome.feeds_item
+    - field.field.node.fkg_ct_outcome.field_bodies
     - field.field.node.fkg_ct_outcome.field_description
     - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
@@ -18,20 +19,21 @@ bundle: fkg_ct_outcome
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    label: hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   feeds_item: true
+  field_bodies: true
   field_description: true
   field_fkg_outcome_number: true
   field_neptune_uri: true
