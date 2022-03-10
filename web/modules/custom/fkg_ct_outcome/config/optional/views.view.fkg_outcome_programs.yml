@@ -365,6 +365,7 @@ display:
           admin_label: 'field_fkg_contrib_program: Content'
           plugin_id: standard
           required: true
+      css_class: ''
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -710,10 +711,9 @@ display:
           break_phrase: false
           not: true
       defaults:
-        css_class: false
+        css_class: true
         fields: false
         arguments: false
-      css_class: table-responsive
       display_description: 'Programs contribute to an outcome'
       display_extenders: {  }
       block_description: 'FKG Contributing programs'
@@ -1444,10 +1444,9 @@ display:
           break_phrase: false
           not: false
       defaults:
-        css_class: false
+        css_class: true
         fields: false
         arguments: false
-      css_class: table-responsive
       display_description: 'Programs owned by an outcome'
       display_extenders: {  }
       block_description: 'FKG Owned programs'
