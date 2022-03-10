@@ -1,6 +1,11 @@
 {#
 /**
  * @file
+ * 
+ * Template file to display a character sheet view of a single content.
+ * 
+ * The majority of the template is copied from the node template from the Boostrap Barrio's theme.
+ * 
  * Bootstrap Barrio's theme implementation to display a node.
  *
  * Available variables:
@@ -56,7 +61,7 @@
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
  *
- * @see template_preprocess_node()
+ * @see template_preprocess_node() & template_preprocess_node__fkg_character_sheet().
  */
 #}
 {{ attach_library('bootstrap_barrio/node') }}
@@ -96,10 +101,26 @@
   <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
     {{ content }}
   </div>
-  
+
+  {{ attach_library('fkg_ct_program/fkg_charactersheet_outcome_program') }}
   {# Add the program data #}
-  <div><h3>Owned programs</h3></div>
-  {{ drupal_view('fkg_outcome_programs', 'owned_programs', node.id, fkg_display_charsheet.body_id) }}
-  <div><h3>Linked programs</h3></div>
-  {{ drupal_view('fkg_outcome_programs', 'contributing_programs', node.id, fkg_display_charsheet.body_id) }}
+  <div class="fkg-character-sheet-outcome-programs">
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#owned-programs" aria-expanded="false" aria-controls="owned-programs">
+      <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+      <spam>Owned programs</spam>
+    </button>
+  </div>
+  <div id="owned-programs" class="collapse">
+    {{ drupal_view('fkg_outcome_programs', 'owned_programs', node.id, fkg_display_charsheet.body_id) }}
+  </div>
+
+  <div class="fkg-character-sheet-outcome-programs">
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#linked-programs" aria-expanded="false" aria-controls="linked-programs">
+      <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+      <spam>Linked programs</spam>
+    </button>
+  </div>
+  <div id="linked-programs" class="collapse">
+    {{ drupal_view('fkg_outcome_programs', 'contributing_programs', node.id, fkg_display_charsheet.body_id) }}
+  </div>
 </article>
