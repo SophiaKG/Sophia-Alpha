@@ -1,0 +1,8 @@
+/* Assert: last table column for the long contribution text. */
+.view.view-fkg-outcome-programs th:last-of-type {
+  width: 60%;
+}
+
+.view.view-fkg-outcome-programs th:first-of-type {
+  width: 8%;
+}
