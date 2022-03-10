@@ -738,6 +738,69 @@ display:
     display_options:
       title: 'Contributing outcomes'
       fields:
+        field_fkg_contrib_program:
+          id: field_fkg_contrib_program
+          table: node__field_fkg_contrib_program
+          field: field_fkg_contrib_program
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_fkg_contrib_outcome:
           id: field_fkg_contrib_outcome
           table: node__field_fkg_contrib_outcome
@@ -748,6 +811,69 @@ display:
           plugin_id: field
           label: ''
           exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_bodies:
+          id: field_bodies
+          table: node__field_bodies
+          field: field_bodies
+          relationship: field_fkg_contrib_outcome
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Outcome owner'
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -943,7 +1069,7 @@ display:
         options:
           query_comment: ''
           disable_sql_rewrite: false
-          distinct: true
+          distinct: false
           replica: false
           query_tags: {  }
       defaults:
@@ -959,6 +1085,7 @@ display:
         arguments: false
         filters: false
         filter_groups: false
+        header: false
       relationships:
         field_fkg_contrib_outcome:
           id: field_fkg_contrib_outcome
@@ -971,6 +1098,7 @@ display:
           required: false
       group_by: false
       display_description: ''
+      header: {  }
       display_extenders: {  }
       block_description: 'FKG Contributing outcomes'
     cache_metadata:
@@ -982,7 +1110,9 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_bodies'
         - 'config:field.storage.node.field_fkg_contrib_outcome'
+        - 'config:field.storage.node.field_fkg_contrib_program'
   owned_programs:
     id: owned_programs
     display_title: 'Block - owned programs'
@@ -1105,7 +1235,7 @@ display:
           click_sort_column: target_id
           type: entity_reference_label
           settings:
-            link: false
+            link: true
           group_column: target_id
           group_columns: {  }
           group_rows: true
