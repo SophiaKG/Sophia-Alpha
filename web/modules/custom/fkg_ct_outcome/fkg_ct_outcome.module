@@ -6,20 +6,24 @@ use Drupal\views\ViewExecutable;
  * Implements hook_views_post_execute().
  */
 function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
-  // Remove duplicated outcomes and the referenced outcome itself.
-  // @todo Seek a better solution using hook_views_query_alter().
-
   // Restrict the result modification to the specified view & display.
-  if ($view->id() != 'fkg_outcome_programs' || $view->current_display != 'outcomes') {
+  if ($view->id() != 'fkg_outcome_programs' || $view->current_display != 'contributing_to_outcomes') {
     return;
   }
 
+  /**
+   * Remove duplicated view output items and the referenced item.
+   * 
+   * @see config/optional/view.view.fkg_outcome_programs.yml.
+   * 
+   * @todo Seek a better solution (such as using hook_views_query_alter()).
+   */
   $view_result = $view->result;
   $exclude_nid = $view->args[0] ?? null;
   $unique_nids = [];
   $view->result = [];
   foreach ($view_result as $item) {
-    $nid = $item->node_field_data_node__field_fkg_contrib_outcome_1_nid ?? null;
+    $nid = $item->_entity->get('field_fkg_contrib_outcome')->getString();
     if ($nid && $nid != $exclude_nid && !in_array($nid, $unique_nids)) {
       $unique_nids[] = $nid;
       $view->result[] = $item;

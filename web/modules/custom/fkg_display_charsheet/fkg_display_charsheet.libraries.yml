@@ -1,0 +1,5 @@
+fkg_character_sheet:
+  version: 1.x
+  css:
+    theme:
+      css/fkg-character-sheet.css: {}

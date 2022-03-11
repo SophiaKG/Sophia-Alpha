@@ -1,0 +1,13 @@
+/* Assert: last table column for the long contribution text. */
+.view.view-fkg-outcome-programs th:last-of-type {
+  width: 60%;
+}
+
+.view.view-fkg-outcome-programs th:first-of-type {
+  width: 8%;
+}
+
+/* Remove the minus margin-left value from the bootstrap grid css */
+#block-contributingtootheroutcomes .row {
+  margin-left: unset;
+}

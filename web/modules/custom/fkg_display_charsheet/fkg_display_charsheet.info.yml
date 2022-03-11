@@ -1,0 +1,8 @@
+name: 'FKG Character Sheet display'
+type: module
+description: 'Provide a FKG Character Sheet display style'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9
+dependencies:
+  - drupal:node
