@@ -152,15 +152,15 @@ function fkg_ct_program_get_body_programs($nid) {
                     <spam>Programs</spam>
                   </button>
                   <div id="{{ id_collapse_owned_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-owned collapse">
-                    <table id="" class="table table-stripped">
+                    <table id="" class="table table-striped table-responsive">
                       <tr>
-                        <th>#</th>
-                        <th>Program</th>
-                        <th>Contribution</th>
+                        <th style="width: 6%">#</th>
+                        <th style="width: 17%">Program</th>
+                        <th style="width: 77%">Contribution</th>
                       </tr>
                       {% for program in owned_programs %}
                         <tr>
-                          <td>{{ program.sequence }}</td>
+                          <td class="text-nowrap">{{ program.sequence }}</td>
                           <td>{{ program.title }}</td>
                           <td>{{ program.contribution }}</td>
                         </tr>
@@ -177,16 +177,16 @@ function fkg_ct_program_get_body_programs($nid) {
                     <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
                     <spam>Linked programs</spam></button>
                   <div id="{{ id_collapse_contributed_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-contributed collapse" style="padding-left: 0px;">
-                    <table class="table table-stripped">
+                    <table class="table table-striped table-responsive">
                       <tr>
-                        <th>#</th>
-                        <th>Owner</th>
-                        <th>Program</th>
-                        <th>Contribution</th>
+                        <th style="width: 6%">#</th>
+                        <th style="width: 17%">Owner</th>
+                        <th style="width: 17%">Program</th>
+                        <th style="width: 60%">Contribution</th>
                       </tr>
                       {% for program in contributed_programs %}
                         <tr>
-                          <td>{{ program.sequence }}</td>
+                          <td class="text-nowrap">{{ program.sequence }}</td>
                           <td>
                             {% if program.owner_link %}
                               <a href="{{ program.owner_link }}">

@@ -49,7 +49,7 @@ function neptune_sync_entity_view_mode_alter(&$view_mode, Drupal\Core\Entity\Ent
 
     // Change the view mode to teaser on full page view for node ID 123.
     if ($entity->getEntityTypeId() == 'node' && $view_mode == 'full')
-        if($entity->getType() == 'bodies' || $entity->getType() == 'legislation' || $entity->getType() == 'portfolios'){
+        if(in_array($entity->getType(), ['bodies', 'legislation', 'portfolios', 'fkg_ct_outcome'])){
             if(\Drupal::currentUser()->isAnonymous())
                 $view_mode = 'character_sheet_public';
             else

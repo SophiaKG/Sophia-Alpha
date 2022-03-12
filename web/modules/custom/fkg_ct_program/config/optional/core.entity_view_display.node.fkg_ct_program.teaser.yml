@@ -5,7 +5,9 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.fkg_ct_program.body
     - field.field.node.fkg_ct_program.feeds_item
+    - field.field.node.fkg_ct_program.field_bodies
     - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_fkg_program_uri
     - node.type.fkg_ct_program
@@ -18,21 +20,23 @@ bundle: fkg_ct_program
 mode: teaser
 content:
   body:
-    label: hidden
     type: text_summary_or_trimmed
-    weight: 101
+    label: hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
+    weight: 101
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   feeds_item: true
+  field_bodies: true
   field_fkg_program_label: true
+  field_fkg_program_number: true
   field_fkg_program_owner: true
   field_fkg_program_uri: true
   search_api_excerpt: true
