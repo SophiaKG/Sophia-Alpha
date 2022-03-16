@@ -1,0 +1,5 @@
+outcome.dot-graph:
+  js:
+    js/outcome-graph.js: {}
+  dependencies:
+    - fkg_graph/libraries.magjac.d3-graphviz
