@@ -10,6 +10,7 @@ namespace Drupal\fkg_ct_outcome\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Render\Markup;
 use Drupal\node\Entity\Node;
+use Drupal\Component\Utility\Html;
 
 /**
  * Provides an 'Outcome Graph' block.
@@ -32,15 +33,17 @@ class GraphBlock extends BlockBase {
     $view_results = views_get_view_result('fkg_outcome_programs', 'owned_programs', $node->id());
 
     // Construct the dot graph.
+    $tooltip = Html::escape($node->get('field_description')->getString());
     $graphviz = 'digraph { ';
-    $graphviz .= 'node0 [label="' . $this->wrap($node->getTitle()) . '"];';
+    $graphviz .= 'node0 [label="' . $this->wrap($node->getTitle()) . '" tooltip="' . $tooltip . '"];';
     $i = 1;
     foreach ($view_results as $row) {
       $node_program = Node::load($row->_entity->get('field_fkg_contrib_program')->getString());
       $node_label = $node_program->getTitle();
+      $tooltip = Html::escape('Contribution:\n' . $row->_entity->get('field_fkg_contrib_description')->getString());
 
       $name = 'node' . $i;
-      $graphviz .= $name . '[label="' . $this->wrap($node_label) . '" shape = "rectangle" fontsize="11"];';
+      $graphviz .= $name . '[label="' . $this->wrap($node_label) . '" shape = "rectangle" fontsize="11" tooltip="' . $tooltip . '"];';
       $graphviz .= $name . ' -> node0 [splines = "true"];';
       $i++;
     }
