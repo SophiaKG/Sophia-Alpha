@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.character_sheet
-label: 'Character Sheet'
-targetEntityType: node
-cache: true

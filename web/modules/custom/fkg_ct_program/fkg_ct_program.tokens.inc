@@ -82,6 +82,7 @@ function fkg_ct_program_get_body_programs($nid) {
 
     $outcomes[$node_id]['description'] = $outcome_node->get('field_description')->getString();
     $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_outcome_number')->getString();
+    $outcomes[$node_id]['url'] = $outcome_node->toUrl()->toString();
 
     $query_result = \Drupal::entityQuery('node')
       ->condition('type', 'fkg_ct_program_contrib')
@@ -141,7 +142,8 @@ function fkg_ct_program_get_body_programs($nid) {
           {% set collapse_outcome = "collapse-outcome-" ~ outcome_collapse_id %}
           {% set outcome_collapse_id = outcome_collapse_id + 1 %}
           <div class="fkg-character-sheet-outcome-collapsible">
-            <h5><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</h5>
+            <h5><a href="{{ outcome.url }}"><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</a></h5>
+            <div>{{ outcome.url }}</div>
             <div class="fkg-character-sheet-outcome-programs">
               {% if outcome.programs %}
                 {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
