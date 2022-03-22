@@ -193,6 +193,7 @@
     {% endif %}
   {# </header>#}
   {% if _context.view == null and node.getType() == 'bodies' %}
+    {{ attach_library("fkg_ct_program/fkg_charactersheet_outcome_program") }}
     <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
         {{ content.field_alias }}
         {{ content.field_ink }}
