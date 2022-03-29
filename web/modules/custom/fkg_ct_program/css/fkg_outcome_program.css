@@ -15,3 +15,8 @@
 .fkg-character-sheet-outcome-programs > button[aria-expanded=false] > spam.collapse-prefix-symbol {
   transition: transform 0.5s ease-in-out;
 }
+
+.fkg-program-character-sheet .view-content.row {
+  margin-left: unset;
+  display: block;
+}
