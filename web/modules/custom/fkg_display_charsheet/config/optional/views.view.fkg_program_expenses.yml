@@ -22,6 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
+      title: Expense
       fields:
         field_fkg_program:
           id: field_fkg_program
@@ -129,7 +130,7 @@ display:
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: false
+          element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -192,7 +193,7 @@ display:
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: false
+          element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -220,7 +221,7 @@ display:
           format_plural: 0
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
-          suffix: ''
+          suffix: ' AUD'
       pager:
         type: some
         options:
@@ -244,20 +245,7 @@ display:
         type: tag
         options: {  }
       empty: {  }
-      sorts:
-        field_fkg_program_target_id:
-          id: field_fkg_program_target_id
-          table: node__field_fkg_program
-          field: field_fkg_program_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          order: ASC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
+      sorts: {  }
       arguments:
         field_fkg_program_target_id:
           id: field_fkg_program_target_id
@@ -369,7 +357,7 @@ display:
       row:
         type: fields
         options:
-          default_field_elements: false
+          default_field_elements: true
           inline:
             field_fkg_expense_type: field_fkg_expense_type
             field_fkg_expense_measure: field_fkg_expense_measure
@@ -385,7 +373,20 @@ display:
           query_tags: {  }
       relationships: {  }
       group_by: true
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<div class="field__label">Expense</div>'
+            format: basic_html
+          tokenize: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
