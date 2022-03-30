@@ -34,6 +34,9 @@ function fkg_ct_program_preprocess_node__fkg_ct_program (&$variables) {
     '#attributes' => [
       'class' => ['fkg-program-character-sheet'],
     ],
+    '#attached' => [
+      'library' => ['fkg_ct_program/fkg_charactersheet_outcome_program'],
+    ],
     'outcome' => views_embed_view('fkg_outcome_programs', 'program_outcome', $node_id, $program_owner_id) + [
       '#weight' => '1',
     ],
