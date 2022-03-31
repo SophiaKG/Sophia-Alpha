@@ -1,0 +1,8 @@
+name: 'FKG Expense'
+type: module
+description: 'Program expense'
+package: 'FKG Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9
+dependencies:
+  - drupal:node

@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.character_sheet
+    - field.field.node.fkg_ct_program.body
+    - field.field.node.fkg_ct_program.feeds_item
+    - field.field.node.fkg_ct_program.field_bodies
+    - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_number
+    - field.field.node.fkg_ct_program.field_fkg_program_owner
+    - field.field.node.fkg_ct_program.field_fkg_program_uri
+    - node.type.fkg_ct_program
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.fkg_ct_program.character_sheet
+targetEntityType: node
+bundle: fkg_ct_program
+mode: character_sheet
+content:
+  field_bodies:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  feeds_item: true
+  field_fkg_program_label: true
+  field_fkg_program_number: true
+  field_fkg_program_owner: true
+  field_fkg_program_uri: true
+  search_api_excerpt: true

@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * 
+ * Contains install and update functions for the module fkg_ct_expense.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ * 
+ * Ensure the availability of two taxonomy terms, 'Administered' and 'Departmental'.
+ */
+function fkg_ct_expense_install() {
+
+  // @see config/optional/taxonomy.vocabulary.fkg_expense_type.yml.
+  $vid = 'fkg_expense_type';
+
+  $existing_terms = array_map(
+    function ($term) { return $term->name; },
+    Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid)
+  );
+
+  // Create the specified taxonomy term(s) if not existing.
+  foreach (array_diff(['Administered', 'Departmental'], $existing_terms) as $missed_term) {
+    Term::create([
+      'parent' => [],
+      'name' => $missed_term,
+      'vid' => $vid,
+    ])->save();
+  }
+}

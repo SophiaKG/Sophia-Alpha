@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bodies
+    - node.type.bodies
+    - node.type.fkg_ct_program_expense
+id: node.fkg_ct_program_expense.field_bodies
+field_name: field_bodies
+entity_type: node
+bundle: fkg_ct_program_expense
+label: 'FKG Body'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      bodies: bodies
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

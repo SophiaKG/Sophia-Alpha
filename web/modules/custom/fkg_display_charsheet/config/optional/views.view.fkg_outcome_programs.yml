@@ -365,7 +365,6 @@ display:
           admin_label: 'field_fkg_contrib_program: Content'
           plugin_id: standard
           required: true
-      css_class: ''
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -711,9 +710,10 @@ display:
           break_phrase: false
           not: true
       defaults:
-        css_class: true
+        css_class: false
         fields: false
         arguments: false
+      css_class: table-responsive
       display_description: 'Programs contribute to an outcome'
       display_extenders: {  }
       block_description: 'FKG Contributing programs'
@@ -1444,9 +1444,10 @@ display:
           break_phrase: false
           not: false
       defaults:
-        css_class: true
+        css_class: false
         fields: false
         arguments: false
+      css_class: table-responsive
       display_description: 'Programs owned by an outcome'
       display_extenders: {  }
       block_description: 'FKG Owned programs'
@@ -1463,3 +1464,252 @@ display:
         - 'config:field.storage.node.field_fkg_contrib_description'
         - 'config:field.storage.node.field_fkg_contrib_program'
         - 'config:field.storage.node.field_fkg_program_number'
+  program_outcome:
+    id: program_outcome
+    display_title: 'program outcome'
+    display_plugin: block
+    position: 4
+    display_options:
+      title: Outcome
+      fields:
+        field_fkg_contrib_description:
+          id: field_fkg_contrib_description
+          table: node__field_fkg_contrib_description
+          field: field_fkg_contrib_description
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Contribution
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: div
+          element_label_class: field__label
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_fkg_contrib_outcome:
+          id: field_fkg_contrib_outcome
+          table: node__field_fkg_contrib_outcome
+          field: field_fkg_contrib_outcome
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Outcome
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: div
+          element_label_class: field__label
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      sorts: {  }
+      arguments:
+        field_fkg_contrib_program_target_id:
+          id: field_fkg_contrib_program_target_id
+          table: node__field_fkg_contrib_program
+          field: field_fkg_contrib_program_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+        field_bodies_target_id:
+          id: field_bodies_target_id
+          table: node__field_bodies
+          field: field_bodies_target_id
+          relationship: field_fkg_contrib_outcome
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
+      defaults:
+        title: false
+        style: false
+        row: false
+        relationships: false
+        fields: false
+        sorts: false
+        arguments: false
+      relationships:
+        field_fkg_contrib_outcome:
+          id: field_fkg_contrib_outcome
+          table: node__field_fkg_contrib_outcome
+          field: field_fkg_contrib_outcome
+          relationship: none
+          group_type: group
+          admin_label: 'field_fkg_contrib_outcome: Content'
+          plugin_id: standard
+          required: true
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_fkg_contrib_description'
+        - 'config:field.storage.node.field_fkg_contrib_outcome'
