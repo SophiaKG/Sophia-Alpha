@@ -103,6 +103,7 @@ function fkg_ct_program_get_body_programs($nid) {
       $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
       $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
       $program['contribution'] = $node->get('field_fkg_contrib_description')->getString();
+      $program['url'] = $program_node->toUrl()->toString();
 
       $query_result = \Drupal::entityQuery('node')
         ->condition('type', 'bodies')
@@ -157,7 +158,7 @@ function fkg_ct_program_get_body_programs($nid) {
                       {% for program in owned_programs %}
                         <tr>
                           <td class="text-nowrap">{{ program.sequence }}</td>
-                          <td>{{ program.title }}</td>
+                          <td><a href="{{ program.url }}">{{ program.title }}</a></td>
                           <td>{{ program.contribution }}</td>
                         </tr>
                       {% endfor %}
@@ -191,7 +192,7 @@ function fkg_ct_program_get_body_programs($nid) {
                               {{ program.owner }}
                             {% endif %}
                           </td>
-                          <td>{{ program.title }}</td>
+                          <td><a href="{{ program.url }}">{{ program.title }}</a></td>
                           <td>{{ program.contribution }}</td>
                         </tr>
                       {% endfor %}
