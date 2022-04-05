@@ -20,3 +20,7 @@
   margin-left: unset;
   display: block;
 }
+
+.fkg-program-character-sheet .field__label,.view-header,.views-label {
+  font-weight: 800;
+}
