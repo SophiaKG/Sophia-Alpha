@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_fkg_expense_type
+    - field.storage.node.field_fkg_expense_appropriation
     - field.storage.node.field_fkg_program
-    - node.type.fkg_ct_program_expense
+    - node.type.fkg_ct_expense
   module:
     - node
     - user
@@ -86,10 +86,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_expense_type:
-          id: field_fkg_expense_type
-          table: node__field_fkg_expense_type
-          field: field_fkg_expense_type
+        field_fkg_expense_appropriation:
+          id: field_fkg_expense_appropriation
+          table: node__field_fkg_expense_appropriation
+          field: field_fkg_expense_appropriation
           relationship: none
           group_type: group
           admin_label: ''
@@ -98,7 +98,7 @@ display:
           exclude: false
           alter:
             alter_text: false
-            text: '[Type: {{ field_fkg_expense_type }}]'
+            text: '[Type: {{ field_fkg_expense_appropriation }}]'
             make_link: false
             path: ''
             absolute: false
@@ -282,10 +282,10 @@ display:
           validate_options: {  }
           break_phrase: true
           not: false
-        field_fkg_expense_type_target_id:
-          id: field_fkg_expense_type_target_id
-          table: node__field_fkg_expense_type
-          field: field_fkg_expense_type_target_id
+        field_fkg_expense_appropriation_target_id:
+          id: field_fkg_expense_appropriation_target_id
+          table: node__field_fkg_expense_appropriation
+          field: field_fkg_expense_appropriation_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -339,7 +339,7 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            fkg_ct_program_expense: fkg_ct_program_expense
+            fkg_ct_expense: fkg_ct_expense
           group: 1
           expose:
             operator_limit_selection: false
@@ -359,7 +359,7 @@ display:
         options:
           default_field_elements: true
           inline:
-            field_fkg_expense_type: field_fkg_expense_type
+            field_fkg_expense_appropriation: field_fkg_expense_appropriation
             field_fkg_expense_measure: field_fkg_expense_measure
           separator: ''
           hide_empty: false
@@ -398,5 +398,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_fkg_expense_type'
+        - 'config:field.storage.node.field_fkg_expense_appropriation'
         - 'config:field.storage.node.field_fkg_program'
