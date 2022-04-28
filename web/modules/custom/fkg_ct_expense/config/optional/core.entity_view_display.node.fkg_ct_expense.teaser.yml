@@ -3,19 +3,19 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.fkg_ct_program_expense.body
-    - field.field.node.fkg_ct_program_expense.field_bodies
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_type
-    - field.field.node.fkg_ct_program_expense.field_fkg_program
-    - field.field.node.fkg_ct_program_expense.field_neptune_uri
-    - node.type.fkg_ct_program_expense
+    - field.field.node.fkg_ct_expense.body
+    - field.field.node.fkg_ct_expense.field_bodies
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_expense_type
+    - field.field.node.fkg_ct_expense.field_fkg_program
+    - field.field.node.fkg_ct_expense.field_neptune_uri
+    - node.type.fkg_ct_expense
   module:
     - text
     - user
-id: node.fkg_ct_program_expense.teaser
+id: node.fkg_ct_expense.teaser
 targetEntityType: node
-bundle: fkg_ct_program_expense
+bundle: fkg_ct_expense
 mode: teaser
 content:
   body:

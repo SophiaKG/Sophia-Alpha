@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_neptune_uri
-    - node.type.fkg_ct_program_expense
-id: node.fkg_ct_program_expense.field_neptune_uri
+    - node.type.fkg_ct_expense
+id: node.fkg_ct_expense.field_neptune_uri
 field_name: field_neptune_uri
 entity_type: node
-bundle: fkg_ct_program_expense
+bundle: fkg_ct_expense
 label: 'Neptune URI'
 description: ''
 required: false
