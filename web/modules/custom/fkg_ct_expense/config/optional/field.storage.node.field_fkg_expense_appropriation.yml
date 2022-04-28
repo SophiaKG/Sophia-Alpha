@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - taxonomy
-id: node.field_fkg_expense_type
-field_name: field_fkg_expense_type
+id: node.field_fkg_expense_appropriation
+field_name: field_fkg_expense_appropriation
 entity_type: node
 type: entity_reference
 settings:

@@ -5,7 +5,7 @@ dependencies:
     - field.field.node.fkg_ct_expense.body
     - field.field.node.fkg_ct_expense.field_bodies
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_expense.field_fkg_expense_type
+    - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
     - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
@@ -43,7 +43,7 @@ content:
     third_party_settings: {  }
     weight: 105
     region: content
-  field_fkg_expense_type:
+  field_fkg_expense_appropriation:
     type: entity_reference_label
     label: above
     settings:

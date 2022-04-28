@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.node.fkg_ct_expense.field_bodies
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_expense.field_fkg_expense_type
+    - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
     - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
@@ -35,9 +35,9 @@ parser_configuration:
     programuri:
       value: ProgramUri
       label: ProgramUri
-    expensetype:
-      value: ExpenseType
-      label: ExpenseType
+    expenseappropriation:
+      value: ExpenseAppropriation
+      label: ExpenseAppropriation
     expensemeasure:
       value: ExpenseMeasure
       label: ExpenseMeasure
@@ -74,10 +74,10 @@ custom_sources:
     value: ProgramUri
     label: ProgramUri
     machine_name: programuri
-  expensetype:
-    value: ExpenseType
-    label: ExpenseType
-    machine_name: expensetype
+  expenseappropriation:
+    value: ExpenseAppropriation
+    label: ExpenseAppropriation
+    machine_name: expenseappropriation
   expensemeasure:
     value: ExpenseMeasure
     label: ExpenseMeasure
@@ -117,9 +117,9 @@ mappings:
       feeds_item: guid
       autocreate: 0
   -
-    target: field_fkg_expense_type
+    target: field_fkg_expense_appropriation
     map:
-      target_id: expensetype
+      target_id: expenseappropriation
     settings:
       language: null
       reference_by: name

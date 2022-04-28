@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_fkg_expense_type
+    - field.storage.node.field_fkg_expense_appropriation
     - node.type.fkg_ct_expense
-    - taxonomy.vocabulary.fkg_expense_type
-id: node.fkg_ct_expense.field_fkg_expense_type
-field_name: field_fkg_expense_type
+    - taxonomy.vocabulary.fkg_expense_appropriation
+id: node.fkg_ct_expense.field_fkg_expense_appropriation
+field_name: field_fkg_expense_appropriation
 entity_type: node
 bundle: fkg_ct_expense
-label: 'Expense type'
+label: 'Expense appropriation'
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      fkg_expense_type: fkg_expense_type
+      fkg_expense_appropriation: fkg_expense_appropriation
     sort:
       field: name
       direction: asc
