@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.fkg_ct_program_expense.field_bodies
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_type
-    - field.field.node.fkg_ct_program_expense.field_fkg_program
-    - field.field.node.fkg_ct_program_expense.field_neptune_uri
-    - node.type.fkg_ct_program_expense
+    - field.field.node.fkg_ct_expense.field_bodies
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_expense_type
+    - field.field.node.fkg_ct_expense.field_fkg_program
+    - field.field.node.fkg_ct_expense.field_neptune_uri
+    - node.type.fkg_ct_expense
   module:
     - feeds_ex
     - node
-label: 'FKG Program expense'
-id: fkg_program_expense
-description: 'FKG Program expense'
+label: 'FKG Expense'
+id: fkg_expense
+description: 'FKG Expense'
 help: ''
 import_period: -1
 fetcher: http
@@ -51,7 +51,7 @@ parser_configuration:
 processor: 'entity:node'
 processor_configuration:
   values:
-    type: fkg_ct_program_expense
+    type: fkg_ct_expense
   langcode: en
   insert_new: 1
   update_existing: 1
