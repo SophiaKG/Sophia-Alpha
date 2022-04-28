@@ -15,7 +15,7 @@ use Drupal\taxonomy\Entity\Term;
  */
 function fkg_ct_expense_install() {
 
-  // @see config/optional/taxonomy.vocabulary.fkg_expense_type.yml.
+  // @see config/optional/taxonomy.vocabulary.fkg_expense_appropriation.yml.
   $vid = 'fkg_expense_appropriation';
 
   $existing_terms = array_map(

@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: { }
-name: 'Expense Type'
-vid: fkg_expense_type
-description: ''
-weight: 0
