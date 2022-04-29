@@ -4,9 +4,11 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.fkg_ct_expense.body
+    - field.field.node.fkg_ct_expense.feeds_item
     - field.field.node.fkg_ct_expense.field_bodies
-    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
@@ -32,9 +34,11 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   field_bodies: true
-  field_fkg_expense_measure: true
+  field_fkg_expense_grant_to: true
   field_fkg_expense_appropriation: true
+  field_fkg_expense_measure: true
   field_fkg_program: true
   field_neptune_uri: true
   search_api_excerpt: true

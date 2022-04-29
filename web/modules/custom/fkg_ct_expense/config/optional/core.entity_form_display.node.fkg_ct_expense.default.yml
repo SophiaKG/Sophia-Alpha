@@ -3,9 +3,11 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_expense.body
+    - field.field.node.fkg_ct_expense.feeds_item
     - field.field.node.fkg_ct_expense.field_bodies
-    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
@@ -43,11 +45,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_fkg_expense_measure:
-    type: number
-    weight: 125
+  field_fkg_expense_grant_to:
+    type: entity_reference_autocomplete
+    weight: 127
     region: content
     settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_fkg_expense_appropriation:
@@ -58,6 +63,13 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_expense_measure:
+    type: number
+    weight: 125
+    region: content
+    settings:
       placeholder: ''
     third_party_settings: {  }
   field_fkg_program:
@@ -128,4 +140,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  feeds_item: true

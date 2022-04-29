@@ -10,7 +10,7 @@ third_party_settings:
     parent: 'main:'
 name: 'FKG Expense'
 type: fkg_ct_expense
-description: 'Expense'
+description: Expense
 help: ''
 new_revision: true
 preview_mode: 1
