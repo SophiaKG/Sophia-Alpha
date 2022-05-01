@@ -3,8 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_expense.field_bodies
-    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
@@ -41,6 +42,9 @@ parser_configuration:
     expensemeasure:
       value: ExpenseMeasure
       label: ExpenseMeasure
+    grant_to:
+      label: GrantTo
+      value: GrantTo
   context:
     value: '.Expenses.*'
   source_encoding:
@@ -82,6 +86,14 @@ custom_sources:
     value: ExpenseMeasure
     label: ExpenseMeasure
     machine_name: expensemeasure
+  grantto:
+    value: GrantTo
+    label: GrantTo
+    machine_name: grantto
+  grant_to:
+    value: GrantTo
+    label: GrantTo
+    machine_name: grant_to
 mappings:
   -
     target: title
@@ -131,3 +143,12 @@ mappings:
     settings:
       language: null
     unique: {  }
+  -
+    target: field_fkg_expense_grant_to
+    map:
+      target_id: grant_to
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
