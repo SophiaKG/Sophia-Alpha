@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
     - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_financial_year
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
   module:
@@ -69,6 +70,16 @@ content:
     weight: 125
     region: content
     settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_financial_year:
+    type: entity_reference_autocomplete
+    weight: 128
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_neptune_uri:
