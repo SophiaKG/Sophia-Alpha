@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_fkg_expense_appropriation
-    - field.storage.node.field_fkg_program
     - node.type.fkg_ct_expense
   module:
     - node
@@ -24,68 +23,6 @@ display:
     display_options:
       title: Expense
       fields:
-        field_fkg_program:
-          id: field_fkg_program
-          table: node__field_fkg_program
-          field: field_fkg_program
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_entity_id
-          settings: {  }
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_fkg_expense_appropriation:
           id: field_fkg_expense_appropriation
           table: node__field_fkg_expense_appropriation
@@ -247,15 +184,15 @@ display:
       empty: {  }
       sorts: {  }
       arguments:
-        field_fkg_program_target_id:
-          id: field_fkg_program_target_id
-          table: node__field_fkg_program
-          field: field_fkg_program_target_id
+        field_fkg_expense_grant_to_target_id:
+          id: field_fkg_expense_grant_to_target_id
+          table: node__field_fkg_expense_grant_to
+          field: field_fkg_expense_grant_to_target_id
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          default_action: ignore
+          default_action: 'not found'
           exception:
             value: all
             title_enable: false
@@ -280,7 +217,7 @@ display:
             type: none
             fail: 'not found'
           validate_options: {  }
-          break_phrase: true
+          break_phrase: false
           not: false
         field_fkg_expense_appropriation_target_id:
           id: field_fkg_expense_appropriation_target_id
@@ -399,4 +336,3 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_fkg_expense_appropriation'
-        - 'config:field.storage.node.field_fkg_program'
