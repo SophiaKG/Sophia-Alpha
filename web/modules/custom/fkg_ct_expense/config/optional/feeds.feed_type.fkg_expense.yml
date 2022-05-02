@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
     - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_expense.field_fkg_program
+    - field.field.node.fkg_ct_expense.field_fkg_financial_year
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
   module:
@@ -33,9 +33,6 @@ parser_configuration:
     ownerentity:
       value: OwnerEntity
       label: OwnerEntity
-    programuri:
-      value: ProgramUri
-      label: ProgramUri
     expenseappropriation:
       value: ExpenseAppropriation
       label: ExpenseAppropriation
@@ -43,8 +40,11 @@ parser_configuration:
       value: ExpenseMeasure
       label: ExpenseMeasure
     grant_to:
-      label: GrantTo
       value: GrantTo
+      label: GrantTo
+    financial_year:
+      label: FinancialYear
+      value: FinancialYear
   context:
     value: '.Expenses.*'
   source_encoding:
@@ -94,6 +94,10 @@ custom_sources:
     value: GrantTo
     label: GrantTo
     machine_name: grant_to
+  financial_year:
+    value: FinancialYear
+    label: FinancialYear
+    machine_name: financial_year
 mappings:
   -
     target: title
@@ -120,15 +124,6 @@ mappings:
       feeds_item: guid
       autocreate: 0
   -
-    target: field_fkg_program
-    map:
-      target_id: programuri
-    settings:
-      language: ''
-      reference_by: field_fkg_program_uri
-      feeds_item: guid
-      autocreate: 0
-  -
     target: field_fkg_expense_appropriation
     map:
       target_id: expenseappropriation
@@ -152,3 +147,11 @@ mappings:
       reference_by: field_neptune_uri
       feeds_item: guid
       autocreate: 0
+  -
+    target: field_fkg_financial_year
+    map:
+      target_id: financial_year
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
