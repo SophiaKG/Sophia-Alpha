@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_fkg_program
-    - node.type.fkg_ct_program
-    - node.type.fkg_ct_program_expense
-id: node.fkg_ct_program_expense.field_fkg_program
-field_name: field_fkg_program
+    - field.storage.node.field_bodies
+    - node.type.bodies
+    - node.type.fkg_ct_expense
+id: node.fkg_ct_expense.field_bodies
+field_name: field_bodies
 entity_type: node
-bundle: fkg_ct_program_expense
-label: 'FKG Program'
+bundle: fkg_ct_expense
+label: 'FKG Body'
 description: ''
 required: false
 translatable: true
@@ -19,7 +19,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      fkg_ct_program: fkg_ct_program
+      bodies: bodies
     sort:
       field: _none
       direction: ASC

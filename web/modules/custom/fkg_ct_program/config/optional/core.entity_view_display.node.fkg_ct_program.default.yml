@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_fkg_program_uri
+    - field.field.node.fkg_ct_program.field_neptune_uri
     - node.type.fkg_ct_program
   module:
     - user
@@ -56,6 +57,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_neptune_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
     region: content
   links:
     settings: {  }

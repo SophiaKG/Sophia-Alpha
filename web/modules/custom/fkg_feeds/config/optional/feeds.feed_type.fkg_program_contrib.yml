@@ -13,8 +13,8 @@ dependencies:
   module:
     - feeds_ex
     - node
-id: fkg_program_contrib
 label: 'FKG Program contrib'
+id: fkg_program_contrib
 description: ''
 help: ''
 import_period: -1
@@ -27,8 +27,6 @@ fetcher_configuration:
   request_timeout: 30
 parser: jsonpath
 parser_configuration:
-  context:
-    value: '.results.Contributions.*'
   sources:
     id:
       label: ID
@@ -45,83 +43,86 @@ parser_configuration:
     linked:
       label: Linked
       value: Linked
-  display_errors: false
+  context:
+    value: '.results.Contributions.*'
   source_encoding:
     - auto
+  display_errors: false
   debug_mode: false
   line_limit: 100
 processor: 'entity:node'
 processor_configuration:
+  values:
+    type: fkg_ct_program_contrib
   langcode: en
+  insert_new: 1
   update_existing: 2
   update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
   expire: -1
   owner_feed_author: true
   owner_id: 0
-  authorize: true
-  skip_hash_check: false
-  values:
-    type: fkg_ct_program_contrib
 custom_sources:
   id:
-    label: ID
     value: ID
+    label: ID
     machine_name: id
   program:
-    label: Program
     value: Program
+    label: Program
     machine_name: program
   outcome:
-    label: Outcome
     value: Outcome
+    label: Outcome
     machine_name: outcome
   contribution:
-    label: Contribution
     value: Contribution
+    label: Contribution
     machine_name: contribution
   linked:
-    label: Linked
     value: Linked
+    label: Linked
     machine_name: linked
 mappings:
   -
     target: field_fkg_program_contrib_id
     map:
       value: id
-    unique:
-      value: '1'
     settings:
       language: null
+    unique:
+      value: '1'
   -
     target: title
     map:
       value: id
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_fkg_contrib_program_uri
     map:
       value: program
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_fkg_contrib_program
     map:
       target_id: program
     settings:
       language: ''
-      reference_by: field_fkg_program_uri
+      reference_by: field_neptune_uri
       feeds_item: guid
       autocreate: 0
   -
     target: field_fkg_contrib_outcome_uri
     map:
       value: outcome
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_fkg_contrib_outcome
     map:

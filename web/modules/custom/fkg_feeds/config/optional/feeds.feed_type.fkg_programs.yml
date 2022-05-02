@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.fkg_ct_program.field_fkg_program_label
     - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
-    - field.field.node.fkg_ct_program.field_fkg_program_uri
     - node.type.fkg_ct_program
   module:
     - feeds_ex
@@ -35,15 +34,15 @@ parser_configuration:
     neptune_programs_programlabel:
       value: ProgramLabel
       label: ProgramLabel
-    neptune_program_programuri:
-      value: ProgramUri
-      label: ProgramUri
     neptune_programnumber:
       value: ProgramNumber
       label: ProgramNumber
     owneruri:
       value: OwnerUri
       label: OwnerUri
+    neptune_program_programuri:
+      value: ProgramUri
+      label: ProgramUri
   context:
     value: '.results.Programs.*'
   source_encoding:
@@ -112,14 +111,6 @@ mappings:
       language: null
     unique: {  }
   -
-    target: field_fkg_program_uri
-    map:
-      value: neptune_program_programuri
-    settings:
-      language: null
-    unique:
-      value: '1'
-  -
     target: field_fkg_program_number
     map:
       value: neptune_programnumber
@@ -135,3 +126,11 @@ mappings:
       reference_by: field_neptune_uri
       feeds_item: guid
       autocreate: 0
+  -
+    target: field_neptune_uri
+    map:
+      value: neptune_program_programuri
+    settings:
+      language: null
+    unique:
+      value: '1'

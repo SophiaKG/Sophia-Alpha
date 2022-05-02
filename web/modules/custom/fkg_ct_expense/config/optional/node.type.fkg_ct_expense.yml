@@ -8,9 +8,9 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-name: 'FKG Program expense'
-type: fkg_ct_program_expense
-description: ''
+name: 'FKG Expense'
+type: fkg_ct_expense
+description: Expense
 help: ''
 new_revision: true
 preview_mode: 1
