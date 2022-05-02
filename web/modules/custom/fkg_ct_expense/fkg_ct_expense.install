@@ -31,4 +31,20 @@ function fkg_ct_expense_install() {
       'vid' => $vid,
     ])->save();
   }
+
+  // Create default Financial Year terms.
+  $vid = 'fkg_financial_year';
+  $existing_terms = array_map(
+    function ($term) { return $term->name; },
+    Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid)
+  );
+
+  // Create the specified taxonomy term(s) if not existing.
+  foreach (array_diff(['2021-22', '2022-23'], $existing_terms) as $missed_term) {
+    Term::create([
+      'parent' => [],
+      'name' => $missed_term,
+      'vid' => $vid,
+    ])->save();
+  }
 }
