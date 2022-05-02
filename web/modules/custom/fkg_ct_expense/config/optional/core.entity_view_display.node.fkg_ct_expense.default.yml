@@ -5,10 +5,9 @@ dependencies:
     - field.field.node.fkg_ct_expense.body
     - field.field.node.fkg_ct_expense.feeds_item
     - field.field.node.fkg_ct_expense.field_bodies
-    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
   module:
@@ -34,14 +33,6 @@ content:
     third_party_settings: {  }
     weight: 102
     region: content
-  field_fkg_expense_grant_to:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 107
-    region: content
   field_fkg_expense_appropriation:
     type: entity_reference_label
     label: above
@@ -49,6 +40,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 106
+    region: content
+  field_fkg_expense_grant_to:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 107
     region: content
   field_fkg_expense_measure:
     type: number_decimal
@@ -60,14 +59,6 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 105
-    region: content
-  field_fkg_program:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 104
     region: content
   field_neptune_uri:
     type: string

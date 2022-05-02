@@ -5,10 +5,9 @@ dependencies:
     - field.field.node.fkg_ct_expense.body
     - field.field.node.fkg_ct_expense.feeds_item
     - field.field.node.fkg_ct_expense.field_bodies
-    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_expense.field_fkg_program
     - field.field.node.fkg_ct_expense.field_neptune_uri
     - node.type.fkg_ct_expense
   module:
@@ -45,9 +44,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_fkg_expense_grant_to:
+  field_fkg_expense_appropriation:
     type: entity_reference_autocomplete
-    weight: 127
+    weight: 126
     region: content
     settings:
       match_operator: CONTAINS
@@ -55,9 +54,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_fkg_expense_appropriation:
+  field_fkg_expense_grant_to:
     type: entity_reference_autocomplete
-    weight: 126
+    weight: 127
     region: content
     settings:
       match_operator: CONTAINS
@@ -70,16 +69,6 @@ content:
     weight: 125
     region: content
     settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_fkg_program:
-    type: entity_reference_autocomplete
-    weight: 124
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_neptune_uri:
