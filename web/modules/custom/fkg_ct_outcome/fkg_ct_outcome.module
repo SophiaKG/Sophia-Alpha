@@ -63,6 +63,17 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     'graph' => _fkg_ct_outcome_get_contributing_programs_graph($variables['node']),
   ];
 
+  // Add the expense data for the outcome.
+  $content_character_sheet['outcome_expense'] = [
+    '#type' => 'container',
+    '#weight' => 2,
+    'label' => [
+      '#type' => 'markup',
+      '#markup' => '<div class="field__label">' . t('Appropriations') . '</div>',
+    ],
+    'graph' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
+  ];
+
   // Add the data of contributing to outcomes.
   $contributing_to_outcomes = _fkg_ct_outcome_get_contributing_to_outcomes($variables['node']);
   if (!empty($contributing_to_outcomes)) {
@@ -122,4 +133,14 @@ function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
   \Drupal::service('renderer')->addCacheableDependency($render, $block_outcome_graph);
 
   return $render;
+}
+
+function _fkg_ct_outcome_get_outcome_expense(NodeInterface $node) {
+  $view = Views::getView('fkg_expense');
+  $view->setDisplay('expense_outcome');
+  $view->setArguments([$node->id()]);
+  $view->preExecute();
+  $view->execute();
+
+  return $view->buildRenderable();
 }
