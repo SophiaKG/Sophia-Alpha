@@ -30,3 +30,25 @@ function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for template node__fkg_ct_outcome.
+ */
+function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
+  $content_character_sheet = [
+    '#type' => 'container',
+    '#weight' => 10,
+    '#attributes' => [
+      'class' => [
+        'field',
+        'fkg-character-sheet',
+        'fkg-character-sheet-outcome',
+      ],
+    ],
+    '#attached' => [
+      'library' => ['fkg_display_charsheet/fkg_character_sheet'],
+    ],
+  ];
+
+  $variables['content']['fkg-character-sheet'] = $content_character_sheet;
+}
