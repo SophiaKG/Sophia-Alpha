@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Core\Render\Markup;
 use Drupal\node\NodeInterface;
 use Drupal\views\Views;
 use Drupal\views\ViewExecutable;
@@ -52,6 +53,16 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     ],
   ];
 
+  // Add the contributing programs.
+  $content_character_sheet['outcome_programs'] = [
+    '#type' => 'container',
+    '#weight' => 1,
+    '#attributes' => [
+      'class' => ['character-sheet-programs'],
+    ],
+    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node']),
+  ];
+
   // Add the contributing programs graph.
   $content_character_sheet['contributing_programs_graph'] = [
     '#type' => 'container',
@@ -89,6 +100,57 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
   }
 
   $variables['content']['fkg-character-sheet'] = $content_character_sheet;
+}
+
+/**
+ * Retrieve all the FKG Programs those contribute to the given FKG Outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array with data of contributing FKG Programs.
+ */
+function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
+  $nid_outcome_owner = $node->get('field_bodies')->getString();
+
+  $params = [
+    'owned_programs' => [
+      'data-target' => '#owned-programs',
+      'aria-controls' => 'owned-programs',
+      'text' => t('Owned programs'),
+    ],
+    'contributing_programs' => [
+      'data-target' => '#linked-programs',
+      'aria-controls' => 'linked-programs',
+      'text' => t('Linked programs'),
+    ],
+  ];
+
+  $output = [];
+  foreach (array_keys($params) as $display) {
+    $output[$display . '-button'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('
+        <div class="fkg-character-sheet-outcome-programs">
+          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="'. $params[$display]['data-target'] . '" aria-expanded="false" aria-controls="' . $params[$display]['aria-controls'] . '">
+            <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+            <spam>' . $params[$display]['text'] . '</spam>
+          </button>
+        </div>
+      '),
+    ];
+    $output[$display . '-programs'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['collapse'],
+        'id' => $params[$display]['aria-controls'], 
+      ],
+      'programs' => views_embed_view('fkg_outcome_programs', $display, $node->id(), $nid_outcome_owner),
+    ];
+  }
+
+  return $output;
 }
 
 /**
