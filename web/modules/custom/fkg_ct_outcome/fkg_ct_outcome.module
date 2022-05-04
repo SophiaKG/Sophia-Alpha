@@ -52,12 +52,23 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     ],
   ];
 
+  // Add the contributing programs graph.
+  $content_character_sheet['contributing_programs_graph'] = [
+    '#type' => 'container',
+    '#weight' => 1,
+    'label' => [
+      '#type' => 'markup',
+      '#markup' => '<div class="field__label">' . t('Contributing programs') . '</div>',
+    ],
+    'graph' => _fkg_ct_outcome_get_contributing_programs_graph($variables['node']),
+  ];
+
   // Add the data of contributing to outcomes.
   $contributing_to_outcomes = _fkg_ct_outcome_get_contributing_to_outcomes($variables['node']);
   if (!empty($contributing_to_outcomes)) {
     $content_character_sheet['contributing_to_outcomes'] = [
       '#type' => 'container',
-      '#weight' => 1,
+      '#weight' => 3,
       'label' => [
         '#type' => 'markup',
         '#markup' => '<div class="field__label">' . t('Contributing to other outcomes') . '</div>',
@@ -73,7 +84,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
  * Retrieve all the Outcomes that the programs associated with a given Outcome contribute to.
  * 
  * @param NodeInterface $node
- *   The node of a given Outcome content.
+ *   The node of a given FKG Outcome content.
  * 
  * @return array || []
  *   A renderable array with #type 'view' holding data of contributing to outcomes.
@@ -93,4 +104,22 @@ function _fkg_ct_outcome_get_contributing_to_outcomes(NodeInterface $node) {
   $view->execute();
 
   return $view->buildRenderable() ?? [];
+}
+
+/**
+ * Get the graph of contributing programs for given outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array holding the data to render the graph of contributing programs.
+ */
+function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
+  $block_outcome_graph = \Drupal::service('plugin.manager.block')->createInstance('fkg_ct_outcome_graph', []);
+  $block_outcome_graph->setContextValue('node', $node);
+  $render = $block_outcome_graph->build();
+  \Drupal::service('renderer')->addCacheableDependency($render, $block_outcome_graph);
+
+  return $render;
 }
