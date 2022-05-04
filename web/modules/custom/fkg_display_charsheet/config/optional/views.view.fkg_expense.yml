@@ -717,8 +717,10 @@ display:
         row: false
         fields: false
         sorts: false
+        header: false
       group_by: false
       display_description: ''
+      header: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
