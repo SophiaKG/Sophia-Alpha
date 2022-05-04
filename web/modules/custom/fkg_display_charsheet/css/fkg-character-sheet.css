@@ -11,3 +11,7 @@
 #block-contributingtootheroutcomes .row {
   margin-left: unset;
 }
+
+.fkg-character-sheet .view-content.row {
+  margin-left: unset;
+}
