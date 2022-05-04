@@ -135,6 +135,15 @@ function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
   return $render;
 }
 
+/**
+ * Get the expense data for given FKG Outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array with #type 'view' of expense data for the FKG Outcome.
+ */
 function _fkg_ct_outcome_get_outcome_expense(NodeInterface $node) {
   $view = Views::getView('fkg_expense');
   $view->setDisplay('expense_outcome');
