@@ -35,6 +35,64 @@ function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for the views_view_table template.
+ */
+function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
+  $view = $variables['view'];
+
+  // For the specified view and display, set new columns for every unique Financial Year and fill the columns with the corresponding expense values.
+  if ($view->id() == 'fkg_expense' && $view->current_display == 'expense_outcome') {
+    $unique_financial_years = array_unique(array_map(
+      function($a) {
+        return trim(strip_tags($a['columns']['field_fkg_financial_year']['content'][0]['field_output']['#markup']));
+      },
+      $variables['rows']
+    ));
+
+    if (count($unique_financial_years) > 1) {
+      $fields_to_remove = ['field_fkg_financial_year', 'field_fkg_expense_measure'];
+
+      $rows_new = [];
+      foreach ($variables['rows'] as $row) {
+        $key = '';
+        foreach (['field_fkg_expense_appropriation', 'field_fkg_appropriation_subtype'] as $field) {
+          $key .= trim(strip_tags($row['columns'][$field]['content'][0]['field_output']['#markup']));
+        }
+
+        if (!isset($rows_new[$key])) {
+          $rows_new[$key] = $row;
+          foreach ($fields_to_remove as $field) {
+            // Remove the unnecessary columns.
+            unset($rows_new[$key]['columns'][$field]);
+          }
+        }
+
+        $financial_year = trim(strip_tags($row['columns']['field_fkg_financial_year']['content'][0]['field_output']['#markup']));
+        // Copy the expense value to the corresponding Financial Year column.
+        $rows_new[$key]['columns'][$financial_year] = $row['columns']['field_fkg_expense_measure'];
+      }
+
+      // Replace the rows data with the new one.
+      $variables['rows'] = array_values($rows_new);
+
+      // Add the Financial Year column headers.
+      foreach ($unique_financial_years as $financial_year) {
+        $variables['header'][$financial_year] = [
+          'content' => $financial_year,
+          'default_classes' => true,
+          'attributes' => $variables['header']['field_fkg_expense_measure']['attributes'],
+        ];
+      }
+
+      // Remove the unnecessary column headers.
+      foreach ($fields_to_remove as $field) {
+        unset($variables['header'][$field]);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK() for template node__fkg_ct_outcome.
  */
 function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
@@ -49,7 +107,10 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
       ],
     ],
     '#attached' => [
-      'library' => ['fkg_display_charsheet/fkg_character_sheet'],
+      'library' => [
+        'fkg_display_charsheet/fkg_character_sheet',
+        'fkg_ct_program/fkg_charactersheet_outcome_program',
+      ],
     ],
   ];
 
