@@ -143,7 +143,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
       '#type' => 'markup',
       '#markup' => '<div class="field__label">' . t('Appropriations') . '</div>',
     ],
-    'graph' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
+    'outcome_expense' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
   ];
 
   // Add the data of contributing to outcomes.
@@ -156,7 +156,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
         '#type' => 'markup',
         '#markup' => '<div class="field__label">' . t('Contributing to other outcomes') . '</div>',
       ],
-      'outcomes' => $contributing_to_outcomes + ['#weight' => 2],
+      'contributing_to_outcomes' => $contributing_to_outcomes + ['#weight' => 2],
     ];
   }
 
