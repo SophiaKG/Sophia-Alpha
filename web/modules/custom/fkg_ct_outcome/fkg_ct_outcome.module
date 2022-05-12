@@ -57,7 +57,7 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
     foreach ($variables['rows'] as $row) {
       $key = '';
       foreach (['field_fkg_expense_appropriation', 'field_fkg_appropriation_subtype'] as $field) {
-        $key .= trim(strip_tags($row['columns'][$field]['content'][0]['field_output']['#markup']));
+        $key .= trim(strip_tags($row['columns'][$field]['content'][0]['field_output']['#markup'] ?? ''));
       }
 
       if (!isset($rows_new[$key])) {
@@ -115,7 +115,7 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
 
     // Construct the new data with total/subtotals.
     $rows_with_total = [];
-    
+
     // Construct the financial-year dependent appropriation subtotals.
     foreach ($rows_grouped as $appropriation => $group) {
       if (!empty($appropriation)) {
