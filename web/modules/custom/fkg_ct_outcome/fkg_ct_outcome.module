@@ -99,7 +99,7 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
 
     // Group data rows and calculate totals.
     foreach ($variables['rows'] as $row) {
-      $key_appropriation = trim(strip_tags($row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup']));
+      $key_appropriation = trim(strip_tags($row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup'] ?? ''));
       $rows_grouped[$key_appropriation][] = $row;
 
       $totals['subtotals'][$key_appropriation] = $totals['subtotals'][$key_appropriation] ?? [];
