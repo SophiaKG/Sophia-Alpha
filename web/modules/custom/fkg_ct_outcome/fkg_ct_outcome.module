@@ -92,12 +92,31 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
 
     // Construct and add subtotal rows to the table.
     $rows_grouped = [];
+    $totals = [
+      'subtotals' => [],
+      'total' => [],
+    ];
+
+    // Group data rows and calculate totals.
     foreach ($variables['rows'] as $row) {
       $key_appropriation = trim(strip_tags($row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup']));
       $rows_grouped[$key_appropriation][] = $row;
+
+      $totals['subtotals'][$key_appropriation] = $totals['subtotals'][$key_appropriation] ?? [];
+
+      foreach ($unique_financial_years as $year) {
+        $expense = floatval(str_replace(',','', trim(strip_tags($row['columns'][$year]['content'][0]['field_output']['#markup']))));
+
+        $totals['subtotals'][$key_appropriation][$year] = ($totals['subtotals'][$key_appropriation][$year] ?? 0) + $expense;
+
+        $totals['total'][$year] = ($totals['total'][$year] ?? 0) + $expense;
+      }
     }
 
+    // Construct the new data with total/subtotals.
     $rows_with_total = [];
+    
+    // Construct the financial-year dependent appropriation subtotals.
     foreach ($rows_grouped as $appropriation => $group) {
       if (!empty($appropriation)) {
         $subtotal_row['columns'] = $group[0]['columns'];
@@ -108,16 +127,26 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
         $subtotal_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
 
         foreach ($unique_financial_years as $year) {
-          $total = 0;
-          foreach ($group as $row) {
-            $total += floatval(str_replace(',','', trim(strip_tags($row['columns'][$year]['content'][0]['field_output']['#markup']))));
-          }
-          $subtotal_row['columns'][$year]['content'][0]['field_output']['#markup'] = Markup::create(number_format($total, 2, '.', ','));
+          $subtotal_row['columns'][$year]['content'][0]['field_output']['#markup'] = Markup::create(number_format($totals['subtotals'][$appropriation][$year], 2, '.', ','));
         }
+
         array_push($rows_grouped[$appropriation], $subtotal_row);
       }
       $rows_with_total = array_merge($rows_with_total, $rows_grouped[$appropriation]);
     }
+
+    // Construct the financial-year dependent total.
+    $total_row['attributes'] = clone $variables['rows'][0]['attributes'];
+    $total_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
+
+    $total_row['columns'] = $variables['rows'][0]['columns'];
+    $total_row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup'] = Markup::create(t(''));
+    $total_row['columns']['field_fkg_appropriation_subtype']['content'][0]['field_output']['#markup'] = Markup::create(t('Total'));
+    foreach ($unique_financial_years as $year) {
+      $total_row['columns'][$year]['content'][0]['field_output']['#markup'] = Markup::create(number_format($totals['total'][$year], 2, '.', ','));
+    }
+
+    array_push($rows_with_total, $total_row);
 
     $variables['rows'] = $rows_with_total;
   }
