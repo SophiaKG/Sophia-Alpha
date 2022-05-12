@@ -40,8 +40,9 @@ function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
 function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
   $view = $variables['view'];
 
-  // For the specified view and display, set new columns for every unique Financial Year and fill the columns with the corresponding expense values.
+  // Add customized data to the output of view:fkg_expense:expense_outcome (for the Outcome Character Sheet expense appropriation section).
   if ($view->id() == 'fkg_expense' && $view->current_display == 'expense_outcome') {
+    // Get the unique financial years.
     $unique_financial_years = array_unique(array_map(
       function($a) {
         return trim(strip_tags($a['columns']['field_fkg_financial_year']['content'][0]['field_output']['#markup']));
@@ -49,7 +50,8 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
       $variables['rows']
     ));
 
-    if (count($unique_financial_years) > 1) {
+    // Construct new columns for every unique Financial Year and fill the columns with the corresponding expense values.
+    if (count($unique_financial_years) > 0) {
       $fields_to_remove = ['field_fkg_financial_year', 'field_fkg_expense_measure'];
 
       $rows_new = [];
@@ -89,6 +91,37 @@ function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
         unset($variables['header'][$field]);
       }
     }
+
+    // Construct and add subtotal rows to the table.
+    $rows_grouped = [];
+    foreach ($variables['rows'] as $row) {
+      $key_appropriation = trim(strip_tags($row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup']));
+      $rows_grouped[$key_appropriation][] = $row;
+    }
+
+    $rows_with_total = [];
+    foreach ($rows_grouped as $appropriation => $group) {
+      if (!empty($appropriation)) {
+        $subtotal_row['columns'] = $group[0]['columns'];
+        $subtotal_row['columns']['field_fkg_appropriation_subtype']['content'][0]['field_output']['#markup'] = Markup::create(t('Subtotal'));
+
+        $subtotal_row['attributes'] = clone $group[0]['attributes'];
+        // Add a customized css class for styling.
+        $subtotal_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
+
+        foreach ($unique_financial_years as $year) {
+          $total = 0;
+          foreach ($group as $row) {
+            $total += floatval(str_replace(',','', trim(strip_tags($row['columns'][$year]['content'][0]['field_output']['#markup']))));
+          }
+          $subtotal_row['columns'][$year]['content'][0]['field_output']['#markup'] = Markup::create(number_format($total, 2, '.', ','));
+        }
+        array_push($rows_grouped[$appropriation], $subtotal_row);
+      }
+      $rows_with_total = array_merge($rows_with_total, $rows_grouped[$appropriation]);
+    }
+
+    $variables['rows'] = $rows_with_total;
   }
 }
 
