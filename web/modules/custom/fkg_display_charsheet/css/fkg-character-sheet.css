@@ -15,3 +15,7 @@
 .fkg-character-sheet .view-content.row {
   margin-left: unset;
 }
+
+.fkg-character-sheet tr.fkg-character-sheet-outcome-expense-subtotal {
+  font-weight: bold;
+}
