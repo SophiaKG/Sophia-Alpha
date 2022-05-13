@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_fkg_expense_measure
-    - node.type.fkg_ct_program_expense
-id: node.fkg_ct_program_expense.field_fkg_expense_measure
+    - node.type.fkg_ct_expense
+id: node.fkg_ct_expense.field_fkg_expense_measure
 field_name: field_fkg_expense_measure
 entity_type: node
-bundle: fkg_ct_program_expense
+bundle: fkg_ct_expense
 label: 'Expense measure'
 description: ''
 required: false

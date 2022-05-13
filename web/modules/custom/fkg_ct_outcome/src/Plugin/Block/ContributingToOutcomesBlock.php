@@ -3,6 +3,8 @@
 /**
  * @file
  * Contains \Drupal\fkg_ct_outcome\Plugin\Block\<ContributingToOutcomesBlock.
+ * 
+ * @deprecated Alternation implemented in hook_preprocess_HOOK() implementation (for less admin interface involvement).
  */
 
 namespace Drupal\fkg_ct_outcome\Plugin\Block;

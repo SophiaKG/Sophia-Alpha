@@ -10,13 +10,11 @@ use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_install().
- * 
- * Ensure the availability of two taxonomy terms, 'Administered' and 'Departmental'.
  */
 function fkg_ct_expense_install() {
 
-  // @see config/optional/taxonomy.vocabulary.fkg_expense_type.yml.
-  $vid = 'fkg_expense_type';
+  // Create default fkg_expense_appropriation terms.
+  $vid = 'fkg_expense_appropriation';
 
   $existing_terms = array_map(
     function ($term) { return $term->name; },
@@ -25,6 +23,39 @@ function fkg_ct_expense_install() {
 
   // Create the specified taxonomy term(s) if not existing.
   foreach (array_diff(['Administered', 'Departmental'], $existing_terms) as $missed_term) {
+    Term::create([
+      'parent' => [],
+      'name' => $missed_term,
+      'vid' => $vid,
+    ])->save();
+  }
+
+  // Create default fkg_expense_appro_subtype terms.
+  $vid = 'fkg_expense_appro_subtype';
+
+  $existing_terms = array_map(
+    function ($term) { return $term->name; },
+    Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid)
+  );
+
+  // Create the specified taxonomy term(s) if not existing.
+  foreach (array_diff(['External Revenue', 'Non-operating', 'Operating', 'Special Accounts', 'Special Appropriation', 'Special Purpose Payments'], $existing_terms) as $missed_term) {
+    Term::create([
+      'parent' => [],
+      'name' => $missed_term,
+      'vid' => $vid,
+    ])->save();
+  }
+
+  // Create default Financial Year terms.
+  $vid = 'fkg_financial_year';
+  $existing_terms = array_map(
+    function ($term) { return $term->name; },
+    Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid)
+  );
+
+  // Create the specified taxonomy term(s) if not existing.
+  foreach (array_diff(['2021-22', '2022-23'], $existing_terms) as $missed_term) {
     Term::create([
       'parent' => [],
       'name' => $missed_term,

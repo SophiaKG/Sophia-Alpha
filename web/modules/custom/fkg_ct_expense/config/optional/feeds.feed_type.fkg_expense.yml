@@ -2,18 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.fkg_ct_program_expense.field_bodies
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_type
-    - field.field.node.fkg_ct_program_expense.field_fkg_program
-    - field.field.node.fkg_ct_program_expense.field_neptune_uri
-    - node.type.fkg_ct_program_expense
+    - field.field.node.fkg_ct_expense.field_bodies
+    - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_financial_year
+    - field.field.node.fkg_ct_expense.field_neptune_uri
+    - node.type.fkg_ct_expense
   module:
     - feeds_ex
     - node
-label: 'FKG Program expense'
-id: fkg_program_expense
-description: 'FKG Program expense'
+label: 'FKG Expense'
+id: fkg_expense
+description: 'FKG Expense'
 help: ''
 import_period: -1
 fetcher: http
@@ -32,15 +33,18 @@ parser_configuration:
     ownerentity:
       value: OwnerEntity
       label: OwnerEntity
-    programuri:
-      value: ProgramUri
-      label: ProgramUri
-    expensetype:
-      value: ExpenseType
-      label: ExpenseType
+    expenseappropriation:
+      value: ExpenseAppropriation
+      label: ExpenseAppropriation
     expensemeasure:
       value: ExpenseMeasure
       label: ExpenseMeasure
+    grant_to:
+      value: GrantTo
+      label: GrantTo
+    financial_year:
+      label: FinancialYear
+      value: FinancialYear
   context:
     value: '.Expenses.*'
   source_encoding:
@@ -51,7 +55,7 @@ parser_configuration:
 processor: 'entity:node'
 processor_configuration:
   values:
-    type: fkg_ct_program_expense
+    type: fkg_ct_expense
   langcode: en
   insert_new: 1
   update_existing: 1
@@ -74,14 +78,26 @@ custom_sources:
     value: ProgramUri
     label: ProgramUri
     machine_name: programuri
-  expensetype:
-    value: ExpenseType
-    label: ExpenseType
-    machine_name: expensetype
+  expenseappropriation:
+    value: ExpenseAppropriation
+    label: ExpenseAppropriation
+    machine_name: expenseappropriation
   expensemeasure:
     value: ExpenseMeasure
     label: ExpenseMeasure
     machine_name: expensemeasure
+  grantto:
+    value: GrantTo
+    label: GrantTo
+    machine_name: grantto
+  grant_to:
+    value: GrantTo
+    label: GrantTo
+    machine_name: grant_to
+  financial_year:
+    value: FinancialYear
+    label: FinancialYear
+    machine_name: financial_year
 mappings:
   -
     target: title
@@ -108,18 +124,9 @@ mappings:
       feeds_item: guid
       autocreate: 0
   -
-    target: field_fkg_program
+    target: field_fkg_expense_appropriation
     map:
-      target_id: programuri
-    settings:
-      language: ''
-      reference_by: field_fkg_program_uri
-      feeds_item: guid
-      autocreate: 0
-  -
-    target: field_fkg_expense_type
-    map:
-      target_id: expensetype
+      target_id: expenseappropriation
     settings:
       language: null
       reference_by: name
@@ -131,3 +138,20 @@ mappings:
     settings:
       language: null
     unique: {  }
+  -
+    target: field_fkg_expense_grant_to
+    map:
+      target_id: grant_to
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_financial_year
+    map:
+      target_id: financial_year
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false

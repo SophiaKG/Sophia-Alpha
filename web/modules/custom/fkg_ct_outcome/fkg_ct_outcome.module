@@ -1,5 +1,8 @@
 <?php
 
+use Drupal\Core\Render\Markup;
+use Drupal\node\NodeInterface;
+use Drupal\views\Views;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -29,4 +32,307 @@ function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
       $view->result[] = $item;
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for the views_view_table template.
+ */
+function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
+  $view = $variables['view'];
+
+  // Add customized data to the output of view:fkg_expense:expense_outcome (for the Outcome Character Sheet expense appropriation section).
+  if ($view->id() == 'fkg_expense' && $view->current_display == 'expense_outcome') {
+    // Get the unique financial years.
+    $unique_financial_years = array_unique(array_map(
+      function($a) {
+        return trim(strip_tags($a['columns']['field_fkg_financial_year']['content'][0]['field_output']['#markup']));
+      },
+      $variables['rows']
+    ));
+
+    // Construct new columns for every unique Financial Year and fill the columns with the corresponding expense values.
+    $fields_to_remove = ['field_fkg_financial_year', 'field_fkg_expense_measure'];
+
+    $rows_new = [];
+    foreach ($variables['rows'] as $row) {
+      $key = '';
+      foreach (['field_fkg_expense_appropriation', 'field_fkg_appropriation_subtype'] as $field) {
+        $key .= trim(strip_tags($row['columns'][$field]['content'][0]['field_output']['#markup'] ?? ''));
+      }
+
+      if (!isset($rows_new[$key])) {
+        $rows_new[$key] = $row;
+        foreach ($fields_to_remove as $field) {
+          // Remove the unnecessary columns.
+          unset($rows_new[$key]['columns'][$field]);
+        }
+      }
+
+      $financial_year = trim(strip_tags($row['columns']['field_fkg_financial_year']['content'][0]['field_output']['#markup']));
+      // Copy the expense value to the corresponding Financial Year column.
+      $rows_new[$key]['columns'][$financial_year] = $row['columns']['field_fkg_expense_measure'];
+    }
+
+    // Replace the rows data with the new one.
+    $variables['rows'] = array_values($rows_new);
+
+    // Add the Financial Year column headers.
+    foreach ($unique_financial_years as $financial_year) {
+      $variables['header'][$financial_year] = [
+        'content' => $financial_year,
+        'default_classes' => true,
+        'attributes' => $variables['header']['field_fkg_expense_measure']['attributes'],
+      ];
+    }
+
+    // Remove the unnecessary column headers.
+    foreach ($fields_to_remove as $field) {
+      unset($variables['header'][$field]);
+    }
+
+    // Construct and add subtotal rows to the table.
+    $rows_grouped = [];
+    $totals = [
+      'subtotals' => [],
+      'total' => [],
+    ];
+
+    // Group data rows and calculate totals.
+    foreach ($variables['rows'] as $row) {
+      $key_appropriation = trim(strip_tags($row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup'] ?? ''));
+      $rows_grouped[$key_appropriation][] = $row;
+
+      $totals['subtotals'][$key_appropriation] = $totals['subtotals'][$key_appropriation] ?? [];
+
+      foreach ($unique_financial_years as $year) {
+        $expense = floatval(str_replace(',','', trim(strip_tags($row['columns'][$year]['content'][0]['field_output']['#markup']))));
+
+        $totals['subtotals'][$key_appropriation][$year] = ($totals['subtotals'][$key_appropriation][$year] ?? 0) + $expense;
+
+        $totals['total'][$year] = ($totals['total'][$year] ?? 0) + $expense;
+      }
+    }
+
+    // Construct the new data with total/subtotals.
+    $rows_with_total = [];
+
+    // Construct the financial-year dependent appropriation subtotals.
+    foreach ($rows_grouped as $appropriation => $group) {
+      if (!empty($appropriation)) {
+        $subtotal_row['columns'] = $group[0]['columns'];
+        $subtotal_row['columns']['field_fkg_appropriation_subtype']['content'][0]['field_output']['#markup'] = Markup::create(t('Subtotal'));
+
+        $subtotal_row['attributes'] = clone $group[0]['attributes'];
+        // Add a customized css class for styling.
+        $subtotal_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
+
+        foreach ($unique_financial_years as $year) {
+          $subtotal_row['columns'][$year]['content'][0]['field_output']['#markup'] = Markup::create(number_format($totals['subtotals'][$appropriation][$year], 2, '.', ','));
+        }
+
+        array_push($rows_grouped[$appropriation], $subtotal_row);
+      }
+      $rows_with_total = array_merge($rows_with_total, $rows_grouped[$appropriation]);
+    }
+
+    // Construct the financial-year dependent total.
+    $total_row['attributes'] = clone $variables['rows'][0]['attributes'];
+    $total_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
+
+    $total_row['columns'] = $variables['rows'][0]['columns'];
+    $total_row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup'] = Markup::create(t(''));
+    $total_row['columns']['field_fkg_appropriation_subtype']['content'][0]['field_output']['#markup'] = Markup::create(t('Total'));
+    foreach ($unique_financial_years as $year) {
+      $total_row['columns'][$year]['content'][0]['field_output']['#markup'] = Markup::create(number_format($totals['total'][$year], 2, '.', ','));
+    }
+
+    array_push($rows_with_total, $total_row);
+
+    $variables['rows'] = $rows_with_total;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for template node__fkg_ct_outcome.
+ */
+function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
+  $content_character_sheet = [
+    '#type' => 'container',
+    '#weight' => 10,
+    '#attributes' => [
+      'class' => [
+        'field',
+        'fkg-character-sheet',
+        'fkg-character-sheet-outcome',
+      ],
+    ],
+    '#attached' => [
+      'library' => [
+        'fkg_display_charsheet/fkg_character_sheet',
+        'fkg_ct_program/fkg_charactersheet_outcome_program',
+      ],
+    ],
+  ];
+
+  // Add the contributing programs.
+  $content_character_sheet['outcome_programs'] = [
+    '#type' => 'container',
+    '#weight' => 1,
+    '#attributes' => [
+      'class' => ['character-sheet-programs'],
+    ],
+    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node']),
+  ];
+
+  // Add the contributing programs graph.
+  $content_character_sheet['contributing_programs_graph'] = [
+    '#type' => 'container',
+    '#weight' => 1,
+    'label' => [
+      '#type' => 'markup',
+      '#markup' => '<div class="field__label">' . t('Contributing programs') . '</div>',
+    ],
+    'graph' => _fkg_ct_outcome_get_contributing_programs_graph($variables['node']),
+  ];
+
+  // Add the expense data for the outcome.
+  $content_character_sheet['outcome_expense'] = [
+    '#type' => 'container',
+    '#weight' => 2,
+    'label' => [
+      '#type' => 'markup',
+      '#markup' => '<div class="field__label">' . t('Appropriations') . '</div>',
+    ],
+    'outcome_expense' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
+  ];
+
+  // Add the data of contributing to outcomes.
+  $contributing_to_outcomes = _fkg_ct_outcome_get_contributing_to_outcomes($variables['node']);
+  if (!empty($contributing_to_outcomes)) {
+    $content_character_sheet['contributing_to_outcomes'] = [
+      '#type' => 'container',
+      '#weight' => 3,
+      'label' => [
+        '#type' => 'markup',
+        '#markup' => '<div class="field__label">' . t('Contributing to other outcomes') . '</div>',
+      ],
+      'contributing_to_outcomes' => $contributing_to_outcomes + ['#weight' => 2],
+    ];
+  }
+
+  $variables['content']['fkg-character-sheet'] = $content_character_sheet;
+}
+
+/**
+ * Retrieve all the FKG Programs those contribute to the given FKG Outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array with data of contributing FKG Programs.
+ */
+function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
+  $nid_outcome_owner = $node->get('field_bodies')->getString();
+
+  $params = [
+    'owned_programs' => [
+      'data-target' => '#owned-programs',
+      'aria-controls' => 'owned-programs',
+      'text' => t('Owned programs'),
+    ],
+    'contributing_programs' => [
+      'data-target' => '#linked-programs',
+      'aria-controls' => 'linked-programs',
+      'text' => t('Linked programs'),
+    ],
+  ];
+
+  $output = [];
+  foreach (array_keys($params) as $display) {
+    $output[$display . '-button'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('
+        <div class="fkg-character-sheet-outcome-programs">
+          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="'. $params[$display]['data-target'] . '" aria-expanded="false" aria-controls="' . $params[$display]['aria-controls'] . '">
+            <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+            <spam>' . $params[$display]['text'] . '</spam>
+          </button>
+        </div>
+      '),
+    ];
+    $output[$display . '-programs'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['collapse'],
+        'id' => $params[$display]['aria-controls'], 
+      ],
+      'programs' => views_embed_view('fkg_outcome_programs', $display, $node->id(), $nid_outcome_owner),
+    ];
+  }
+
+  return $output;
+}
+
+/**
+ * Retrieve all the Outcomes that the programs associated with a given Outcome contribute to.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array || []
+ *   A renderable array with #type 'view' holding data of contributing to outcomes.
+ */
+function _fkg_ct_outcome_get_contributing_to_outcomes(NodeInterface $node) {
+  $outcome_owner_id = $node->get('field_bodies')->getString();
+  $view_results = views_get_view_result('fkg_outcome_programs', 'owned_programs', $node->id(), $outcome_owner_id);
+
+  $view_arg_programs_owned = implode('+',array_map(function ($result) {return $result->_entity->get('field_fkg_contrib_program')->getString() ?? NULL;}, $view_results));
+
+  // Retrieve the outcomes that a given outcome's programs contribute to.
+  // @see config/optional/views.view.fkg_outcome_programs.yml.
+  $view = Views::getView('fkg_outcome_programs');
+  $view->setDisplay('contributing_to_outcomes');
+  $view->setArguments([$view_arg_programs_owned, $outcome_owner_id]);
+  $view->preExecute();
+  $view->execute();
+
+  return $view->buildRenderable() ?? [];
+}
+
+/**
+ * Get the graph of contributing programs for given outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array holding the data to render the graph of contributing programs.
+ */
+function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
+  $block_outcome_graph = \Drupal::service('plugin.manager.block')->createInstance('fkg_ct_outcome_graph', []);
+  $block_outcome_graph->setContextValue('node', $node);
+  $render = $block_outcome_graph->build();
+  \Drupal::service('renderer')->addCacheableDependency($render, $block_outcome_graph);
+
+  return $render;
+}
+
+/**
+ * Get the expense data for given FKG Outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array with #type 'view' of expense data for the FKG Outcome.
+ */
+function _fkg_ct_outcome_get_outcome_expense(NodeInterface $node) {
+  $view = Views::getView('fkg_expense');
+  $view->setDisplay('expense_outcome');
+  $view->setArguments([$node->id()]);
+  $view->preExecute();
+  $view->execute();
+
+  return $view->buildRenderable();
 }

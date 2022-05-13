@@ -2,19 +2,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.fkg_ct_program_expense.body
-    - field.field.node.fkg_ct_program_expense.field_bodies
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_measure
-    - field.field.node.fkg_ct_program_expense.field_fkg_expense_type
-    - field.field.node.fkg_ct_program_expense.field_fkg_program
-    - field.field.node.fkg_ct_program_expense.field_neptune_uri
-    - node.type.fkg_ct_program_expense
+    - field.field.node.fkg_ct_expense.body
+    - field.field.node.fkg_ct_expense.feeds_item
+    - field.field.node.fkg_ct_expense.field_bodies
+    - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
+    - field.field.node.fkg_ct_expense.field_fkg_expense_measure
+    - field.field.node.fkg_ct_expense.field_fkg_financial_year
+    - field.field.node.fkg_ct_expense.field_neptune_uri
+    - node.type.fkg_ct_expense
   module:
     - text
     - user
-id: node.fkg_ct_program_expense.default
+id: node.fkg_ct_expense.default
 targetEntityType: node
-bundle: fkg_ct_program_expense
+bundle: fkg_ct_expense
 mode: default
 content:
   body:
@@ -32,6 +34,22 @@ content:
     third_party_settings: {  }
     weight: 102
     region: content
+  field_fkg_expense_appropriation:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_fkg_expense_grant_to:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 107
+    region: content
   field_fkg_expense_measure:
     type: number_decimal
     label: above
@@ -43,21 +61,13 @@ content:
     third_party_settings: {  }
     weight: 105
     region: content
-  field_fkg_expense_type:
+  field_fkg_financial_year:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 106
-    region: content
-  field_fkg_program:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 104
+    weight: 108
     region: content
   field_neptune_uri:
     type: string
@@ -73,4 +83,5 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   search_api_excerpt: true
