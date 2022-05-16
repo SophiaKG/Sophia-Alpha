@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
     - field.field.node.fkg_ct_expense.field_fkg_expense_estimate_type
     - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
+    - field.field.node.fkg_ct_expense.field_fkg_expense_id
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_financial_year
     - field.field.node.fkg_ct_expense.field_neptune_uri
@@ -42,6 +43,7 @@ hidden:
   field_fkg_expense_appropriation: true
   field_fkg_expense_estimate_type: true
   field_fkg_expense_grant_to: true
+  field_fkg_expense_id: true
   field_fkg_expense_measure: true
   field_fkg_financial_year: true
   field_neptune_uri: true

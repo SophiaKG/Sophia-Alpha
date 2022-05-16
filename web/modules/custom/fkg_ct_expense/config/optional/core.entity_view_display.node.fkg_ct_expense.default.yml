@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
     - field.field.node.fkg_ct_expense.field_fkg_expense_estimate_type
     - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
+    - field.field.node.fkg_ct_expense.field_fkg_expense_id
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_financial_year
     - field.field.node.fkg_ct_expense.field_neptune_uri
@@ -67,6 +68,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 107
+    region: content
+  field_fkg_expense_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 111
     region: content
   field_fkg_expense_measure:
     type: number_decimal
