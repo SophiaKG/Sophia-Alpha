@@ -13,6 +13,23 @@ use Drupal\taxonomy\Entity\Term;
  */
 function fkg_ct_expense_install() {
 
+  // Create default fkg_expense_estimate_type terms.
+  $vid = 'fkg_expense_estimate_type';
+
+  $existing_terms = array_map(
+    function ($term) { return $term->name; },
+    Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid)
+  );
+
+  // Create the specified taxonomy term(s) if not existing.
+  foreach (array_diff(['Actual', 'Estimate'], $existing_terms) as $missed_term) {
+    Term::create([
+      'parent' => [],
+      'name' => $missed_term,
+      'vid' => $vid,
+    ])->save();
+  }
+
   // Create default fkg_expense_appropriation terms.
   $vid = 'fkg_expense_appropriation';
 
