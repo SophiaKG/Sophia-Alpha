@@ -1,6 +1,6 @@
 langcode: en
 status: true
-dependencies: { }
+dependencies: {  }
 name: 'Expense Estimate Type'
 vid: fkg_expense_estimate_type
 description: ''

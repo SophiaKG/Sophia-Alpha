@@ -6,7 +6,9 @@ dependencies:
     - field.field.node.fkg_ct_expense.body
     - field.field.node.fkg_ct_expense.feeds_item
     - field.field.node.fkg_ct_expense.field_bodies
+    - field.field.node.fkg_ct_expense.field_fkg_appropriation_subtype
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_estimate_type
     - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_financial_year
@@ -36,7 +38,9 @@ content:
 hidden:
   feeds_item: true
   field_bodies: true
+  field_fkg_appropriation_subtype: true
   field_fkg_expense_appropriation: true
+  field_fkg_expense_estimate_type: true
   field_fkg_expense_grant_to: true
   field_fkg_expense_measure: true
   field_fkg_financial_year: true
