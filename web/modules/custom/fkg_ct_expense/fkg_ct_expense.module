@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function fkg_ct_expense_theme() {
+  return [
+    'views__fkg_expense_outcome_table' => [
+      'template'=> 'views--fkg-expense-outcome-table',
+      'base hook' => 'views',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK() for the views_view_table template.
+ */
+function fkg_ct_expense_theme_suggestions_views_view_table(array $variables) {
+  $view = $variables['view'];
+
+  return ($view->id() == 'fkg_expense' && $view->current_display == 'expense_outcome') ? ['views__fkg_expense_outcome_table'] : [];
+}
+
+/**
+ * Prepares variables for the template.
+ * 
+ * Default template: views--fkg-expense-outcome-table.html.twig.
+ * 
+ * @param array $variables
+ *   An associated array containing:
+ *   - view: A view listing the expense data for a specified FKG Outcome content.
+ */
+function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
+  template_preprocess_views_view_table($variables);
+}
