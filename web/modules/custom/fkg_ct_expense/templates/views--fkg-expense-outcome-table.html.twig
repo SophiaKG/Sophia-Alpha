@@ -4,4 +4,44 @@
  * Template to render the expense data for the FKG Outcome character sheets.
  */
 #}
-{% include '@sophia_alpha/views/views-view-table.html.twig' %}
+{% extends '@sophia_alpha/views/views-view-table.html.twig' %}
+
+{% block fkg_table_header %}
+  {% if appropriation_headers %}
+    <thead class='{{ thead_class }}'>
+      {% for header in appropriation_headers %}
+        <tr>
+          {% for key, column in header %}
+            {% if column.default_classes %}
+              {%
+                set column_classes = [
+                  'views-field',
+                  'views-field-' ~ fields[key],
+                ]
+              %}
+            {% endif %}
+            <th{{ column.attributes.addClass(column_classes).setAttribute('scope', 'col', 'rowspan', 'colspan') }}>
+              {%- if column.wrapper_element -%}
+                <{{ column.wrapper_element }}>
+                  {%- if column.url -%}
+                    <a href="{{ column.url }}" title="{{ column.title }}">{{ column.content }}{{ column.sort_indicator }}</a>
+                  {%- else -%}
+                    {{ column.content }}{{ column.sort_indicator }}
+                  {%- endif -%}
+                </{{ column.wrapper_element }}>
+              {%- else -%}
+                {%- if column.url -%}
+                  <a href="{{ column.url }}" title="{{ column.title }}">{{ column.content }}{{ column.sort_indicator }}</a>
+                {%- else -%}
+                  {{- column.content }}{{ column.sort_indicator }}
+                {%- endif -%}
+              {%- endif -%}
+            </th>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </thead>
+  {% else %}
+    {{ parent() }}
+  {% endif %}
+{% endblock %}
