@@ -194,12 +194,22 @@ function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
     $header1[$year]['default_classes'] = $header_default_classes;
     $header1[$year]['attributes'] = clone $variables['header']['field_fkg_expense_measure']['attributes'];
     $header1[$year]['attributes']->setAttribute('colspan', $colspan);
+    $header1[$year]['attributes']->addClass([
+      'table-header-fkg-multiple-rows',
+      'table-header-fkg-align-center',
+      'fkg-expense-outcome-financial-year'
+    ]);
 
     foreach ($estimate_types as $estimate_type) {
       $key = $year . $estimate_type;
       $header2[$key]['default_classes'] = $header_default_classes;
       $header2[$key]['content'] = $estimate_type;
       $header2[$key]['attributes'] = clone $variables['header']['field_fkg_expense_measure']['attributes'];
+      $header2[$key]['attributes']->addClass([
+        'table-header-fkg-multiple-rows',
+        'table-header-fkg-align-center',
+        'fkg-expense-outcome-actual-type'
+      ]);
     }
   }
 
