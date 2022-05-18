@@ -187,6 +187,12 @@ function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
     $column['attributes']->setAttribute('rowspan', 2);
   }
 
+  // Map the estimate_type to the labels. According to John's comments via Teams communication (19th May 2022).
+  $estimate_label = [
+    'Estimate' => 'Budget Estimate',
+    'Actual' => 'Estimated Actual',
+  ];
+
   $header_default_classes = $variables['header']['field_fkg_expense_measure']['default_classes'];
   foreach ($keys_column_to_add as $year => $estimate_types) {
     $colspan = count($estimate_types);
@@ -203,7 +209,7 @@ function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
     foreach ($estimate_types as $estimate_type) {
       $key = $year . $estimate_type;
       $header2[$key]['default_classes'] = $header_default_classes;
-      $header2[$key]['content'] = $estimate_type;
+      $header2[$key]['content'] = $estimate_label[$estimate_type];
       $header2[$key]['attributes'] = clone $variables['header']['field_fkg_expense_measure']['attributes'];
       $header2[$key]['attributes']->addClass([
         'table-header-fkg-multiple-rows',
