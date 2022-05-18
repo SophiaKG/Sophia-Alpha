@@ -100,11 +100,13 @@ function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
     $columns_to_add[$key_new_row]['appropriation'] = $keys['appropriation'];
   }
 
+  // Ensure the years are reversely sorted.
   ksort($keys_column_to_add);
+  $keys_column_to_add = array_reverse($keys_column_to_add);
 
   // Append the new columns to the new rows.
   foreach ($columns_to_add as $key => $value) {
-    foreach (array_reverse(array_keys($keys_column_to_add)) as $year) {
+    foreach (array_keys($keys_column_to_add) as $year) {
       sort($keys_column_to_add[$year]);
       foreach ($keys_column_to_add[$year] as $estimate_type) {
         if (isset($value['columns'][$year][$estimate_type])) {
@@ -172,4 +174,36 @@ function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
 
   // Serve the final rows.
   $variables['rows'] = $rows_final;
+
+  // Construct the customized table header contents.
+  $header1 = $variables['header'];
+  $header2 = [];
+
+  foreach ($columns_to_remove as $column) {
+    unset($header1[$column]);
+  }
+
+  foreach ($header1 as &$column) {
+    $column['attributes']->setAttribute('rowspan', 2);
+  }
+
+  $header_default_classes = $variables['header']['field_fkg_expense_measure']['default_classes'];
+  foreach ($keys_column_to_add as $year => $estimate_types) {
+    $colspan = count($estimate_types);
+    $header1[$year]['content'] = $year;
+    $header1[$year]['default_classes'] = $header_default_classes;
+    $header1[$year]['attributes'] = clone $variables['header']['field_fkg_expense_measure']['attributes'];
+    $header1[$year]['attributes']->setAttribute('colspan', $colspan);
+
+    foreach ($estimate_types as $estimate_type) {
+      $key = $year . $estimate_type;
+      $header2[$key]['default_classes'] = $header_default_classes;
+      $header2[$key]['content'] = $estimate_type;
+      $header2[$key]['attributes'] = clone $variables['header']['field_fkg_expense_measure']['attributes'];
+    }
+  }
+
+  // Add the customized headers.
+  // @see templates/views--fkg-expense-outcome-table.html.twig.
+  $variables['appropriation_headers'] = [$header1, $header2];
 }
