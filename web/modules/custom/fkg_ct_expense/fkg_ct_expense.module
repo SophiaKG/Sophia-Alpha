@@ -4,6 +4,8 @@
  * @file
  */
 
+use Drupal\Core\Render\Markup;
+
 /**
  * Implements hook_theme().
  */
@@ -36,4 +38,138 @@ function fkg_ct_expense_theme_suggestions_views_view_table(array $variables) {
  */
 function template_preprocess_views__fkg_expense_outcome_table(&$variables) {
   template_preprocess_views_view_table($variables);
+
+  $totals = [
+    'subtotals' => [],
+    'totals' => [],
+  ];
+
+  $mapping_fields = [
+    'appropriation' => 'field_fkg_expense_appropriation',
+    'appro_subtype' => 'field_fkg_appropriation_subtype',
+    'year' => 'field_fkg_financial_year',
+    'estimate_type' => 'field_fkg_expense_estimate_type',
+  ];
+
+  $columns_to_remove = [
+    'field_fkg_financial_year',
+    'field_fkg_expense_measure',
+    'field_fkg_expense_estimate_type',
+  ];
+
+  $rows_new = [];
+  $columns_to_add = [];
+  $keys_column_to_add = [];
+
+  foreach ($variables['rows'] as $row) {
+
+    foreach($mapping_fields as $key => $field) {
+      $keys[$key] = trim(strip_tags($row['columns'][$field]['content'][0]['field_output']['#markup'] ?? ''));
+    }
+
+    $year = $keys['year'];
+    $appropriation = $keys['appropriation'];
+    $estimate_type = $keys['estimate_type'];
+
+    // Retrieve the keys of the columns to be added.
+    $keys_column_to_add[$year] = $keys_column_to_add[$year] ?? [];
+    if (!in_array($estimate_type, $keys_column_to_add[$year])) {
+      $keys_column_to_add[$year][] = $estimate_type;
+    }
+
+    // Calculate the totals and the sub-totals.
+    $measure = floatval(str_replace(',','', trim(strip_tags($row['columns']['field_fkg_expense_measure']['content'][0]['field_output']['#markup']))));
+    $totals['subtotals'][$keys['appropriation']][$keys['year']][$keys['estimate_type']] = ($totals['subtotals'][$keys['appropriation']][$keys['year']][$keys['estimate_type']] ?? 0) + $measure;
+    $totals['totals'][$keys['year']][$keys['estimate_type']] = ($totals['totals'][$keys['year']][$keys['estimate_type']] ?? 0) + $measure;
+
+    // Construct the new row identifier.
+    $key_new_row = $keys['appropriation'] . '-' . $keys['appro_subtype'];
+    if (!isset($rows_new[$key_new_row])) {
+      // Construct a new row.
+      $rows_new[$key_new_row]['row'] = $row;
+      foreach ($columns_to_remove as $column) {
+        // Remove the unnecessary columns.
+        unset($rows_new[$key_new_row]['row']['columns'][$column]);
+      }
+      // Add the appropriation data to the new row for the later grouping use.
+      $rows_new[$key_new_row]['appropriation'] = $keys['appropriation'];
+    }
+
+    // Construct and populate the new columns (with the expense data as contents) to be added.
+    $columns_to_add[$key_new_row]['columns'][$keys['year']][$keys['estimate_type']] = $row['columns']['field_fkg_expense_measure'];
+    $columns_to_add[$key_new_row]['appropriation'] = $keys['appropriation'];
+  }
+
+  ksort($keys_column_to_add);
+
+  // Append the new columns to the new rows.
+  foreach ($columns_to_add as $key => $value) {
+    foreach (array_reverse(array_keys($keys_column_to_add)) as $year) {
+      sort($keys_column_to_add[$year]);
+      foreach ($keys_column_to_add[$year] as $estimate_type) {
+        if (isset($value['columns'][$year][$estimate_type])) {
+          $rows_new[$key]['row']['columns'][$year . $estimate_type] = $value['columns'][$year][$estimate_type];
+        }
+      }
+    }
+  }
+
+  // Grouping the rows to facilitate the sub-total rows insertion.
+  $rows_grouped = [];
+  foreach ($rows_new as $row) {
+    $rows_grouped[$row['appropriation']][] = $row['row'];
+  }
+
+  // Construct and insert the sub-total rows.
+  foreach ($totals['subtotals'] as $appropriation => $total_appro) {
+    if (!empty($appropriation)) {
+      // Copy from an existed row for easy construction.
+      $subtotal_row['columns'] = $rows_grouped[$appropriation][0]['columns'];
+      $subtotal_row['attributes'] = clone $rows_grouped[$appropriation][0]['attributes'];
+
+      // Set the sub-total label.
+      $subtotal_row['columns']['field_fkg_appropriation_subtype']['content'][0]['field_output']['#markup'] = Markup::create(t('Subtotal'));
+
+      // Add css class for styling.
+      $subtotal_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
+
+      // Populate the sub-total data.
+      foreach ($total_appro as $year => $total_estimate_type) {
+        foreach ($total_estimate_type as $estimate_type => $total) {
+          $key = $year . $estimate_type;
+          $subtotal_row['columns'][$key]['content'][0]['field_output']['#markup'] = Markup::create(number_format($total, 2, '.', ','));
+        }
+      }
+
+      array_push($rows_grouped[$appropriation], $subtotal_row);
+    }
+  }
+
+  // Construct the final rows from the grouped rows with the subtotal data.
+  $rows_final = [];
+  foreach ($rows_grouped as $rows_appropriation) {
+    $rows_final = array_merge($rows_final, $rows_appropriation);
+  }
+
+  // Prepare the total row.
+  $total_row = [
+    'columns' => $rows_final[0]['columns'],
+    'attributes' => clone $rows_final[0]['attributes'],
+  ];
+  $total_row['attributes']->addClass('fkg-character-sheet-outcome-expense-subtotal');
+  $total_row['columns']['field_fkg_appropriation_subtype']['content'][0]['field_output']['#markup'] = Markup::create(t('Total'));
+  $total_row['columns']['field_fkg_expense_appropriation']['content'][0]['field_output']['#markup'] = Null;
+
+  // Populate the total row with the total data.
+  foreach ($totals['totals'] as $year => $total_estimate_type) {
+    foreach ($total_estimate_type as $estimate_type => $total) {
+      $total_row['columns'][$year . $estimate_type]['content'][0]['field_output']['#markup'] = Markup::create(number_format($total, 2, '.', ','));
+    }
+  }
+
+  // Add the total row.
+  array_push($rows_final, $total_row);
+
+  // Serve the final rows.
+  $variables['rows'] = $rows_final;
 }

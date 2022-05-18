@@ -36,8 +36,11 @@ function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
 
 /**
  * Implements hook_preprocess_HOOK() for the views_view_table template.
+ * 
+ * @deprecated Replaced by template_preprocess_views__fkg_expense_outcome_table().
+ * Disabled via renaming.
  */
-function fkg_ct_outcome_preprocess_views_view_table(&$variables) {
+function fkg_ct_outcome_preprocess_views_view_table_disabled(&$variables) {
   $view = $variables['view'];
 
   // Add customized data to the output of view:fkg_expense:expense_outcome (for the Outcome Character Sheet expense appropriation section).
