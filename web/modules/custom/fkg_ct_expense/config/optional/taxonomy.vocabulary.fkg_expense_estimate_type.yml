@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-name: 'Expense Appropriation subtype'
-vid: fkg_expense_appro_subtype
+name: 'Expense Estimate Type'
+vid: fkg_expense_estimate_type
 description: ''
 weight: 0

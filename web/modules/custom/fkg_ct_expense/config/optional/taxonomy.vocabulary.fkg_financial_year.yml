@@ -1,6 +1,6 @@
 langcode: en
 status: true
-dependencies: { }
+dependencies: {  }
 name: 'Financial year'
 vid: fkg_financial_year
 description: ''
