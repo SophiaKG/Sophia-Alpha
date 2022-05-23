@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.fkg_ct_contribution.body
+    - field.field.node.fkg_ct_contribution.feeds_item
+    - field.field.node.fkg_ct_contribution.field_fkg_contrib_id
+    - field.field.node.fkg_ct_contribution.field_fkg_description
+    - field.field.node.fkg_ct_contribution.field_fkg_outcome
+    - field.field.node.fkg_ct_contribution.field_fkg_program
+    - node.type.fkg_ct_contribution
+  module:
+    - text
+    - user
+id: node.fkg_ct_contribution.teaser
+targetEntityType: node
+bundle: fkg_ct_contribution
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  feeds_item: true
+  field_fkg_contrib_id: true
+  field_fkg_description: true
+  field_fkg_outcome: true
+  field_fkg_program: true
+  search_api_excerpt: true
