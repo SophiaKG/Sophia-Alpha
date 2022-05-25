@@ -3,8 +3,11 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_expense.field_bodies
+    - field.field.node.fkg_ct_expense.field_fkg_appropriation_subtype
     - field.field.node.fkg_ct_expense.field_fkg_expense_appropriation
+    - field.field.node.fkg_ct_expense.field_fkg_expense_estimate_type
     - field.field.node.fkg_ct_expense.field_fkg_expense_grant_to
+    - field.field.node.fkg_ct_expense.field_fkg_expense_id
     - field.field.node.fkg_ct_expense.field_fkg_expense_measure
     - field.field.node.fkg_ct_expense.field_fkg_financial_year
     - field.field.node.fkg_ct_expense.field_neptune_uri
@@ -27,6 +30,9 @@ fetcher_configuration:
 parser: jsonpath
 parser_configuration:
   sources:
+    expenseid:
+      value: ExpenseID
+      label: ExpenseID
     expenseuri:
       value: ExpenseUri
       label: ExpenseUri
@@ -43,8 +49,14 @@ parser_configuration:
       value: GrantTo
       label: GrantTo
     financial_year:
-      label: FinancialYear
       value: FinancialYear
+      label: FinancialYear
+    appropriation_subtype:
+      value: ExpenseAppropriationSubtype
+      label: ExpenseAppropriationSubtype
+    estimatetype:
+      value: EstimateType
+      label: EstimateType
   context:
     value: '.Expenses.*'
   source_encoding:
@@ -98,11 +110,23 @@ custom_sources:
     value: FinancialYear
     label: FinancialYear
     machine_name: financial_year
+  appropriation_subtype:
+    value: ExpenseAppropriationSubtype
+    label: ExpenseAppropriationSubtype
+    machine_name: appropriation_subtype
+  expenseid:
+    value: ExpenseID
+    label: ExpenseID
+    machine_name: expenseid
+  estimatetype:
+    value: EstimateType
+    label: EstimateType
+    machine_name: estimatetype
 mappings:
   -
     target: title
     map:
-      value: expenseuri
+      value: expenseid
     settings:
       language: null
     unique: {  }
@@ -112,8 +136,7 @@ mappings:
       value: expenseuri
     settings:
       language: null
-    unique:
-      value: '1'
+    unique: {  }
   -
     target: field_bodies
     map:
@@ -151,6 +174,30 @@ mappings:
     target: field_fkg_financial_year
     map:
       target_id: financial_year
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+  -
+    target: field_fkg_appropriation_subtype
+    map:
+      target_id: appropriation_subtype
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+  -
+    target: field_fkg_expense_id
+    map:
+      value: expenseid
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: field_fkg_expense_estimate_type
+    map:
+      target_id: estimatetype
     settings:
       language: null
       reference_by: name

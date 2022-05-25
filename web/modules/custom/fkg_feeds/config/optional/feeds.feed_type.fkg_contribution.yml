@@ -1,0 +1,117 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_contribution.field_fkg_contrib_id
+    - field.field.node.fkg_ct_contribution.field_fkg_description
+    - field.field.node.fkg_ct_contribution.field_fkg_outcome
+    - field.field.node.fkg_ct_contribution.field_fkg_program
+    - node.type.fkg_ct_contribution
+  module:
+    - feeds_ex
+    - node
+label: 'FKG Contribution'
+id: fkg_contribution
+description: 'FKG Contribution'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  sources:
+    id:
+      value: ID
+      label: ID
+    outcome:
+      value: Outcome
+      label: Outcome
+    program:
+      value: Program
+      label: Program
+    contribution:
+      value: Contribution
+      label: Contribution
+  context:
+    value: '.results.Contributions.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: fkg_ct_contribution
+  langcode: en
+  insert_new: 1
+  update_existing: 1
+  update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  id:
+    value: ID
+    label: ID
+    machine_name: id
+  outcome:
+    value: Outcome
+    label: Outcome
+    machine_name: outcome
+  program:
+    value: Program
+    label: Program
+    machine_name: program
+  contribution:
+    value: Contribution
+    label: Contribution
+    machine_name: contribution
+mappings:
+  -
+    target: field_fkg_contrib_id
+    map:
+      value: id
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: field_fkg_outcome
+    map:
+      target_id: outcome
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_program
+    map:
+      target_id: program
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_description
+    map:
+      value: contribution
+    settings:
+      language: null
+      format: plain_text
+  -
+    target: title
+    map:
+      value: id
+    settings:
+      language: null
+    unique: {  }

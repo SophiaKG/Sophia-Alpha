@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.fkg_ct_program_contrib
+    - node.type.fkg_ct_contribution
   module:
     - text
-id: node.fkg_ct_program_contrib.body
+id: node.fkg_ct_contribution.body
 field_name: body
 entity_type: node
-bundle: fkg_ct_program_contrib
+bundle: fkg_ct_contribution
 label: Body
 description: ''
 required: false

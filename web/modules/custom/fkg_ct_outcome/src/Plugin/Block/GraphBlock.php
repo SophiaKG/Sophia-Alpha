@@ -38,9 +38,9 @@ class GraphBlock extends BlockBase {
     $graphviz .= 'node0 [label="' . $this->wrap($node->getTitle()) . '" tooltip="' . $tooltip . '"];';
     $i = 1;
     foreach ($view_results as $row) {
-      $node_program = Node::load($row->_entity->get('field_fkg_contrib_program')->getString());
+      $node_program = Node::load($row->_entity->get('field_fkg_program')->getString());
       $node_label = $node_program->getTitle();
-      $tooltip = Html::escape('Contribution:\n' . $row->_entity->get('field_fkg_contrib_description')->getString());
+      $tooltip = Html::escape('Contribution:\n' . $row->_entity->get('field_fkg_description')->getString());
 
       $name = 'node' . $i;
       $graphviz .= $name . '[label="' . $this->wrap($node_label) . '" shape = "rectangle" fontsize="11" tooltip="' . $tooltip . '"];';

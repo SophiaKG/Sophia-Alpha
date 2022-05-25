@@ -8,10 +8,10 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-name: 'FKG Program contrib'
-type: fkg_ct_program_contrib
+name: 'FKG Contribution'
+type: fkg_ct_contribution
 description: ''
 help: ''
 new_revision: true
 preview_mode: 1
-display_submitted: true
+display_submitted: false

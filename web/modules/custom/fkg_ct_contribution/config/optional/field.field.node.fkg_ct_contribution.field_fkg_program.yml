@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_fkg_contrib_outcome
-    - node.type.fkg_ct_outcome
-    - node.type.fkg_ct_program_contrib
-id: node.fkg_ct_program_contrib.field_fkg_contrib_outcome
-field_name: field_fkg_contrib_outcome
+    - field.storage.node.field_fkg_program
+    - node.type.fkg_ct_contribution
+    - node.type.fkg_ct_program
+id: node.fkg_ct_contribution.field_fkg_program
+field_name: field_fkg_program
 entity_type: node
-bundle: fkg_ct_program_contrib
-label: 'Contrib outcome'
+bundle: fkg_ct_contribution
+label: Program
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      fkg_ct_outcome: fkg_ct_outcome
+      fkg_ct_program: fkg_ct_program
     sort:
       field: _none
       direction: ASC

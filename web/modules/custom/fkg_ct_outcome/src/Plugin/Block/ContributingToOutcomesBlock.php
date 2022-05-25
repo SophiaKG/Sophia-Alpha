@@ -34,7 +34,7 @@ class ContributingToOutcomesBlock extends BlockBase {
     $outcome_owner_id = $node->get('field_bodies')->getString();
     $view_results = views_get_view_result('fkg_outcome_programs', 'owned_programs', $node->id(), $outcome_owner_id);
 
-    $view_arg_programs_owned = implode('+',array_map(function ($result) {return $result->_entity->get('field_fkg_contrib_program')->getString() ?? NULL;}, $view_results));
+    $view_arg_programs_owned = implode('+',array_map(function ($result) {return $result->_entity->get('field_fkg_program')->getString() ?? NULL;}, $view_results));
 
     // Retrieve the outcomes that a given outcome's programs contribute to.
     // @see config/optional/views.view.fkg_outcome_programs.yml.

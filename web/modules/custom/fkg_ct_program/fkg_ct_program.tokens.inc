@@ -85,24 +85,24 @@ function fkg_ct_program_get_body_programs($nid) {
     $outcomes[$node_id]['url'] = $outcome_node->toUrl()->toString();
 
     $query_result = \Drupal::entityQuery('node')
-      ->condition('type', 'fkg_ct_program_contrib')
-      ->condition('field_fkg_contrib_outcome', $node_id)
+      ->condition('type', 'fkg_ct_contribution')
+      ->condition('field_fkg_outcome', $node_id)
       ->execute();
-    $contrib_program_nids = array_values($query_result);
+    $contribution_nids = array_values($query_result);
 
     // Retrieve and group the data of programs.
     $programs = [];
-    foreach ($contrib_program_nids as $nid) {
+    foreach ($contribution_nids as $nid) {
       $node = Node::load($nid);
 
-      $program_nid = $node->get('field_fkg_contrib_program')->getString();
+      $program_nid = $node->get('field_fkg_program')->getString();
 
       // Get program data
       $program_node = Node::load($program_nid);
       $program['title'] = $program_node->getTitle();
       $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
       $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
-      $program['contribution'] = $node->get('field_fkg_contrib_description')->getString();
+      $program['contribution'] = $node->get('field_fkg_description')->getString();
       $program['url'] = $program_node->toUrl()->toString();
 
       $query_result = \Drupal::entityQuery('node')

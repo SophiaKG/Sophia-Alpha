@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_bodies
-    - field.storage.node.field_fkg_contrib_description
-    - field.storage.node.field_fkg_contrib_outcome
-    - field.storage.node.field_fkg_contrib_program
+    - field.storage.node.field_fkg_description
+    - field.storage.node.field_fkg_outcome
+    - field.storage.node.field_fkg_program
     - field.storage.node.field_fkg_program_number
-    - node.type.fkg_ct_program_contrib
+    - node.type.fkg_ct_contribution
   module:
     - node
     - user
@@ -27,10 +27,10 @@ display:
     display_options:
       title: 'Contributing programs'
       fields:
-        field_fkg_contrib_program:
-          id: field_fkg_contrib_program
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program
+        field_fkg_program:
+          id: field_fkg_program
+          table: node__field_fkg_program
+          field: field_fkg_program
           relationship: none
           group_type: group
           admin_label: ''
@@ -94,7 +94,7 @@ display:
           id: field_bodies
           table: node__field_bodies
           field: field_bodies
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -180,7 +180,7 @@ display:
           id: field_fkg_program_owner_value
           table: node__field_fkg_program_owner
           field: field_fkg_program_owner_value
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: standard
@@ -193,7 +193,7 @@ display:
           id: field_fkg_program_number_value
           table: node__field_fkg_program_number
           field: field_fkg_program_number_value
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: standard
@@ -219,10 +219,10 @@ display:
           exposed: false
           granularity: second
       arguments:
-        field_fkg_contrib_outcome_target_id:
-          id: field_fkg_contrib_outcome_target_id
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome_target_id
+        field_fkg_outcome_target_id:
+          id: field_fkg_outcome_target_id
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -277,7 +277,7 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            fkg_ct_program_contrib: fkg_ct_program_contrib
+            fkg_ct_contribution: fkg_ct_contribution
           group: 1
           expose:
             operator_limit_selection: false
@@ -294,9 +294,9 @@ display:
           default_row_class: true
           columns:
             field_fkg_program_number: field_fkg_program_number
-            field_fkg_contrib_program: field_fkg_contrib_program
+            field_fkg_program: field_fkg_program
             field_bodies: field_bodies
-            field_fkg_contrib_description: field_fkg_contrib_description
+            field_fkg_description: field_fkg_description
           default: '-1'
           info:
             field_fkg_program_number:
@@ -306,7 +306,7 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-low
-            field_fkg_contrib_program:
+            field_fkg_program:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -318,7 +318,7 @@ display:
               separator: ''
               empty_column: false
               responsive: priority-low
-            field_fkg_contrib_description:
+            field_fkg_description:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -347,22 +347,22 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        field_fkg_contrib_outcome:
-          id: field_fkg_contrib_outcome
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome
+        field_fkg_outcome:
+          id: field_fkg_outcome
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome
           relationship: none
           group_type: group
-          admin_label: 'field_fkg_contrib_outcome: Content'
+          admin_label: 'field_fkg_outcome: Content'
           plugin_id: standard
           required: true
-        field_fkg_contrib_program:
-          id: field_fkg_contrib_program
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program
+        field_fkg_program:
+          id: field_fkg_program
+          table: node__field_fkg_program
+          field: field_fkg_program
           relationship: none
           group_type: group
-          admin_label: 'field_fkg_contrib_program: Content'
+          admin_label: 'field_fkg_program: Content'
           plugin_id: standard
           required: true
       header: {  }
@@ -378,7 +378,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_bodies'
-        - 'config:field.storage.node.field_fkg_contrib_program'
+        - 'config:field.storage.node.field_fkg_program'
   contributing_programs:
     id: contributing_programs
     display_title: 'Block - contributing programs'
@@ -390,7 +390,7 @@ display:
           id: field_fkg_program_number
           table: node__field_fkg_program_number
           field: field_fkg_program_number
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -449,10 +449,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_contrib_program:
-          id: field_fkg_contrib_program
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program
+        field_fkg_program:
+          id: field_fkg_program
+          table: node__field_fkg_program
+          field: field_fkg_program
           relationship: none
           group_type: group
           admin_label: ''
@@ -516,7 +516,7 @@ display:
           id: field_bodies
           table: node__field_bodies
           field: field_bodies
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -575,10 +575,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_contrib_description:
-          id: field_fkg_contrib_description
-          table: node__field_fkg_contrib_description
-          field: field_fkg_contrib_description
+        field_fkg_description:
+          id: field_fkg_description
+          table: node__field_fkg_description
+          field: field_fkg_description
           relationship: none
           group_type: group
           admin_label: ''
@@ -638,10 +638,10 @@ display:
           separator: ', '
           field_api_classes: false
       arguments:
-        field_fkg_contrib_outcome_target_id:
-          id: field_fkg_contrib_outcome_target_id
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome_target_id
+        field_fkg_outcome_target_id:
+          id: field_fkg_outcome_target_id
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -678,7 +678,7 @@ display:
           id: field_bodies_target_id
           table: node__field_bodies
           field: field_bodies_target_id
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: numeric
@@ -727,8 +727,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_bodies'
-        - 'config:field.storage.node.field_fkg_contrib_description'
-        - 'config:field.storage.node.field_fkg_contrib_program'
+        - 'config:field.storage.node.field_fkg_description'
+        - 'config:field.storage.node.field_fkg_program'
         - 'config:field.storage.node.field_fkg_program_number'
   contributing_to_outcomes:
     id: contributing_to_outcomes
@@ -738,10 +738,10 @@ display:
     display_options:
       title: 'Contributing outcomes'
       fields:
-        field_fkg_contrib_program:
-          id: field_fkg_contrib_program
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program
+        field_fkg_program:
+          id: field_fkg_program
+          table: node__field_fkg_program
+          field: field_fkg_program
           relationship: none
           group_type: group
           admin_label: ''
@@ -801,10 +801,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_contrib_outcome:
-          id: field_fkg_contrib_outcome
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome
+        field_fkg_outcome:
+          id: field_fkg_outcome
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome
           relationship: none
           group_type: group
           admin_label: ''
@@ -868,7 +868,7 @@ display:
           id: field_bodies
           table: node__field_bodies
           field: field_bodies
-          relationship: field_fkg_contrib_outcome
+          relationship: field_fkg_outcome
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -933,11 +933,11 @@ display:
           offset: 0
           items_per_page: 50
       sorts:
-        field_fkg_contrib_outcome_target_id:
-          id: field_fkg_contrib_outcome_target_id
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome_target_id
-          relationship: field_fkg_contrib_outcome
+        field_fkg_outcome_target_id:
+          id: field_fkg_outcome_target_id
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome_target_id
+          relationship: field_fkg_outcome
           group_type: group
           admin_label: ''
           plugin_id: standard
@@ -947,10 +947,10 @@ display:
             field_identifier: ''
           exposed: false
       arguments:
-        field_fkg_contrib_program_target_id:
-          id: field_fkg_contrib_program_target_id
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program_target_id
+        field_fkg_program_target_id:
+          id: field_fkg_program_target_id
+          table: node__field_fkg_program
+          field: field_fkg_program_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -986,7 +986,7 @@ display:
           id: field_bodies_target_id
           table: node__field_bodies
           field: field_bodies_target_id
-          relationship: field_fkg_contrib_outcome
+          relationship: field_fkg_outcome
           group_type: group
           admin_label: ''
           plugin_id: numeric
@@ -1039,7 +1039,7 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            fkg_ct_program_contrib: fkg_ct_program_contrib
+            fkg_ct_contribution: fkg_ct_contribution
           group: 1
           expose:
             operator_limit_selection: false
@@ -1087,13 +1087,13 @@ display:
         filter_groups: false
         header: false
       relationships:
-        field_fkg_contrib_outcome:
-          id: field_fkg_contrib_outcome
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome
+        field_fkg_outcome:
+          id: field_fkg_outcome
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome
           relationship: none
           group_type: group
-          admin_label: 'field_fkg_contrib_outcome: Content'
+          admin_label: 'field_fkg_outcome: Content'
           plugin_id: standard
           required: false
       group_by: false
@@ -1111,8 +1111,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_bodies'
-        - 'config:field.storage.node.field_fkg_contrib_outcome'
-        - 'config:field.storage.node.field_fkg_contrib_program'
+        - 'config:field.storage.node.field_fkg_outcome'
+        - 'config:field.storage.node.field_fkg_program'
   owned_programs:
     id: owned_programs
     display_title: 'Block - owned programs'
@@ -1124,7 +1124,7 @@ display:
           id: field_fkg_program_number
           table: node__field_fkg_program_number
           field: field_fkg_program_number
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -1183,10 +1183,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_contrib_program:
-          id: field_fkg_contrib_program
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program
+        field_fkg_program:
+          id: field_fkg_program
+          table: node__field_fkg_program
+          field: field_fkg_program
           relationship: none
           group_type: group
           admin_label: ''
@@ -1250,7 +1250,7 @@ display:
           id: field_bodies
           table: node__field_bodies
           field: field_bodies
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -1309,10 +1309,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_contrib_description:
-          id: field_fkg_contrib_description
-          table: node__field_fkg_contrib_description
-          field: field_fkg_contrib_description
+        field_fkg_description:
+          id: field_fkg_description
+          table: node__field_fkg_description
+          field: field_fkg_description
           relationship: none
           group_type: group
           admin_label: ''
@@ -1372,10 +1372,10 @@ display:
           separator: ', '
           field_api_classes: false
       arguments:
-        field_fkg_contrib_outcome_target_id:
-          id: field_fkg_contrib_outcome_target_id
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome_target_id
+        field_fkg_outcome_target_id:
+          id: field_fkg_outcome_target_id
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -1412,7 +1412,7 @@ display:
           id: field_bodies_target_id
           table: node__field_bodies
           field: field_bodies_target_id
-          relationship: field_fkg_contrib_program
+          relationship: field_fkg_program
           group_type: group
           admin_label: ''
           plugin_id: numeric
@@ -1461,8 +1461,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_bodies'
-        - 'config:field.storage.node.field_fkg_contrib_description'
-        - 'config:field.storage.node.field_fkg_contrib_program'
+        - 'config:field.storage.node.field_fkg_description'
+        - 'config:field.storage.node.field_fkg_program'
         - 'config:field.storage.node.field_fkg_program_number'
   program_outcome:
     id: program_outcome
@@ -1472,10 +1472,10 @@ display:
     display_options:
       title: Outcome
       fields:
-        field_fkg_contrib_description:
-          id: field_fkg_contrib_description
-          table: node__field_fkg_contrib_description
-          field: field_fkg_contrib_description
+        field_fkg_description:
+          id: field_fkg_description
+          table: node__field_fkg_description
+          field: field_fkg_description
           relationship: none
           group_type: group
           admin_label: ''
@@ -1534,10 +1534,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_fkg_contrib_outcome:
-          id: field_fkg_contrib_outcome
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome
+        field_fkg_outcome:
+          id: field_fkg_outcome
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome
           relationship: none
           group_type: group
           admin_label: ''
@@ -1599,10 +1599,10 @@ display:
           field_api_classes: false
       sorts: {  }
       arguments:
-        field_fkg_contrib_program_target_id:
-          id: field_fkg_contrib_program_target_id
-          table: node__field_fkg_contrib_program
-          field: field_fkg_contrib_program_target_id
+        field_fkg_program_target_id:
+          id: field_fkg_program_target_id
+          table: node__field_fkg_program
+          field: field_fkg_program_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -1638,7 +1638,7 @@ display:
           id: field_bodies_target_id
           table: node__field_bodies
           field: field_bodies_target_id
-          relationship: field_fkg_contrib_outcome
+          relationship: field_fkg_outcome
           group_type: group
           admin_label: ''
           plugin_id: numeric
@@ -1691,13 +1691,13 @@ display:
         sorts: false
         arguments: false
       relationships:
-        field_fkg_contrib_outcome:
-          id: field_fkg_contrib_outcome
-          table: node__field_fkg_contrib_outcome
-          field: field_fkg_contrib_outcome
+        field_fkg_outcome:
+          id: field_fkg_outcome
+          table: node__field_fkg_outcome
+          field: field_fkg_outcome
           relationship: none
           group_type: group
-          admin_label: 'field_fkg_contrib_outcome: Content'
+          admin_label: 'field_fkg_outcome: Content'
           plugin_id: standard
           required: true
       display_description: ''
@@ -1711,5 +1711,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_fkg_contrib_description'
-        - 'config:field.storage.node.field_fkg_contrib_outcome'
+        - 'config:field.storage.node.field_fkg_description'
+        - 'config:field.storage.node.field_fkg_outcome'

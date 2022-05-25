@@ -2,90 +2,73 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.fkg_ct_program_contrib.body
-    - field.field.node.fkg_ct_program_contrib.field_fkg_contrib_description
-    - field.field.node.fkg_ct_program_contrib.field_fkg_contrib_outcome
-    - field.field.node.fkg_ct_program_contrib.field_fkg_contrib_outcome_uri
-    - field.field.node.fkg_ct_program_contrib.field_fkg_contrib_program
-    - field.field.node.fkg_ct_program_contrib.field_fkg_contrib_program_uri
-    - field.field.node.fkg_ct_program_contrib.field_fkg_program_contrib_id
-    - node.type.fkg_ct_program_contrib
+    - field.field.node.fkg_ct_contribution.body
+    - field.field.node.fkg_ct_contribution.feeds_item
+    - field.field.node.fkg_ct_contribution.field_fkg_contrib_id
+    - field.field.node.fkg_ct_contribution.field_fkg_description
+    - field.field.node.fkg_ct_contribution.field_fkg_outcome
+    - field.field.node.fkg_ct_contribution.field_fkg_program
+    - node.type.fkg_ct_contribution
   module:
     - path
     - text
-id: node.fkg_ct_program_contrib.default
+id: node.fkg_ct_contribution.default
 targetEntityType: node
-bundle: fkg_ct_program_contrib
+bundle: fkg_ct_contribution
 mode: default
 content:
   body:
     type: text_textarea_with_summary
     weight: 121
+    region: content
     settings:
       rows: 9
       summary_rows: 3
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_fkg_contrib_description:
-    weight: 127
+  field_fkg_contrib_id:
+    type: string_textfield
+    weight: 125
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_description:
+    type: text_textarea
+    weight: 122
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
-    region: content
-  field_fkg_contrib_outcome:
-    weight: 126
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
+  field_fkg_outcome:
     type: entity_reference_autocomplete
-    region: content
-  field_fkg_contrib_outcome_uri:
-    weight: 124
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_fkg_contrib_program:
-    weight: 125
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_fkg_contrib_program_uri:
     weight: 123
+    region: content
     settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
+  field_fkg_program:
+    type: entity_reference_autocomplete
+    weight: 124
     region: content
-  field_fkg_program_contrib_id:
-    weight: 122
     settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   path:
     type: path
     weight: 30
@@ -94,24 +77,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 15
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 120
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 16
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -124,16 +107,17 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 5
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
   url_redirects:
     weight: 50
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
-hidden: {  }
+hidden:
+  feeds_item: true
