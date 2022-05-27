@@ -33,14 +33,14 @@ class GraphBlock extends BlockBase {
     $view_results = views_get_view_result('fkg_outcome_programs', 'owned_programs', $node->id());
 
     // Construct the dot graph.
-    $tooltip = Html::escape($node->get('field_description')->getString());
+    $tooltip = Html::escape($node->get('field_fkg_description')->value);
     $graphviz = 'digraph { ';
     $graphviz .= 'node0 [label="' . $this->wrap($node->getTitle()) . '" tooltip="' . $tooltip . '"];';
     $i = 1;
     foreach ($view_results as $row) {
       $node_program = Node::load($row->_entity->get('field_fkg_program')->getString());
       $node_label = $node_program->getTitle();
-      $tooltip = Html::escape('Contribution:\n' . $row->_entity->get('field_fkg_description')->getString());
+      $tooltip = Html::escape('Contribution:\n' . $row->_entity->get('field_fkg_description')->value);
 
       $name = 'node' . $i;
       $graphviz .= $name . '[label="' . $this->wrap($node_label) . '" shape = "rectangle" fontsize="11" tooltip="' . $tooltip . '"];';

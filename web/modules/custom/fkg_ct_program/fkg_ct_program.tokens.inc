@@ -80,7 +80,7 @@ function fkg_ct_program_get_body_programs($nid) {
   foreach($outcomes_authorized_nids as $node_id) {
     $outcome_node = Node::load($node_id);
 
-    $outcomes[$node_id]['description'] = $outcome_node->get('field_description')->getString();
+    $outcomes[$node_id]['description'] = $outcome_node->get('field_fkg_description')->value;
     $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_outcome_number')->getString();
     $outcomes[$node_id]['url'] = $outcome_node->toUrl()->toString();
 
@@ -102,7 +102,7 @@ function fkg_ct_program_get_body_programs($nid) {
       $program['title'] = $program_node->getTitle();
       $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
       $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
-      $program['contribution'] = $node->get('field_fkg_description')->getString();
+      $program['contribution'] = $node->get('field_fkg_description')->value;
       $program['url'] = $program_node->toUrl()->toString();
 
       $query_result = \Drupal::entityQuery('node')
