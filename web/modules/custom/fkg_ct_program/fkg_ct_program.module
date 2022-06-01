@@ -40,7 +40,7 @@ function fkg_ct_program_preprocess_node__fkg_ct_program (&$variables) {
     'outcome' => views_embed_view('fkg_outcome_programs', 'program_outcome', $node_id, $program_owner_id) + [
       '#weight' => '1',
     ],
-    'expense' => views_embed_view('fkg_program_expenses', 'default', $node_id) + ['#weight' => '2'],
+    'expense' => views_embed_view('fkg_expense', 'expense_program', $node_id) + ['#weight' => '2'],
   ];
 
   $variables['content']['extra'] = $extra_content;
