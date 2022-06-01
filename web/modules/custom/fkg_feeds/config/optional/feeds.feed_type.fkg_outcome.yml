@@ -5,7 +5,6 @@ dependencies:
     - field.field.node.fkg_ct_outcome.field_bodies
     - field.field.node.fkg_ct_outcome.field_fkg_description
     - field.field.node.fkg_ct_outcome.field_fkg_numbering
-    - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
     - node.type.fkg_ct_outcome
   module:
@@ -32,15 +31,15 @@ parser_configuration:
     outcomeuri:
       value: OutcomeUri
       label: OutcomeUri
-    neptune_outcomenumber:
-      value: OutcomeNumber
-      label: OutcomeNumber
     owneruri:
       value: OwnerUri
       label: OwnerUri
     outcome_description:
       value: Description
       label: Description
+    neptune_outcomenumber:
+      value: OutcomeNumber
+      label: OutcomeNumber
   context:
     value: '.results.Outcomes.*'
   source_encoding:
@@ -102,13 +101,6 @@ mappings:
       language: null
     unique:
       value: '1'
-  -
-    target: field_fkg_outcome_number
-    map:
-      value: neptune_outcomenumber
-    settings:
-      language: null
-    unique: {  }
   -
     target: field_bodies
     map:
