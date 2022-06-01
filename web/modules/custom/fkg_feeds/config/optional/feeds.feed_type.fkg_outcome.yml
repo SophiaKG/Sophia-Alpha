@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_outcome.field_bodies
+    - field.field.node.fkg_ct_outcome.field_fkg_description
+    - field.field.node.fkg_ct_outcome.field_fkg_numbering
     - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
     - field.field.node.fkg_ct_outcome.field_neptune_uri
     - node.type.fkg_ct_outcome
@@ -123,3 +125,10 @@ mappings:
     settings:
       language: null
       format: plain_text
+  -
+    target: field_fkg_numbering
+    map:
+      value: neptune_outcomenumber
+    settings:
+      language: null
+    unique: {  }
