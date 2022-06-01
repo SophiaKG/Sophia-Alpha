@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.fkg_ct_program.body
     - field.field.node.fkg_ct_program.feeds_item
     - field.field.node.fkg_ct_program.field_bodies
+    - field.field.node.fkg_ct_program.field_fkg_numbering
     - field.field.node.fkg_ct_program.field_fkg_program_label
     - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
@@ -36,6 +37,7 @@ content:
 hidden:
   feeds_item: true
   field_bodies: true
+  field_fkg_numbering: true
   field_fkg_program_label: true
   field_fkg_program_number: true
   field_fkg_program_owner: true

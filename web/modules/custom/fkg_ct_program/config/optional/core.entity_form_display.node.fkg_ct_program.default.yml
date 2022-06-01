@@ -5,6 +5,7 @@ dependencies:
     - field.field.node.fkg_ct_program.body
     - field.field.node.fkg_ct_program.feeds_item
     - field.field.node.fkg_ct_program.field_bodies
+    - field.field.node.fkg_ct_program.field_fkg_numbering
     - field.field.node.fkg_ct_program.field_fkg_program_label
     - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
@@ -31,6 +32,14 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_numbering:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
