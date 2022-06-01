@@ -5,8 +5,8 @@ dependencies:
     - field.field.node.fkg_ct_program.body
     - field.field.node.fkg_ct_program.feeds_item
     - field.field.node.fkg_ct_program.field_bodies
+    - field.field.node.fkg_ct_program.field_fkg_numbering
     - field.field.node.fkg_ct_program.field_fkg_program_label
-    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_fkg_program_uri
     - field.field.node.fkg_ct_program.field_neptune_uri
@@ -34,17 +34,17 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_fkg_program_label:
+  field_fkg_numbering:
     type: string_textfield
-    weight: 8
+    weight: 29
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_fkg_program_number:
+  field_fkg_program_label:
     type: string_textfield
-    weight: 26
+    weight: 8
     region: content
     settings:
       size: 60

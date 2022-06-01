@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_fkg_outcome_number
-field_name: field_fkg_outcome_number
+id: node.field_fkg_numbering
+field_name: field_fkg_numbering
 entity_type: node
 type: string
 settings:

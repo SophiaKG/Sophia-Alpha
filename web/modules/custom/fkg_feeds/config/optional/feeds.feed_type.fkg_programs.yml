@@ -4,8 +4,8 @@ dependencies:
   config:
     - field.field.node.fkg_ct_program.field_bodies
     - field.field.node.fkg_ct_program.field_fkg_program_label
-    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
+    - field.field.node.fkg_ct_program.field_neptune_uri
     - node.type.fkg_ct_program
   module:
     - feeds_ex
@@ -111,13 +111,6 @@ mappings:
       language: null
     unique: {  }
   -
-    target: field_fkg_program_number
-    map:
-      value: neptune_programnumber
-    settings:
-      language: null
-    unique: {  }
-  -
     target: field_bodies
     map:
       target_id: owneruri
@@ -134,3 +127,10 @@ mappings:
       language: null
     unique:
       value: '1'
+  -
+    target: field_fkg_numbering
+    map:
+      value: neptune_programnumber
+    settings:
+      language: null
+    unique: {  }

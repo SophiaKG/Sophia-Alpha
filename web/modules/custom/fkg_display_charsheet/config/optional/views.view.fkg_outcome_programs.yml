@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_fkg_description
     - field.storage.node.field_fkg_outcome
     - field.storage.node.field_fkg_program
-    - field.storage.node.field_fkg_program_number
+    - field.storage.node.field_fkg_numbering
     - node.type.fkg_ct_contribution
   module:
     - node
@@ -189,10 +189,10 @@ display:
             label: ''
             field_identifier: ''
           exposed: false
-        field_fkg_program_number_value:
-          id: field_fkg_program_number_value
-          table: node__field_fkg_program_number
-          field: field_fkg_program_number_value
+        field_fkg_numbering_value:
+          id: field_fkg_numbering_value
+          table: node__field_fkg_numbering
+          field: field_fkg_numbering_value
           relationship: field_fkg_program
           group_type: group
           admin_label: ''
@@ -293,13 +293,13 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            field_fkg_program_number: field_fkg_program_number
+            field_fkg_numbering: field_fkg_numbering
             field_fkg_program: field_fkg_program
             field_bodies: field_bodies
             field_fkg_description: field_fkg_description
           default: '-1'
           info:
-            field_fkg_program_number:
+            field_fkg_numbering:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -386,10 +386,10 @@ display:
     position: 1
     display_options:
       fields:
-        field_fkg_program_number:
-          id: field_fkg_program_number
-          table: node__field_fkg_program_number
-          field: field_fkg_program_number
+        field_fkg_numbering:
+          id: field_fkg_numbering
+          table: node__field_fkg_numbering
+          field: field_fkg_numbering
           relationship: field_fkg_program
           group_type: group
           admin_label: ''
@@ -729,7 +729,7 @@ display:
         - 'config:field.storage.node.field_bodies'
         - 'config:field.storage.node.field_fkg_description'
         - 'config:field.storage.node.field_fkg_program'
-        - 'config:field.storage.node.field_fkg_program_number'
+        - 'config:field.storage.node.field_fkg_numbering'
   contributing_to_outcomes:
     id: contributing_to_outcomes
     display_title: 'Block - outcomes'
@@ -1120,10 +1120,10 @@ display:
     position: 1
     display_options:
       fields:
-        field_fkg_program_number:
-          id: field_fkg_program_number
-          table: node__field_fkg_program_number
-          field: field_fkg_program_number
+        field_fkg_numbering:
+          id: field_fkg_numbering
+          table: node__field_fkg_numbering
+          field: field_fkg_numbering
           relationship: field_fkg_program
           group_type: group
           admin_label: ''
@@ -1463,7 +1463,7 @@ display:
         - 'config:field.storage.node.field_bodies'
         - 'config:field.storage.node.field_fkg_description'
         - 'config:field.storage.node.field_fkg_program'
-        - 'config:field.storage.node.field_fkg_program_number'
+        - 'config:field.storage.node.field_fkg_numbering'
   program_outcome:
     id: program_outcome
     display_title: 'program outcome'

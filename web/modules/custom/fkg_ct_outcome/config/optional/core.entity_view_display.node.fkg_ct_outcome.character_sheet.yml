@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.fkg_ct_outcome.feeds_item
     - field.field.node.fkg_ct_outcome.field_bodies
     - field.field.node.fkg_ct_outcome.field_fkg_description
-    - field.field.node.fkg_ct_outcome.field_fkg_outcome_number
+    - field.field.node.fkg_ct_outcome.field_fkg_numbering
     - field.field.node.fkg_ct_outcome.field_neptune_uri
     - node.type.fkg_ct_outcome
   module:
@@ -38,14 +38,6 @@ content:
     third_party_settings: {  }
     weight: 105
     region: content
-  field_fkg_outcome_number:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 104
-    region: content
   field_neptune_uri:
     type: string
     label: above
@@ -62,4 +54,5 @@ content:
 hidden:
   feeds_item: true
   field_fkg_description: true
+  field_fkg_numbering: true
   search_api_excerpt: true

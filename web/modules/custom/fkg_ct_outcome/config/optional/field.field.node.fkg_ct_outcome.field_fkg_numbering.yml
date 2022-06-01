@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_fkg_outcome_number
+    - field.storage.node.field_fkg_numbering
     - node.type.fkg_ct_outcome
-id: node.fkg_ct_outcome.field_fkg_outcome_number
-field_name: field_fkg_outcome_number
+id: node.fkg_ct_outcome.field_fkg_numbering
+field_name: field_fkg_numbering
 entity_type: node
 bundle: fkg_ct_outcome
-label: 'Outcome number'
+label: Numbering
 description: ''
 required: false
 translatable: false
