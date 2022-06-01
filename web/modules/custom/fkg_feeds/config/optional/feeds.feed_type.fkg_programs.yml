@@ -3,9 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_program.field_bodies
-    - field.field.node.fkg_ct_program.field_fkg_numbering
     - field.field.node.fkg_ct_program.field_fkg_program_label
-    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_neptune_uri
     - node.type.fkg_ct_program
@@ -109,13 +107,6 @@ mappings:
     target: field_fkg_program_label
     map:
       value: neptune_programs_programlabel
-    settings:
-      language: null
-    unique: {  }
-  -
-    target: field_fkg_program_number
-    map:
-      value: neptune_programnumber
     settings:
       language: null
     unique: {  }
