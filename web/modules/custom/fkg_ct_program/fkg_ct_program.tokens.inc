@@ -101,7 +101,7 @@ function fkg_ct_program_get_body_programs($nid) {
       $program_node = Node::load($program_nid);
       $program['title'] = $program_node->getTitle();
       $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
-      $program['sequence'] = $program_node->get('field_fkg_program_number')->getString();
+      $program['sequence'] = $program_node->get('field_fkg_numbering')->getString();
       $program['contribution'] = $node->get('field_fkg_description')->value;
       $program['url'] = $program_node->toUrl()->toString();
 
