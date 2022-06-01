@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.fkg_ct_program.field_bodies
     - field.field.node.fkg_ct_program.field_fkg_numbering
     - field.field.node.fkg_ct_program.field_fkg_program_label
-    - field.field.node.fkg_ct_program.field_fkg_program_number
     - field.field.node.fkg_ct_program.field_fkg_program_owner
     - field.field.node.fkg_ct_program.field_fkg_program_uri
     - field.field.node.fkg_ct_program.field_neptune_uri
@@ -43,7 +42,6 @@ hidden:
   feeds_item: true
   field_fkg_numbering: true
   field_fkg_program_label: true
-  field_fkg_program_number: true
   field_fkg_program_owner: true
   field_fkg_program_uri: true
   field_neptune_uri: true
