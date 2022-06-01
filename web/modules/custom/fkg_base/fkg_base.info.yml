@@ -1,0 +1,8 @@
+name: 'FKG Base'
+type: module
+description: 'FKG basic shared configurations and functionalities.'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9
+dependencies:
+  - drupal:field

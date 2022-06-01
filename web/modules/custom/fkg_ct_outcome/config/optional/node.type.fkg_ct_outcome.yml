@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+  enforced:
+    module:
+      - fkg_ct_outcome
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'FKG Outcome'
+type: fkg_ct_outcome
+description: Outcome
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -16,10 +16,19 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class HomepageRedirectionSubscriber
+ * @package Drupal\neptune_sync\Event
+ * @author Alexis Harper | DoF
+ *
+ * A quick and dirty class for catching traffic routing to <home> then routing that
+ *  traffic based on their login status.
+ */
 class HomepageRedirectionSubscriber implements EventSubscriberInterface {
 
     /**
-     * {@inheritdoc}
+     * @param GetResponseEvent $event
+     * check if event is a route to front page, then redirects accordingly
      */
     public function checkFrontRedirection(GetResponseEvent $event) {
         if (\Drupal::service('path.matcher')->matchPath(

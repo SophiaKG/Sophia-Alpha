@@ -1,0 +1,6 @@
+name: 'FKG Graph'
+type: module
+description: 'Enable the creation of relationship visualization graphs.'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9

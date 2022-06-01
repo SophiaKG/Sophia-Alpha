@@ -1,0 +1,220 @@
+<?php
+
+use Drupal\Core\Render\Markup;
+use Drupal\node\NodeInterface;
+use Drupal\views\Views;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
+  // Restrict the result modification to the specified view & display.
+  if ($view->id() != 'fkg_outcome_programs' || $view->current_display != 'contributing_to_outcomes') {
+    return;
+  }
+
+  /**
+   * Remove duplicated view output items and the referenced item.
+   * 
+   * @see config/optional/view.view.fkg_outcome_programs.yml.
+   * 
+   * @todo Seek a better solution (such as using hook_views_query_alter()).
+   */
+  $view_result = $view->result;
+  $exclude_nid = $view->args[0] ?? null;
+  $unique_nids = [];
+  $view->result = [];
+  foreach ($view_result as $item) {
+    $nid = $item->_entity->get('field_fkg_outcome')->getString();
+    if ($nid && $nid != $exclude_nid && !in_array($nid, $unique_nids)) {
+      $unique_nids[] = $nid;
+      $view->result[] = $item;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for template node__fkg_ct_outcome.
+ */
+function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
+  $content_character_sheet = [
+    '#type' => 'container',
+    '#weight' => 10,
+    '#attributes' => [
+      'class' => [
+        'field',
+        'fkg-character-sheet',
+        'fkg-character-sheet-outcome',
+      ],
+    ],
+    '#attached' => [
+      'library' => [
+        'fkg_display_charsheet/fkg_character_sheet',
+        'fkg_ct_program/fkg_charactersheet_outcome_program',
+      ],
+    ],
+  ];
+
+  // Add the contributing programs.
+  $content_character_sheet['outcome_programs'] = [
+    '#type' => 'container',
+    '#weight' => 1,
+    '#attributes' => [
+      'class' => ['character-sheet-programs'],
+    ],
+    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node']),
+  ];
+
+  // Add the contributing programs graph.
+  $content_character_sheet['contributing_programs_graph'] = [
+    '#type' => 'container',
+    '#weight' => 1,
+    'label' => [
+      '#type' => 'markup',
+      '#markup' => '<div class="field__label">' . t('Contributing programs') . '</div>',
+    ],
+    'graph' => _fkg_ct_outcome_get_contributing_programs_graph($variables['node']),
+  ];
+
+  // Add the expense data for the outcome.
+  $content_character_sheet['outcome_expense'] = [
+    '#type' => 'container',
+    '#weight' => 2,
+    'label' => [
+      '#type' => 'markup',
+      '#markup' => '<div class="field__label">' . t('Appropriations') . '</div>',
+    ],
+    'outcome_expense' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
+  ];
+
+  // Add the data of contributing to outcomes.
+  $contributing_to_outcomes = _fkg_ct_outcome_get_contributing_to_outcomes($variables['node']);
+  if (!empty($contributing_to_outcomes)) {
+    $content_character_sheet['contributing_to_outcomes'] = [
+      '#type' => 'container',
+      '#weight' => 3,
+      'label' => [
+        '#type' => 'markup',
+        '#markup' => '<div class="field__label">' . t('Contributing to other outcomes') . '</div>',
+      ],
+      'contributing_to_outcomes' => $contributing_to_outcomes + ['#weight' => 2],
+    ];
+  }
+
+  $variables['content']['fkg-character-sheet'] = $content_character_sheet;
+}
+
+/**
+ * Retrieve all the FKG Programs those contribute to the given FKG Outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array with data of contributing FKG Programs.
+ */
+function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
+  $nid_outcome_owner = $node->get('field_bodies')->getString();
+
+  $params = [
+    'owned_programs' => [
+      'data-target' => '#owned-programs',
+      'aria-controls' => 'owned-programs',
+      'text' => t('Owned programs'),
+    ],
+    'contributing_programs' => [
+      'data-target' => '#linked-programs',
+      'aria-controls' => 'linked-programs',
+      'text' => t('Linked programs'),
+    ],
+  ];
+
+  $output = [];
+  foreach (array_keys($params) as $display) {
+    $output[$display . '-button'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('
+        <div class="fkg-character-sheet-outcome-programs">
+          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="'. $params[$display]['data-target'] . '" aria-expanded="false" aria-controls="' . $params[$display]['aria-controls'] . '">
+            <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+            <spam>' . $params[$display]['text'] . '</spam>
+          </button>
+        </div>
+      '),
+    ];
+    $output[$display . '-programs'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['collapse'],
+        'id' => $params[$display]['aria-controls'], 
+      ],
+      'programs' => views_embed_view('fkg_outcome_programs', $display, $node->id(), $nid_outcome_owner),
+    ];
+  }
+
+  return $output;
+}
+
+/**
+ * Retrieve all the Outcomes that the programs associated with a given Outcome contribute to.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array || []
+ *   A renderable array with #type 'view' holding data of contributing to outcomes.
+ */
+function _fkg_ct_outcome_get_contributing_to_outcomes(NodeInterface $node) {
+  $outcome_owner_id = $node->get('field_bodies')->getString();
+  $view_results = views_get_view_result('fkg_outcome_programs', 'owned_programs', $node->id(), $outcome_owner_id);
+
+  $view_arg_programs_owned = implode('+',array_map(function ($result) {return $result->_entity->get('field_fkg_program')->getString() ?? NULL;}, $view_results));
+
+  // Retrieve the outcomes that a given outcome's programs contribute to.
+  // @see config/optional/views.view.fkg_outcome_programs.yml.
+  $view = Views::getView('fkg_outcome_programs');
+  $view->setDisplay('contributing_to_outcomes');
+  $view->setArguments([$view_arg_programs_owned, $outcome_owner_id]);
+  $view->preExecute();
+  $view->execute();
+
+  return $view->buildRenderable() ?? [];
+}
+
+/**
+ * Get the graph of contributing programs for given outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array holding the data to render the graph of contributing programs.
+ */
+function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
+  $block_outcome_graph = \Drupal::service('plugin.manager.block')->createInstance('fkg_ct_outcome_graph', []);
+  $block_outcome_graph->setContextValue('node', $node);
+  $render = $block_outcome_graph->build();
+  \Drupal::service('renderer')->addCacheableDependency($render, $block_outcome_graph);
+
+  return $render;
+}
+
+/**
+ * Get the expense data for given FKG Outcome.
+ * 
+ * @param NodeInterface $node
+ *   The node of a given FKG Outcome content.
+ * 
+ * @return array
+ *   A renderable array with #type 'view' of expense data for the FKG Outcome.
+ */
+function _fkg_ct_outcome_get_outcome_expense(NodeInterface $node) {
+  $view = Views::getView('fkg_expense');
+  $view->setDisplay('expense_outcome');
+  $view->setArguments([$node->id()]);
+  $view->preExecute();
+  $view->execute();
+
+  return $view->buildRenderable();
+}

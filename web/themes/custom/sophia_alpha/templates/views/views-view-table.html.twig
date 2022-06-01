@@ -63,39 +63,41 @@
     {% endif %}
     </caption>
   {% endif %}
-  {% if header %}
-    <thead class='{{ thead_class }}'>
-      <tr>
-        {% for key, column in header %}
-          {% if column.default_classes %}
-            {%
-              set column_classes = [
-                'views-field',
-                'views-field-' ~ fields[key],
-              ]
-            %}
-          {% endif %}
-          <th{{ column.attributes.addClass(column_classes).setAttribute('scope', 'col') }}>
-            {%- if column.wrapper_element -%}
-              <{{ column.wrapper_element }}>
+  {% block fkg_table_header %}
+    {% if header %}
+      <thead class='{{ thead_class }}'>
+        <tr>
+          {% for key, column in header %}
+            {% if column.default_classes %}
+              {%
+                set column_classes = [
+                  'views-field',
+                  'views-field-' ~ fields[key],
+                ]
+              %}
+            {% endif %}
+            <th{{ column.attributes.addClass(column_classes).setAttribute('scope', 'col') }}>
+              {%- if column.wrapper_element -%}
+                <{{ column.wrapper_element }}>
+                  {%- if column.url -%}
+                    <a href="{{ column.url }}" title="{{ column.title }}">{{ column.content }}{{ column.sort_indicator }}</a>
+                  {%- else -%}
+                    {{ column.content }}{{ column.sort_indicator }}
+                  {%- endif -%}
+                </{{ column.wrapper_element }}>
+              {%- else -%}
                 {%- if column.url -%}
                   <a href="{{ column.url }}" title="{{ column.title }}">{{ column.content }}{{ column.sort_indicator }}</a>
                 {%- else -%}
-                  {{ column.content }}{{ column.sort_indicator }}
+                  {{- column.content }}{{ column.sort_indicator }}
                 {%- endif -%}
-              </{{ column.wrapper_element }}>
-            {%- else -%}
-              {%- if column.url -%}
-                <a href="{{ column.url }}" title="{{ column.title }}">{{ column.content }}{{ column.sort_indicator }}</a>
-              {%- else -%}
-                {{- column.content }}{{ column.sort_indicator }}
               {%- endif -%}
-            {%- endif -%}
-          </th>
-        {% endfor %}
-      </tr>
-    </thead>
-  {% endif %}
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+    {% endif %}
+  {% endblock %}
   <tbody>
     {% for row in rows %}
       <tr{{ row.attributes }}>

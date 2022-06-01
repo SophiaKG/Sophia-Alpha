@@ -1,0 +1,77 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_program.body
+    - field.field.node.fkg_ct_program.feeds_item
+    - field.field.node.fkg_ct_program.field_bodies
+    - field.field.node.fkg_ct_program.field_fkg_numbering
+    - field.field.node.fkg_ct_program.field_fkg_program_label
+    - field.field.node.fkg_ct_program.field_fkg_program_owner
+    - field.field.node.fkg_ct_program.field_fkg_program_uri
+    - field.field.node.fkg_ct_program.field_neptune_uri
+    - node.type.fkg_ct_program
+  module:
+    - user
+id: node.fkg_ct_program.default
+targetEntityType: node
+bundle: fkg_ct_program
+mode: default
+content:
+  field_bodies:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_fkg_numbering:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_fkg_program_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_fkg_program_owner:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_fkg_program_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_neptune_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  feeds_item: true
+  search_api_excerpt: true

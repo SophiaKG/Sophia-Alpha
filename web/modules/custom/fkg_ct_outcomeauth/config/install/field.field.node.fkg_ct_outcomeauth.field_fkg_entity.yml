@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_entity
+    - node.type.fkg_ct_outcomeauth
+id: node.fkg_ct_outcomeauth.field_fkg_entity
+field_name: field_fkg_entity
+entity_type: node
+bundle: fkg_ct_outcomeauth
+label: 'Entity body'
+description: 'Ex. The Department of Finance'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

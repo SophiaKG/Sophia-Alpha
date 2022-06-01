@@ -5,16 +5,21 @@ namespace Drupal\neptune_sync\Form;
 
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\neptune_sync\Graph\GraphGenerator;
 use Drupal\neptune_sync\Utility\Helper;
 
+/**
+ * Class CoopGraphForm
+ * @package Drupal\neptune_sync\Form
+ * @author Alexis Harper | DoF
+ *
+ * A form for selecting which bodies should be unioned together to form a
+ *  coop-relationship graph
+ */
 class CoopGraphForm extends \Drupal\Core\Form\FormBase
 {
-
     public function getFormId(){
         return 'coop_graph_form';
     }
-
 
     public function buildForm(array $form, FormStateInterface $form_state){
 

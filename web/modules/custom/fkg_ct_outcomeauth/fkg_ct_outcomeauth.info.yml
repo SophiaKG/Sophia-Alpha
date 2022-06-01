@@ -1,0 +1,10 @@
+name: 'FKG Outcome authorization'
+type: module
+description: 'Outcome authorisations'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9
+dependencies:
+  - drupal:node
+  - feeds:feeds
+  - fkg_ct_program:fkg_ct_program

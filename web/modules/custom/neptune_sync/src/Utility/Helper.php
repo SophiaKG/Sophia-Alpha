@@ -30,9 +30,9 @@ class Helper
 
        $str .= Helper::print_var($input);
 
-        file_put_contents('neptune_sync.log', $str, FILE_APPEND);
+        file_put_contents('logs/neptune_sync.log', $str, FILE_APPEND);
         if($event)
-            file_put_contents('neptune_sync_event.log', $str, FILE_APPEND);
+            file_put_contents('logs/neptune_sync_event.log', $str, FILE_APPEND);
         if(self::$printMark)
             self::$markBuffer .= $str;
 

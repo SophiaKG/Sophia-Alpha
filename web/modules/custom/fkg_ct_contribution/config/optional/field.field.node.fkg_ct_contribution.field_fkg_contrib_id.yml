@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_contrib_id
+    - node.type.fkg_ct_contribution
+id: node.fkg_ct_contribution.field_fkg_contrib_id
+field_name: field_fkg_contrib_id
+entity_type: node
+bundle: fkg_ct_contribution
+label: 'Contrib ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

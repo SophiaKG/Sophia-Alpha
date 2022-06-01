@@ -1,0 +1,519 @@
+
+2021-05-26 15:43:17| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> CONSTRUCT {?sendBody ns2:grants ?prog. ?prog ns2:enables ?outcome. ?outcome ns2:empowers ?recBody. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?recBody rdfs:label ?recBodyLab. ?recBody rdf:type ns2:CommonwealthBody. ?sendBody rdf:type ns2:CommonwealthBody. ?prog rdf:type ns2:Program. ?outcome rdf:type ns2:Outcome. } FROM <http://aws.amazon.com/neptune/vocab/v001>WHERE { values ?entities { ns2:AUSTRALIANFEDERALPOLICE } BIND(?entities AS  ?sendBody). ?auth ns2:binds ?prog. ?auth ns2:bindsTo ?outcome. ?auth1 ns2:binds ?prog. ?auth1 ns2:bindsTo ?sendBody. ?auth2 ns2:binds ?outcome. ?auth2 ns2:bindsTo ?recBody. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?recBody rdfs:label ?recBodyLab. ?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?prog a ns2:Program. ?outcome a ns2:Outcome. ?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?auth a/rdfs:subClassOf* ns2:Authority. ?auth1 a/rdfs:subClassOf* ns2:Authority. ?auth2 a/rdfs:subClassOf* ns2:Authority.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:43:17| log: Query executed.
+2021-05-26 15:43:17| log: Result: 
+2021-05-26 15:43:17| log: attempting to parse into easyRDF
+2021-05-26 15:43:17| log: parse complete
+2021-05-26 15:43:17| log: nodes: 
+2021-05-26 15:43:17| log: Array: 
+2021-05-26 15:43:17| log: Json coop Graph for:Australian Federal Police
+
+		{"category":[],"nodes":[],"edges":[]}
+2021-05-26 15:59:46| log: updating node: 140950 - National Health and Medical Research Council
+2021-05-26 15:59:46| log: Querying LeadBody: 
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL a ns2:LeadBody }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {"head":{},"boolean":false}
+2021-05-26 15:59:46| log: Querying InSummaryView: 
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesOnEntityList. ?flip ns2:witnesses ?auth. ?flip ns2:live true. ?flip a ns2:FinanceEntityList.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {"head":{},"boolean":true}
+2021-05-26 15:59:46| log: Querying aliases: 
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?label FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL rdfs:label ?label. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {
+  "head" : {
+    "vars" : [ "label" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 15:59:46| log: Querying portfolio: 
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?port ?portlabel FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ?auth ns2:fallsUnder ?port. ?port rdfs:label ?portlabel. ?auth ns2:binds ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?flip ns2:witnesses ?auth. ?flip a ns2:FinanceEntityList. ?flip ns2:live true. } ORDER BY DESC(?datetime) LIMIT 1' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {
+  "head" : {
+    "vars" : [ "port", "portlabel" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 15:59:46| log: Querying legislation: 
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?legislation ?legislationLabel FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ?authority  ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?authority  ns2:binds ?est. ?est a ns2:Establishment. ?leg ns2:grants ?authority. { ?leg ns2:hasSeries ?legislation. } UNION { ?leg ns2:hasSeries ?leg2. ?legislation ns2:hasSubordinate ?leg2. } UNION { ?leg a ns2:Series. BIND (?leg as ?legislation)} UNION { ?leg a ns2:Series. ?legislation ns2:hasSubordinate ?leg. } ?legislation ns2:canonicalName  ?legislationLabel. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {
+  "head" : {
+    "vars" : [ "legislation", "legislationLabel" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?sendBody ?recBody ?progLabel ?progDesc ?outcomeLabel ?outcomeDesc  FROM <http://aws.amazon.com/neptune/vocab/v001>WHERE { values ?entities { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL } BIND(?entities AS  ?sendBody). ?auth ns2:binds ?prog. ?auth ns2:bindsTo ?outcome. ?auth1 ns2:binds ?prog. ?auth1 ns2:bindsTo ?sendBody. ?auth2 ns2:binds ?outcome. ?auth2 ns2:bindsTo ?recBody. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?recBody rdfs:label ?recBodyLab. ?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?prog a ns2:Program. ?outcome a ns2:Outcome. ?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?auth a/rdfs:subClassOf* ns2:Authority. ?auth1 a/rdfs:subClassOf* ns2:Authority. ?auth2 a/rdfs:subClassOf* ns2:Authority.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {
+  "head" : {
+    "vars" : [ "sendBody", "recBody", "progLabel", "progDesc", "outcomeLabel", "outcomeDesc" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?link FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL ns2:webDataSource ?link.}' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {
+  "head" : {
+    "vars" : [ "link" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 15:59:46| log: Processing keys for body types: (next three queries) 
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2013A00123noncorporateCommonwealthentity. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:46| log: Query executed.
+2021-05-26 15:59:46| log: Result: {"head":{},"boolean":true}
+2021-05-26 15:59:46| log: Processing keys for financial class: (next two)
+2021-05-26 15:59:46| log: Processing key = B
+2021-05-26 15:59:46| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2013A00123governmentbusinessenterprise. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:47| log: Query executed.
+2021-05-26 15:59:47| log: Result: {"head":{},"boolean":false}
+2021-05-26 15:59:47| log: Processing key = M
+2021-05-26 15:59:47| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesMaterialEntity. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:47| log: Query executed.
+2021-05-26 15:59:47| log: Result: {"head":{},"boolean":true}
+2021-05-26 15:59:47| log: Processing keys for eco sector: (next three)
+2021-05-26 15:59:47| log: Processing key = GGS
+2021-05-26 15:59:47| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesGeneralGovernmentSector. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:47| log: Query executed.
+2021-05-26 15:59:47| log: Result: {"head":{},"boolean":true}
+2021-05-26 15:59:47| log: Processing key = F
+2021-05-26 15:59:47| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesPublicFinancialCorporation. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:47| log: Query executed.
+2021-05-26 15:59:47| log: Result: {"head":{},"boolean":false}
+2021-05-26 15:59:47| log: Processing key = T
+2021-05-26 15:59:47| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesPublicNonfinancialCorporation. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:47| log: Query executed.
+2021-05-26 15:59:47| log: Result: {"head":{},"boolean":false}
+2021-05-26 15:59:47| log: Processing keys for employment type: (next three)
+2021-05-26 15:59:47| log: Processing key = PS Act
+2021-05-26 15:59:47| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?workAuth ns2:binds ?staff. ?workAuth ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?termAuth ns2:binds ?term. ?termAuth ns2:bindsTo ?staff. ns2:C2004A00538 ns2:defines ?term.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 15:59:47| log: Query executed.
+2021-05-26 15:59:47| log: Result: {"head":{},"boolean":true}
+2021-05-26 15:59:47| log: Processing key = ^
+2021-05-26 15:59:47| log: Processing key = #
+2021-05-26 16:09:55| log: updating node: 140950 - National Health and Medical Research Council
+2021-05-26 16:09:55| log: Querying LeadBody: 
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL a ns2:LeadBody }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:55| log: Querying InSummaryView: 
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesOnEntityList. ?flip ns2:witnesses ?auth. ?flip ns2:live true. ?flip a ns2:FinanceEntityList.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:09:55| log: Querying aliases: 
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?label FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL rdfs:label ?label. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {
+  "head" : {
+    "vars" : [ "label" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:09:55| log: Querying portfolio: 
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?port ?portlabel FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ?auth ns2:fallsUnder ?port. ?port rdfs:label ?portlabel. ?auth ns2:binds ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?flip ns2:witnesses ?auth. ?flip a ns2:FinanceEntityList. ?flip ns2:live true. } ORDER BY DESC(?datetime) LIMIT 1' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {
+  "head" : {
+    "vars" : [ "port", "portlabel" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:09:55| log: Querying legislation: 
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?legislation ?legislationLabel FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ?authority  ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?authority  ns2:binds ?est. ?est a ns2:Establishment. ?leg ns2:grants ?authority. { ?leg ns2:hasSeries ?legislation. } UNION { ?leg ns2:hasSeries ?leg2. ?legislation ns2:hasSubordinate ?leg2. } UNION { ?leg a ns2:Series. BIND (?leg as ?legislation)} UNION { ?leg a ns2:Series. ?legislation ns2:hasSubordinate ?leg. } ?legislation ns2:canonicalName  ?legislationLabel. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {
+  "head" : {
+    "vars" : [ "legislation", "legislationLabel" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?sendBody ?recBody ?progLabel ?progDesc ?outcomeLabel ?outcomeDesc  FROM <http://aws.amazon.com/neptune/vocab/v001>WHERE { values ?entities { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL } BIND(?entities AS  ?sendBody). ?auth ns2:binds ?prog. ?auth ns2:bindsTo ?outcome. ?auth1 ns2:binds ?prog. ?auth1 ns2:bindsTo ?sendBody. ?auth2 ns2:binds ?outcome. ?auth2 ns2:bindsTo ?recBody. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?recBody rdfs:label ?recBodyLab. ?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?prog a ns2:Program. ?outcome a ns2:Outcome. ?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?auth a/rdfs:subClassOf* ns2:Authority. ?auth1 a/rdfs:subClassOf* ns2:Authority. ?auth2 a/rdfs:subClassOf* ns2:Authority.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {
+  "head" : {
+    "vars" : [ "sendBody", "recBody", "progLabel", "progDesc", "outcomeLabel", "outcomeDesc" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?link FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL ns2:webDataSource ?link.}' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {
+  "head" : {
+    "vars" : [ "link" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:09:55| log: Processing keys for body types: (next three queries) 
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2013A00123noncorporateCommonwealthentity. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:09:55| log: Processing keys for financial class: (next two)
+2021-05-26 16:09:55| log: Processing key = B
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2013A00123governmentbusinessenterprise. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:55| log: Processing key = M
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesMaterialEntity. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:55| log: Query executed.
+2021-05-26 16:09:55| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:09:55| log: Processing keys for eco sector: (next three)
+2021-05-26 16:09:55| log: Processing key = GGS
+2021-05-26 16:09:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesGeneralGovernmentSector. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:09:56| log: Processing key = F
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesPublicFinancialCorporation. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing key = T
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesPublicNonfinancialCorporation. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing keys for employment type: (next three)
+2021-05-26 16:09:56| log: Processing key = PS Act
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?workAuth ns2:binds ?staff. ?workAuth ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?termAuth ns2:binds ?term. ?termAuth ns2:bindsTo ?staff. ns2:C2004A00538 ns2:defines ?term.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:09:56| log: Processing key = ^
+2021-05-26 16:09:56| log: Processing key = #
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?workAuth ns2:binds ?staff. ?workAuth ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?termAuth ns2:binds ?term. ?termAuth ns2:bindsTo ?staff. ns2:C2004A00538 ns2:defines ?term. FILTER EXISTS{ ?workAuth1 ns2:binds ?staff1. ?workAuth1 ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. MINUS{ ?termAuth1 ns2:binds ?term1. ?termAuth1 ns2:bindsTo ?staff1. ns2:C2004A00538 ns2:defines ?term1. } }  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing key = ▲
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?ent ns2:live true. ?auth0 ns2:binds ?myStaffing. ?auth0 ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth1 ns2:binds ns2:C2004A00536ParliamentaryServiceemployment. ?auth1 ns2:isRestrictionOf ?myStaffing.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: res = 136
+2021-05-26 16:09:56| log: Processing keys for misc flipchart keys: (next 8)
+2021-05-26 16:09:56| log: Processing Key: E
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2004A00538ExecutiveAgency. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing Key: HC
+2021-05-26 16:09:56| log: Processing Key: i
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesInterJurisdictional. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing Key: R
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ?est. ?est a ns2:Establishment. ?leg ns2:grants ?auth. ?leg ns2:live true. ?leg ns2:hasSeries ?srs. ?superSrs ns2:hasSubordinate ?srs. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing Key: *
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2004A00818bodycorporate. ?leg ns2:grants ?auth. ?leg ns2:live true. ?auth1 ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth1 ns2:binds ns2:C2013A00123noncorporateCommonwealthentity. ?flip ns2:witnesses ?auth1. ?flip ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing Key: ℗
+2021-05-26 16:09:56| log: no query executed as its a NCCE
+2021-05-26 16:09:56| log: Processing Key: X
+2021-05-26 16:09:56| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:binds ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:hasExemptionFrom ?section. ?section rdfs:label "22". ?thing ns2:grants ?auth. ?thing ns2:subsectionOf ?leg2. ?leg2 ns2:live true. ?section ns2:subsectionOf ?leg. ?leg ns2:hasSeries ns2:C2013A00123.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:09:56| log: Query executed.
+2021-05-26 16:09:56| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:09:56| log: Processing Key: Listed Entities
+2021-05-26 16:09:56| log: deprecated
+2021-05-26 16:09:56| log: syncing keys to fields
+2021-05-26 16:09:56| log: attempting to update 140950
+2021-05-26 16:09:57| log: update ret = 2
+2021-05-26 16:09:57| log: updating body 140950 Summary View: 1	| Updated: 1	Skipped: 0
+2021-05-26 16:10:08| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> CONSTRUCT {?sendBody ns2:grants ?prog. ?prog ns2:enables ?outcome. ?outcome ns2:empowers ?recBody. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?recBody rdfs:label ?recBodyLab. ?recBody rdf:type ns2:CommonwealthBody. ?sendBody rdf:type ns2:CommonwealthBody. ?prog rdf:type ns2:Program. ?outcome rdf:type ns2:Outcome. } FROM <http://aws.amazon.com/neptune/vocab/v001>WHERE { values ?entities { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL } BIND(?entities AS  ?sendBody). ?auth ns2:binds ?prog. ?auth ns2:bindsTo ?outcome. ?auth1 ns2:binds ?prog. ?auth1 ns2:bindsTo ?sendBody. ?auth2 ns2:binds ?outcome. ?auth2 ns2:bindsTo ?recBody. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?recBody rdfs:label ?recBodyLab. ?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?prog a ns2:Program. ?outcome a ns2:Outcome. ?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?auth a/rdfs:subClassOf* ns2:Authority. ?auth1 a/rdfs:subClassOf* ns2:Authority. ?auth2 a/rdfs:subClassOf* ns2:Authority.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:10:09| log: Query executed.
+2021-05-26 16:10:09| log: Result: 
+2021-05-26 16:10:09| log: attempting to parse into easyRDF
+2021-05-26 16:10:09| log: parse complete
+2021-05-26 16:10:09| log: nodes: 
+2021-05-26 16:10:09| log: Array: 
+2021-05-26 16:10:09| log: Json coop Graph for:National Health and Medical Research Council
+
+		{"category":[],"nodes":[],"edges":[]}
+2021-05-26 16:27:55| log: loop setup for National Health and Medical Research Council
+2021-05-26 16:27:55| log: just before loop| where = false
+2021-05-26 16:27:55| log: in loop
+2021-05-26 16:27:55| log: in loop
+2021-05-26 16:27:55| log: post-loop| where = false
+2021-05-26 16:27:55| log: just before loop| where = true
+2021-05-26 16:27:55| log: in loop
+2021-05-26 16:27:55| log: in loop
+2021-05-26 16:27:55| log: post-loop| where = true
+2021-05-26 16:27:55| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> CONSTRUCT { ?a1 ?predicate0 "National Health and Medical Research Council" . ?a1 ?predicate1 ?a2 . ?a2 ?predicate2 ?a3 . }WHERE { ?a1 ?predicate0 "National Health and Medical Research Council" . VALUES ?val {ns2:CommonwealthAgent ns2:CommonwealthBody} ?a1 a/rdfs:subClassOf* ?val. OPTIONAL {?a1 ?predicate1 ?a2 } . OPTIONAL {?a2 ?predicate2 ?a3 } . }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:27:55| log: Query executed.
+2021-05-26 16:27:55| log: Result: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://www.w3.org/2000/01/rdf-schema#label> "National Health and Medical Research Council" .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#webDataSource> "http://www.nhmrc.gov.au" .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#canonicalName> "National Health and Medical Research Council" .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody> .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody> <http://www.w3.org/2000/01/rdf-schema#label> "Commonwealth Body" .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthAgent> .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody> <http://www.w3.org/2000/01/rdf-schema#comment> "A Commonwealth Agent that is an organisation rather than a role to be held by an individual." .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#live> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL> <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#australianBusinessNumber> "88601010284"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+2021-05-26 16:27:55| log: attempting to parse into easyRDF
+2021-05-26 16:27:55| log: parse complete
+2021-05-26 16:27:55| log: Resource http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL contains properties: 
+2021-05-26 16:27:55| log: Array: 
+			key = [0] val = rdfs:label
+			key = [1] val = ns2:webDataSource
+			key = [2] val = ns2:canonicalName
+			key = [3] val = rdf:type
+			key = [4] val = ns2:live
+			key = [5] val = ns2:australianBusinessNumber
+2021-05-26 16:27:55| log: In build node, getting CanonicalName: 
+2021-05-26 16:27:55| log: CanonicalName null,  getting label: National Health and Medical Research Council
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge rdfs:label has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:webDataSource has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:canonicalName has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:live has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:australianBusinessNumber has 0edges for running total of: 0
+2021-05-26 16:27:55| log: In build node, getting CanonicalName: 
+2021-05-26 16:27:55| log: CanonicalName null,  getting label: National Health and Medical Research Council
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge rdfs:label has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:webDataSource has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:canonicalName has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:live has 0edges for running total of: 0
+2021-05-26 16:27:55| log: counting edgenum for NATIONALHEALTHANDMEDICALRESEARCHCOUNCILedge ns2:australianBusinessNumber has 0edges for running total of: 0
+2021-05-26 16:27:55| log: pre switch! type is CommonwealthBody
+2021-05-26 16:27:55| log: adding via id
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  rdfs:label
+2021-05-26 16:27:55| log: 	Shortened = ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  rdfs:label connecting to node: National Health and Medical Research Council
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:webDataSource
+2021-05-26 16:27:55| log: 	Shortened = ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:webDataSource connecting to node: http://www.nhmrc.gov.au
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:canonicalName
+2021-05-26 16:27:55| log: 	Shortened = ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:canonicalName connecting to node: National Health and Medical Research Council
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  rdf:type
+2021-05-26 16:27:55| log: 	Shortened = ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  rdf:type connecting to node: http://www.w3.org/2002/07/owl#NamedIndividual
+2021-05-26 16:27:55| log: returning null for some reason
+2021-05-26 16:27:55| log: Edge creation: both nodes, checking emphasis for type CommonwealthBody and type misc
+2021-05-26 16:27:55| log: Emphasis = false
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  rdf:type connecting to node: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody
+2021-05-26 16:27:55| log: In build node, getting CanonicalName: 
+2021-05-26 16:27:55| log: CanonicalName null,  getting label: Commonwealth Body
+2021-05-26 16:27:55| log: In build node, getting CanonicalName: 
+2021-05-26 16:27:55| log: CanonicalName null,  getting label: Commonwealth Body
+2021-05-26 16:27:55| log: pre switch! type is Class
+2021-05-26 16:27:55| log: adding via id
+2021-05-26 16:27:55| log: Edge creation: both nodes, checking emphasis for type CommonwealthBody and type Class
+2021-05-26 16:27:55| log: Emphasis = false
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:live
+2021-05-26 16:27:55| log: 	Shortened = ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:live connecting to node: true
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:australianBusinessNumber
+2021-05-26 16:27:55| log: 	Shortened = ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL In edge name:  ns2:australianBusinessNumber connecting to node: 88601010284
+2021-05-26 16:27:55| log: Resource http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody contains properties: 
+2021-05-26 16:27:55| log: Array: 
+			key = [0] val = rdf:type
+			key = [1] val = rdfs:label
+			key = [2] val = rdfs:subClassOf
+			key = [3] val = rdfs:comment
+2021-05-26 16:27:55| log: In build node, getting CanonicalName: 
+2021-05-26 16:27:55| log: CanonicalName null,  getting label: Commonwealth Body
+2021-05-26 16:27:55| log: In build node, getting CanonicalName: 
+2021-05-26 16:27:55| log: CanonicalName null,  getting label: Commonwealth Body
+2021-05-26 16:27:55| log: pre switch! type is Class
+2021-05-26 16:27:55| log: adding via id
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdf:type
+2021-05-26 16:27:55| log: 	Shortened = ns2:CommonwealthBody
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdf:type connecting to node: http://www.w3.org/2002/07/owl#Class
+2021-05-26 16:27:55| log: returning null for some reason
+2021-05-26 16:27:55| log: Edge creation: both nodes, checking emphasis for type Class and type misc
+2021-05-26 16:27:55| log: Emphasis = false
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdfs:label
+2021-05-26 16:27:55| log: 	Shortened = ns2:CommonwealthBody
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdfs:label connecting to node: Commonwealth Body
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdfs:subClassOf
+2021-05-26 16:27:55| log: 	Shortened = ns2:CommonwealthBody
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdfs:subClassOf connecting to node: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthAgent
+2021-05-26 16:27:55| log: returning null for some reason
+2021-05-26 16:27:55| log: Edge creation: both nodes, checking emphasis for type Class and type misc
+2021-05-26 16:27:55| log: Emphasis = false
+2021-05-26 16:27:55| log: 	Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdfs:comment
+2021-05-26 16:27:55| log: 	Shortened = ns2:CommonwealthBody
+2021-05-26 16:27:55| log: 		Resource: http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthBody In edge name:  rdfs:comment connecting to node: A Commonwealth Agent that is an organisation rather than a role to be held by an individual.
+2021-05-26 16:27:55| log: Resource http://www.w3.org/2002/07/owl#NamedIndividual contains properties: 
+2021-05-26 16:27:55| log: Array: 
+2021-05-26 16:27:55| log: returning null for some reason
+2021-05-26 16:27:55| log: Resource http://www.w3.org/2002/07/owl#Class contains properties: 
+2021-05-26 16:27:55| log: Array: 
+2021-05-26 16:27:55| log: returning null for some reason
+2021-05-26 16:27:55| log: Resource http://linked.data.gov.au/def/sog/GovernmentEntities.owl#CommonwealthAgent contains properties: 
+2021-05-26 16:27:55| log: Array: 
+2021-05-26 16:27:55| log: returning null for some reason
+2021-05-26 16:27:55| log: nodes: 
+2021-05-26 16:27:55| log: Array: 
+			key = [NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL] val = Array
+				key = [id] - val = NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+				key = [category] - val = CommonwealthBody
+				key = [label] - val = National Health and Medical Research Council
+				key = [value] - val = NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL
+				key = [shape] - val = circle
+				key = [symbolSize] - val = 10
+			key = [CommonwealthBody] val = Array
+				key = [id] - val = CommonwealthBody
+				key = [category] - val = Class
+				key = [label] - val = Commonwealth Body
+				key = [value] - val = CommonwealthBody
+				key = [shape] - val = circle
+				key = [symbolSize] - val = 10
+2021-05-26 16:27:55| log: Json local Graph for:National Health and Medical Research Council
+
+		{"category":[{"name":"CommonwealthBody"},{"name":"Class"}],"nodes":[{"id":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","category":"CommonwealthBody","label":"National Health and Medical Research Council","value":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","shape":"circle","symbolSize":"10"},{"id":"CommonwealthBody","category":"Class","label":"Commonwealth Body","value":"CommonwealthBody","shape":"circle","symbolSize":"10"}],"edges":[{"sourceID":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","label":"canonicalName","emphasis":"false","targetID":"National Health and Medical Research Council"},{"sourceID":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","label":"webDataSource","emphasis":"false","targetID":"http:\/\/www.nhmrc.gov.au"},{"sourceID":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","label":"type","emphasis":"false","targetID":"NamedIndividual"},{"sourceID":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","label":"type","emphasis":"false","targetID":"CommonwealthBody"},{"sourceID":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","label":"live","emphasis":"false","targetID":true},{"sourceID":"NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL","label":"australianBusinessNumber","emphasis":"false","targetID":88601010284},{"sourceID":"CommonwealthBody","label":"type","emphasis":"false","targetID":"Class"},{"sourceID":"CommonwealthBody","label":"label","emphasis":"false","targetID":"Commonwealth Body"},{"sourceID":"CommonwealthBody","label":"subClassOf","emphasis":"false","targetID":"CommonwealthAgent"},{"sourceID":"CommonwealthBody","label":"comment","emphasis":"false","targetID":"A Commonwealth Agent that is an organisation rather than a role to be held by an individual."}]}
+2021-05-26 16:28:04| log: updating node: 140950 - National Health and Medical Research Council
+2021-05-26 16:28:04| log: Querying LeadBody: 
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL a ns2:LeadBody }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:04| log: Querying InSummaryView: 
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesOnEntityList. ?flip ns2:witnesses ?auth. ?flip ns2:live true. ?flip a ns2:FinanceEntityList.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:28:04| log: Querying aliases: 
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?label FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL rdfs:label ?label. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {
+  "head" : {
+    "vars" : [ "label" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:28:04| log: Querying portfolio: 
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?port ?portlabel FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ?auth ns2:fallsUnder ?port. ?port rdfs:label ?portlabel. ?auth ns2:binds ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?flip ns2:witnesses ?auth. ?flip a ns2:FinanceEntityList. ?flip ns2:live true. } ORDER BY DESC(?datetime) LIMIT 1' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {
+  "head" : {
+    "vars" : [ "port", "portlabel" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:28:04| log: Querying legislation: 
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?legislation ?legislationLabel FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ?authority  ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?authority  ns2:binds ?est. ?est a ns2:Establishment. ?leg ns2:grants ?authority. { ?leg ns2:hasSeries ?legislation. } UNION { ?leg ns2:hasSeries ?leg2. ?legislation ns2:hasSubordinate ?leg2. } UNION { ?leg a ns2:Series. BIND (?leg as ?legislation)} UNION { ?leg a ns2:Series. ?legislation ns2:hasSubordinate ?leg. } ?legislation ns2:canonicalName  ?legislationLabel. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {
+  "head" : {
+    "vars" : [ "legislation", "legislationLabel" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?sendBody ?recBody ?progLabel ?progDesc ?outcomeLabel ?outcomeDesc  FROM <http://aws.amazon.com/neptune/vocab/v001>WHERE { values ?entities { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL } BIND(?entities AS  ?sendBody). ?auth ns2:binds ?prog. ?auth ns2:bindsTo ?outcome. ?auth1 ns2:binds ?prog. ?auth1 ns2:bindsTo ?sendBody. ?auth2 ns2:binds ?outcome. ?auth2 ns2:bindsTo ?recBody. ?prog ns2:content ?progDesc. ?outcome ns2:content ?outcomeDesc. ?sendBody rdfs:label ?sendBodyLab. ?prog rdfs:label ?progLabel. ?outcome rdfs:label ?outcomeLabel. ?recBody rdfs:label ?recBodyLab. ?sendBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?prog a ns2:Program. ?outcome a ns2:Outcome. ?recBody a/rdfs:subClassOf* ns2:CommonwealthAgent. ?auth a/rdfs:subClassOf* ns2:Authority. ?auth1 a/rdfs:subClassOf* ns2:Authority. ?auth2 a/rdfs:subClassOf* ns2:Authority.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {
+  "head" : {
+    "vars" : [ "sendBody", "recBody", "progLabel", "progDesc", "outcomeLabel", "outcomeDesc" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> SELECT DISTINCT ?link FROM <http://aws.amazon.com/neptune/vocab/v001> WHERE { ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL ns2:webDataSource ?link.}' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {
+  "head" : {
+    "vars" : [ "link" ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}
+2021-05-26 16:28:04| log: Processing keys for body types: (next three queries) 
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2013A00123noncorporateCommonwealthentity. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:28:04| log: Processing keys for financial class: (next two)
+2021-05-26 16:28:04| log: Processing key = B
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2013A00123governmentbusinessenterprise. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:04| log: Processing key = M
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesMaterialEntity. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:28:04| log: Processing keys for eco sector: (next three)
+2021-05-26 16:28:04| log: Processing key = GGS
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesGeneralGovernmentSector. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:28:04| log: Processing key = F
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesPublicFinancialCorporation. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:04| log: Processing key = T
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesPublicNonfinancialCorporation. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:04| log: Processing keys for employment type: (next three)
+2021-05-26 16:28:04| log: Processing key = PS Act
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?workAuth ns2:binds ?staff. ?workAuth ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?termAuth ns2:binds ?term. ?termAuth ns2:bindsTo ?staff. ns2:C2004A00538 ns2:defines ?term.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":true}
+2021-05-26 16:28:04| log: Processing key = ^
+2021-05-26 16:28:04| log: Processing key = #
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?workAuth ns2:binds ?staff. ?workAuth ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?termAuth ns2:binds ?term. ?termAuth ns2:bindsTo ?staff. ns2:C2004A00538 ns2:defines ?term. FILTER EXISTS{ ?workAuth1 ns2:binds ?staff1. ?workAuth1 ns2:worksFor ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. MINUS{ ?termAuth1 ns2:binds ?term1. ?termAuth1 ns2:bindsTo ?staff1. ns2:C2004A00538 ns2:defines ?term1. } }  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:04| log: Query executed.
+2021-05-26 16:28:04| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:04| log: Processing key = ▲
+2021-05-26 16:28:04| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?ent ns2:live true. ?auth0 ns2:binds ?myStaffing. ?auth0 ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth1 ns2:binds ns2:C2004A00536ParliamentaryServiceemployment. ?auth1 ns2:isRestrictionOf ?myStaffing.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:05| log: Query executed.
+2021-05-26 16:28:05| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:05| log: res = 136
+2021-05-26 16:28:05| log: Processing keys for misc flipchart keys: (next 8)
+2021-05-26 16:28:05| log: Processing Key: E
+2021-05-26 16:28:05| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2004A00538ExecutiveAgency. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:05| log: Query executed.
+2021-05-26 16:28:05| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:05| log: Processing Key: HC
+2021-05-26 16:28:05| log: Processing Key: i
+2021-05-26 16:28:05| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:EntityListSeriesInterJurisdictional. ?flipchart ns2:witnesses ?auth. ?flipchart ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:05| log: Query executed.
+2021-05-26 16:28:05| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:05| log: Processing Key: R
+2021-05-26 16:28:05| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ?est. ?est a ns2:Establishment. ?leg ns2:grants ?auth. ?leg ns2:live true. ?leg ns2:hasSeries ?srs. ?superSrs ns2:hasSubordinate ?srs. }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:05| log: Query executed.
+2021-05-26 16:28:05| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:05| log: Processing Key: *
+2021-05-26 16:28:05| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:binds ns2:C2004A00818bodycorporate. ?leg ns2:grants ?auth. ?leg ns2:live true. ?auth1 ns2:bindsTo ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth1 ns2:binds ns2:C2013A00123noncorporateCommonwealthentity. ?flip ns2:witnesses ?auth1. ?flip ns2:live true.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:05| log: Query executed.
+2021-05-26 16:28:05| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:05| log: Processing Key: ℗
+2021-05-26 16:28:05| log: no query executed as its a NCCE
+2021-05-26 16:28:05| log: Processing Key: X
+2021-05-26 16:28:05| log: Attempting to execute query: curl -s -X POST --data-binary 'query=PREFIX ns1: <file:///home/andnfitz/GovernmentEntities.owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ns2: <http://linked.data.gov.au/def/sog/GovernmentEntities.owl#> ASK { ?auth ns2:binds ns2:NATIONALHEALTHANDMEDICALRESEARCHCOUNCIL. ?auth ns2:hasExemptionFrom ?section. ?section rdfs:label "22". ?thing ns2:grants ?auth. ?thing ns2:subsectionOf ?leg2. ?leg2 ns2:live true. ?section ns2:subsectionOf ?leg. ?leg ns2:hasSeries ns2:C2013A00123.  }' https://sophia-neptune.cbkhatvpiwzj.ap-southeast-2.neptune.amazonaws.com:8182/sparql 2>> logs/neptune_sync_exec.log
+2021-05-26 16:28:05| log: Query executed.
+2021-05-26 16:28:05| log: Result: {"head":{},"boolean":false}
+2021-05-26 16:28:05| log: Processing Key: Listed Entities
+2021-05-26 16:28:05| log: deprecated
+2021-05-26 16:28:05| log: syncing keys to fields
+2021-05-26 16:28:05| log: attempting to update 140950
+2021-05-26 16:28:05| log: update ret = 2
+2021-05-26 16:28:05| log: updating body 140950 Summary View: 1	| Updated: 1	Skipped: 0

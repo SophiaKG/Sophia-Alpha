@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * 
+ * Contains install and update functions for the module fkg_ct_expense.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function fkg_ct_expense_install() {
+
+  $vocabulary_terms_default = [
+    'fkg_expense_estimate_type' => [
+      'Actual',
+      'Estimate',
+    ],
+    'fkg_expense_appropriation' => [
+      'Administered',
+      'Departmental',
+    ],
+    'fkg_expense_appro_subtype' => [
+      'External Revenue',
+      'Non-operating',
+      'Operating',
+      'Special Accounts',
+      'Special Appropriation',
+      'Special Purpose Payments',
+    ],
+    'fkg_financial_year' => [
+      '2021-22',
+      '2022-23',
+    ],
+  ];
+
+  $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+  foreach ($vocabulary_terms_default as $vid => $terms_default) {
+    $terms_exist = $manager_taxonomy_term->loadTree($vid);
+    foreach (array_diff($terms_default, $terms_exist) as $term_missed) {
+      Term::create([
+        'parent' => [],
+        'name' => $term_missed,
+        'vid' => $vid,
+      ])->save();
+    }
+  }
+}
