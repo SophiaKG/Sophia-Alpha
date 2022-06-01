@@ -81,7 +81,7 @@ function fkg_ct_program_get_body_programs($nid) {
     $outcome_node = Node::load($node_id);
 
     $outcomes[$node_id]['description'] = $outcome_node->get('field_fkg_description')->value;
-    $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_outcome_number')->getString();
+    $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_numbering')->getString();
     $outcomes[$node_id]['url'] = $outcome_node->toUrl()->toString();
 
     $query_result = \Drupal::entityQuery('node')
