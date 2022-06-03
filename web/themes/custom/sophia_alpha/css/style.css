@@ -891,7 +891,7 @@ article.node--view-mode-character-sheet .field {
     margin: 0 0 1.2em;
 }
 
-article.node--view-mode-character-sheet .field .field__label {
+article.node .field .field__label {
     font-weight: 800;
 }
 
