@@ -24,47 +24,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
-    region: content
-  field_fkg_numbering:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_fkg_program_label:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
     weight: 1
-    region: content
-  field_fkg_program_owner:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_fkg_program_uri:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_neptune_uri:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 6
     region: content
   links:
     settings: {  }
@@ -74,4 +34,9 @@ content:
 hidden:
   body: true
   feeds_item: true
+  field_fkg_numbering: true
+  field_fkg_program_label: true
+  field_fkg_program_owner: true
+  field_fkg_program_uri: true
+  field_neptune_uri: true
   search_api_excerpt: true
