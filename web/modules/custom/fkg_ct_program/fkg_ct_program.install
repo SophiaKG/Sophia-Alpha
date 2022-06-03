@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the fkg_ct_program module.
+ */
+
+use Drupal\Core\Serialization\Yaml;
+
+/**
+ * Fix: Messy FKG Program data presented for anonymous user.
+ */
+function fkg_ct_program_update_9001() {
+  $config_name = 'core.entity_view_display.node.fkg_ct_program.default';
+
+  $config = \Drupal::configFactory()->getEditable($config_name);
+  if ($config) {
+    $config_path = drupal_get_path('module', 'fkg_ct_program') . '/config/optional';
+    $yaml = file_get_contents("$config_path/$config_name.yml");
+    $data_new = Yaml::decode($yaml);
+    $config_data = $config->getRawData();
+    $config_data['content'] = $data_new['content'];
+    $config_data['hidden'] = $data_new['hidden'];
+    $config->setData($config_data);
+    $config->save(TRUE);
+
+    return t("Default view mode of content type fkg_ct_program updated.");
+  }
+}

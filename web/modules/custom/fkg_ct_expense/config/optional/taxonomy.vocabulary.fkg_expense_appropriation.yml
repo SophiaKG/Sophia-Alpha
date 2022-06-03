@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Expense Appropriation'
+vid: fkg_expense_appropriation
+description: ''
+weight: 0

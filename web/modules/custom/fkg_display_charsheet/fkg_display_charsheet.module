@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function fkg_display_charsheet_theme() {
+  return [
+    'node__fkg_character_sheet' => [
+      'template' => 'node--fkg-character-sheet',
+      'base hook' => 'node',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for node__fkg_character_sheet templates.
+ * 
+ * @see templates/node--fkg-character-sheet.html.twig.
+ */
+function template_preprocess_node__fkg_character_sheet(&$variables) {
+  template_preprocess_node($variables);
+  $node = $variables['elements']['#node'];
+  $field_bodies = $node->get('field_bodies')->getValue();
+  if (!empty($field_bodies)) {
+    $variables['fkg_display_charsheet'] = [
+      'body_id' => $field_bodies[0]['target_id'],
+    ];
+  };
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function fkg_display_charsheet_theme_suggestions_node(array $variables) {
+  $node = $variables['elements']['#node'];
+
+  return $node->getType() == 'fkg_ct_outcome' ? ['node__fkg_character_sheet'] : [];
+}

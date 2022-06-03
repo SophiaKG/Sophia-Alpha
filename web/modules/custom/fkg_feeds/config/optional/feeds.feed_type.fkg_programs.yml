@@ -2,15 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.fkg_ct_program.field_bodies
     - field.field.node.fkg_ct_program.field_fkg_program_label
     - field.field.node.fkg_ct_program.field_fkg_program_owner
-    - field.field.node.fkg_ct_program.field_fkg_program_uri
+    - field.field.node.fkg_ct_program.field_neptune_uri
     - node.type.fkg_ct_program
   module:
     - feeds_ex
     - node
-id: fkg_programs
 label: 'FKG Program'
+id: fkg_programs
 description: 'Feeds importer for FKG programs'
 help: ''
 import_period: -1
@@ -23,82 +24,113 @@ fetcher_configuration:
   request_timeout: 30
 parser: jsonpath
 parser_configuration:
-  context:
-    value: '.results.Programs.*'
   sources:
     neptune_programtitle:
-      label: ProgramTitle
       value: ProgramTitle
+      label: ProgramTitle
     neptune_programs_programowner:
-      label: ProgramOwner
       value: ProgramOwner
+      label: ProgramOwner
     neptune_programs_programlabel:
-      label: ProgramLabel
       value: ProgramLabel
+      label: ProgramLabel
+    neptune_programnumber:
+      value: ProgramNumber
+      label: ProgramNumber
+    owneruri:
+      value: OwnerUri
+      label: OwnerUri
     neptune_program_programuri:
-      label: ProgramUri
       value: ProgramUri
-  display_errors: false
+      label: ProgramUri
+  context:
+    value: '.results.Programs.*'
   source_encoding:
     - auto
+  display_errors: false
   debug_mode: false
   line_limit: 100
 processor: 'entity:node'
 processor_configuration:
+  values:
+    type: fkg_ct_program
   langcode: en
+  insert_new: 1
   update_existing: 2
   update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
   expire: -1
   owner_feed_author: true
   owner_id: 0
-  authorize: true
-  skip_hash_check: false
-  values:
-    type: fkg_ct_program
 custom_sources:
   neptune_programtitle:
-    label: ProgramTitle
     value: ProgramTitle
+    label: ProgramTitle
     machine_name: neptune_programtitle
   neptune_program_programuri:
-    label: ProgramUri
     value: ProgramUri
+    label: ProgramUri
     machine_name: neptune_program_programuri
   neptune_programs_programowner:
-    label: ProgramOwner
     value: ProgramOwner
+    label: ProgramOwner
     machine_name: neptune_programs_programowner
   neptune_programs_programlabel:
-    label: ProgramLabel
     value: ProgramLabel
+    label: ProgramLabel
     machine_name: neptune_programs_programlabel
+  neptune_programnumber:
+    value: ProgramNumber
+    label: ProgramNumber
+    machine_name: neptune_programnumber
+  owneruri:
+    value: OwnerUri
+    label: OwnerUri
+    machine_name: owneruri
 mappings:
   -
     target: title
     map:
       value: neptune_programtitle
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_fkg_program_owner
     map:
       value: neptune_programs_programowner
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_fkg_program_label
     map:
       value: neptune_programs_programlabel
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
-    target: field_fkg_program_uri
+    target: field_bodies
+    map:
+      target_id: owneruri
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_neptune_uri
     map:
       value: neptune_program_programuri
-    unique:
-      value: '1'
     settings:
       language: null
+    unique:
+      value: '1'
+  -
+    target: field_fkg_numbering
+    map:
+      value: neptune_programnumber
+    settings:
+      language: null
+    unique: {  }

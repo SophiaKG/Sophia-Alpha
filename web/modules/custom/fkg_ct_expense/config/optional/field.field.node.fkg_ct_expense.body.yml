@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.fkg_ct_expense
+  module:
+    - text
+id: node.fkg_ct_expense.body
+field_name: body
+entity_type: node
+bundle: fkg_ct_expense
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

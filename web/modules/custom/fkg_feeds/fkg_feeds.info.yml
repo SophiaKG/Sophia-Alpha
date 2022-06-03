@@ -5,5 +5,5 @@ package: 'Finance Knowledge Graph'
 version: 0.1
 core_version_requirement: ^9
 dependencies:
-  - drupal:feeds
-  - drupal:feeds_ex
+  - feeds:feeds
+  - feeds_ex:feeds_ex

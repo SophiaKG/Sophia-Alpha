@@ -6,3 +6,5 @@ version: 0.1
 core_version_requirement: ^9
 dependencies:
   - drupal:node
+  - feeds:feeds
+  - fkg_base
