@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Fix: Update the CER configurations to restrict the applicable content types.
+ */
+function neptune_sync_update_9001() {
+  $config_name = 'cer.corresponding_reference.portfolios_linking_bodies';
+  $config = \Drupal::configFactory()->getEditable($config_name);
+  if ($config) {
+    $data = $config->getRawData();
+    $data['bundles']['node'] = [
+      '0' => 'bodies',
+      '1' => 'portfolios',
+    ];
+    $config->setData($data)->save(TRUE);
+  }
+
+  $config_name = 'cer.corresponding_reference.legislation_referencing_bodies_';
+  $config = \Drupal::configFactory()->getEditable($config_name);
+  if ($config) {
+    $data = $config->getRawData();
+    $data['bundles']['node'] = [
+      '0' => 'bodies',
+      '1' => 'legislation',
+    ];
+    $config->setData($data)->save(TRUE);
+  }
+
+  return t('CER configurations portfolios_linking_bodies/legislation_referencing_bodies_ updated.');
+}
