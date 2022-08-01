@@ -200,7 +200,7 @@
         {{ content.field_portfolio }}
         <h3><a data-toggle="collapse" href="#character-sheet-govern" aria-expanded="false"><spam class="fas fkg-charactersheet-collapse-control">Governance Characteristics</spam></a></h3>
         <div id="character-sheet-govern" class="collapse">
-            {% for field in content|without('field_ink', 'field_alias', 'field_portfolio', 'field_cp_tabled', 'field_s35_3_pgpa_act_apply', 'field_reporting_variation') %}
+            {% for field in content|without('field_ink', 'field_alias', 'field_portfolio', 'field_cp_tabled', 'field_s35_3_pgpa_act_apply', 'field_reporting_variation', 'field_cooperative_relationships') %}
                 {{ field }}
             {% endfor %}
         </div>

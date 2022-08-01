@@ -84,48 +84,8 @@ function fkg_ct_program_get_body_programs($nid) {
     $outcomes[$node_id]['sequence'] = $outcome_node->get('field_fkg_numbering')->getString();
     $outcomes[$node_id]['url'] = $outcome_node->toUrl()->toString();
 
-    $query_result = \Drupal::entityQuery('node')
-      ->condition('type', 'fkg_ct_contribution')
-      ->condition('field_fkg_outcome', $node_id)
-      ->execute();
-    $contribution_nids = array_values($query_result);
-
-    // Retrieve and group the data of programs.
-    $programs = [];
-    foreach ($contribution_nids as $nid) {
-      $node = Node::load($nid);
-
-      $program_nid = $node->get('field_fkg_program')->getString();
-
-      // Get program data
-      $program_node = Node::load($program_nid);
-      $program['title'] = $program_node->getTitle();
-      $program['owner'] = $program_node->get('field_fkg_program_owner')->getString();
-      $program['sequence'] = $program_node->get('field_fkg_numbering')->getString();
-      $program['contribution'] = $node->get('field_fkg_description')->value;
-      $program['url'] = $program_node->toUrl()->toString();
-
-      $query_result = \Drupal::entityQuery('node')
-        ->condition('type', 'bodies')
-        ->condition('status', NodeInterface::PUBLISHED)
-        ->condition('title', $program['owner'])
-        ->execute();
-      $owner_body_id = array_pop($query_result);
-      if ($owner_body_id) {
-        $program['owner_link'] = Node::load($owner_body_id)->toLink()->getUrl()->toString();
-      }
-
-      $programs[] = $program;
-    }
-
-    // Sort the programs according to 1) the owner and 2) the sequence number.
-    usort($programs, function(array $a, array $b) {
-      $owner_order = $a['owner'] <=> $b['owner'];
-
-      return $owner_order != 0 ? $owner_order : strnatcmp($a['sequence'], $b['sequence']);
-    });
-
-    $outcomes[$node_id]['programs'] = $programs;
+    $programs =  _fkg_ct_outcome_get_outcome_programs($outcome_node);
+    $outcomes[$node_id]['programs'] = \Drupal\Core\Render\Markup::create(\Drupal::service('renderer')->render($programs));
   }
 
   // Construct the rendering data.
@@ -140,66 +100,7 @@ function fkg_ct_program_get_body_programs($nid) {
           <div class="fkg-character-sheet-outcome-collapsible">
             <h5><a href="{{ outcome.url }}"><b>Outcome #{{ outcome.sequence }}</b>: {{ outcome.description }}</a></h5>
             <div class="fkg-character-sheet-outcome-programs">
-              {% if outcome.programs %}
-                {% set owned_programs = outcome.programs|filter(v => v.owner == body) %}
-                {% if owned_programs is not empty %}
-                  {% set id_collapse_owned_program = collapse_outcome ~ "-owned-program" %}
-                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ id_collapse_owned_program }}" aria-expanded="false" aria-controls="{{ id_collapse_owned_program }}">
-                    <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
-                    <spam>Programs</spam>
-                  </button>
-                  <div id="{{ id_collapse_owned_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-owned collapse">
-                    <table id="" class="table table-striped table-responsive">
-                      <tr>
-                        <th style="width: 6%">#</th>
-                        <th style="width: 17%">Program</th>
-                        <th style="width: 77%">Contribution</th>
-                      </tr>
-                      {% for program in owned_programs %}
-                        <tr>
-                          <td class="text-nowrap">{{ program.sequence }}</td>
-                          <td><a href="{{ program.url }}">{{ program.title }}</a></td>
-                          <td>{{ program.contribution }}</td>
-                        </tr>
-                      {% endfor %}
-                    </table>
-                  </div>
-                {% endif %}
-
-                {% set contributed_programs = outcome.programs|filter(v => v.owner != body) %}
-                {% if contributed_programs is not empty %}
-                  {% set id_collapse_contributed_program = collapse_outcome ~ "-contributed-program" %}
-                  <br />
-                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ id_collapse_contributed_program }}" aria-expanded="false" aria-controls="{{ id_collapse_contributed_program }}">
-                    <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
-                    <spam>Linked programs</spam></button>
-                  <div id="{{ id_collapse_contributed_program }}" class="table-fkg-outcome-programs fkg-outcome-programs-contributed collapse" style="padding-left: 0px;">
-                    <table class="table table-striped table-responsive">
-                      <tr>
-                        <th style="width: 6%">#</th>
-                        <th style="width: 17%">Owner</th>
-                        <th style="width: 17%">Program</th>
-                        <th style="width: 60%">Contribution</th>
-                      </tr>
-                      {% for program in contributed_programs %}
-                        <tr>
-                          <td class="text-nowrap">{{ program.sequence }}</td>
-                          <td>
-                            {% if program.owner_link %}
-                              <a href="{{ program.owner_link }}">
-                            {{ program.owner }}</a>
-                            {% else %}
-                              {{ program.owner }}
-                            {% endif %}
-                          </td>
-                          <td><a href="{{ program.url }}">{{ program.title }}</a></td>
-                          <td>{{ program.contribution }}</td>
-                        </tr>
-                      {% endfor %}
-                    </table>
-                  </div>
-                {% endif %}
-              {% endif %}
+              {{ outcome.programs }}
             </div>
           </div>
         {% endfor %}
@@ -208,6 +109,9 @@ function fkg_ct_program_get_body_programs($nid) {
       'header' => $node_title,
       'outcomes' => $outcomes,
       'body' => $node_title,
+    ],
+    '#attached' => [
+      'library' => ['fkg_display_charsheet/fkg_character_sheet'],
     ],
   ];
 
