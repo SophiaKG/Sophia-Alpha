@@ -110,6 +110,9 @@ function fkg_ct_program_get_body_programs($nid) {
       'outcomes' => $outcomes,
       'body' => $node_title,
     ],
+    '#attached' => [
+      'library' => ['fkg_display_charsheet/fkg_character_sheet'],
+    ],
   ];
 
   return \Drupal\Core\Render\Markup::create(\Drupal::service('renderer')->render($character_sheet));
