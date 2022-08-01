@@ -116,16 +116,16 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
  */
 function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
   $nid_outcome_owner = $node->get('field_bodies')->getString();
+  $nid_outcome = $node->id();
 
+  $dom_id_outcome = 'outcome-' . $nid_outcome;
   $params = [
     'owned_programs' => [
-      'data-target' => '#owned-programs',
-      'aria-controls' => 'owned-programs',
+      'data-target' => $dom_id_outcome . '-owned-programs',
       'text' => t('Owned programs'),
     ],
     'contributing_programs' => [
-      'data-target' => '#linked-programs',
-      'aria-controls' => 'linked-programs',
+      'data-target' => $dom_id_outcome . '-linked-programs',
       'text' => t('Linked programs'),
     ],
   ];
@@ -136,7 +136,7 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
       '#type' => 'markup',
       '#markup' => Markup::create('
         <div class="fkg-character-sheet-outcome-programs">
-          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="'. $params[$display]['data-target'] . '" aria-expanded="false" aria-controls="' . $params[$display]['aria-controls'] . '">
+          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="#'. $params[$display]['data-target'] . '" aria-expanded="false" aria-controls="' . $params[$display]['data-target'] . '">
             <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
             <spam>' . $params[$display]['text'] . '</spam>
           </button>
@@ -147,9 +147,9 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
       '#type' => 'container',
       '#attributes' => [
         'class' => ['collapse'],
-        'id' => $params[$display]['aria-controls'], 
+        'id' => $params[$display]['data-target'], 
       ],
-      'programs' => views_embed_view('fkg_outcome_programs', $display, $node->id(), $nid_outcome_owner),
+      'programs' => views_embed_view('fkg_outcome_programs', $display, $nid_outcome, $nid_outcome_owner),
     ];
   }
 
