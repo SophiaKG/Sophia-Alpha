@@ -105,31 +105,25 @@ class NodeQuerier extends QueryBuilder {
      *  ?legislation = UUID | ?legislationLabel = title
      */
     public static function getBodyLegislation(NodeInterface $node){
+        $iri_prefixes = SophiaGlobal::PREFIX_ALL();
+        $body_uri = self::getUri($node, 'ns2');
+        $query = <<<EOQ
+            {$iri_prefixes}
+            SELECT distinct ?leg ?legislationName
+            WHERE {
+                ?auth ns2:bindsTo {$body_uri}.
+                ?auth ns2:binds ?est.
+                ?leggy ns2:grants ?auth.
+                ?leggy ns2:live True.
+                ?leggy ns2:hasSeries ?leg.
+                ?est a ns2:Establishment.
+                ?leg ns2:canonicalName ?legislationName.
+            }
+        EOQ;
 
         $q = new Query(QueryTemplate::NEPTUNE_ENDPOINT);
-        $q->setQuery(
-            SophiaGlobal::PREFIX_ALL() .
-            'SELECT DISTINCT ?legislation ?legislationLabel ' .
-            'FROM ' . SophiaGlobal::GRAPH_1 . ' ' .
-            'WHERE { '.
-            '?authority  ns2:bindsTo ' . self::getUri($node, 'ns2') . '. ' .
-            '?authority  ns2:binds ?est. ' .
-            '?est a ns2:Establishment. ' .
-            '?leg ns2:grants ?authority. ' .
-            '{ ' .
-            '?leg ns2:hasSeries ?legislation. ' .
-            '} UNION { ' .
-            '?leg ns2:hasSeries ?leg2. ' .
-            '?legislation ns2:hasSubordinate ?leg2. ' .
-            '} UNION { ' .
-            '?leg a ns2:Series. ' .
-            'BIND (?leg as ?legislation)' .
-            '} UNION { ' .
-            '?leg a ns2:Series. ' .
-            '?legislation ns2:hasSubordinate ?leg. ' .
-            '} ' .
-            '?legislation ns2:canonicalName  ?legislationLabel. ' .
-            '}');
+        $q->setQuery(str_replace(PHP_EOL,'',$query));
+
         return $q;
     }
 
