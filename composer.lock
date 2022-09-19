@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d46a9bf137f0b1a3d775f3b83e563338",
+    "content-hash": "013efd297b8bc9193bbd74ffeaef5a55",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3773,17 +3773,17 @@
         },
         {
             "name": "drupal/feeds",
-            "version": "3.0.0-alpha11",
+            "version": "3.0.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/feeds.git",
-                "reference": "8.x-3.0-alpha11"
+                "reference": "8.x-3.0-beta2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/feeds-8.x-3.0-alpha11.zip",
-                "reference": "8.x-3.0-alpha11",
-                "shasum": "5f46520bda42a5986225d5c4892fca123da5861e"
+                "url": "https://ftp.drupal.org/files/projects/feeds-8.x-3.0-beta2.zip",
+                "reference": "8.x-3.0-beta2",
+                "shasum": "7b18b24bfebdce90a62606b36dd8975d6eb862c8"
             },
             "require": {
                 "drupal/core": "^8.9 || ^9"
@@ -3795,11 +3795,16 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-alpha11",
-                    "datestamp": "1637865868",
+                    "version": "8.x-3.0-beta2",
+                    "datestamp": "1657972705",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
                     }
                 }
             },
@@ -3809,24 +3814,12 @@
             ],
             "authors": [
                 {
-                    "name": "Dave Reid",
-                    "homepage": "https://www.drupal.org/user/53892"
-                },
-                {
-                    "name": "Ian Ward",
-                    "homepage": "https://www.drupal.org/user/4736"
-                },
-                {
-                    "name": "MegaChriz",
-                    "homepage": "https://www.drupal.org/user/654114"
-                },
-                {
-                    "name": "Will White",
-                    "homepage": "https://www.drupal.org/user/32237"
-                },
-                {
                     "name": "alex_b",
                     "homepage": "https://www.drupal.org/user/53995"
+                },
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
                     "name": "e2thex",
@@ -3841,6 +3834,10 @@
                     "homepage": "https://www.drupal.org/user/581844"
                 },
                 {
+                    "name": "Ian Ward",
+                    "homepage": "https://www.drupal.org/user/4736"
+                },
+                {
                     "name": "jmiccolis",
                     "homepage": "https://www.drupal.org/user/31731"
                 },
@@ -3853,6 +3850,10 @@
                     "homepage": "https://www.drupal.org/user/24399"
                 },
                 {
+                    "name": "MegaChriz",
+                    "homepage": "https://www.drupal.org/user/654114"
+                },
+                {
                     "name": "tobby",
                     "homepage": "https://www.drupal.org/user/154797"
                 },
@@ -3863,6 +3864,10 @@
                 {
                     "name": "twistor",
                     "homepage": "https://www.drupal.org/user/473738"
+                },
+                {
+                    "name": "Will White",
+                    "homepage": "https://www.drupal.org/user/32237"
                 },
                 {
                     "name": "yhahn",
@@ -3881,17 +3886,17 @@
         },
         {
             "name": "drupal/feeds_ex",
-            "version": "1.0.0-alpha5",
+            "version": "1.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/feeds_ex.git",
-                "reference": "8.x-1.0-alpha5"
+                "reference": "8.x-1.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/feeds_ex-8.x-1.0-alpha5.zip",
-                "reference": "8.x-1.0-alpha5",
-                "shasum": "95f155c9d794b97518bbc9171c434319d2e007d8"
+                "url": "https://ftp.drupal.org/files/projects/feeds_ex-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "26fbbbf7c95a5f7887f04cd2c4505523debd8f60"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -3906,8 +3911,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-alpha5",
-                    "datestamp": "1630593698",
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1645727729",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -15227,7 +15232,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/ga_login": 15
+        "drupal/feeds": 10,
+        "drupal/ga_login": 15,
+        "drupal/feeds_ex": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
