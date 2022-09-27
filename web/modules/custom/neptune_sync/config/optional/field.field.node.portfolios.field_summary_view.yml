@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary_view
+    - node.type.portfolios
+id: node.portfolios.field_summary_view
+field_name: field_summary_view
+entity_type: node
+bundle: portfolios
+label: 'Summary View'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Display
+  off_label: 'Don''t display'
+field_type: boolean

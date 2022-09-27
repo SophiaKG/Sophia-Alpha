@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Financial classification'
+vid: financial_classification
+description: ''
+weight: -8

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_outcome
+    - node.type.cooperative_relationships
+id: node.cooperative_relationships.field_outcome
+field_name: field_outcome
+entity_type: node
+bundle: cooperative_relationships
+label: Outcome
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
