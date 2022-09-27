@@ -1,0 +1,262 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.bodies.feeds_item
+    - field.field.node.bodies.field_accountable_authority_or_g
+    - field.field.node.bodies.field_alias
+    - field.field.node.bodies.field_cooperative_relationships
+    - field.field.node.bodies.field_cp_tabled
+    - field.field.node.bodies.field_demo
+    - field.field.node.bodies.field_economic_sector
+    - field.field.node.bodies.field_employment_arrangements
+    - field.field.node.bodies.field_enabling_legislation_and_o
+    - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_flipchart_keys
+    - field.field.node.bodies.field_in_summary_view
+    - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_lead_body
+    - field.field.node.bodies.field_neptune_uri
+    - field.field.node.bodies.field_portfolio
+    - field.field.node.bodies.field_reporting_arrangements
+    - field.field.node.bodies.field_reporting_variation
+    - field.field.node.bodies.field_s35_3_pgpa_act_apply
+    - field.field.node.bodies.field_type_of_body
+    - node.type.bodies
+  module:
+    - link
+    - path
+id: node.bodies.default
+targetEntityType: node
+bundle: bodies
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_accountable_authority_or_g:
+    type: string_textarea
+    weight: 13
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_alias:
+    type: string_textfield
+    weight: 53
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_cooperative_relationships:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_cp_tabled:
+    type: entity_reference_autocomplete
+    weight: 16
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_demo:
+    type: boolean_checkbox
+    weight: 20
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_economic_sector:
+    type: entity_reference_autocomplete
+    weight: 9
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_employment_arrangements:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_enabling_legislation_and_o:
+    type: entity_reference_autocomplete
+    weight: 14
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_financial_classification:
+    type: entity_reference_autocomplete
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_flipchart_keys:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_in_summary_view:
+    type: boolean_checkbox
+    weight: 51
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_ink:
+    type: link_default
+    weight: 19
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_lead_body:
+    type: boolean_checkbox
+    weight: 52
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_neptune_uri:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_portfolio:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_reporting_arrangements:
+    type: string_textarea
+    weight: 18
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_reporting_variation:
+    type: entity_reference_autocomplete
+    weight: 17
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_s35_3_pgpa_act_apply:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_type_of_body:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  feeds_item: true

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.character_sheet_public
+label: 'Character Sheet Public'
+targetEntityType: node
+cache: true

@@ -1,0 +1,202 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.bodies.feeds_item
+    - field.field.node.bodies.field_accountable_authority_or_g
+    - field.field.node.bodies.field_alias
+    - field.field.node.bodies.field_cooperative_relationships
+    - field.field.node.bodies.field_cp_tabled
+    - field.field.node.bodies.field_demo
+    - field.field.node.bodies.field_economic_sector
+    - field.field.node.bodies.field_employment_arrangements
+    - field.field.node.bodies.field_enabling_legislation_and_o
+    - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_flipchart_keys
+    - field.field.node.bodies.field_in_summary_view
+    - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_lead_body
+    - field.field.node.bodies.field_neptune_uri
+    - field.field.node.bodies.field_portfolio
+    - field.field.node.bodies.field_reporting_arrangements
+    - field.field.node.bodies.field_reporting_variation
+    - field.field.node.bodies.field_s35_3_pgpa_act_apply
+    - field.field.node.bodies.field_type_of_body
+    - node.type.bodies
+  module:
+    - link
+    - user
+id: node.bodies.default
+targetEntityType: node
+bundle: bodies
+mode: default
+content:
+  field_accountable_authority_or_g:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_alias:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_cooperative_relationships:
+    type: entity_reference_entity_view
+    label: inline
+    settings:
+      view_mode: character_sheet
+      link: false
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_cp_tabled:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_demo:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_economic_sector:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_employment_arrangements:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_enabling_legislation_and_o:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_financial_classification:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_flipchart_keys:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_in_summary_view:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_ink:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_lead_body:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_neptune_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_portfolio:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_reporting_arrangements:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_reporting_variation:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_s35_3_pgpa_act_apply:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_type_of_body:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  feeds_item: true
+  search_api_excerpt: true
