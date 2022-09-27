@@ -32,6 +32,7 @@
         "drupal/features": "^3.12",
         "drupal/feeds": "^3.0@beta",
         "drupal/feeds_ex": "^1.0",
+        "drupal/feeds_tamper": "^2.0@beta",
         "drupal/ga_login": "^1.0@alpha",
         "drupal/job_scheduler": "^3.0",
         "drupal/key": "^1.15",

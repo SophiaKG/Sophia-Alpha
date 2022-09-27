@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Economic sector'
+vid: economic_sector
+description: ''
+weight: -10

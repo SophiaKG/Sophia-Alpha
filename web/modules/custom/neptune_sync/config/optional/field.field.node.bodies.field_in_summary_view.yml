@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_in_summary_view
+    - node.type.bodies
+id: node.bodies.field_in_summary_view
+field_name: field_in_summary_view
+entity_type: node
+bundle: bodies
+label: 'In summary view'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean
