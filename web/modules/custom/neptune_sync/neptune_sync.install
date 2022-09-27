@@ -32,3 +32,12 @@ function neptune_sync_update_9001() {
 
   return t('CER configurations portfolios_linking_bodies/legislation_referencing_bodies_ updated.');
 }
+
+/**
+ * Enable module: feeds_tamper.
+ */
+function neptune_sync_update_9002() {
+  \Drupal::service('module_installer')->install(['feeds_tamper']);
+
+  return t('Module feeds_tamper enabled.');
+}
