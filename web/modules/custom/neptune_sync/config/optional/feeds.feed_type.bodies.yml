@@ -1,0 +1,269 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.bodies.field_alias
+    - field.field.node.bodies.field_economic_sector
+    - field.field.node.bodies.field_employment_arrangements
+    - field.field.node.bodies.field_enabling_legislation_and_o
+    - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_flipchart_keys
+    - field.field.node.bodies.field_in_summary_view
+    - field.field.node.bodies.field_ink
+    - field.field.node.bodies.field_lead_body
+    - field.field.node.bodies.field_neptune_uri
+    - field.field.node.bodies.field_portfolio
+    - field.field.node.bodies.field_type_of_body
+    - node.type.bodies
+  module:
+    - feeds_ex
+    - feeds_tamper
+    - node
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      b464b339-7514-41dc-8785-72debee3dee7:
+        separator: '|'
+        limit: null
+        uuid: b464b339-7514-41dc-8785-72debee3dee7
+        plugin: explode
+        source: aliases
+        weight: 0
+        label: Explode
+      ea75abbb-c7e6-4173-ad0e-c14b5e294f91:
+        separator: '|'
+        limit: null
+        uuid: ea75abbb-c7e6-4173-ad0e-c14b5e294f91
+        plugin: explode
+        source: economicsectors
+        weight: 0
+        label: Explode
+      065e2c76-b46f-42b6-ab3c-6cf882deb68d:
+        separator: '|'
+        limit: null
+        uuid: 065e2c76-b46f-42b6-ab3c-6cf882deb68d
+        plugin: explode
+        source: enablinglegislation
+        weight: 0
+        label: Explode
+      83c9cd04-ee51-4bbc-b754-466be927a068:
+        separator: '|'
+        limit: null
+        uuid: 83c9cd04-ee51-4bbc-b754-466be927a068
+        plugin: explode
+        source: financialclassifications
+        weight: 0
+        label: Explode
+      bd50951f-0a4c-4412-86b2-5378b5212e6d:
+        separator: '|'
+        limit: null
+        uuid: bd50951f-0a4c-4412-86b2-5378b5212e6d
+        plugin: explode
+        source: flipchartkeys
+        weight: 0
+        label: Explode
+label: Bodies
+id: bodies
+description: 'Bodies (to be rmeoved)'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Bodies.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: bodies
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: true
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  aliases:
+    value: Aliases
+    label: Aliases
+    machine_name: aliases
+    type: json
+  body:
+    value: Body
+    label: Body
+    machine_name: body
+    type: json
+  bodylabel:
+    value: BodyLabel
+    label: BodyLabel
+    machine_name: bodylabel
+    type: json
+  economicsectors:
+    value: EconomicSectors
+    label: EconomicSectors
+    machine_name: economicsectors
+    type: json
+  employtype:
+    value: EmployType
+    label: EmployType
+    machine_name: employtype
+    type: json
+  enablinglegislation:
+    value: EnablingLegislation
+    label: EnablingLegislation
+    machine_name: enablinglegislation
+    type: json
+  financialclassifications:
+    value: FinancialClassifications
+    label: FinancialClassifications
+    machine_name: financialclassifications
+    type: json
+  flipchartkeys:
+    value: FlipchartKeys
+    label: FlipchartKeys
+    machine_name: flipchartkeys
+    type: json
+  link:
+    value: Link
+    label: Link
+    machine_name: link
+    type: json
+  portfolio:
+    value: Portfolio
+    label: Portfolio
+    machine_name: portfolio
+    type: json
+  insummaryview:
+    value: inSummaryView
+    label: inSummaryView
+    machine_name: insummaryview
+    type: json
+  isleadbody:
+    value: isLeadBody
+    label: isLeadBody
+    machine_name: isleadbody
+    type: json
+  bodytype:
+    value: BodyType
+    label: BodyType
+    machine_name: bodytype
+    type: json
+mappings:
+  -
+    target: field_alias
+    map:
+      value: aliases
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_neptune_uri
+    map:
+      value: body
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: title
+    map:
+      value: bodylabel
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_economic_sector
+    map:
+      target_id: economicsectors
+    settings:
+      language: ''
+      reference_by: tid
+      autocreate: 0
+  -
+    target: field_employment_arrangements
+    map:
+      target_id: employtype
+    settings:
+      language: ''
+      reference_by: tid
+      autocreate: 0
+  -
+    target: field_enabling_legislation_and_o
+    map:
+      target_id: enablinglegislation
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_financial_classification
+    map:
+      target_id: financialclassifications
+    settings:
+      language: ''
+      reference_by: tid
+      autocreate: 0
+  -
+    target: field_flipchart_keys
+    map:
+      target_id: flipchartkeys
+    settings:
+      language: ''
+      reference_by: tid
+      autocreate: 0
+  -
+    target: field_ink
+    map:
+      uri: link
+      title: link
+    settings:
+      language: null
+  -
+    target: field_portfolio
+    map:
+      target_id: portfolio
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_in_summary_view
+    map:
+      value: insummaryview
+    settings:
+      language: null
+  -
+    target: status
+    map:
+      value: insummaryview
+    settings:
+      language: null
+  -
+    target: field_lead_body
+    map:
+      value: isleadbody
+    settings:
+      language: null
+  -
+    target: field_type_of_body
+    map:
+      target_id: bodytype
+    settings:
+      language: ''
+      reference_by: tid
+      autocreate: 0

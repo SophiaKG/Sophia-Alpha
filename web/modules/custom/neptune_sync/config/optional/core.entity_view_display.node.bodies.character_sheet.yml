@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.character_sheet
+    - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
     - field.field.node.bodies.field_alias
     - field.field.node.bodies.field_cooperative_relationships
@@ -183,6 +184,7 @@ content:
     weight: 0
     region: content
 hidden:
+  feeds_item: true
   field_demo: true
   field_in_summary_view: true
   search_api_excerpt: true

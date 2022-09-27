@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.bodies.feeds_item
     - field.field.node.bodies.field_accountable_authority_or_g
     - field.field.node.bodies.field_alias
     - field.field.node.bodies.field_cooperative_relationships
@@ -257,4 +258,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  feeds_item: true
