@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.legislation.feeds_item
     - field.field.node.legislation.field_alias
     - field.field.node.legislation.field_ink
     - field.field.node.legislation.field_neptune_uri
@@ -105,4 +106,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  feeds_item: true
