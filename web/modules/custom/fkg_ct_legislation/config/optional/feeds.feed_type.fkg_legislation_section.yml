@@ -1,0 +1,138 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_legislation_section.field_fkg_content
+    - field.field.node.fkg_ct_legislation_section.field_fkg_label
+    - field.field.node.fkg_ct_legislation_section.field_fkg_legislation
+    - field.field.node.fkg_ct_legislation_section.field_fkg_link
+    - field.field.node.fkg_ct_legislation_section.field_neptune_uri
+    - node.type.fkg_ct_legislation_section
+  module:
+    - feeds_ex
+    - feeds_tamper
+    - node
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      5655c1a0-b886-4196-bb96-a54785c23482:
+        find: \\n
+        replace: '<br />'
+        case_sensitive: false
+        word_boundaries: false
+        whole: true
+        uuid: 5655c1a0-b886-4196-bb96-a54785c23482
+        plugin: find_replace
+        source: sectcontent
+        weight: 0
+        label: 'Find replace'
+label: 'FKG Legislation Section'
+id: fkg_legislation_section
+description: ''
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Sections.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: fkg_ct_legislation_section
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  secttitle:
+    value: sectTitle
+    label: sectTitle
+    machine_name: secttitle
+    type: json
+  sectname:
+    value: sectName
+    label: sectName
+    machine_name: sectname
+    type: json
+  secturi:
+    value: sectUri
+    label: sectUri
+    machine_name: secturi
+    type: json
+  sectlegislation:
+    value: sectLegislation
+    label: sectLegislation
+    machine_name: sectlegislation
+    type: json
+  sectcontent:
+    value: sectContent
+    label: sectContent
+    machine_name: sectcontent
+    type: json
+  sectlink:
+    value: sectLink
+    label: sectLink
+    machine_name: sectlink
+    type: json
+mappings:
+  -
+    target: title
+    map:
+      value: secttitle
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_fkg_label
+    map:
+      value: sectname
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_neptune_uri
+    map:
+      value: secturi
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: field_fkg_legislation
+    map:
+      target_id: sectlegislation
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_content
+    map:
+      value: sectcontent
+    settings:
+      language: ''
+      format: basic_html
+  -
+    target: field_fkg_link
+    map:
+      uri: sectlink
+      title: ''
+    settings:
+      language: null
