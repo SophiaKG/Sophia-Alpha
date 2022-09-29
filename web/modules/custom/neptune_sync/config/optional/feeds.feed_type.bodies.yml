@@ -7,6 +7,10 @@ dependencies:
     - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_fkg_enabling_leg_sect
+    - field.field.node.bodies.field_fkg_pgpa_35_3_section
+    - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
+    - field.field.node.bodies.field_fkg_pgpa_s35_3_apply
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_in_summary_view
     - field.field.node.bodies.field_ink
@@ -22,44 +26,60 @@ dependencies:
 third_party_settings:
   feeds_tamper:
     tampers:
-      b464b339-7514-41dc-8785-72debee3dee7:
+      1a334d7e-46ef-44a3-b463-b651d3102526:
         separator: '|'
         limit: null
-        uuid: b464b339-7514-41dc-8785-72debee3dee7
+        uuid: 1a334d7e-46ef-44a3-b463-b651d3102526
         plugin: explode
-        source: aliases
+        source: s35_3_exemptsect
         weight: 0
         label: Explode
-      ea75abbb-c7e6-4173-ad0e-c14b5e294f91:
+      5bf795ed-d276-43d0-875e-5c9aeabad288:
         separator: '|'
         limit: null
-        uuid: ea75abbb-c7e6-4173-ad0e-c14b5e294f91
+        uuid: 5bf795ed-d276-43d0-875e-5c9aeabad288
+        plugin: explode
+        source: flipchartkeys
+        weight: 0
+        label: Explode
+      75200e6f-09fa-48f9-a7e5-918b74f3b1f5:
+        separator: '|'
+        limit: null
+        uuid: 75200e6f-09fa-48f9-a7e5-918b74f3b1f5
         plugin: explode
         source: economicsectors
         weight: 0
         label: Explode
-      065e2c76-b46f-42b6-ab3c-6cf882deb68d:
+      4a352083-e601-440e-ab77-12a0474a2c35:
         separator: '|'
         limit: null
-        uuid: 065e2c76-b46f-42b6-ab3c-6cf882deb68d
+        uuid: 4a352083-e601-440e-ab77-12a0474a2c35
         plugin: explode
         source: enablinglegislation
         weight: 0
         label: Explode
-      83c9cd04-ee51-4bbc-b754-466be927a068:
+      62a31f3f-0eb0-43bc-baf5-ebc3f75367f5:
         separator: '|'
         limit: null
-        uuid: 83c9cd04-ee51-4bbc-b754-466be927a068
+        uuid: 62a31f3f-0eb0-43bc-baf5-ebc3f75367f5
         plugin: explode
-        source: financialclassifications
+        source: link
+        weight: -9
+        label: Explode
+      8993fc3d-14dd-4d77-96b4-92f7e9d43195:
+        separator: '|'
+        limit: null
+        uuid: 8993fc3d-14dd-4d77-96b4-92f7e9d43195
+        plugin: explode
+        source: aliases
         weight: 0
         label: Explode
-      bd50951f-0a4c-4412-86b2-5378b5212e6d:
+      39960b0e-da00-473b-a5c1-0b5343778eae:
         separator: '|'
         limit: null
-        uuid: bd50951f-0a4c-4412-86b2-5378b5212e6d
+        uuid: 39960b0e-da00-473b-a5c1-0b5343778eae
         plugin: explode
-        source: flipchartkeys
+        source: enablingsections
         weight: 0
         label: Explode
 label: Bodies
@@ -160,6 +180,26 @@ custom_sources:
     value: BodyType
     label: BodyType
     machine_name: bodytype
+    type: json
+  s35_apply:
+    value: S35_Apply
+    label: S35_Apply
+    machine_name: s35_apply
+    type: json
+  s35_3_apply:
+    value: S35_3_Apply
+    label: S35_3_Apply
+    machine_name: s35_3_apply
+    type: json
+  s35_3_exemptsect:
+    value: S35_3_ExemptSect
+    label: S35_3_ExemptSect
+    machine_name: s35_3_exemptsect
+    type: json
+  enablingsections:
+    value: EnablingSections
+    label: EnablingSections
+    machine_name: enablingsections
     type: json
 mappings:
   -
@@ -266,4 +306,34 @@ mappings:
     settings:
       language: ''
       reference_by: tid
+      autocreate: 0
+  -
+    target: field_fkg_pgpa_act_s35_apply
+    map:
+      value: s35_apply
+    settings:
+      language: null
+  -
+    target: field_fkg_pgpa_35_3_section
+    map:
+      target_id: s35_3_exemptsect
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_pgpa_s35_3_apply
+    map:
+      value: s35_3_apply
+    settings:
+      language: null
+  -
+    target: field_fkg_enabling_leg_sect
+    map:
+      target_id: enablingsections
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
       autocreate: 0

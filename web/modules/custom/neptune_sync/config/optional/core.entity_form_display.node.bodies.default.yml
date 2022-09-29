@@ -12,6 +12,10 @@ dependencies:
     - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_fkg_enabling_leg_sect
+    - field.field.node.bodies.field_fkg_pgpa_35_3_section
+    - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
+    - field.field.node.bodies.field_fkg_pgpa_s35_3_apply
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_in_summary_view
     - field.field.node.bodies.field_ink
@@ -20,7 +24,6 @@ dependencies:
     - field.field.node.bodies.field_portfolio
     - field.field.node.bodies.field_reporting_arrangements
     - field.field.node.bodies.field_reporting_variation
-    - field.field.node.bodies.field_s35_3_pgpa_act_apply
     - field.field.node.bodies.field_type_of_body
     - node.type.bodies
   module:
@@ -120,6 +123,40 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_fkg_enabling_leg_sect:
+    type: entity_reference_autocomplete
+    weight: 54
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_pgpa_35_3_section:
+    type: entity_reference_autocomplete
+    weight: 56
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_pgpa_act_s35_apply:
+    type: boolean_checkbox
+    weight: 55
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_fkg_pgpa_s35_3_apply:
+    type: boolean_checkbox
+    weight: 57
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_flipchart_keys:
     type: entity_reference_autocomplete
     weight: 12
@@ -181,16 +218,6 @@ content:
   field_reporting_variation:
     type: entity_reference_autocomplete
     weight: 17
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_s35_3_pgpa_act_apply:
-    type: entity_reference_autocomplete
-    weight: 15
     region: content
     settings:
       match_operator: CONTAINS
