@@ -62,7 +62,7 @@ content:
       view_mode: character_sheet
       link: false
     third_party_settings: {  }
-    weight: 17
+    weight: 20
     region: content
   field_cp_tabled:
     type: entity_reference_label
@@ -70,7 +70,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 15
     region: content
   field_economic_sector:
     type: entity_reference_label
@@ -104,13 +104,49 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
+  field_fkg_enabling_leg_sect:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_fkg_pgpa_35_3_section:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_fkg_pgpa_act_s35_apply:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_fkg_pgpa_s35_3_apply:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 12
+    region: content
   field_flipchart_keys:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 15
+    weight: 18
     region: content
   field_ink:
     type: link
@@ -140,7 +176,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 16
+    weight: 19
     region: content
   field_portfolio:
     type: entity_reference_label
@@ -155,7 +191,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 17
     region: content
   field_reporting_variation:
     type: entity_reference_label
@@ -163,7 +199,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 13
+    weight: 16
     region: content
   field_type_of_body:
     type: entity_reference_label
@@ -181,9 +217,5 @@ content:
 hidden:
   feeds_item: true
   field_demo: true
-  field_fkg_enabling_leg_sect: true
-  field_fkg_pgpa_35_3_section: true
-  field_fkg_pgpa_act_s35_apply: true
-  field_fkg_pgpa_s35_3_apply: true
   field_in_summary_view: true
   search_api_excerpt: true
