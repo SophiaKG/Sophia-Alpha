@@ -105,18 +105,20 @@ content:
     weight: 7
     region: content
   field_fkg_enabling_leg_sect:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: character_sheet_embed
+      link: false
     third_party_settings: {  }
     weight: 14
     region: content
   field_fkg_pgpa_35_3_section:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: character_sheet_embed
+      link: false
     third_party_settings: {  }
     weight: 13
     region: content
