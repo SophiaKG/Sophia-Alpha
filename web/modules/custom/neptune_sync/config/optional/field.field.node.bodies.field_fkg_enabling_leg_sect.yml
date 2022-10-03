@@ -9,7 +9,7 @@ id: node.bodies.field_fkg_enabling_leg_sect
 field_name: field_fkg_enabling_leg_sect
 entity_type: node
 bundle: bodies
-label: 'Enabling legislation section'
+label: 'Enabling legislation references to ''corporate plan'''
 description: ''
 required: false
 translatable: false

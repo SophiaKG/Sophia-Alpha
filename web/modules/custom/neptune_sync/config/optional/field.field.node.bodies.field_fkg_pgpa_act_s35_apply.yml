@@ -8,7 +8,7 @@ id: node.bodies.field_fkg_pgpa_act_s35_apply
 field_name: field_fkg_pgpa_act_s35_apply
 entity_type: node
 bundle: bodies
-label: 'PGPA Act 35 Apply'
+label: 'Section 35 of the PGPA Act applies'
 description: ''
 required: false
 translatable: false
