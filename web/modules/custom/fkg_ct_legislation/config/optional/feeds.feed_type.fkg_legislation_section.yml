@@ -28,7 +28,7 @@ third_party_settings:
         label: 'Find replace'
 label: 'FKG Legislation Section'
 id: fkg_legislation_section
-description: ''
+description: 'FKG Legislation Section'
 help: ''
 import_period: -1
 fetcher: http
