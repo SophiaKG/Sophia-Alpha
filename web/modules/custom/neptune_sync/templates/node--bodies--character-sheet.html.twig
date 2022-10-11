@@ -200,15 +200,15 @@
         {{ content.field_portfolio }}
         <h3><a data-toggle="collapse" href="#character-sheet-govern" aria-expanded="false"><spam class="fas fkg-charactersheet-collapse-control">Governance Characteristics</spam></a></h3>
         <div id="character-sheet-govern" class="collapse">
-            {% for field in content|without('field_ink', 'field_alias', 'field_portfolio', 'field_cp_tabled', 'field_s35_3_pgpa_act_apply', 'field_reporting_variation', 'field_cooperative_relationships', 'field_fkg_pgpa_act_s35_apply', 'field_fkg_pgpa_s35_3_apply', 'field_fkg_pgpa_35_3_section', 'field_fkg_enabling_leg_sect') %}
-                {{ field }}
+            {% for field in ['field_type_of_body', 'field_lead_body', 'field_economic_sector', '	field_employment_arrangements', 'field_enabling_legislation_and_o', 'field_neptune_uri'] %}
+                {{ content[field] }}
             {% endfor %}
         </div>
 
         <h3><a data-toggle="collapse" href="#character-sheet-corporate-plan" aria-expanded="false"><spam class="fas fkg-charactersheet-collapse-control">Corporate Plan Requirements</spam></a></h3>
         <div id="character-sheet-corporate-plan" class="collapse">
-            {% for field in content|filter((value, key) => key in ['field_fkg_pgpa_act_s35_apply', 'field_fkg_pgpa_s35_3_apply', 'field_fkg_pgpa_35_3_section', 'field_fkg_enabling_leg_sect']) %}
-                {{ field }}
+            {% for field in ['field_fkg_pgpa_act_s35_apply', 'field_fkg_pgpa_s35_3_apply', 'field_fkg_pgpa_35_3_section', 'field_fkg_enabling_leg_sect'] %}
+                {{ content[field] }}
             {% endfor %}
         </div>
 
