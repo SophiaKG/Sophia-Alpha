@@ -99,7 +99,7 @@ content:
     region: content
   field_fkg_pgpa35_exempt_section:
     type: entity_reference_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: character_sheet_embed
       link: false
