@@ -1,0 +1,10 @@
+name: 'FKG Body'
+type: module
+description: 'Providing the Body content type and its supporting functionalities and configurations.'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9
+dependencies:
+  - drupal:node
+  - feeds:feeds
+  - fkg_base
