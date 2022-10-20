@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_content
+    - node.type.fkg_ct_legislation_section
+  module:
+    - text
+id: node.fkg_ct_legislation_section.field_fkg_content
+field_name: field_fkg_content
+entity_type: node
+bundle: fkg_ct_legislation_section
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

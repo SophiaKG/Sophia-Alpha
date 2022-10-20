@@ -1,0 +1,85 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.character_sheet_embed
+    - field.field.node.fkg_ct_legislation_section.body
+    - field.field.node.fkg_ct_legislation_section.feeds_item
+    - field.field.node.fkg_ct_legislation_section.field_fkg_content
+    - field.field.node.fkg_ct_legislation_section.field_fkg_label
+    - field.field.node.fkg_ct_legislation_section.field_fkg_legislation
+    - field.field.node.fkg_ct_legislation_section.field_fkg_link
+    - field.field.node.fkg_ct_legislation_section.field_neptune_uri
+    - node.type.fkg_ct_legislation_section
+  module:
+    - layout_builder
+    - link
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.fkg_ct_legislation_section.character_sheet_embed
+targetEntityType: node
+bundle: fkg_ct_legislation_section
+mode: character_sheet_embed
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_fkg_content:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_fkg_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_fkg_legislation:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_fkg_link:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: true
+      url_plain: true
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_neptune_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  feeds_item: true
+  search_api_excerpt: true

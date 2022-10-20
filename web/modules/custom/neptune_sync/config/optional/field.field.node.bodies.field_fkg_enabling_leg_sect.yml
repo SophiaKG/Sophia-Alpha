@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_enabling_leg_sect
+    - node.type.bodies
+    - node.type.fkg_ct_legislation_section
+id: node.bodies.field_fkg_enabling_leg_sect
+field_name: field_fkg_enabling_leg_sect
+entity_type: node
+bundle: bodies
+label: 'Enabling legislation references to ''corporate plan'''
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      fkg_ct_legislation_section: fkg_ct_legislation_section
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
