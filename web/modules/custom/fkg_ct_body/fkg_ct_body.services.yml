@@ -1,0 +1,5 @@
+services:
+  fkg_ct_body.neptuneuri2nid:
+    class: Drupal\fkg_ct_body\EventSubscriber\NeptuneUri2ParentIDParagraphFeed
+    tags:
+      - { name: event_subscriber }
