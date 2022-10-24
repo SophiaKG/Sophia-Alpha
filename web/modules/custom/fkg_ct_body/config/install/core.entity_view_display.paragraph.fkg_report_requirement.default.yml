@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.fkg_report_requirement.feeds_item
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_others
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_pgpa46
     - paragraphs.paragraphs_type.fkg_report_requirement
@@ -27,4 +28,5 @@ content:
     weight: 0
     region: content
 hidden:
+  feeds_item: true
   search_api_excerpt: true
