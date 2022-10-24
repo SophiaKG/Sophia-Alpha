@@ -14,10 +14,10 @@ dependencies:
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
     - field.field.node.bodies.field_fkg_enabling_leg_sect
-    - field.field.node.bodies.field_fkg_pgpa35_exempt_section
     - field.field.node.bodies.field_fkg_pgpa_35_3_section
     - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
     - field.field.node.bodies.field_fkg_pgpa_s35_3_apply
+    - field.field.node.bodies.field_fkg_report_requirement
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_in_summary_view
     - field.field.node.bodies.field_ink
@@ -29,6 +29,7 @@ dependencies:
     - field.field.node.bodies.field_type_of_body
     - node.type.bodies
   module:
+    - entity_reference_revisions
     - layout_builder
     - link
     - user
@@ -114,15 +115,6 @@ content:
     third_party_settings: {  }
     weight: 15
     region: content
-  field_fkg_pgpa35_exempt_section:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: character_sheet_embed
-      link: false
-    third_party_settings: {  }
-    weight: 12
-    region: content
   field_fkg_pgpa_35_3_section:
     type: entity_reference_entity_view
     label: hidden
@@ -140,7 +132,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   field_fkg_pgpa_s35_3_apply:
     type: boolean
@@ -151,6 +143,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 13
+    region: content
+  field_fkg_report_requirement:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: fkg_character_sheet
+      link: ''
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_flipchart_keys:
     type: entity_reference_label
