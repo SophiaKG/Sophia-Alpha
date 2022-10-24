@@ -5,6 +5,7 @@ dependencies:
     - field.field.paragraph.fkg_report_requirement.feeds_item
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_others
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_pgpa46
+    - field.field.paragraph.fkg_report_requirement.field_fkg_report_rqd_has_extra
     - paragraphs.paragraphs_type.fkg_report_requirement
 id: paragraph.fkg_report_requirement.default
 targetEntityType: paragraph
@@ -30,6 +31,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_fkg_report_rqd_has_extra:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

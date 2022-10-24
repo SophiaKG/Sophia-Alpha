@@ -6,9 +6,11 @@ dependencies:
     - field.field.paragraph.fkg_report_requirement.feeds_item
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_others
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_pgpa46
+    - field.field.paragraph.fkg_report_requirement.field_fkg_report_rqd_has_extra
     - paragraphs.paragraphs_type.fkg_report_requirement
   module:
     - layout_builder
+    - options
 third_party_settings:
   layout_builder:
     enabled: false
@@ -25,7 +27,7 @@ content:
       view_mode: character_sheet_embed
       link: false
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_fkg_ref_sect_pgpa46:
     type: entity_reference_entity_view
@@ -33,6 +35,13 @@ content:
     settings:
       view_mode: character_sheet_embed
       link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_fkg_report_rqd_has_extra:
+    type: list_default
+    label: above
+    settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content

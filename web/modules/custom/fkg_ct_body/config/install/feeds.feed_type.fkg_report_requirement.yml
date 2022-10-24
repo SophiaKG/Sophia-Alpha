@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_others
     - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_pgpa46
+    - field.field.paragraph.fkg_report_requirement.field_fkg_report_rqd_has_extra
     - paragraphs.paragraphs_type.fkg_report_requirement
   module:
     - feeds_ex
@@ -108,6 +109,11 @@ custom_sources:
     label: 'Parent type'
     machine_name: parent_type
     type: blank
+  reportrqd_hasextra:
+    value: ReportRQD_hasExtra
+    label: ReportRQD_hasExtra
+    machine_name: reportrqd_hasextra
+    type: json
 mappings:
   -
     target: parent_id
@@ -146,3 +152,9 @@ mappings:
       value: parent_type
     settings: {  }
     unique: {  }
+  -
+    target: field_fkg_report_rqd_has_extra
+    map:
+      value: reportrqd_hasextra
+    settings:
+      language: null
