@@ -9,7 +9,7 @@ id: paragraph.fkg_report_requirement.field_fkg_ref_sect_others
 field_name: field_fkg_ref_sect_others
 entity_type: paragraph
 bundle: fkg_report_requirement
-label: 'Reference section for others'
+label: 'Other requirements and references to ‘annual report’ under the enabling legislation'
 description: ''
 required: false
 translatable: false

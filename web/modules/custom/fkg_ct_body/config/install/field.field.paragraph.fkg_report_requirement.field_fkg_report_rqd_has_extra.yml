@@ -10,7 +10,7 @@ id: paragraph.fkg_report_requirement.field_fkg_report_rqd_has_extra
 field_name: field_fkg_report_rqd_has_extra
 entity_type: paragraph
 bundle: fkg_report_requirement
-label: 'Has additional report requirement'
+label: 'Additional annual report requirement'
 description: ''
 required: false
 translatable: false

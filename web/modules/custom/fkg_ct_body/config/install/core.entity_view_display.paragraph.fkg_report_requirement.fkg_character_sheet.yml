@@ -31,7 +31,7 @@ content:
     region: content
   field_fkg_ref_sect_pgpa46:
     type: entity_reference_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: character_sheet_embed
       link: false
