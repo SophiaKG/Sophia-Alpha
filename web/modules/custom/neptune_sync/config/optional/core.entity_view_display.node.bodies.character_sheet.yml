@@ -146,7 +146,7 @@ content:
     region: content
   field_fkg_report_requirement:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: fkg_character_sheet
       link: ''
