@@ -36,4 +36,4 @@ libraries.hpcc-systems.js-wasm:
     gpl-compatibale: true
   directory: hpcc-systems
   js:
-    //cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js: {external: true, minified: true}
+    //cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.13.0/dist/index.min.js: {external: true, minified: true}
