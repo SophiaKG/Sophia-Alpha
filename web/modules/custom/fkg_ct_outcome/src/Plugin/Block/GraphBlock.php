@@ -40,7 +40,11 @@ class GraphBlock extends BlockBase {
     foreach ($view_results as $row) {
       $node_program = Node::load($row->_entity->get('field_fkg_program')->getString());
       $node_label = $node_program->getTitle();
-      $tooltip = Html::escape('Contribution:\n' . $row->_entity->get('field_fkg_description')->value);
+
+      $program_owner = Node::load($node_program->get('field_bodies')->getString());
+      $program_owner_text = ($program_owner && $program_owner->access()) ? $program_owner->getTitle() : '';
+
+      $tooltip = Html::escape('Program owner:\n' . $program_owner_text . '\nContribution:\n' . $row->_entity->get('field_fkg_description')->value);
 
       $name = 'node' . $i;
       $graphviz .= $name . '[label="' . $this->wrap($node_label) . '" shape = "rectangle" fontsize="11" tooltip="' . $tooltip . '"];';
