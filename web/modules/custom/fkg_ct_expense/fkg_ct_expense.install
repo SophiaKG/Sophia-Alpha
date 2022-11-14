@@ -12,6 +12,26 @@ use Drupal\taxonomy\Entity\Term;
  * Implements hook_install().
  */
 function fkg_ct_expense_install() {
+  _fkg_ct_expense_install_terms();
+}
+
+/**
+ * Add two new appropriation sub types, 'Assets and Liabilities' and 'Equity Injections'.
+ */
+function fkg_ct_expense_update_9001() {
+  _fkg_ct_expense_install_terms();
+
+  return t('Sucessfully added two new appropriation sub type terms.');
+}
+
+/**
+ * Set up default expense-related taxonomy terms.
+ * @see config/optional/taxonomy.vocabulary.fkg_expense_appro_subtype.yml.
+ * @see config/optional/taxonomy.vocabulary.fkg_expense_approproiation.yml.
+ * @see config/optional/taxonomy.vocabulary.fkg_expense_estimate_type.yml.
+ * @see config/optional/taxonomy.vocabulary.fkg_expense_financial_year.yml.
+ */
+function _fkg_ct_expense_install_terms() {
 
   $vocabulary_terms_default = [
     'fkg_expense_estimate_type' => [
@@ -23,6 +43,8 @@ function fkg_ct_expense_install() {
       'Departmental',
     ],
     'fkg_expense_appro_subtype' => [
+      'Assets and Liabilities',
+      'Equity Injections',
       'External Revenue',
       'Non-operating',
       'Operating',
@@ -39,13 +61,14 @@ function fkg_ct_expense_install() {
   $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
   foreach ($vocabulary_terms_default as $vid => $terms_default) {
-    $terms_exist = $manager_taxonomy_term->loadTree($vid);
-    foreach (array_diff($terms_default, $terms_exist) as $term_missed) {
-      Term::create([
-        'parent' => [],
-        'name' => $term_missed,
-        'vid' => $vid,
-      ])->save();
+    foreach ($terms_default as $term_name) {
+      if (!$manager_taxonomy_term->loadByProperties(['name' => $term_name, 'vid' => $vid])) {
+        Term::create([
+          'parent' => [],
+          'name' => $term_name,
+          'vid' => $vid,
+        ])->save();
+      }
     }
   }
 }
