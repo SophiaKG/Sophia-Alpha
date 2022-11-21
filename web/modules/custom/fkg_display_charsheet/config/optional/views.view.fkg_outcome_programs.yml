@@ -4,12 +4,13 @@ dependencies:
   config:
     - field.storage.node.field_bodies
     - field.storage.node.field_fkg_description
+    - field.storage.node.field_fkg_numbering
     - field.storage.node.field_fkg_outcome
     - field.storage.node.field_fkg_program
-    - field.storage.node.field_fkg_numbering
     - node.type.fkg_ct_contribution
   module:
     - node
+    - text
     - user
 id: fkg_outcome_programs
 label: 'FKG Outcome programs'
@@ -728,8 +729,8 @@ display:
       tags:
         - 'config:field.storage.node.field_bodies'
         - 'config:field.storage.node.field_fkg_description'
-        - 'config:field.storage.node.field_fkg_program'
         - 'config:field.storage.node.field_fkg_numbering'
+        - 'config:field.storage.node.field_fkg_program'
   contributing_to_outcomes:
     id: contributing_to_outcomes
     display_title: 'Block - outcomes'
@@ -933,13 +934,15 @@ display:
           offset: 0
           items_per_page: 50
       sorts:
-        field_fkg_outcome_target_id:
-          id: field_fkg_outcome_target_id
-          table: node__field_fkg_outcome
-          field: field_fkg_outcome_target_id
+        title:
+          id: title
+          table: node_field_data
+          field: title
           relationship: field_fkg_outcome
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
           plugin_id: standard
           order: ASC
           expose:
@@ -1462,8 +1465,8 @@ display:
       tags:
         - 'config:field.storage.node.field_bodies'
         - 'config:field.storage.node.field_fkg_description'
-        - 'config:field.storage.node.field_fkg_program'
         - 'config:field.storage.node.field_fkg_numbering'
+        - 'config:field.storage.node.field_fkg_program'
   program_outcome:
     id: program_outcome
     display_title: 'program outcome'
