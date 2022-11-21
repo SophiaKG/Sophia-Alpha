@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_pgpa_s35_3_apply
+    - node.type.bodies
+id: node.bodies.field_fkg_pgpa_s35_3_apply
+field_name: field_fkg_pgpa_s35_3_apply
+entity_type: node
+bundle: bodies
+label: 'Section 35(3) of the PGPA Act applies'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

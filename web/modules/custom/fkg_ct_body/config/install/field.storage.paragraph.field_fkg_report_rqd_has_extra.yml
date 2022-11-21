@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_fkg_report_rqd_has_extra
+field_name: field_fkg_report_rqd_has_extra
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'yes'
+      label: 'Yes'
+    -
+      value: 'no'
+      label: 'No'
+    -
+      value: others
+      label: 'See “Other references to ''annual report'' under enabling legislation”'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

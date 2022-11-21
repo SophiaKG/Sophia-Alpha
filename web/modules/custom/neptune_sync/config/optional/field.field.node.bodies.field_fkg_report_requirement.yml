@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_report_requirement
+    - node.type.bodies
+    - paragraphs.paragraphs_type.fkg_report_requirement
+  module:
+    - entity_reference_revisions
+id: node.bodies.field_fkg_report_requirement
+field_name: field_fkg_report_requirement
+entity_type: node
+bundle: bodies
+label: 'Report requirement'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      fkg_report_requirement: fkg_report_requirement
+    negate: 0
+    target_bundles_drag_drop:
+      fkg_report_requirement:
+        weight: 3
+        enabled: true
+      stat_co_op_relationship:
+        weight: 4
+        enabled: false
+field_type: entity_reference_revisions

@@ -2,27 +2,27 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_s35_3_pgpa_act_apply
+    - field.storage.node.field_fkg_pgpa_35_3_section
     - node.type.bodies
-    - taxonomy.vocabulary.flip_chart_booleans
-id: node.bodies.field_s35_3_pgpa_act_apply
-field_name: field_s35_3_pgpa_act_apply
+    - node.type.fkg_ct_legislation_section
+id: node.bodies.field_fkg_pgpa_35_3_section
+field_name: field_fkg_pgpa_35_3_section
 entity_type: node
 bundle: bodies
-label: 'S35(3) PGPA Act apply'
+label: 'PGPA Act 35(3) Section'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
-      flip_chart_booleans: flip_chart_booleans
+      fkg_ct_legislation_section: fkg_ct_legislation_section
     sort:
-      field: name
-      direction: asc
+      field: _none
+      direction: ASC
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference
