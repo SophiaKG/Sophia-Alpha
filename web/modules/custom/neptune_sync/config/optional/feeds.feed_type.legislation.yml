@@ -1,0 +1,82 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.legislation.field_ink
+    - field.field.node.legislation.field_neptune_uri
+    - node.type.legislation
+  module:
+    - feeds_ex
+    - node
+label: Legislation
+id: legislation
+description: ''
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Legislation.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: legislation
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+custom_sources:
+  legislationtitle:
+    value: LegislationTitle
+    label: LegislationTitle
+    machine_name: legislationtitle
+    type: json
+  legislationuri:
+    value: LegislationUri
+    label: LegislationUri
+    machine_name: legislationuri
+    type: json
+  legislationlink:
+    value: LegislationLink
+    label: LegislationLink
+    machine_name: legislationlink
+    type: json
+mappings:
+  -
+    target: title
+    map:
+      value: legislationtitle
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_neptune_uri
+    map:
+      value: legislationuri
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: field_ink
+    map:
+      uri: legislationlink
+      title: legislationtitle
+    settings:
+      language: null

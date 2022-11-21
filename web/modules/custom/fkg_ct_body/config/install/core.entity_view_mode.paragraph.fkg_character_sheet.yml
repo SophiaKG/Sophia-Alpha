@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.fkg_character_sheet
+label: 'Character Sheet'
+targetEntityType: paragraph
+cache: true

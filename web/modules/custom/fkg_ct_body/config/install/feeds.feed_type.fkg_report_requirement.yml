@@ -1,0 +1,160 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_others
+    - field.field.paragraph.fkg_report_requirement.field_fkg_ref_sect_pgpa46
+    - field.field.paragraph.fkg_report_requirement.field_fkg_report_rqd_has_extra
+    - paragraphs.paragraphs_type.fkg_report_requirement
+  module:
+    - feeds_ex
+    - feeds_tamper
+    - paragraphs
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      3818228a-0f41-426b-86f8-b5be5677f588:
+        separator: '|'
+        limit: null
+        uuid: 3818228a-0f41-426b-86f8-b5be5677f588
+        plugin: explode
+        source: sectref_report_pgpa_s46
+        weight: 0
+        label: Explode
+      cd67f3ac-5fe9-4bbb-b7b7-3c6129484a5c:
+        separator: '|'
+        limit: null
+        uuid: cd67f3ac-5fe9-4bbb-b7b7-3c6129484a5c
+        plugin: explode
+        source: sectref_report_others
+        weight: 0
+        label: Explode
+      e716f793-9dd9-4e50-b2cf-84adb87bd2d8:
+        default_value: field_fkg_report_requirement
+        only_if_empty: false
+        uuid: e716f793-9dd9-4e50-b2cf-84adb87bd2d8
+        plugin: default_value
+        source: field_fkg_report_requirement
+        weight: 0
+        label: 'Set the parent field name'
+      af09ae0f-62ab-47fe-bc87-dbc240500d9a:
+        default_value: node
+        only_if_empty: false
+        uuid: af09ae0f-62ab-47fe-bc87-dbc240500d9a
+        plugin: default_value
+        source: parent_type
+        weight: 0
+        label: 'Set parent type'
+label: 'FKG Report requirement'
+id: fkg_report_requirement
+description: ''
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Bodies.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:paragraph'
+processor_configuration:
+  values:
+    type: fkg_report_requirement
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  body:
+    value: Body
+    label: Body
+    machine_name: body
+    type: json
+  sectref_report_pgpa_s46:
+    value: SectRef_Report_PGPA_S46
+    label: SectRef_Report_PGPA_S46
+    machine_name: sectref_report_pgpa_s46
+    type: json
+  field_fkg_report_requirement:
+    value: field_fkg_report_requirement
+    label: field_fkg_report_requirement
+    machine_name: field_fkg_report_requirement
+    type: blank
+  sectref_report_others:
+    value: SectRef_Report_Others
+    label: SectRef_Report_Others
+    machine_name: sectref_report_others
+    type: json
+  '':
+    value: ''
+    label: ''
+    machine_name: ''
+    type: blank
+  parent_type:
+    value: 'Parent type'
+    label: 'Parent type'
+    machine_name: parent_type
+    type: blank
+  reportrqd_hasextra:
+    value: ReportRQD_hasExtra
+    label: ReportRQD_hasExtra
+    machine_name: reportrqd_hasextra
+    type: json
+mappings:
+  -
+    target: parent_id
+    map:
+      value: body
+    settings: {  }
+    unique:
+      value: '1'
+  -
+    target: parent_field_name
+    map:
+      value: field_fkg_report_requirement
+    settings: {  }
+    unique: {  }
+  -
+    target: field_fkg_ref_sect_pgpa46
+    map:
+      target_id: sectref_report_pgpa_s46
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_ref_sect_others
+    map:
+      target_id: sectref_report_others
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: parent_type
+    map:
+      value: parent_type
+    settings: {  }
+    unique: {  }
+  -
+    target: field_fkg_report_rqd_has_extra
+    map:
+      value: reportrqd_hasextra
+    settings:
+      language: null

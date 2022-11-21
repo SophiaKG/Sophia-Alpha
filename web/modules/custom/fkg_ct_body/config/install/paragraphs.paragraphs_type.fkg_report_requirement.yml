@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fkg_report_requirement
+label: 'Report requirement'
+icon_uuid: null
+icon_default: null
+description: 'Reporting requirement for government entities with referencing legislation sections.'
+behavior_plugins: {  }

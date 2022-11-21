@@ -1,0 +1,9 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - node
+id: node.character_sheet_embed
+label: 'Character Sheet Embed'
+targetEntityType: node
+cache: true

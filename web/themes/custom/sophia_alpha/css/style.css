@@ -887,8 +887,14 @@ body.path-node article.node--view-mode-character-sheet span.field--name-title {
     padding-right: 5px;
 }
 
-article.node--view-mode-character-sheet .field {
-    margin: 0 0 1.2em;
+/* Reset the bottom margin of entity-reference field */
+/* @see themes/contrib/bootstrap_barrio/css/components/field.css */
+.field--type-entity-reference {
+    margin: 0;
+}
+
+article.node--view-mode-character-sheet .field:not(:first-child) .field__label {
+    margin-top: 1em;
 }
 
 article.node .field .field__label {

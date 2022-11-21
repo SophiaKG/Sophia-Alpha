@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function fkg_ct_legislation_theme() {
+  return [
+    'node__fkg_ct_legislation_section__character_sheet_embed' => [
+      'template' => 'node--fkg-ct-legislation-section--character-sheet-embed',
+      'base hook' => 'node',
+    ],
+  ];
+}
+
+/**
+ * Prepare variables for node__fkg_ct_legislation_section__character_sheet_embed template.
+ */
+function template_preprocess_node__fkg_ct_legislation_section__character_sheet_embed(&$variables) {
+  template_preprocess_node($variables);
+}
