@@ -6,6 +6,18 @@ use Drupal\views\Views;
 use Drupal\views\ViewExecutable;
 
 /**
+ * Implements hook_views_pre_render().
+ */
+function fkg_ct_outcome_views_pre_render(ViewExecutable $view){
+  if ($view->id() == 'fkg_outcome_programs' && $view->current_display == 'owned_programs') {
+    // Sort the programs according to program number in a natural order.
+    usort($view->result, function ($a, $b){
+      return strnatcmp($a->node_field_data_node__field_fkg_program__node__field_fkg_num, $b->node_field_data_node__field_fkg_program__node__field_fkg_num);
+    });
+  }
+}
+
+/**
  * Implements hook_views_post_execute().
  */
 function fkg_ct_outcome_views_post_execute(ViewExecutable $view) {
