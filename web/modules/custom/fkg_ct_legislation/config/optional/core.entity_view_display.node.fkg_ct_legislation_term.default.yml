@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.fkg_ct_legislation_term.body
+    - field.field.node.fkg_ct_legislation_term.feeds_item
     - field.field.node.fkg_ct_legislation_term.field_fkg_appears_in_legislation
     - field.field.node.fkg_ct_legislation_term.field_fkg_content
     - field.field.node.fkg_ct_legislation_term.field_fkg_defined_by_legislation
@@ -69,4 +70,5 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   search_api_excerpt: true
