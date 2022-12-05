@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_content
+    - node.type.fkg_ct_legislation_term
+  module:
+    - text
+id: node.fkg_ct_legislation_term.field_fkg_content
+field_name: field_fkg_content
+entity_type: node
+bundle: fkg_ct_legislation_term
+label: 'Term definition'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

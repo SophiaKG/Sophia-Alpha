@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.fkg_ct_legislation_term.body
+    - field.field.node.fkg_ct_legislation_term.field_fkg_appears_in_legislation
+    - field.field.node.fkg_ct_legislation_term.field_fkg_content
+    - field.field.node.fkg_ct_legislation_term.field_fkg_defined_by_legislation
+    - field.field.node.fkg_ct_legislation_term.field_fkg_legislation_section
+    - field.field.node.fkg_ct_legislation_term.field_neptune_uri
+    - node.type.fkg_ct_legislation_term
+  module:
+    - text
+    - user
+id: node.fkg_ct_legislation_term.teaser
+targetEntityType: node
+bundle: fkg_ct_legislation_term
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_fkg_appears_in_legislation: true
+  field_fkg_content: true
+  field_fkg_defined_by_legislation: true
+  field_fkg_legislation_section: true
+  field_neptune_uri: true
+  search_api_excerpt: true
