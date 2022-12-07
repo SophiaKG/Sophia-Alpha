@@ -8,9 +8,99 @@ dependencies:
     - field.field.node.legislation.field_neptune_uri
     - field.field.node.legislation.field_used_by
     - node.type.legislation
+    - views.view.fkg_legislation_terms
   module:
+    - layout_builder
+    - layout_discovery
     - link
     - user
+    - views
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          cc688602-52e5-4b1d-863e-a6bf46d6bc3f:
+            uuid: cc688602-52e5-4b1d-863e-a6bf46d6bc3f
+            region: content
+            configuration:
+              id: 'extra_field_block:node:legislation:links'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 0
+            additional: {  }
+          baa96b7c-8ccd-49b7-8979-d4b528207811:
+            uuid: baa96b7c-8ccd-49b7-8979-d4b528207811
+            region: content
+            configuration:
+              id: 'field_block:node:legislation:field_ink'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: link
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: ''
+                  target: ''
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          1d05b485-1418-4d7d-96b7-17768a12572f:
+            uuid: 1d05b485-1418-4d7d-96b7-17768a12572f
+            region: content
+            configuration:
+              id: 'field_block:node:legislation:field_used_by'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          2616a8ba-ba4a-4d3f-9ed3-1ddb10fc25e0:
+            uuid: 2616a8ba-ba4a-4d3f-9ed3-1ddb10fc25e0
+            region: content
+            configuration:
+              id: 'field_block:node:legislation:field_alias'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          1a7472d7-e2d1-41da-bfa9-4d7346ed5eec:
+            uuid: 1a7472d7-e2d1-41da-bfa9-4d7346ed5eec
+            region: content
+            configuration:
+              id: 'views_block:fkg_legislation_terms-block_term_appears_in_legislation'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 4
+            additional: {  }
+        third_party_settings: {  }
 id: node.legislation.default
 targetEntityType: node
 bundle: legislation
