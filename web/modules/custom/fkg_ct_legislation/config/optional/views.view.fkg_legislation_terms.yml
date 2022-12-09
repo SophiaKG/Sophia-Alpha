@@ -24,7 +24,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Distinguished Terms'
+      title: ''
       fields:
         title:
           id: title
@@ -460,7 +460,20 @@ display:
           query_tags: {  }
       relationships: {  }
       group_by: false
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<div class="field"><div class="field__label">Distinguished Terms in this instrument</div></div>'
+            format: full_html
+          tokenize: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
