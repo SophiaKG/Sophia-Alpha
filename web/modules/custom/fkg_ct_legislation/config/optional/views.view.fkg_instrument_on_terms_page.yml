@@ -226,3 +226,36 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
+  block_distinguished_terms_starting_point:
+    id: block_distinguished_terms_starting_point
+    display_title: 'Block - Starting point instruments'
+    display_plugin: block
+    position: 2
+    display_options:
+      display_description: 'Starting point instruments for Distinguished Terms landing page'
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  embed_instruments_dt_starting_point:
+    id: embed_instruments_dt_starting_point
+    display_title: Embed
+    display_plugin: embed
+    position: 1
+    display_options:
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
