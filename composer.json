@@ -21,6 +21,7 @@
         "drupal/bootstrap_barrio": "^4.25",
         "drupal/cer": "^4.0",
         "drupal/console": "^1.0.2",
+        "drupal/context": "^4.1",
         "drupal/core": "^9",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
