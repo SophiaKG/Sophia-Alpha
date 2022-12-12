@@ -954,6 +954,16 @@ article.comCompany {
     text-align: left;
 }
 
+/* Override css styling from bootstrap _grid.css.
+ * @todo Find a general way to fix the issue.
+ */
+.contextual-region .view .row {
+    display: inherit;
+}
+.contextual-region .view .view-content.row {
+    margin-left: inherit;
+}
+
 @media (min-width: 992px) {
     #block-exposedformsearchpage-1 {
         display: inline-block;
