@@ -6,7 +6,7 @@ dependencies:
   module:
     - system
     - views
-label: 'Starting point instruments for Distinguished Terms'
+label: 'Distinguished terms instruments'
 name: fkg_terms_starting_point_instruments
 group: null
 description: 'Starting point instruments for the Distinguished Terms landing page'
@@ -42,6 +42,6 @@ reactions:
         items_per_page: none
         third_party_settings: {  }
         override: {  }
-    include_default_blocks: 0
+    include_default_blocks: 1
     saved: false
 weight: 0
