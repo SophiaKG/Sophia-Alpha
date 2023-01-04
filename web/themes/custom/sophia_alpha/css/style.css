@@ -897,7 +897,7 @@ article.node--view-mode-character-sheet .field:not(:first-child) .field__label {
     margin-top: 1em;
 }
 
-article.node .field .field__label {
+.field .field__label {
     font-weight: 800;
 }
 
