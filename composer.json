@@ -29,7 +29,7 @@
         "drupal/ctools": "^3.7",
         "drupal/devel": "^4",
         "drupal/devel_entity_updates": "^3.0",
-        "drupal/disable_messages": "^2.0",
+        "drupal/disable_messages": "^2.1",
         "drupal/features": "^3.12",
         "drupal/feeds": "^3.0@beta",
         "drupal/feeds_ex": "^1.0",

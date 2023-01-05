@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d367678955040b4a4baa209c0bbc91cd",
+    "content-hash": "ff5d805a3046f7c03d0fde4b66a53a97",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3565,26 +3565,26 @@
         },
         {
             "name": "drupal/disable_messages",
-            "version": "2.0.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/disable_messages.git",
-                "reference": "2.0.0"
+                "reference": "2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/disable_messages-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "2a7b9258b5908aa6ed2830d62808dcc3551f6f33"
+                "url": "https://ftp.drupal.org/files/projects/disable_messages-2.1.1.zip",
+                "reference": "2.1.1",
+                "shasum": "7fb6a915eefe7c834c713e8e1dcd8f4a6bd279eb"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": ">=8"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1591164518",
+                    "version": "2.1.1",
+                    "datestamp": "1651204825",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3597,12 +3597,17 @@
             ],
             "authors": [
                 {
-                    "name": "anoopjohn",
-                    "homepage": "https://www.drupal.org/user/188049"
+                    "name": "Zyxware Technologies (zyxware)",
+                    "homepage": "https://www.drupal.org/u/zyxware",
+                    "role": "Maintainer"
                 },
                 {
                     "name": "binnythomas",
                     "homepage": "https://www.drupal.org/user/3123091"
+                },
+                {
+                    "name": "jijojoseph_zyxware",
+                    "homepage": "https://www.drupal.org/user/3561263"
                 },
                 {
                     "name": "varunity",
@@ -3617,10 +3622,16 @@
                     "homepage": "https://www.drupal.org/user/222163"
                 }
             ],
-            "description": "Add options to filter messages shown to the end users",
-            "homepage": "https://www.drupal.org/project/disable_messages",
+            "description": "Allows filtering messages shown to the end user using regular expression patterns.",
+            "homepage": "https://drupal.org/project/disable_messages",
+            "keywords": [
+                "content",
+                "display",
+                "messages"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/disable_messages"
+                "source": "https://git.drupalcode.org/project/disable_messages",
+                "issues": "https://drupal.org/project/issues/disable_messages"
             }
         },
         {
