@@ -26,7 +26,7 @@
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
-        "drupal/ctools": "3.7",
+        "drupal/ctools": "^3.7",
         "drupal/devel": "^4",
         "drupal/devel_entity_updates": "^3.0",
         "drupal/disable_messages": "^2.0",
