@@ -184,25 +184,25 @@
         },
         {
             "name": "chillerlan/php-qrcode",
-            "version": "4.3.1",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-qrcode.git",
-                "reference": "be3beb936c21fe53a4e7e8f7f3582e9f02443666"
+                "reference": "2ca4bf5ae048af1981d1023ee42a0a2a9d51e51d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/be3beb936c21fe53a4e7e8f7f3582e9f02443666",
-                "reference": "be3beb936c21fe53a4e7e8f7f3582e9f02443666",
+                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/2ca4bf5ae048af1981d1023ee42a0a2a9d51e51d",
+                "reference": "2ca4bf5ae048af1981d1023ee42a0a2a9d51e51d",
                 "shasum": ""
             },
             "require": {
-                "chillerlan/php-settings-container": "^2.1",
+                "chillerlan/php-settings-container": "^2.1.4",
                 "ext-mbstring": "*",
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "phan/phan": "^3.2.2",
+                "phan/phan": "^5.3",
                 "phpunit/phpunit": "^9.5",
                 "setasign/fpdf": "^1.8.2"
             },
@@ -246,7 +246,7 @@
             ],
             "support": {
                 "issues": "https://github.com/chillerlan/php-qrcode/issues",
-                "source": "https://github.com/chillerlan/php-qrcode/tree/4.3.1"
+                "source": "https://github.com/chillerlan/php-qrcode/tree/4.3.4"
             },
             "funding": [
                 {
@@ -258,20 +258,20 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2021-01-05T21:21:28+00:00"
+            "time": "2022-07-25T09:12:45+00:00"
         },
         {
             "name": "chillerlan/php-settings-container",
-            "version": "2.1.2",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-settings-container.git",
-                "reference": "ec834493a88682dd69652a1eeaf462789ed0c5f5"
+                "reference": "1beb7df3c14346d4344b0b2e12f6f9a74feabd4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/ec834493a88682dd69652a1eeaf462789ed0c5f5",
-                "reference": "ec834493a88682dd69652a1eeaf462789ed0c5f5",
+                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/1beb7df3c14346d4344b0b2e12f6f9a74feabd4a",
+                "reference": "1beb7df3c14346d4344b0b2e12f6f9a74feabd4a",
                 "shasum": ""
             },
             "require": {
@@ -279,7 +279,7 @@
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "phan/phan": "^4.0",
+                "phan/phan": "^5.3",
                 "phpunit/phpunit": "^9.5"
             },
             "type": "library",
@@ -304,6 +304,7 @@
             "keywords": [
                 "PHP7",
                 "Settings",
+                "configuration",
                 "container",
                 "helper"
             ],
@@ -321,7 +322,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2021-09-06T15:17:01+00:00"
+            "time": "2022-07-05T22:32:14+00:00"
         },
         {
             "name": "christian-riesen/otp",
@@ -3636,30 +3637,35 @@
         },
         {
             "name": "drupal/encrypt",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/encrypt.git",
-                "reference": "8.x-3.0"
+                "reference": "8.x-3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/encrypt-8.x-3.0.zip",
-                "reference": "8.x-3.0",
-                "shasum": "6916583be6d08c9684582358d7b7722fdeea8487"
+                "url": "https://ftp.drupal.org/files/projects/encrypt-8.x-3.1.zip",
+                "reference": "8.x-3.1",
+                "shasum": "357ca7fcf9879af66b5d0c5593da080f19664f17"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^8 || ^9 || ^10",
                 "drupal/key": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0",
-                    "datestamp": "1602354427",
+                    "version": "8.x-3.1",
+                    "datestamp": "1669655248",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
                     }
                 }
             },
@@ -4094,21 +4100,19 @@
         },
         {
             "name": "drupal/ga_login",
-            "version": "1.0.0-alpha6",
+            "version": "1.0.0-alpha7",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ga_login.git",
-                "reference": "8.x-1.0-alpha6"
+                "reference": "8.x-1.0-alpha7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ga_login-8.x-1.0-alpha6.zip",
-                "reference": "8.x-1.0-alpha6",
-                "shasum": "0cca42208142b1fa0e7e7778a284ca1d0a45a4ba"
+                "url": "https://ftp.drupal.org/files/projects/ga_login-8.x-1.0-alpha7.zip",
+                "reference": "8.x-1.0-alpha7",
+                "shasum": "11a37203595763b7252c4fb685f68e1d47c48f69"
             },
             "require": {
-                "chillerlan/php-qrcode": "^1.0.9 || ^2.0 || ^3.2 || ^4.0",
-                "christian-riesen/otp": "^2.1",
                 "drupal/core": "^8 || ^9",
                 "drupal/tfa": "^1.0"
             },
@@ -4118,8 +4122,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-alpha6",
-                    "datestamp": "1607880195",
+                    "version": "8.x-1.0-alpha7",
+                    "datestamp": "1666299034",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -4132,10 +4136,6 @@
             ],
             "authors": [
                 {
-                    "name": "Jelle_S",
-                    "homepage": "https://www.drupal.org/user/829198"
-                },
-                {
                     "name": "attiks",
                     "homepage": "https://www.drupal.org/user/105002"
                 },
@@ -4146,6 +4146,10 @@
                 {
                     "name": "jcnventura",
                     "homepage": "https://www.drupal.org/user/122464"
+                },
+                {
+                    "name": "Jelle_S",
+                    "homepage": "https://www.drupal.org/user/829198"
                 },
                 {
                     "name": "nerdstein",
@@ -4431,26 +4435,26 @@
         },
         {
             "name": "drupal/key",
-            "version": "1.15.0",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/key.git",
-                "reference": "8.x-1.15"
+                "reference": "8.x-1.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.15.zip",
-                "reference": "8.x-1.15",
-                "shasum": "ebef48e042968862b6767af4b1bf49835eca487e"
+                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.16.zip",
+                "reference": "8.x-1.16",
+                "shasum": "35a4476d7d52563bb26bd4dcc5fbf5fdd7c9391b"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9"
+                "drupal/core": ">=8.9 <11"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.15",
-                    "datestamp": "1634075859",
+                    "version": "8.x-1.16",
+                    "datestamp": "1661968490",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4458,13 +4462,13 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9"
+                        "drush.services.yml": ">=9"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -5389,19 +5393,21 @@
         },
         {
             "name": "drupal/tfa",
-            "version": "1.0.0-alpha8",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tfa.git",
-                "reference": "8.x-1.0-alpha8"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tfa-8.x-1.0-alpha8.zip",
-                "reference": "8.x-1.0-alpha8",
-                "shasum": "22cde00430097884db324d9528e5468b85d554ca"
+                "url": "https://ftp.drupal.org/files/projects/tfa-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "5f13121e04ba25cf07be27261269ecf1a1f07a89"
             },
             "require": {
+                "chillerlan/php-qrcode": "^1.0.9 || ^2.0 || ^3.2 || ^4.0",
+                "christian-riesen/otp": "^2.1",
                 "drupal/core": "^8 || ^9",
                 "drupal/encrypt": "~3.0",
                 "php": ">=7.0"
@@ -5414,16 +5420,16 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-alpha8",
-                    "datestamp": "1631825069",
+                    "version": "8.x-1.0",
+                    "datestamp": "1669940340",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9"
+                        "drush.services.yml": "^9 || ^10 || ^11"
                     }
                 }
             },
@@ -7419,16 +7425,16 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v2.4.0",
+            "version": "v2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c"
+                "reference": "58c3f47f650c94ec05a151692652a868995d2938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c",
-                "reference": "f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/58c3f47f650c94ec05a151692652a868995d2938",
+                "reference": "58c3f47f650c94ec05a151692652a868995d2938",
                 "shasum": ""
             },
             "require": {
@@ -7482,7 +7488,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2020-12-06T15:14:20+00:00"
+            "time": "2022-06-14T06:56:20+00:00"
         },
         {
             "name": "paragonie/random_compat",
