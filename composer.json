@@ -60,7 +60,7 @@
         "drupal/viewsreference": "^1.7",
         "drupal/visitors": "^2.7",
         "drupal/webform": "^6.0",
-        "drush/drush": "^10.5",
+        "drush/drush": "^11.4",
         "easyrdf/easyrdf": "^0.9.1",
         "flow/jsonpath": "~0.3",
         "pear/archive_tar": "1.4.14",
