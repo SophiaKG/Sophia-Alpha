@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34adfc1c31d3b5e6bdceaabc7fed4bed",
+    "content-hash": "68da0f8b8ed0118fa54fbae3d3aa1a83",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3531,34 +3531,31 @@
         },
         {
             "name": "drupal/devel_entity_updates",
-            "version": "3.0.1",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel_entity_updates.git",
-                "reference": "3.0.1"
+                "reference": "4.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel_entity_updates-3.0.1.zip",
-                "reference": "3.0.1",
-                "shasum": "ed7f7b410659538b4ccf898933ef413f75382896"
+                "url": "https://ftp.drupal.org/files/projects/devel_entity_updates-4.1.0.zip",
+                "reference": "4.1.0",
+                "shasum": "06159bf4ed26832eeeb2625297476bbc1188cbde"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9",
-                "drupal/devel": "*"
-            },
-            "conflict": {
-                "drupal/core": "<8.7",
-                "drush/drush": ">=9.0 <9.6"
+                "drupal/core": "^9.2 || ^10",
+                "drupal/devel": "*",
+                "drush/drush": "^11"
             },
             "require-dev": {
-                "drupal/devel": "^2 || ^3"
+                "drupal/devel": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.1",
-                    "datestamp": "1614938245",
+                    "version": "4.1.0",
+                    "datestamp": "1671814425",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3566,7 +3563,7 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9 || ^10"
+                        "drush.services.yml": "^11"
                     }
                 }
             },

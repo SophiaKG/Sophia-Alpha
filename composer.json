@@ -28,7 +28,7 @@
         "drupal/core-recommended": "^9",
         "drupal/ctools": "^3.7",
         "drupal/devel": "^4",
-        "drupal/devel_entity_updates": "^3.0",
+        "drupal/devel_entity_updates": "^4.1",
         "drupal/disable_messages": "^2.1",
         "drupal/features": "^3.12",
         "drupal/feeds": "^3.0@beta",
