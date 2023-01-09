@@ -47,7 +47,7 @@
         "drupal/real_aes": "^2.3",
         "drupal/redirect": "^1.6",
         "drupal/search_api": "^1.21",
-        "drupal/search_api_autocomplete": "1.5",
+        "drupal/search_api_autocomplete": "^1.7",
         "drupal/services": "^4.0",
         "drupal/superfish": "^1.4",
         "drupal/tfa": "^1.0",
