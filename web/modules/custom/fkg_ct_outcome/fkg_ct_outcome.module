@@ -187,8 +187,8 @@ function _fkg_ct_outcome_get_contributing_to_outcomes(NodeInterface $node) {
   // Retrieve the outcomes that a given outcome's programs contribute to.
   // @see config/optional/views.view.fkg_outcome_programs.yml.
   $view = Views::getView('fkg_outcome_programs');
-  $view->setDisplay('contributing_to_outcomes');
-  $view->setArguments([$view_arg_programs_owned, $outcome_owner_id]);
+  $view->setDisplay('outcomes_contribute_to');
+  $view->setArguments([$view_arg_programs_owned, $node->id()]);
   $view->preExecute();
   $view->execute();
 
