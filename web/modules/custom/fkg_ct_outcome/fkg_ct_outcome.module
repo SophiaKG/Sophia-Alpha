@@ -125,7 +125,7 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
     ],
     'contributing_programs' => [
       'data-target' => $dom_id_outcome . '-linked-programs',
-      'text' => t('Linked programs'),
+      'text' => t('Linked programs contributing to this outcome'),
     ],
   ];
 
