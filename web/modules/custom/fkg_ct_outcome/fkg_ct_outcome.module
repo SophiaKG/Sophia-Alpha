@@ -101,20 +101,6 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     'outcome_expense' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
   ];
 
-  // Add the data of contributing to outcomes.
-  $contributing_to_outcomes = _fkg_ct_outcome_get_contributing_to_outcomes($variables['node']);
-  if (!empty($contributing_to_outcomes)) {
-    $content_character_sheet['contributing_to_outcomes'] = [
-      '#type' => 'container',
-      '#weight' => 3,
-      'label' => [
-        '#type' => 'markup',
-        '#markup' => '<div class="field__label">' . t('Contributing to other outcomes') . '</div>',
-      ],
-      'contributing_to_outcomes' => $contributing_to_outcomes + ['#weight' => 2],
-    ];
-  }
-
   $variables['content']['fkg-character-sheet'] = $content_character_sheet;
 }
 
@@ -165,6 +151,28 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
       'programs' => views_embed_view('fkg_outcome_programs', $display, $nid_outcome, $nid_outcome_owner),
     ];
   }
+
+  // Add a section of contributions of owned programs to other outcomes.
+  $dom_outcomes_contribute_to = $nid_outcome . '-outcomes-contribute-to';
+  $output['outcomes-contribute-to-button'] = [
+    '#type' => 'markup',
+    '#markup' => Markup::create('
+      <div class="fkg-character-sheet-outcome-programs">
+        <button class="btn btn-link" type="button", data-toggle="collapse" data-target="#'. $dom_outcomes_contribute_to . '" aria-expanded="false" aria-controls="' . $dom_outcomes_contribute_to . '">
+          <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+          <spam>Contributions of owned programs to other outcomes</spam>
+        </button>
+      </div>
+    '),
+  ];
+  $output['outcomes-contribute-to-contribution'] = [
+    '#type' => 'container',
+    '#attributes' => [
+      'class' => ['collapse'],
+      'id' => $dom_outcomes_contribute_to,
+    ],
+    'programs' => _fkg_ct_outcome_get_contributing_to_outcomes($node),
+  ];
 
   return $output;
 }
