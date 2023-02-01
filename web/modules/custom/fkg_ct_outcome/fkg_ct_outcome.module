@@ -76,7 +76,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     '#attributes' => [
       'class' => ['character-sheet-programs'],
     ],
-    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node']),
+    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node'], True),
   ];
 
   // Add the contributing programs graph.
@@ -113,7 +113,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
  * @return array
  *   A renderable array with data of contributing FKG Programs.
  */
-function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
+function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node, $include_contributing_outcomes = False) {
   $nid_outcome_owner = $node->get('field_bodies')->getString();
   $nid_outcome = $node->id();
 
@@ -152,27 +152,29 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
     ];
   }
 
-  // Add a section of contributions of owned programs to other outcomes.
-  $dom_outcomes_contribute_to = $nid_outcome . '-outcomes-contribute-to';
-  $output['outcomes-contribute-to-button'] = [
-    '#type' => 'markup',
-    '#markup' => Markup::create('
-      <div class="fkg-character-sheet-outcome-programs">
-        <button class="btn btn-link" type="button", data-toggle="collapse" data-target="#'. $dom_outcomes_contribute_to . '" aria-expanded="false" aria-controls="' . $dom_outcomes_contribute_to . '">
-          <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
-          <spam>Contributions of owned programs to other outcomes</spam>
-        </button>
-      </div>
-    '),
-  ];
-  $output['outcomes-contribute-to-contribution'] = [
-    '#type' => 'container',
-    '#attributes' => [
-      'class' => ['collapse'],
-      'id' => $dom_outcomes_contribute_to,
-    ],
-    'programs' => _fkg_ct_outcome_get_contributing_to_outcomes($node),
-  ];
+  if ($include_contributing_outcomes == True) {
+    // Add a section of contributions of owned programs to other outcomes.
+    $dom_outcomes_contribute_to = $nid_outcome . '-outcomes-contribute-to';
+    $output['outcomes-contribute-to-button'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('
+        <div class="fkg-character-sheet-outcome-programs">
+          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="#'. $dom_outcomes_contribute_to . '" aria-expanded="false" aria-controls="' . $dom_outcomes_contribute_to . '">
+            <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+            <spam>Contributions of owned programs to other outcomes</spam>
+          </button>
+        </div>
+      '),
+    ];
+    $output['outcomes-contribute-to-contribution'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['collapse'],
+        'id' => $dom_outcomes_contribute_to,
+      ],
+      'programs' => _fkg_ct_outcome_get_contributing_to_outcomes($node),
+    ];
+  }
 
   return $output;
 }
