@@ -37,3 +37,14 @@ libraries.hpcc-systems.js-wasm:
   directory: hpcc-systems
   js:
     //cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.13.0/dist/index.min.js: {external: true, minified: true}
+
+libraries.apache.echarts:
+  remote: https://echarts.apache.org/en/index.html
+  version: '5.4.1'
+  license:
+    name: 'Apache-2.0'
+    url: https://github.com/apache/echarts/blob/master/LICENSE
+    gpl-compatible: true
+  directory: apache/echarts
+  js:
+    //cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js: {external: true, minified: true}
