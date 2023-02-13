@@ -218,6 +218,7 @@ function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
   $graph_nodes[] = [
     'symbol' => 'circle',
     'name' => $outcome_title,
+    'owner' => $outcome_owner,
     'value' => $outcome_title,
     'id' => $outcome_id,
     'symbolSize' => 30
@@ -247,7 +248,7 @@ function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
     function($name, $key) {
       return [
         'name' => $name,
-        'symbol' => 'roundRect',
+        'symbol' => 'Rect',
         'symbolSize' => 16,
       ];
     },
@@ -264,14 +265,16 @@ function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
     $program_owner = Node::load($program->get('field_bodies')->getString())->getTitle();
     $graph_nodes[] = [
       'category' => $owner_names[$program_owner],
+      'owner' => $program_owner,
       'name' => $program_title,
-      'value' => $program_title,
+      'value' => $contribution_text,
+      'contribution' => $contribution_text,
       'id' => $program_id,
     ];
     $graph_links[] = [
       'source' => $program_id,
       'target' => $outcome_id,
-      'value' => $contribution_text,
+      'select' => [ 'disabled' => TRUE ],
     ];
   }
 
