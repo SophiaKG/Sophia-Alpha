@@ -94,7 +94,6 @@
             position: ['80%', '10%'],
             trigger: 'item',
             triggerOn: 'click',
-            showDelay: 100,
             enterable: true,
             extraCssText: 'white-space:normal; width:300px;',
           },
