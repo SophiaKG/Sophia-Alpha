@@ -90,7 +90,6 @@
             showContent: true,
             alwaysShowContent: true,
             confine: true,
-            appendToBody: true,
             position: ['80%', '10%'],
             trigger: 'item',
             triggerOn: 'click',
