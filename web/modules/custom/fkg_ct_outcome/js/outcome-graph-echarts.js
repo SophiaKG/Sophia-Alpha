@@ -53,6 +53,7 @@
               show: false,
               fontSize: 15,
               color: 'black',
+              position: 'bottom',
             },
             labellayout: {
               hideOverlap: true
