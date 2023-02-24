@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_authority.body
+    - field.field.node.fkg_ct_authority.field_neptune_uri
+    - node.type.fkg_ct_authority
+  module:
+    - text
+    - user
+id: node.fkg_ct_authority.default
+targetEntityType: node
+bundle: fkg_ct_authority
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_neptune_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  search_api_excerpt: true
