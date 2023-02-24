@@ -23,7 +23,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 1
     region: content
   field_fkg_appears_in_legislation:
     type: entity_reference_label
@@ -31,14 +31,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 105
+    weight: 4
     region: content
   field_fkg_content:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 103
+    weight: 2
     region: content
   field_fkg_defined_by_legislation:
     type: entity_reference_label
@@ -46,29 +46,23 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 3
     region: content
   field_fkg_legislation_section:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: character_sheet_embed
+      link: false
     third_party_settings: {  }
-    weight: 106
-    region: content
-  field_neptune_uri:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 102
+    weight: 5
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   feeds_item: true
+  field_neptune_uri: true
   search_api_excerpt: true
