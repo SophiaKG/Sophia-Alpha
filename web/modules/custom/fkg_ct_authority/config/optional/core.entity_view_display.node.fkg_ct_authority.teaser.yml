@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.fkg_ct_authority.body
+    - field.field.node.fkg_ct_authority.feeds_item
     - field.field.node.fkg_ct_authority.field_neptune_uri
     - node.type.fkg_ct_authority
   module:
@@ -28,5 +29,6 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   field_neptune_uri: true
   search_api_excerpt: true

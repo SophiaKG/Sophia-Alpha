@@ -1,0 +1,70 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_authority.field_neptune_uri
+    - node.type.fkg_ct_authority
+  module:
+    - feeds_ex
+    - node
+label: 'FKG Accountable authority'
+id: fkg_accountable_authority
+description: ''
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Authorities.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: fkg_ct_authority
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  authoritytitle:
+    value: AuthorityTitle
+    label: AuthorityTitle
+    machine_name: authoritytitle
+    type: json
+  authorityuri:
+    value: AuthorityUri
+    label: AuthorityUri
+    machine_name: authorityuri
+    type: json
+mappings:
+  -
+    target: title
+    map:
+      value: authoritytitle
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_neptune_uri
+    map:
+      value: authorityuri
+    settings:
+      language: null
+    unique:
+      value: '1'
