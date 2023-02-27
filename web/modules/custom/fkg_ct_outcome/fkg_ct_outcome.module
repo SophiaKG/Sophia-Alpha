@@ -76,7 +76,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     '#attributes' => [
       'class' => ['character-sheet-programs'],
     ],
-    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node']),
+    'outcome_programs' => _fkg_ct_outcome_get_outcome_programs($variables['node'], True),
   ];
 
   // Add the contributing programs graph.
@@ -101,20 +101,6 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
     'outcome_expense' => _fkg_ct_outcome_get_outcome_expense($variables['node']),
   ];
 
-  // Add the data of contributing to outcomes.
-  $contributing_to_outcomes = _fkg_ct_outcome_get_contributing_to_outcomes($variables['node']);
-  if (!empty($contributing_to_outcomes)) {
-    $content_character_sheet['contributing_to_outcomes'] = [
-      '#type' => 'container',
-      '#weight' => 3,
-      'label' => [
-        '#type' => 'markup',
-        '#markup' => '<div class="field__label">' . t('Contributing to other outcomes') . '</div>',
-      ],
-      'contributing_to_outcomes' => $contributing_to_outcomes + ['#weight' => 2],
-    ];
-  }
-
   $variables['content']['fkg-character-sheet'] = $content_character_sheet;
 }
 
@@ -127,7 +113,7 @@ function fkg_ct_outcome_preprocess_node__fkg_ct_outcome(&$variables) {
  * @return array
  *   A renderable array with data of contributing FKG Programs.
  */
-function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
+function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node, $include_contributing_outcomes = False) {
   $nid_outcome_owner = $node->get('field_bodies')->getString();
   $nid_outcome = $node->id();
 
@@ -139,7 +125,7 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
     ],
     'contributing_programs' => [
       'data-target' => $dom_id_outcome . '-linked-programs',
-      'text' => t('Linked programs'),
+      'text' => t('Linked programs contributing to this outcome'),
     ],
   ];
 
@@ -166,6 +152,30 @@ function _fkg_ct_outcome_get_outcome_programs(NodeInterface $node) {
     ];
   }
 
+  if ($include_contributing_outcomes == True) {
+    // Add a section of contributions of owned programs to other outcomes.
+    $dom_outcomes_contribute_to = $nid_outcome . '-outcomes-contribute-to';
+    $output['outcomes-contribute-to-button'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('
+        <div class="fkg-character-sheet-outcome-programs">
+          <button class="btn btn-link" type="button", data-toggle="collapse" data-target="#'. $dom_outcomes_contribute_to . '" aria-expanded="false" aria-controls="' . $dom_outcomes_contribute_to . '">
+            <spam class="collapse-prefix-symbol fas fa-chevron-circle-right"></spam>
+            <spam>Contributions of owned programs to other outcomes</spam>
+          </button>
+        </div>
+      '),
+    ];
+    $output['outcomes-contribute-to-contribution'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['collapse'],
+        'id' => $dom_outcomes_contribute_to,
+      ],
+      'programs' => _fkg_ct_outcome_get_contributing_to_outcomes($node),
+    ];
+  }
+
   return $output;
 }
 
@@ -187,8 +197,8 @@ function _fkg_ct_outcome_get_contributing_to_outcomes(NodeInterface $node) {
   // Retrieve the outcomes that a given outcome's programs contribute to.
   // @see config/optional/views.view.fkg_outcome_programs.yml.
   $view = Views::getView('fkg_outcome_programs');
-  $view->setDisplay('contributing_to_outcomes');
-  $view->setArguments([$view_arg_programs_owned, $outcome_owner_id]);
+  $view->setDisplay('outcomes_contribute_to');
+  $view->setArguments([$view_arg_programs_owned, $node->id()]);
   $view->preExecute();
   $view->execute();
 
