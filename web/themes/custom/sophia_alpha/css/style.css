@@ -897,7 +897,7 @@ article.node--view-mode-character-sheet .field:not(:first-child) .field__label {
     margin-top: 1em;
 }
 
-article.node .field .field__label {
+.field .field__label {
     font-weight: 800;
 }
 
@@ -952,6 +952,17 @@ article.comCompany {
 .view-id-entity_types .table .views-field-name {
     width: 25%;
     text-align: left;
+}
+
+/* Override css styling from bootstrap _grid.css.
+ * @todo Find a general way to fix the issue.
+ */
+.view-fkg-instrument-on-terms-page.view .row {
+    display: inherit;
+}
+.view-fkg-instrument-on-terms-page.view .view-content.row {
+    margin-left: inherit;
+    display: inherit;
 }
 
 @media (min-width: 992px) {
