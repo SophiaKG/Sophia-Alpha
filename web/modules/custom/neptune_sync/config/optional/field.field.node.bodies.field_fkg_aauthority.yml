@@ -9,7 +9,7 @@ id: node.bodies.field_fkg_aauthority
 field_name: field_fkg_aauthority
 entity_type: node
 bundle: bodies
-label: 'Accountable authorities'
+label: 'Accountable authority or Board'
 description: ''
 required: false
 translatable: false
