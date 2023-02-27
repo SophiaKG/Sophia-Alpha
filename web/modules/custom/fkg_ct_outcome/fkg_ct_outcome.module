@@ -2,6 +2,7 @@
 
 use Drupal\Core\Render\Markup;
 use Drupal\node\NodeInterface;
+use Drupal\node\Entity\Node;
 use Drupal\views\Views;
 use Drupal\views\ViewExecutable;
 
@@ -215,12 +216,102 @@ function _fkg_ct_outcome_get_contributing_to_outcomes(NodeInterface $node) {
  *   A renderable array holding the data to render the graph of contributing programs.
  */
 function _fkg_ct_outcome_get_contributing_programs_graph(NodeInterface $node) {
-  $block_outcome_graph = \Drupal::service('plugin.manager.block')->createInstance('fkg_ct_outcome_graph', []);
-  $block_outcome_graph->setContextValue('node', $node);
-  $render = $block_outcome_graph->build();
-  \Drupal::service('renderer')->addCacheableDependency($render, $block_outcome_graph);
+  $outcome_id = $node->id();
+  $outcome_title = $node->getTitle();
+  $outcome_owner = Node::load($node->get('field_bodies')->getString())->getTitle();
 
-  return $render;
+  $graph_nodes = [];
+  $graph_categories = [];
+  $graph_links = [];
+
+  // Add the outcome graph node.
+  $graph_nodes[] = [
+    'symbol' => 'circle',
+    'name' => $outcome_title,
+    'owner' => $outcome_owner,
+    'value' => $outcome_title,
+    'id' => $outcome_id,
+    'symbolSize' => 30
+  ];
+
+  $view_results = views_get_view_result('fkg_outcome_programs', 'owned_programs', $outcome_id);
+  $program_owners = array_map(
+    function ($element) {
+      $program = Node::load($element->_entity->get('field_fkg_program')->getString());
+      $program_owner = Node::load($program->get('field_bodies')->getString())->getTitle();
+      return [
+        'program_nid' => $program->id(),
+        'owner' => $program_owner,
+      ];
+    },
+    $view_results
+  );
+  $owner_names = array_unique(array_column($program_owners, 'owner'));
+
+  // Sort the program owners and place the outcome owner as the first one.
+  $owner_names = array_values(array_diff($owner_names,[$outcome_owner]));
+  sort($owner_names);
+  array_unshift($owner_names, $outcome_owner);
+
+  $owner_names = array_flip($owner_names); // Swap the name and the array index.
+  $graph_categories = array_map(
+    function($name, $key) {
+      return [
+        'name' => $name,
+        'symbol' => 'Rect',
+        'symbolSize' => 16,
+      ];
+    },
+    array_keys($owner_names),
+    $owner_names
+  );
+
+  // Extract the graph data from the view results.
+  foreach($view_results as $row) {
+    $contribution_text = $row->_entity->get('field_fkg_description')->value;
+    $program = Node::load($row->_entity->get('field_fkg_program')->getString());
+    $program_id = $program->id();
+    $program_title = $program->getTitle();
+    $program_owner = Node::load($program->get('field_bodies')->getString())->getTitle();
+    $graph_nodes[] = [
+      'category' => $owner_names[$program_owner],
+      'owner' => $program_owner,
+      'name' => $program_title,
+      'value' => $contribution_text,
+      'contribution' => $contribution_text,
+      'id' => $program_id,
+    ];
+    $graph_links[] = [
+      'source' => $program_id,
+      'target' => $outcome_id,
+      'select' => [ 'disabled' => TRUE ],
+    ];
+  }
+
+  // Construct the graph data which will be passed to the JavaScript part.
+  $fkg_graph_outcome = [
+    'title' => t('Contribution graph for ' . $outcome_title),
+    'categories' => $graph_categories,
+    'nodes' => $graph_nodes,
+    'links' => $graph_links
+  ];
+
+  // Prepare the graph dom container.
+  $dom_id = 'fkg-graph-outcome-' . $outcome_id;
+  return [
+    '#type' => 'markup',
+    '#markup' => Markup::create(
+      "<div id='$dom_id' class='fkg-graph fkg-graph-echarts' data-outcome-id = '$outcome_id' />"
+    ),
+    '#attached' => [
+      'library' => ['fkg_ct_outcome/outcome.graph.echarts'],
+      'drupalSettings' => [
+        'fkg-graph' => [
+          $outcome_id => $fkg_graph_outcome,
+        ],
+      ],
+    ],
+  ];
 }
 
 /**

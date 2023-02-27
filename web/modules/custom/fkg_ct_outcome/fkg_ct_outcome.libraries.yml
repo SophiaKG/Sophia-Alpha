@@ -3,3 +3,9 @@ outcome.dot-graph:
     js/outcome-graph.js: {}
   dependencies:
     - fkg_graph/libraries.magjac.d3-graphviz
+
+outcome.graph.echarts:
+  js:
+    js/outcome-graph-echarts.js: {}
+  dependencies:
+    - fkg_graph/libraries.apache.echarts
