@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the module.
+ */
+
+use Drupal\Core\Serialization\Yaml;
+
+/**
+ * Add a display to view fkg_outcome_programs (other outcomes those owned programs contributing to with tabled details).
+ */
+function fkg_display_charsheet_update_9001() {
+  $view_name = 'views.view.fkg_outcome_programs';
+
+  $view_config = \Drupal::configFactory()->getEditable($view_name);
+  if ($view_config) {
+    $config_path = drupal_get_path('module', 'fkg_display_charsheet') . '/config/optional';
+    $yaml = file_get_contents("$config_path/$view_name.yml");
+    $view_data_new = Yaml::decode($yaml);
+    $view_data = $view_config->getRawData();
+    foreach ($view_data_new as $key => $data) {
+      $view_data[$key] = $data;
+    }
+
+    $view_config->setData($view_data)->save(TRUE);
+  }
+}
