@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_legislation_term.body
+    - field.field.node.fkg_ct_legislation_term.feeds_item
+    - field.field.node.fkg_ct_legislation_term.field_fkg_appears_in_legislation
+    - field.field.node.fkg_ct_legislation_term.field_fkg_content
+    - field.field.node.fkg_ct_legislation_term.field_fkg_defined_by_legislation
+    - field.field.node.fkg_ct_legislation_term.field_fkg_legislation_section
+    - field.field.node.fkg_ct_legislation_term.field_neptune_uri
+    - node.type.fkg_ct_legislation_term
+  module:
+    - text
+    - user
+id: node.fkg_ct_legislation_term.default
+targetEntityType: node
+bundle: fkg_ct_legislation_term
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_fkg_appears_in_legislation:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_fkg_content:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_fkg_defined_by_legislation:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_fkg_legislation_section:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: character_sheet_embed
+      link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  feeds_item: true
+  field_neptune_uri: true
+  search_api_excerpt: true

@@ -1,39 +1,10 @@
-libraries.magjac.d3-graphviz:
-  remote: https://github.com/magjac/d3-graphviz
-  version: '4.1.0'
-  license:
-    name: 'BSD-3-Clause'
-    url: https://github.com/magjac/d3-graphviz/blob/master/LICENSE
-    gpl-compatible: true
-  directory: magjac
-  cdn:
-    /libraries/magjac/lib/: https://cdnjs.cloudflare.com/ajax/libs/d3-graphviz/4.1.0/
-    /libraries/magjac/: https://cdnjs.cloudflare.com/ajax/libs/d3-graphviz/4.1.0/
-  js:
-    //cdnjs.cloudflare.com/ajax/libs/d3-graphviz/4.1.0/d3-graphviz.js: { type: external, minified: false }
-  dependencies:
-    - fkg_graph/libraries.d3.d3-js
-    - fkg_graph/libraries.hpcc-systems.js-wasm
-
-libraries.d3.d3-js:
-  remote: https://github.com/d3/d3
-  version: '7.3.0'
-  license:
-    name: LSC
-    url: https://github.com/d3/d3/blob/main/LICENSE
-    gpl-compatible: true
-  directory: d3
-  js:
-    //cdnjs.cloudflare.com/ajax/libs/d3/7.3.0/d3.js: { external: true, minified: false }
-
-# The WASM library including a wasm build of graphviz.
-libraries.hpcc-systems.js-wasm:
-  remote: https://github.com/hpcc-systems/hpcc-js-wasm
-  version: '1.13.0'
+libraries.apache.echarts:
+  remote: https://echarts.apache.org/en/index.html
+  version: '5.4.1'
   license:
     name: 'Apache-2.0'
-    url: https://github.com/hpcc-systems/hpcc-js-wasm/blob/trunk/LICENSE
-    gpl-compatibale: true
-  directory: hpcc-systems
+    url: https://github.com/apache/echarts/blob/master/LICENSE
+    gpl-compatible: true
+  directory: apache/echarts
   js:
-    //cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.13.0/dist/index.min.js: {external: true, minified: true}
+    //cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js: {external: true, minified: true}

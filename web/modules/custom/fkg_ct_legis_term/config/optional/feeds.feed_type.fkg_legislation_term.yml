@@ -1,0 +1,147 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_legislation_term.field_fkg_appears_in_legislation
+    - field.field.node.fkg_ct_legislation_term.field_fkg_content
+    - field.field.node.fkg_ct_legislation_term.field_fkg_defined_by_legislation
+    - field.field.node.fkg_ct_legislation_term.field_fkg_legislation_section
+    - field.field.node.fkg_ct_legislation_term.field_neptune_uri
+    - node.type.fkg_ct_legislation_term
+  module:
+    - feeds_ex
+    - feeds_tamper
+    - node
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      52e5de83-0d53-4f06-899f-07339379e5ce:
+        separator: '|'
+        limit: null
+        uuid: 52e5de83-0d53-4f06-899f-07339379e5ce
+        plugin: explode
+        source: termappearin
+        weight: 0
+        label: 'Explode | Legislation'
+      3af81c03-23af-4cd7-859d-c07d52870628:
+        separator: '|'
+        limit: null
+        uuid: 3af81c03-23af-4cd7-859d-c07d52870628
+        plugin: explode
+        source: termsection
+        weight: 0
+        label: 'Explode | Legislation sections'
+label: 'FKG Legislation term'
+id: fkg_legislation_term
+description: ''
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Terms.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: fkg_ct_legislation_term
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  termuri:
+    value: termUri
+    label: termUri
+    machine_name: termuri
+    type: json
+  termname:
+    value: termName
+    label: termName
+    machine_name: termname
+    type: json
+  termdefinedby:
+    value: termDefinedBy
+    label: termDefinedBy
+    machine_name: termdefinedby
+    type: json
+  termappearin:
+    value: termAppearIn
+    label: termAppearIn
+    machine_name: termappearin
+    type: json
+  termdefinition:
+    value: termDefinition
+    label: termDefinition
+    machine_name: termdefinition
+    type: json
+  termsection:
+    value: termSection
+    label: termSection
+    machine_name: termsection
+    type: json
+mappings:
+  -
+    target: field_neptune_uri
+    map:
+      value: termuri
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: title
+    map:
+      value: termname
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_fkg_defined_by_legislation
+    map:
+      target_id: termdefinedby
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_appears_in_legislation
+    map:
+      target_id: termappearin
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_content
+    map:
+      value: termdefinition
+    settings:
+      language: ''
+      format: plain_text
+  -
+    target: field_fkg_legislation_section
+    map:
+      target_id: termsection
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0

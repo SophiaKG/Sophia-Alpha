@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.fkg_legislation_terms
+  module:
+    - node
+    - views
+label: 'Distinguished terms on legislation'
+name: distinguished_terms_on_legislation
+group: null
+description: 'Show distinguished terms (view output) on legislation content page.'
+requireAllConditions: false
+disabled: false
+conditions:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 5551d820-1a54-4a7e-80ba-1d48ca4a9154
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      legislation: legislation
+reactions:
+  blocks:
+    id: blocks
+    uuid: 90344802-d1a9-4de0-83f2-754c3d8213fa
+    blocks:
+      ccd1e3bd-0d12-448d-9690-889e0dd21969:
+        uuid: ccd1e3bd-0d12-448d-9690-889e0dd21969
+        id: 'views_block:fkg_legislation_terms-terms_appears_in_legislation'
+        label: ''
+        provider: views
+        label_display: visible
+        region: content
+        weight: '0'
+        custom_id: views_block_fkg_legislation_terms_terms_appears_in_legislation
+        theme: sophia_alpha
+        css_class: ''
+        unique: 0
+        context_id: distinguished_terms_on_legislation
+        context_mapping: {  }
+        views_label: ''
+        items_per_page: none
+        third_party_settings: {  }
+        override: {  }
+    include_default_blocks: 0
+    saved: false
+weight: 0

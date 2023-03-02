@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.fkg_instrument_on_terms_page
+  module:
+    - system
+    - views
+label: 'Distinguished terms instruments'
+name: fkg_terms_starting_point_instruments
+group: null
+description: 'Starting point instruments for the Distinguished Terms landing page'
+requireAllConditions: false
+disabled: false
+conditions:
+  request_path:
+    id: request_path
+    negate: false
+    uuid: 25032e77-a845-4f49-bd30-56073b8f7ad8
+    context_mapping: {  }
+    pages: /distinguished-terms
+reactions:
+  blocks:
+    id: blocks
+    uuid: 2dd016c8-0b2d-45bc-bd8e-e28a2d28cef2
+    blocks:
+      8781f624-fb87-4f70-b6cc-66f553a1cf27:
+        uuid: 8781f624-fb87-4f70-b6cc-66f553a1cf27
+        id: 'views_block:fkg_instrument_on_terms_page-block_1'
+        label: ''
+        provider: views
+        label_display: visible
+        region: content
+        weight: '0'
+        custom_id: views_block_fkg_instrument_on_terms_page_block_1
+        theme: sophia_alpha
+        css_class: ''
+        unique: 0
+        context_id: fkg_terms_starting_point_instruments
+        context_mapping: {  }
+        views_label: ''
+        items_per_page: none
+        third_party_settings: {  }
+        override: {  }
+    include_default_blocks: 1
+    saved: false
+weight: 0
