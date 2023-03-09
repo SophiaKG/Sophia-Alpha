@@ -19,10 +19,11 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
+      bodies: bodies
       fkg_ct_authority: fkg_ct_authority
     sort:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: bodies
 field_type: entity_reference
