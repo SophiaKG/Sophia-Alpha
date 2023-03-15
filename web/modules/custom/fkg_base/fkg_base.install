@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Enable content modules fkg_ct_portfolio and fkg_ct_legis_term.
+ */
+function fkg_base_update_9001() {
+  \Drupal::service('module_installer')->install(['fkg_ct_portfolio', 'fkg_ct_legis_term']);
+}
