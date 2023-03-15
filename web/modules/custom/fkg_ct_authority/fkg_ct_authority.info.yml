@@ -1,0 +1,9 @@
+name: 'FKG Accountable authority'
+type: module
+description: 'Accountable authority/-ies for bodies'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
+  - feeds:feeds

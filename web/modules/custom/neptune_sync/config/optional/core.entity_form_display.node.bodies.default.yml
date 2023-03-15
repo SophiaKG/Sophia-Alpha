@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_fkg_aauthority
     - field.field.node.bodies.field_fkg_enabling_leg_sect
     - field.field.node.bodies.field_fkg_pgpa_35_3_section
     - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
@@ -118,6 +119,16 @@ content:
   field_financial_classification:
     type: entity_reference_autocomplete
     weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_aauthority:
+    type: entity_reference_autocomplete
+    weight: 59
     region: content
     settings:
       match_operator: CONTAINS
