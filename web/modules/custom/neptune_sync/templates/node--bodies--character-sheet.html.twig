@@ -200,7 +200,7 @@
         {{ content.field_portfolio }}
         <h3><a data-toggle="collapse" href="#character-sheet-govern" aria-expanded="false"><spam class="fas fkg-charactersheet-collapse-control">Governance Characteristics</spam></a></h3>
         <div id="character-sheet-govern" class="collapse">
-            {% for field in ['field_type_of_body', 'field_lead_body', 'field_economic_sector', 'field_employment_arrangements', 'field_enabling_legislation_and_o', 'field_neptune_uri'] %}
+            {% for field in ['field_type_of_body', 'field_fkg_aauthority', 'field_lead_body', 'field_economic_sector', 'field_employment_arrangements', 'field_enabling_legislation_and_o', 'field_neptune_uri'] %}
                 {{ content[field] }}
             {% endfor %}
         </div>

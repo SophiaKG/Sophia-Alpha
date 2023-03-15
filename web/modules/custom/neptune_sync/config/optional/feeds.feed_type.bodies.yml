@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_fkg_aauthority
     - field.field.node.bodies.field_fkg_enabling_leg_sect
     - field.field.node.bodies.field_fkg_pgpa_35_3_section
     - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
@@ -82,6 +83,14 @@ third_party_settings:
         source: enablingsections
         weight: 0
         label: Explode
+      de017f57-495f-452c-8d31-a3ae6ff62950:
+        separator: '|'
+        limit: null
+        uuid: de017f57-495f-452c-8d31-a3ae6ff62950
+        plugin: explode
+        source: accountableauthorities
+        weight: 0
+        label: Explode
 label: Bodies
 id: bodies
 description: 'Bodies (to be rmeoved)'
@@ -112,6 +121,7 @@ processor_configuration:
   update_non_existent: _delete
   skip_hash_check: true
   authorize: true
+  revision: false
   expire: -1
   owner_feed_author: false
   owner_id: 0
@@ -205,6 +215,11 @@ custom_sources:
     value: SectRef_Report_PGPA_S46
     label: SectRef_Report_PGPA_S46
     machine_name: sectref_report_pgpa_s46
+    type: json
+  accountableauthorities:
+    value: AccountableAuthorities
+    label: AccountableAuthorities
+    machine_name: accountableauthorities
     type: json
 mappings:
   -
@@ -337,6 +352,15 @@ mappings:
     target: field_fkg_enabling_leg_sect
     map:
       target_id: enablingsections
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_aauthority
+    map:
+      target_id: accountableauthorities
     settings:
       language: ''
       reference_by: field_neptune_uri

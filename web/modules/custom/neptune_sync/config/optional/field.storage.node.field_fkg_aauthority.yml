@@ -2,18 +2,17 @@ langcode: en
 status: true
 dependencies:
   module:
-    - feeds
     - node
-id: node.feeds_item
-field_name: feeds_item
+id: node.field_fkg_aauthority
+field_name: field_fkg_aauthority
 entity_type: node
-type: feeds_item
+type: entity_reference
 settings:
-  target_type: feeds_feed
-module: feeds
+  target_type: node
+module: core
 locked: false
 cardinality: -1
-translatable: false
+translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
