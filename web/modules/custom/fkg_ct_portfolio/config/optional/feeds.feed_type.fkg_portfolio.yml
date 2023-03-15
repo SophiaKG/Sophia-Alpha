@@ -1,0 +1,70 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.portfolios.field_neptune_uri
+    - node.type.portfolios
+  module:
+    - feeds_ex
+    - node
+label: 'FKG Portfolio'
+id: fkg_portfolio
+description: 'FKG Portfolio'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Portfolios.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: portfolios
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  portfoliolabel:
+    value: PortfolioLabel
+    label: PortfolioLabel
+    machine_name: portfoliolabel
+    type: json
+  portfoliouri:
+    value: PortfolioUri
+    label: PortfolioUri
+    machine_name: portfoliouri
+    type: json
+mappings:
+  -
+    target: title
+    map:
+      value: portfoliolabel
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_neptune_uri
+    map:
+      value: portfoliouri
+    settings:
+      language: null
+    unique:
+      value: '1'

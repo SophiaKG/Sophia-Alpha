@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
@@ -23,6 +24,7 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   field_alias: true
   field_bodies: true
   field_list_of_on_pgpa_bodies_in_: true

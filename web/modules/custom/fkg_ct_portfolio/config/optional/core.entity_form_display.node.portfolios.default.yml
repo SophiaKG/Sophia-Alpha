@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
@@ -126,4 +127,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  feeds_item: true
