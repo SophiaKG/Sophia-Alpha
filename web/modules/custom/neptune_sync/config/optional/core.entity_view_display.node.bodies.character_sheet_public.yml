@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.bodies.field_employment_arrangements
     - field.field.node.bodies.field_enabling_legislation_and_o
     - field.field.node.bodies.field_financial_classification
+    - field.field.node.bodies.field_fkg_aauthority
     - field.field.node.bodies.field_fkg_enabling_leg_sect
     - field.field.node.bodies.field_fkg_pgpa_35_3_section
     - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
@@ -47,7 +48,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   field_alias:
     type: string
@@ -63,7 +64,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   field_employment_arrangements:
     type: entity_reference_label
@@ -71,7 +72,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   field_enabling_legislation_and_o:
     type: entity_reference_label
@@ -79,7 +80,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_financial_classification:
     type: entity_reference_label
@@ -87,7 +88,15 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 8
+    weight: 9
+    region: content
+  field_fkg_aauthority:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_fkg_enabling_leg_sect:
     type: entity_reference_entity_view
@@ -96,7 +105,7 @@ content:
       view_mode: character_sheet_embed
       link: false
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: content
   field_fkg_pgpa_35_3_section:
     type: entity_reference_entity_view
@@ -105,7 +114,7 @@ content:
       view_mode: character_sheet_embed
       link: false
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   field_fkg_pgpa_act_s35_apply:
     type: boolean
@@ -115,7 +124,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: content
   field_fkg_pgpa_s35_3_apply:
     type: boolean
@@ -125,7 +134,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_fkg_report_requirement:
     type: entity_reference_revisions_entity_view
@@ -134,7 +143,7 @@ content:
       view_mode: fkg_character_sheet
       link: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: content
   field_flipchart_keys:
     type: entity_reference_label
@@ -142,7 +151,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   field_ink:
     type: link
@@ -164,7 +173,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_portfolio:
     type: entity_reference_label
@@ -179,7 +188,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   field_type_of_body:
     type: entity_reference_label

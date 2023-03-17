@@ -4,6 +4,10 @@
  * @file
  */
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Serialization\Yaml;
+
 /**
  * Fix: Update the CER configurations to restrict the applicable content types.
  */
@@ -40,4 +44,58 @@ function neptune_sync_update_9002() {
   \Drupal::service('module_installer')->install(['feeds_tamper']);
 
   return t('Module feeds_tamper enabled.');
+}
+
+/**
+ * 1. Enable module fkg_ct_authority. 2. Create a new field field_fkg_aauthority. 3. Update the field configurations and the feed type configuration for the bodies content type.
+ */
+function neptune_sync_update_9003() {
+  // Enabled the content module fkg_ct_aauthority.
+  \Drupal::service('module_installer')->install(['fkg_ct_authority']);
+  
+  $path_config = drupal_get_path('module', 'neptune_sync') . '/config/optional';
+
+  // Create the field storage configuration for field_fkg_aauthority.
+  $field_storage_data_aauthority = Yaml::decode(file_get_contents("$path_config/field.storage.node.field_fkg_aauthority.yml"));
+  if ($field_storage_data_aauthority) {
+    if (!FieldStorageConfig::loadByName('node', 'field_fkg_aauthority')) {
+      FieldStorageConfig::create($field_storage_data_aauthority)->save();
+    }
+  }
+
+  // Create the field configuration for bodies.field_fkg_aauthority.
+  $field_config_data_aauthority = Yaml::decode(file_get_contents("$path_config/field.field.node.bodies.field_fkg_aauthority.yml"));
+  if ($field_config_data_aauthority) {
+    if (!FieldConfig::loadByName('node', 'bodies', 'field_fkg_aauthority')) {
+      FieldConfig::create($field_config_data_aauthority)->save();
+    }
+  }
+
+  // The configurations to be updated.
+  $configs_to_be_updated = [
+    'core.entity_form_display.node.bodies.default',
+    'core.entity_view_display.node.bodies.character_sheet',
+    'core.entity_view_display.node.bodies.character_sheet_public',
+    'core.entity_view_display.node.bodies.default',
+    'core.entity_view_display.node.bodies.teaser',
+    'feeds.feed_type.bodies',
+    'field.storage.node.feeds_item',
+  ];
+
+  // Update the configurations with the data from the module config folder.
+  $config_factory = \Drupal::configFactory();
+  foreach ($configs_to_be_updated as $config_name) {
+    $config = $config_factory->getEditable($config_name);
+    if ($config) {
+      $config_data_existed = $config->getRawData();
+      $config_data = [];
+      foreach (['uuid', '_core'] as $config_index) {
+        if (array_key_exists($config_index, $config_data_existed)) {
+          $config_data[$config_index] = $config_data_existed[$config_index];
+        }
+      }
+      $config_data_new = Yaml::decode(file_get_contents("$path_config/$config_name.yml"));
+      $config->setData($config_data + $config_data_new)->save(TRUE);
+    }
+  }
 }
