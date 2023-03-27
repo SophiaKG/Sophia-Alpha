@@ -72,3 +72,14 @@ function _fkg_ct_expense_install_terms() {
     }
   }
 }
+
+/**
+ * Update the feeds_feed_type fkg_expense configuration settings (to update existed items and delete previously imported).
+ */
+function fkg_ct_expense_update_9002() {
+  $config_data_yml = \Drupal\Core\Serialization\Yaml::decode(file_get_contents("modules/custom/fkg_ct_expense/config/optional/feeds.feed_type.fkg_expense.yml"));
+  $config = \Drupal::configFactory()->getEditable('feeds.feed_type.fkg_expense');
+  $config_data_existed = $config->getRawData();
+  $config_data_yml['uuid'] = $config_data_existed['uuid'];
+  $config->setData($config_data_yml)->save(TRUE);
+}
