@@ -81,5 +81,6 @@ function fkg_ct_expense_update_9002() {
   $config = \Drupal::configFactory()->getEditable('feeds.feed_type.fkg_expense');
   $config_data_existed = $config->getRawData();
   $config_data_yml['uuid'] = $config_data_existed['uuid'];
+  $config_data_yml['_core'] = $config_data_existed['_core'];
   $config->setData($config_data_yml)->save(TRUE);
 }
