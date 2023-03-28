@@ -5,6 +5,7 @@ dependencies:
     - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
+    - field.field.node.portfolios.field_fkg_ministerial_roles
     - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
     - field.field.node.portfolios.field_list_of_pgpa_bodies_in_por
     - field.field.node.portfolios.field_neptune_uri
@@ -24,7 +25,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    weight: 4
+    region: content
+  field_fkg_ministerial_roles:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_list_of_on_pgpa_bodies_in_:
     type: viewsreference_formatter
@@ -39,7 +48,7 @@ content:
         entity_reference: 0
         rest_export: 0
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_list_of_pgpa_bodies_in_por:
     type: viewsreference_formatter
@@ -54,7 +63,7 @@ content:
         entity_reference: 0
         rest_export: 0
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   links:
     settings: {  }

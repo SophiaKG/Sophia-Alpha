@@ -5,6 +5,7 @@ dependencies:
     - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
+    - field.field.node.portfolios.field_fkg_ministerial_roles
     - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
     - field.field.node.portfolios.field_list_of_pgpa_bodies_in_por
     - field.field.node.portfolios.field_neptune_uri
@@ -35,6 +36,16 @@ content:
   field_bodies:
     type: entity_reference_autocomplete
     weight: 121
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_fkg_ministerial_roles:
+    type: entity_reference_autocomplete
+    weight: 127
     region: content
     settings:
       match_operator: CONTAINS

@@ -2,11 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.portfolios.field_fkg_ministerial_roles
     - field.field.node.portfolios.field_neptune_uri
     - node.type.portfolios
   module:
     - feeds_ex
+    - feeds_tamper
     - node
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      a4f0a54f-0365-4b07-b3c0-f0a4d489fb89:
+        separator: '|'
+        limit: null
+        uuid: a4f0a54f-0365-4b07-b3c0-f0a4d489fb89
+        plugin: explode
+        source: ministryroles
+        weight: 0
+        label: Explode
 label: 'FKG Portfolio'
 id: fkg_portfolio
 description: 'FKG Portfolio'
@@ -52,6 +65,11 @@ custom_sources:
     label: PortfolioUri
     machine_name: portfoliouri
     type: json
+  ministryroles:
+    value: MinistryRoles
+    label: MinistryRoles
+    machine_name: ministryroles
+    type: json
 mappings:
   -
     target: title
@@ -68,3 +86,12 @@ mappings:
       language: null
     unique:
       value: '1'
+  -
+    target: field_fkg_ministerial_roles
+    map:
+      target_id: ministryroles
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
