@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * 
+ * Contains install and update functions for the module fkg_ct_expense.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function fkg_ct_ministry_install() {
+  _fkg_ct_ministry_install_terms();
+}
+
+/**
+ * Set up default expense-related taxonomy terms.
+ * @see config/optional/taxonomy.vocabulary.fkg_ministerial_role_type.yml.
+ */
+function _fkg_ct_ministry_install_terms() {
+
+  $vocabulary_terms_default = [
+    'fkg_ministerial_role_type' => [
+      'Assistant Ministerial Role',
+      'Cabinet Ministerial Role',
+      'Ministerial Role',
+    ],
+  ];
+
+  $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+  foreach ($vocabulary_terms_default as $vid => $terms_default) {
+    foreach ($terms_default as $term_name) {
+      if (!$manager_taxonomy_term->loadByProperties(['name' => $term_name, 'vid' => $vid])) {
+        Term::create([
+          'parent' => [],
+          'name' => $term_name,
+          'vid' => $vid,
+        ])->save();
+      }
+    }
+  }
+}

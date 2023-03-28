@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Ministerial Role type'
+vid: fkg_ministerial_role_type
+description: 'Types to classify ministerial roles'
+weight: 0
