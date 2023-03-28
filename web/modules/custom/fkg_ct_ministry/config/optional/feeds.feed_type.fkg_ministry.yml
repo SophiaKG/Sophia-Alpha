@@ -1,0 +1,84 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_ministry.field_fkg_ministry_type
+    - field.field.node.fkg_ct_ministry.field_neptune_uri
+    - node.type.fkg_ct_ministry
+  module:
+    - feeds_ex
+    - node
+label: 'FKG Ministry'
+id: fkg_ministry
+description: 'FKG Ministerial role'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Ministries.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: fkg_ct_ministry
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  ministryname:
+    value: MinistryName
+    label: MinistryName
+    machine_name: ministryname
+    type: json
+  ministrytype:
+    value: MinistryType
+    label: MinistryType
+    machine_name: ministrytype
+    type: json
+  ministryuri:
+    value: MinistryUri
+    label: MinistryUri
+    machine_name: ministryuri
+    type: json
+mappings:
+  -
+    target: title
+    map:
+      value: ministryname
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_fkg_ministry_type
+    map:
+      target_id: ministrytype
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+  -
+    target: field_neptune_uri
+    map:
+      value: ministryuri
+    settings:
+      language: null
+    unique:
+      value: '1'
