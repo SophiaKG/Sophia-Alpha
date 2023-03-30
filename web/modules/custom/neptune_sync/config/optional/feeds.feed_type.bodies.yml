@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.bodies.field_fkg_pgpa_35_3_section
     - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
     - field.field.node.bodies.field_fkg_pgpa_s35_3_apply
+    - field.field.node.bodies.field_fkg_portfolio_type
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_in_summary_view
     - field.field.node.bodies.field_ink
@@ -221,6 +222,16 @@ custom_sources:
     label: AccountableAuthorities
     machine_name: accountableauthorities
     type: json
+  portfoliotype:
+    value: PortfolioType
+    label: PortfolioType
+    machine_name: portfoliotype
+    type: json
+  hasportfolio:
+    value: hasPortfolio
+    label: hasPortfolio
+    machine_name: hasportfolio
+    type: json
 mappings:
   -
     target: field_alias
@@ -308,12 +319,6 @@ mappings:
     settings:
       language: null
   -
-    target: status
-    map:
-      value: insummaryview
-    settings:
-      language: null
-  -
     target: field_lead_body
     map:
       value: isleadbody
@@ -366,3 +371,17 @@ mappings:
       reference_by: field_neptune_uri
       feeds_item: guid
       autocreate: 0
+  -
+    target: field_fkg_portfolio_type
+    map:
+      target_id: portfoliotype
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+  -
+    target: status
+    map:
+      value: hasportfolio
+    settings:
+      language: null

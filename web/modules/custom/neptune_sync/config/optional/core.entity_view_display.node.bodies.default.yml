@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.bodies.field_fkg_pgpa_35_3_section
     - field.field.node.bodies.field_fkg_pgpa_act_s35_apply
     - field.field.node.bodies.field_fkg_pgpa_s35_3_apply
+    - field.field.node.bodies.field_fkg_portfolio_type
     - field.field.node.bodies.field_fkg_report_requirement
     - field.field.node.bodies.field_flipchart_keys
     - field.field.node.bodies.field_in_summary_view
@@ -154,6 +155,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 23
+    region: content
+  field_fkg_portfolio_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 26
     region: content
   field_fkg_report_requirement:
     type: entity_reference_revisions_entity_view
