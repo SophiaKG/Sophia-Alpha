@@ -964,6 +964,12 @@ article.comCompany {
     margin-left: inherit;
     display: inherit;
 }
+article .view-content.row {
+    display: unset;
+}
+article .views-view-grid .views-col {
+    max-width: unset;
+}
 
 @media (min-width: 992px) {
     #block-exposedformsearchpage-1 {
