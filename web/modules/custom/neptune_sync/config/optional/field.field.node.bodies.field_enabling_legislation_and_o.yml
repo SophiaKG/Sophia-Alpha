@@ -9,7 +9,7 @@ id: node.bodies.field_enabling_legislation_and_o
 field_name: field_enabling_legislation_and_o
 entity_type: node
 bundle: bodies
-label: 'Enabling legislation'
+label: 'Establishing legislation'
 description: ''
 required: false
 translatable: false
@@ -22,6 +22,7 @@ settings:
       legislation: legislation
     sort:
       field: _none
+      direction: ASC
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference
