@@ -971,6 +971,10 @@ article .views-view-grid .views-col {
     max-width: unset;
 }
 
+article.node--type-portfolios .views-view-grid .views-col>.views-row {
+    display: list-item;
+}
+
 @media (min-width: 992px) {
     #block-exposedformsearchpage-1 {
         display: inline-block;
