@@ -45,34 +45,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_fkg_legislation:
-    type: entity_reference_autocomplete
-    weight: 129
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_fkg_ministerial_roles:
-    type: entity_reference_autocomplete
-    weight: 127
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_fkg_portfolio_matters:
-    type: string_textfield
-    weight: 128
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_list_of_on_pgpa_bodies_in_:
     type: viewsreference_autocomplete
     weight: 125
@@ -160,3 +132,6 @@ content:
     third_party_settings: {  }
 hidden:
   feeds_item: true
+  field_fkg_legislation: true
+  field_fkg_ministerial_roles: true
+  field_fkg_portfolio_matters: true
