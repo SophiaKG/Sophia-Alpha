@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_neptune_derived
+    - taxonomy.vocabulary.body_portfolio_type
+id: taxonomy_term.body_portfolio_type.field_neptune_derived
+field_name: field_neptune_derived
+entity_type: taxonomy_term
+bundle: body_portfolio_type
+label: 'Neptune derived value'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
