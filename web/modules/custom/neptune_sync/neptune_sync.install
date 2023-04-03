@@ -7,8 +7,6 @@
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Core\Serialization\Yaml;
-use Drupal\taxonomy\Entity\Vocabulary;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Fix: Update the CER configurations to restrict the applicable content types.
@@ -53,7 +51,10 @@ function neptune_sync_update_9002() {
  */
 function neptune_sync_update_9003() {
   // Enabled the content module fkg_ct_aauthority.
-  \Drupal::service('module_installer')->install(['fkg_ct_authority']);
+  \Drupal::service('module_installer')->install([
+    'fkg_ct_authority',
+    'fkg_ct_portfolio',
+  ]);
   
   $path_config = drupal_get_path('module', 'neptune_sync') . '/config/optional';
 
@@ -73,32 +74,7 @@ function neptune_sync_update_9003() {
     }
   }
 
-  // Create a Taxonomy vocabulary finance_entity_type.
-  $vid = 'body_portfolio_type';
-  $vocabularies = Vocabulary::loadMultiple();
-
-  if (!isset($vocabularies[$vid])) {
-    Vocabulary::create([
-      'vid' => $vid,
-      'description' => '',
-      'name' => 'Body Portfolio Type'
-    ])->save();
-  }
-
-  // Add default terms.
-  $finance_entity_types = ['Lead', 'Primary', 'Secondary'];
-  $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
-  foreach ($finance_entity_types as $type) {
-    if (!$manager_taxonomy_term->loadByProperties(['name' => $type, 'vid' => $vid])) {
-      Term::create([
-        'parent' => [],
-        'name' => $type,
-        'vid' => $vid,
-      ])->save();
-    }
-  }
-
-  // Create the field storage configuration for field_fkg_portfolio_type.
+  // Create the field storage configuration for node.field_fkg_portfolio_type.
   $field_storage_data_portfolio_type = Yaml::decode(file_get_contents("$path_config/field.storage.node.field_fkg_portfolio_type.yml"));
   if ($field_storage_data_portfolio_type) {
     if (!FieldStorageConfig::loadByName('node', 'field_fkg_portfolio_type')) {
@@ -113,7 +89,6 @@ function neptune_sync_update_9003() {
       FieldConfig::create($field_config_data_portfolio_type)->save();
     }
   }
-
 
   // The configurations to be updated.
   $configs_to_be_updated = [

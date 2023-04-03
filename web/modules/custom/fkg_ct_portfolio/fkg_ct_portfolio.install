@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function fkg_ct_portfolio_install() {
+  $vid = 'body_portfolio_type';
+
+  // Add default terms.
+  $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $portfolio_type_terms = [
+    ['field_neptune_derived' => 'BodyPortfolioType:LEAD', 'name' => 'Lead Body', 'weight' => 0],
+    ['field_neptune_derived' => 'BodyPortfolioType:PRIMARY', 'name' => 'PGPA Act Commonwealth entities and companies', 'weight' => 1],
+    ['field_neptune_derived' => 'BodyPortfolioType:SECONDARY', 'name' => 'Other bodies', 'weight' => 2],
+  ];
+  foreach ($portfolio_type_terms as $term) {
+    if (!$manager_taxonomy_term->loadByProperties(['field_neptune_derived' => $term['field_neptune_derived'], 'vid' => $vid])) {
+      Term::create([
+        'parent' => [],
+        'name' => $term['name'],
+        'field_neptune_derived' => $term['field_neptune_derived'],
+        'weight' => $term['weight'],
+        'vid' => $vid,
+      ])->save();
+    }
+  }
+}
