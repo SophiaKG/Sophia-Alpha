@@ -47,7 +47,7 @@ function neptune_sync_update_9002() {
 }
 
 /**
- * 1. Enable module fkg_ct_authority. 2. Create a new field field_fkg_aauthority. 3. Update the field configurations and the feed type configuration for the bodies content type. 4. Create vocabulary "Body Portfolio Type" and add default terms.
+ * 1. Enable modules (fkg_ct_authority, fkg_ct_portfolio). 2. Create new fields (field_fkg_aauthority, field_fkg_portfolio_type). 3. Update related configurations (display, feed_type).
  */
 function neptune_sync_update_9003() {
   // Enabled the content module fkg_ct_aauthority.
