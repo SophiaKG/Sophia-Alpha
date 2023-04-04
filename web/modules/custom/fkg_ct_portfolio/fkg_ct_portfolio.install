@@ -5,11 +5,46 @@
  */
 
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Serialization\Yaml;
 
 /**
  * Implements hook_install().
  */
 function fkg_ct_portfolio_install() {
+  // Install default terms.
+  _fkg_ct_portfolio_install_default_terms();
+
+  // Update specified view settings for content type Portfolio.
+  $config_factory = Drupal::configFactory();
+  $path_yaml = drupal_get_path('module', 'fkg_ct_portfolio') . '/config/optional';
+
+  foreach ([
+    'core.entity_view_display.node.portfolios.default',
+    'core.entity_form_display.node.portfolios.default',
+    'core.entity_view_display.node.portfolios.teaser',
+  ] as $config_name) {
+    if ($config = $config_factory->getEditable($config_name)) {
+      $config_data = $config->getRawData();
+      $data_uuid_core = array_filter(
+        $config_data,
+        function ($key) {
+          return in_array($key, ['uuid', '_core']);
+        },
+        ARRAY_FILTER_USE_KEY
+      );
+      $data_yaml = Yaml::decode(file_get_contents("$path_yaml/$config_name.yml"));
+      $config->setData($data_uuid_core + $data_yaml)->save(TRUE);
+    }
+  }
+}
+
+/**
+ * Ensure default terms.
+ * @see config/optional/taxonomy.vocabulary.body_portfolio_type.yml
+ * @see config/optional/field.storage.taxonomy_term.field_neptune_derived.yml
+ * @see config/optional/field.field.taxonomy_term.body_portfolio_type.field_neptune_derived.yml
+ */
+function _fkg_ct_portfolio_install_default_terms() {
   $vid = 'body_portfolio_type';
 
   // Add default terms.
