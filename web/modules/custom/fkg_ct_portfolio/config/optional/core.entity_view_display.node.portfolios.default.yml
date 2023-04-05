@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.portfolios.field_bodies
     - field.field.node.portfolios.field_fkg_legislation
     - field.field.node.portfolios.field_fkg_ministerial_roles
+    - field.field.node.portfolios.field_fkg_portfolio_aao
     - field.field.node.portfolios.field_fkg_portfolio_matters
     - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
     - field.field.node.portfolios.field_list_of_pgpa_bodies_in_por
@@ -44,7 +45,7 @@ third_party_settings:
                 settings:
                   link: true
                 third_party_settings: {  }
-            weight: 0
+            weight: 1
             additional: {  }
           8923a797-b0dc-485b-a03f-13b0634f8559:
             uuid: 8923a797-b0dc-485b-a03f-13b0634f8559
@@ -60,7 +61,7 @@ third_party_settings:
                 settings:
                   link_to_entity: false
                 third_party_settings: {  }
-            weight: 1
+            weight: 2
             additional: {  }
           9507b8c3-1ebd-4f16-8bd1-f6d93db185fa:
             uuid: 9507b8c3-1ebd-4f16-8bd1-f6d93db185fa
@@ -70,7 +71,7 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-            weight: 2
+            weight: 3
             additional: {  }
           99eb20d6-8ef2-444f-84e5-af1f02a1f995:
             uuid: 99eb20d6-8ef2-444f-84e5-af1f02a1f995
@@ -86,7 +87,7 @@ third_party_settings:
                 settings:
                   link: true
                 third_party_settings: {  }
-            weight: 7
+            weight: 5
             additional: {  }
           5d31af09-a71e-4f87-8180-fb3599d3460e:
             uuid: 5d31af09-a71e-4f87-8180-fb3599d3460e
@@ -100,7 +101,26 @@ third_party_settings:
               views_label: ''
               items_per_page: none
               exposed: {  }
-            weight: 6
+            weight: 4
+            additional: {  }
+          c55991e3-b861-4784-823f-1f996842b935:
+            uuid: c55991e3-b861-4784-823f-1f996842b935
+            region: content
+            configuration:
+              id: 'field_block:node:portfolios:field_fkg_portfolio_aao'
+              label: 'Established by'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 0
             additional: {  }
         third_party_settings: {  }
 id: node.portfolios.default
@@ -178,6 +198,7 @@ content:
 hidden:
   feeds_item: true
   field_bodies: true
+  field_fkg_portfolio_aao: true
   field_neptune_uri: true
   field_summary_view: true
   search_api_excerpt: true
