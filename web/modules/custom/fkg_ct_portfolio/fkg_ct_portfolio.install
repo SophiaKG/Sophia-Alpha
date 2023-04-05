@@ -36,6 +36,15 @@ function fkg_ct_portfolio_install() {
       $config->setData($data_uuid_core + $data_yaml)->save(TRUE);
     }
   }
+
+  // Remove the key chart component from the Portfolio character sheet pages.
+  if ($config_block = $config_factory->getEditable('block.block.views_block__summary_key_block_3_node')) {
+    $config_block_data = $config_block->getRawData();
+    if (isset($config_block_data['visibility']['entity_bundle:node']['bundles']['portfolios'])) {
+      unset($config_block_data['visibility']['entity_bundle:node']['bundles']['portfolios']);
+      $config_block->setData($config_block_data)->save(TRUE);
+    }
+  }
 }
 
 /**
