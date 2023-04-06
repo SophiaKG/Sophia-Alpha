@@ -1210,4 +1210,9 @@ a[href$="/taxonomy/term/147"] {
     display: none;
 }
 
-
+/* Show fields output with columns. */
+.node--type-portfolios .field--name-field-fkg-portfolio-matters .field__items,
+.node--type-portfolios .field--name-field-fkg-legislation .field__items,
+.node--type-portfolios .columns {
+    column-width: 20em;
+}

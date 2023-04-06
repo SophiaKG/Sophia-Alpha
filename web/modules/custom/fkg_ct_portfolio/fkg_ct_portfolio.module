@@ -26,3 +26,26 @@ function fkg_ct_portfolio_preprocess_field(&$variables) {
     });
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function fkg_ct_portfolio_theme($existing, $type, $theme, $path) {
+  return [
+    'views_view_unformatted__bodies_on_portfolio' => [
+      'template' => 'views-view-unformatted--bodies-on-portfolio',
+      'base hook' => 'views_view_unformatted',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for views_view_unformatted.
+ */
+function fkg_ct_portfolio_theme_suggestions_views_view_unformatted_alter(&$suggestions, $variables) {
+  $view = $variables['view'];
+
+  if ($view->id() == 'bodies_on_portfolio') {
+    $suggestions[] = 'views_view_unformatted__bodies_on_portfolio';
+  }
+}
