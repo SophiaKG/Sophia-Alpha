@@ -138,7 +138,7 @@ display:
           click_sort_column: target_id
           type: entity_reference_label
           settings:
-            link: true
+            link: false
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -287,6 +287,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      css_class: ''
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -300,12 +301,28 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_fkg_portfolio_type'
-  block_1:
-    id: block_1
-    display_title: 'Portfolio Bodies'
+  list_portfolio_bodies:
+    id: list_portfolio_bodies
+    display_title: 'Portfolio bodies list'
     display_plugin: block
-    position: 1
+    position: 2
     display_options:
+      style:
+        type: default
+        options:
+          grouping:
+            -
+              field: field_fkg_portfolio_type
+              rendered: false
+              rendered_strip: false
+          row_class: ''
+          default_row_class: false
+      row:
+        type: fields
+        options: {  }
+      defaults:
+        style: false
+        row: false
       display_description: ''
       display_extenders: {  }
     cache_metadata:

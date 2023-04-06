@@ -71,7 +71,7 @@ third_party_settings:
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-            weight: 3
+            weight: 4
             additional: {  }
           99eb20d6-8ef2-444f-84e5-af1f02a1f995:
             uuid: 99eb20d6-8ef2-444f-84e5-af1f02a1f995
@@ -88,20 +88,6 @@ third_party_settings:
                   link: true
                 third_party_settings: {  }
             weight: 5
-            additional: {  }
-          5d31af09-a71e-4f87-8180-fb3599d3460e:
-            uuid: 5d31af09-a71e-4f87-8180-fb3599d3460e
-            region: content
-            configuration:
-              id: 'views_block:bodies_on_portfolio-block_1'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: none
-              exposed: {  }
-            weight: 4
             additional: {  }
           c55991e3-b861-4784-823f-1f996842b935:
             uuid: c55991e3-b861-4784-823f-1f996842b935
@@ -121,6 +107,20 @@ third_party_settings:
                   link: true
                 third_party_settings: {  }
             weight: 0
+            additional: {  }
+          51379d58-0732-46c1-aee4-3c0171ed9057:
+            uuid: 51379d58-0732-46c1-aee4-3c0171ed9057
+            region: content
+            configuration:
+              id: 'views_block:bodies_on_portfolio-list_portfolio_bodies'
+              label: ''
+              label_display: '0'
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+              exposed: {  }
+            weight: 3
             additional: {  }
         third_party_settings: {  }
 id: node.portfolios.default
