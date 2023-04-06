@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_preprocess_HOOK() for fields.
+ */
+function fkg_ct_portfolio_preprocess_field(&$variables) {
+  // Sorting the multiple values for the specified fields.
+  // @Todo Find a more general way to get the values.
+  if (in_array($variables['element']['#field_name'], ['field_fkg_portfolio_matters', 'field_fkg_legislation'])) {
+    usort($variables['items'], function($a, $b){
+      // For string type (field_fkg_portfolio_matters)
+      if (isset($a['content']['#context']['value']) && isset($b['content']['#context']['value'])) {
+        return ($a['content']['#context']['value'] < $b['content']['#context']['value']) ? -1 : 1;
+      }
+      // For link type (field_fkg_legislation)
+      if (isset($a['content']['#title']) && isset($b['content']['#title'])) {
+        return ($a['content']['#title'] < $b['content']['#title']) ? -1 : 1;
+      }
+
+      // Default do not do sorting.
+      return 0;
+    });
+  }
+}
