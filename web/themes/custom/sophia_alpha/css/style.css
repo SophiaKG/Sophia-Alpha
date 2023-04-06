@@ -1216,3 +1216,7 @@ a[href$="/taxonomy/term/147"] {
 .node--type-portfolios .columns {
     column-width: 20em;
 }
+
+.node--type-portfolios .field--name-field-fkg-portfolio-matters .field__items > .field__item {
+    display:list-item;
+}
