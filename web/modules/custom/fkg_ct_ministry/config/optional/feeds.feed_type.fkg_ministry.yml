@@ -71,9 +71,9 @@ mappings:
     map:
       target_id: ministrytype
     settings:
-      language: null
-      reference_by: name
-      autocreate: false
+      language: ''
+      reference_by: field_neptune_derived
+      autocreate: 0
   -
     target: field_neptune_uri
     map:

@@ -23,21 +23,23 @@ function _fkg_ct_ministry_install_terms() {
 
   $vocabulary_terms_default = [
     'fkg_ministerial_role_type' => [
-      'Assistant Ministerial Role',
-      'Cabinet Ministerial Role',
-      'Ministerial Role',
+      ['weight' => 0, 'field_neptune_derived' => 'MinisterialRoleType:1:Cabinet', 'name' => 'Cabinet Ministerial Role'],
+      ['weight' => 1, 'field_neptune_derived' => 'MinisterialRoleType:2:Ministerial', 'name' => 'Ministerial Role'],
+      ['weight' => 2, 'field_neptune_derived' => 'MinisterialRoleType:3:Assistant', 'name' => 'Assistant Ministerial Role'],
     ],
   ];
 
   $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
   foreach ($vocabulary_terms_default as $vid => $terms_default) {
-    foreach ($terms_default as $term_name) {
-      if (!$manager_taxonomy_term->loadByProperties(['name' => $term_name, 'vid' => $vid])) {
+    foreach ($terms_default as $term) {
+      if (!$manager_taxonomy_term->loadByProperties(['field_neptune_derived' => $term['field_neptune_derived'], 'vid' => $vid])) {
         Term::create([
           'parent' => [],
-          'name' => $term_name,
+          'name' => $term['name'],
           'vid' => $vid,
+          'weight' => $term['weight'],
+          'field_neptune_derived' => $term['field_neptune_derived'],
         ])->save();
       }
     }
