@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_portfolio_matters
+    - node.type.portfolios
+id: node.portfolios.field_fkg_portfolio_matters
+field_name: field_fkg_portfolio_matters
+entity_type: node
+bundle: portfolios
+label: 'Matters considered by the Department'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

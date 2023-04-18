@@ -30,20 +30,21 @@ function fkg_ct_body_preprocess_paragraph(&$variables) {
 
   // Get the Body type of the parent entity.
   try {
-    $term_body_type = $paragraph->getParentEntity()->get('field_type_of_body')->entity->label();
+    $term_body_type = $paragraph->getParentEntity()->get('field_type_of_body')->entity;
+    $term_label_body_type = $term_body_type ? $term_body_type->label : '';
   }
   catch (Exception $e) {}
 
   // Determine the content of the applicable legislation section according to the Body type and add it to the rendering.
-  if ($term_body_type && array_key_exists($term_body_type, $sections_annual_report)) {
-    $placeholder = $sections_annual_report[$term_body_type];
+  if ($term_label_body_type && array_key_exists($term_label_body_type, $sections_annual_report)) {
+    $placeholder = $sections_annual_report[$term_label_body_type];
     $markup_report_type = [
       '#type' => 'markup',
       '#markup' => t('Annual report prepared under <a target="_blank" href="@href">@section</a>.', ['@href' => $placeholder['href'], '@section' => $placeholder['section']]),
       '#weight' => -5,
     ];
 
-    if ($term_body_type === 'Commonwealth company') {
+    if ($term_label_body_type === 'Commonwealth company') {
       $variables['content'] = [
         'report_type' => $markup_report_type,
       ];

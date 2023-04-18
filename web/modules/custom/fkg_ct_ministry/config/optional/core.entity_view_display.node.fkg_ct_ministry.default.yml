@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fkg_ct_ministry.body
+    - field.field.node.fkg_ct_ministry.feeds_item
+    - field.field.node.fkg_ct_ministry.field_fkg_ministry_type
+    - field.field.node.fkg_ct_ministry.field_neptune_uri
+    - node.type.fkg_ct_ministry
+  module:
+    - text
+    - user
+id: node.fkg_ct_ministry.default
+targetEntityType: node
+bundle: fkg_ct_ministry
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_fkg_ministry_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_neptune_uri:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  feeds_item: true
+  search_api_excerpt: true

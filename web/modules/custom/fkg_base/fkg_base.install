@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Enable content modules (fkg_ct_legis_term, fkg_ct_ministry).
+ */
+function fkg_base_update_9001() {
+  \Drupal::service('module_installer')->install([
+    'fkg_ct_legis_term',
+    'fkg_ct_ministry',
+  ]);
+}

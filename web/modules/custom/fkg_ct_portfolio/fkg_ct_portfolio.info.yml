@@ -1,0 +1,8 @@
+name: 'FKG Portfolio'
+type: module
+description: 'PGPA Portfolio'
+package: 'Finance Knowledge Graph'
+version: 0.1
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node

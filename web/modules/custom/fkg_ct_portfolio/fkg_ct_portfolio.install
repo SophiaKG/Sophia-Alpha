@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Serialization\Yaml;
+
+/**
+ * Implements hook_install().
+ */
+function fkg_ct_portfolio_install() {
+  // Install default terms.
+  _fkg_ct_portfolio_install_default_terms();
+
+  // Update specified view settings for content type Portfolio.
+  $config_factory = Drupal::configFactory();
+  $path_yaml = drupal_get_path('module', 'fkg_ct_portfolio') . '/config/optional';
+
+  foreach ([
+    'core.entity_view_display.node.portfolios.default',
+    'core.entity_form_display.node.portfolios.default',
+    'core.entity_view_display.node.portfolios.teaser',
+  ] as $config_name) {
+    if ($config = $config_factory->getEditable($config_name)) {
+      $config_data = $config->getRawData();
+      $data_uuid_core = array_filter(
+        $config_data,
+        function ($key) {
+          return in_array($key, ['uuid', '_core']);
+        },
+        ARRAY_FILTER_USE_KEY
+      );
+      $data_yaml = Yaml::decode(file_get_contents("$path_yaml/$config_name.yml"));
+      $config->setData($data_uuid_core + $data_yaml)->save(TRUE);
+    }
+  }
+
+  // Remove the key chart component from the Portfolio character sheet pages.
+  if ($config_block = $config_factory->getEditable('block.block.views_block__summary_key_block_3_node')) {
+    $config_block_data = $config_block->getRawData();
+    if (isset($config_block_data['visibility']['entity_bundle:node']['bundles']['portfolios'])) {
+      unset($config_block_data['visibility']['entity_bundle:node']['bundles']['portfolios']);
+      $config_block->setData($config_block_data)->save(TRUE);
+    }
+  }
+
+  // Remove the CER configuration which keeps reference field in sync (Portfolio:field_bodies <-> Bodies:field_portfolio).
+  // In favor of the combination of the layout_builder view display configuration and the view bodies_on_portfolio.
+  // @see config/optional/core.entity_view_display.node.portfolios.default.yml.
+  // @see config/optional/views.view.bodies_on_portfolio.yml.
+  if ($config_cer = $config_factory->getEditable('cer.corresponding_reference.portfolios_linking_bodies')) {
+    $config_cer->delete();
+  }
+}
+
+/**
+ * Ensure default terms.
+ * @see config/optional/taxonomy.vocabulary.body_portfolio_type.yml
+ * @see config/optional/field.storage.taxonomy_term.field_neptune_derived.yml
+ * @see config/optional/field.field.taxonomy_term.body_portfolio_type.field_neptune_derived.yml
+ */
+function _fkg_ct_portfolio_install_default_terms() {
+  $vid = 'body_portfolio_type';
+
+  // Add default terms.
+  $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $portfolio_type_terms = [
+    ['field_neptune_derived' => 'BodyPortfolioType:LEAD', 'name' => 'Lead Body', 'weight' => 0],
+    ['field_neptune_derived' => 'BodyPortfolioType:PRIMARY', 'name' => 'PGPA Act Commonwealth entities and companies', 'weight' => 1],
+    ['field_neptune_derived' => 'BodyPortfolioType:SECONDARY', 'name' => 'Other bodies', 'weight' => 2],
+  ];
+  foreach ($portfolio_type_terms as $term) {
+    if (!$manager_taxonomy_term->loadByProperties(['field_neptune_derived' => $term['field_neptune_derived'], 'vid' => $vid])) {
+      Term::create([
+        'parent' => [],
+        'name' => $term['name'],
+        'field_neptune_derived' => $term['field_neptune_derived'],
+        'weight' => $term['weight'],
+        'vid' => $vid,
+      ])->save();
+    }
+  }
+}
