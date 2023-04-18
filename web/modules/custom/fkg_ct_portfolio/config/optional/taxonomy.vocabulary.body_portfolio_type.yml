@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Body Portfolio Type'
+vid: body_portfolio_type
+description: ''
+weight: 0

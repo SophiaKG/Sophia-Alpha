@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * 
+ * Contains install and update functions for the module fkg_ct_expense.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function fkg_ct_ministry_install() {
+  _fkg_ct_ministry_install_terms();
+}
+
+/**
+ * Set up default expense-related taxonomy terms.
+ * @see config/optional/taxonomy.vocabulary.fkg_ministerial_role_type.yml.
+ */
+function _fkg_ct_ministry_install_terms() {
+
+  $vocabulary_terms_default = [
+    'fkg_ministerial_role_type' => [
+      ['weight' => 0, 'field_neptune_derived' => 'MinisterialRoleType:1:Cabinet', 'name' => 'Cabinet Ministerial Role'],
+      ['weight' => 1, 'field_neptune_derived' => 'MinisterialRoleType:2:Ministerial', 'name' => 'Ministerial Role'],
+      ['weight' => 2, 'field_neptune_derived' => 'MinisterialRoleType:3:Assistant', 'name' => 'Assistant Ministerial Role'],
+    ],
+  ];
+
+  $manager_taxonomy_term = Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+  foreach ($vocabulary_terms_default as $vid => $terms_default) {
+    foreach ($terms_default as $term) {
+      if (!$manager_taxonomy_term->loadByProperties(['field_neptune_derived' => $term['field_neptune_derived'], 'vid' => $vid])) {
+        Term::create([
+          'parent' => [],
+          'name' => $term['name'],
+          'vid' => $vid,
+          'weight' => $term['weight'],
+          'field_neptune_derived' => $term['field_neptune_derived'],
+        ])->save();
+      }
+    }
+  }
+}

@@ -41,7 +41,7 @@ processor: 'entity:node'
 processor_configuration:
   langcode: en
   update_existing: 2
-  update_non_existent: _keep
+  update_non_existent: _delete
   expire: -1
   owner_feed_author: true
   owner_id: 0

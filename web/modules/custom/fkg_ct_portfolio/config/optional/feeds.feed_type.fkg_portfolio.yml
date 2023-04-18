@@ -1,0 +1,156 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.portfolios.field_fkg_legislation
+    - field.field.node.portfolios.field_fkg_ministerial_roles
+    - field.field.node.portfolios.field_fkg_portfolio_aao
+    - field.field.node.portfolios.field_fkg_portfolio_matters
+    - field.field.node.portfolios.field_neptune_uri
+    - node.type.portfolios
+  module:
+    - feeds_ex
+    - feeds_tamper
+    - node
+third_party_settings:
+  feeds_tamper:
+    tampers:
+      a4f0a54f-0365-4b07-b3c0-f0a4d489fb89:
+        separator: '|'
+        limit: null
+        uuid: a4f0a54f-0365-4b07-b3c0-f0a4d489fb89
+        plugin: explode
+        source: ministryroles
+        weight: 0
+        label: Explode
+      f84d53af-acdd-47f6-bd6e-4fec31d797bb:
+        separator: '|'
+        limit: null
+        uuid: f84d53af-acdd-47f6-bd6e-4fec31d797bb
+        plugin: explode
+        source: mattertexts
+        weight: 0
+        label: Explode
+      edfc9ff2-e941-49fe-9ba6-5ae6b1541804:
+        separator: '|'
+        limit: null
+        uuid: edfc9ff2-e941-49fe-9ba6-5ae6b1541804
+        plugin: explode
+        source: adminseries
+        weight: 0
+        label: Explode
+label: 'FKG Portfolio'
+id: fkg_portfolio
+description: 'FKG Portfolio'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '.results.Portfolios.*'
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: portfolios
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _delete
+  skip_hash_check: false
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  portfoliolabel:
+    value: PortfolioLabel
+    label: PortfolioLabel
+    machine_name: portfoliolabel
+    type: json
+  portfoliouri:
+    value: PortfolioUri
+    label: PortfolioUri
+    machine_name: portfoliouri
+    type: json
+  ministryroles:
+    value: MinistryRoles
+    label: MinistryRoles
+    machine_name: ministryroles
+    type: json
+  mattertexts:
+    value: MatterTexts
+    label: MatterTexts
+    machine_name: mattertexts
+    type: json
+  adminseries:
+    value: AdminSeries
+    label: AdminSeries
+    machine_name: adminseries
+    type: json
+  establishedby:
+    value: EstablishedBy
+    label: EstablishedBy
+    machine_name: establishedby
+    type: json
+mappings:
+  -
+    target: title
+    map:
+      value: portfoliolabel
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_neptune_uri
+    map:
+      value: portfoliouri
+    settings:
+      language: null
+    unique:
+      value: '1'
+  -
+    target: field_fkg_ministerial_roles
+    map:
+      target_id: ministryroles
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_portfolio_matters
+    map:
+      value: mattertexts
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_fkg_legislation
+    map:
+      target_id: adminseries
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_fkg_portfolio_aao
+    map:
+      target_id: establishedby
+    settings:
+      language: ''
+      reference_by: field_neptune_uri
+      feeds_item: guid
+      autocreate: 0

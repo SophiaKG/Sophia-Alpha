@@ -2,27 +2,27 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_enabling_legislation_and_o
+    - field.storage.node.field_fkg_portfolio_type
     - node.type.bodies
-    - node.type.legislation
-id: node.bodies.field_enabling_legislation_and_o
-field_name: field_enabling_legislation_and_o
+    - taxonomy.vocabulary.body_portfolio_type
+id: node.bodies.field_fkg_portfolio_type
+field_name: field_fkg_portfolio_type
 entity_type: node
 bundle: bodies
-label: 'Establishing legislation'
+label: 'Portfolio type'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      legislation: legislation
+      body_portfolio_type: body_portfolio_type
     sort:
-      field: _none
-      direction: ASC
+      field: name
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

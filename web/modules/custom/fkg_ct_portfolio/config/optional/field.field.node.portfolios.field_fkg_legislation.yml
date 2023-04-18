@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_enabling_legislation_and_o
-    - node.type.bodies
+    - field.storage.node.field_fkg_legislation
     - node.type.legislation
-id: node.bodies.field_enabling_legislation_and_o
-field_name: field_enabling_legislation_and_o
+    - node.type.portfolios
+id: node.portfolios.field_fkg_legislation
+field_name: field_fkg_legislation
 entity_type: node
-bundle: bodies
-label: 'Establishing legislation'
+bundle: portfolios
+label: 'Administered Legislation'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

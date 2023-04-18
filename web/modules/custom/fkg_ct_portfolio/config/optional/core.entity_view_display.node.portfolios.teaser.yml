@@ -3,8 +3,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.portfolios.feeds_item
     - field.field.node.portfolios.field_alias
     - field.field.node.portfolios.field_bodies
+    - field.field.node.portfolios.field_fkg_legislation
+    - field.field.node.portfolios.field_fkg_ministerial_roles
+    - field.field.node.portfolios.field_fkg_portfolio_matters
     - field.field.node.portfolios.field_list_of_on_pgpa_bodies_in_
     - field.field.node.portfolios.field_list_of_pgpa_bodies_in_por
     - field.field.node.portfolios.field_neptune_uri
@@ -23,8 +27,12 @@ content:
     weight: 100
     region: content
 hidden:
+  feeds_item: true
   field_alias: true
   field_bodies: true
+  field_fkg_legislation: true
+  field_fkg_ministerial_roles: true
+  field_fkg_portfolio_matters: true
   field_list_of_on_pgpa_bodies_in_: true
   field_list_of_pgpa_bodies_in_por: true
   field_neptune_uri: true

@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.body_portfolio_type.field_fkg_portfolio_type
+    - field.field.taxonomy_term.body_portfolio_type.field_neptune_derived
+    - taxonomy.vocabulary.body_portfolio_type
+  module:
+    - text
+id: taxonomy_term.body_portfolio_type.default
+targetEntityType: taxonomy_term
+bundle: body_portfolio_type
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_neptune_derived:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_fkg_portfolio_type: true
+  search_api_excerpt: true

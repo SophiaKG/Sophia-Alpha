@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_enabling_legislation_and_o
-    - node.type.bodies
-    - node.type.legislation
-id: node.bodies.field_enabling_legislation_and_o
-field_name: field_enabling_legislation_and_o
+    - field.storage.node.field_fkg_ministerial_roles
+    - node.type.fkg_ct_ministry
+    - node.type.portfolios
+id: node.portfolios.field_fkg_ministerial_roles
+field_name: field_fkg_ministerial_roles
 entity_type: node
-bundle: bodies
-label: 'Establishing legislation'
+bundle: portfolios
+label: 'Ministerial roles'
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      legislation: legislation
+      fkg_ct_ministry: fkg_ct_ministry
     sort:
       field: _none
       direction: ASC

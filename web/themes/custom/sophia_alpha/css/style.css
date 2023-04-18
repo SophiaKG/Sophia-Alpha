@@ -964,6 +964,16 @@ article.comCompany {
     margin-left: inherit;
     display: inherit;
 }
+article .view-content.row {
+    display: unset;
+}
+article .views-view-grid .views-col {
+    max-width: unset;
+}
+
+article.node--type-portfolios .views-view-grid .views-col>.views-row {
+    display: list-item;
+}
 
 @media (min-width: 992px) {
     #block-exposedformsearchpage-1 {
@@ -1200,4 +1210,13 @@ a[href$="/taxonomy/term/147"] {
     display: none;
 }
 
+/* Show fields output with columns. */
+.node--type-portfolios .field--name-field-fkg-portfolio-matters .field__items,
+.node--type-portfolios .field--name-field-fkg-legislation .field__items,
+.node--type-portfolios .columns {
+    column-width: 20em;
+}
 
+.node--type-portfolios .field--name-field-fkg-portfolio-matters .field__items > .field__item {
+    display:list-item;
+}

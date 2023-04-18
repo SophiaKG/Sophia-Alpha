@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fkg_ministry_type
+    - node.type.fkg_ct_ministry
+    - taxonomy.vocabulary.fkg_ministerial_role_type
+id: node.fkg_ct_ministry.field_fkg_ministry_type
+field_name: field_fkg_ministry_type
+entity_type: node
+bundle: fkg_ct_ministry
+label: 'Ministerial role type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      fkg_ministerial_role_type: fkg_ministerial_role_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
