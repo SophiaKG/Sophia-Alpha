@@ -50,12 +50,6 @@ function neptune_sync_update_9002() {
  * 1. Enable modules (fkg_ct_authority, fkg_ct_portfolio). 2. Create new fields (field_fkg_aauthority, field_fkg_portfolio_type). 3. Update related configurations (display, feed_type).
  */
 function neptune_sync_update_9003() {
-  // Enabled the content module fkg_ct_aauthority.
-  \Drupal::service('module_installer')->install([
-    'fkg_ct_authority',
-    'fkg_ct_portfolio',
-  ]);
-  
   $path_config = drupal_get_path('module', 'neptune_sync') . '/config/optional';
 
   // Create the field storage configuration for field_fkg_aauthority.
@@ -89,6 +83,12 @@ function neptune_sync_update_9003() {
       FieldConfig::create($field_config_data_portfolio_type)->save();
     }
   }
+
+  // Enabled the content module fkg_ct_aauthority.
+  \Drupal::service('module_installer')->install([
+    'fkg_ct_authority',
+    'fkg_ct_portfolio',
+  ]);
 
   // The configurations to be updated.
   $configs_to_be_updated = [
