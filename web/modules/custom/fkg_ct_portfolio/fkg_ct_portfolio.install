@@ -45,6 +45,14 @@ function fkg_ct_portfolio_install() {
       $config_block->setData($config_block_data)->save(TRUE);
     }
   }
+
+  // Remove the CER configuration which keeps reference field in sync (Portfolio:field_bodies <-> Bodies:field_portfolio).
+  // In favor of the combination of the layout_builder view display configuration and the view bodies_on_portfolio.
+  // @see config/optional/core.entity_view_display.node.portfolios.default.yml.
+  // @see config/optional/views.view.bodies_on_portfolio.yml.
+  if ($config_cer = $config_factory->getEditable('cer.corresponding_reference.portfolios_linking_bodies')) {
+    $config_cer->delete();
+  }
 }
 
 /**
